@@ -19,7 +19,7 @@
 #### Test Driven Development
 * Write method headers, unit tests, and code in that order.
 * Unit tests are fully automated.
-* Code Coverage above 40%
+* Code Coverage above 40%.
 
 #### Configuration Management
 * Always check for new changes in main to resolve merge conflicts locally before committing them.
@@ -64,7 +64,7 @@ This sprint will complete the following Github Cards.
 
 ## Review 
 
-#### Epics ccompleted
+#### Epics completed
 
 * #2- Create shared doc directory   
 
