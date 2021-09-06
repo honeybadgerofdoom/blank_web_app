@@ -1,6 +1,8 @@
 # Sprint 1 - T02 - Insert team name
 
 ## Goal
+* The deisgn document (design.md) is updated.
+* The sprint document (sprint.md) is updated with scrums, completed metrics, review, and retrospective.
 
 ### Sprint Leader: Matt Young
 
@@ -11,34 +13,32 @@
 
 ## Policies
 
-#### Mobile First Design!
-* Design for mobile, tablet, laptop, desktop (in that order).
-* Use ReactStrap for a consistent interface (no HTML, CSS, style, etc.).
-* Must adhere to the TripCo Interchange Protocol (TIP) for interoperability and testing.
+
 #### Clean Code
-* Code Climate maintainability of A or B.
-* Code adheres to Google style guides for Java and JavaScript.
+
+
 #### Test Driven Development
 * Write method headers, unit tests, and code in that order.
 * Unit tests are fully automated.
 * Code Coverage above 40%
+
 #### Configuration Management
 * Always check for new changes in master to resolve merge conflicts locally before committing them.
 * All changes are built and tested before they are committed.
 * All commits include a task/issue number.
 * All commits include tests for the added or modified code.
 * All tests pass.
+
 #### Continuous Integration / Delivery 
 * Master is never broken.  If broken, it is fixed immediately.
 * Continuous integration successfully builds and tests all pull requests for master branch.
-* All Java dependencies in pom.xml.  Do not load external libraries in your repo. 
 
 
 ## Plan
 
-This sprint will complete the following Epics.
+This sprint will complete the following Github Cards.
 
-* List of Epics here and what they do 
+* List of Cards here and what they do 
 
 ## Diagrams
 * insert Diagrams here 
@@ -59,29 +59,29 @@ This sprint will complete the following Epics.
 | 9/4 | # 2| #3, #5, #6, #7, #8 | None | 
 
 
-#2-
-#3-
-#5-
-#6-
-#7-
-#8-
+* #2- Create shared doc directory
+* #3- Make the design.md file in the reports folder
+* #5- Add team name and image to README
+* #6- Add CW2 to README
+* #7- Add team contact info and mission statement
+* #8- Add Sprint1.md
 
 
 ## Review (focus on solution and technology)
 
-In this sprint, the team performed better than previous sprints. There were a couple of challenges the team had to face but were able to resolve the issues quickly. Having Travis and Code Climate was beneficial for finding code coverage and errors.
+*
 
 #### Completed epics in Sprint Backlog 
 
-These Epics were completed.
+These Cards were completed.
 
-* #2-   
+* #2- Create shared doc directory   
 
 #### Incomplete epics in Sprint Backlog 
 
-These Epics were not completed.
+These Cards were not completed.
 
-* None.  All epics were completed.
+*
 
 #### What went well
 
