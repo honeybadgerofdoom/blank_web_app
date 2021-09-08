@@ -1,4 +1,13 @@
 # t02: Team ReaKt
+> ## Mission
+> ***Our object is to create a fully functional, interactive online chess application using Agile software development practices.***
+>
+## Member Information
+
+| Last name | First Name | CSU eName | GitHub | CSU email |
+| --------- | ---------- | --------- | ------ | --------- |
+| Kelly | April | wckelly | april-kelly | wckelly@rams.colostate.edu |
+
 
 ## Scrum Ceremonies
 Scrum ceremonies include sprint planning, daily scrum, sprint review, and sprint retrospective.
