@@ -1,4 +1,4 @@
-# Sprint 1 - T02 - Insert team name
+# Sprint 1 - T02 - Team Reakt
 
 ## Goal
 
@@ -52,6 +52,7 @@ This sprint will complete the following Github Cards.
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | ---: | ---: | ---: | ---: |
 | 9/4 | # 2| #3, #5, #6, #7, #8 | None | 
+| 9/8 | #3, #5, #6, #8| #12, #13, $14, #15, #16, #17, #18, #19, #20, #21, #22, #26, #29, #36, #37, #38, #40
 
 
 * #2- Create shared doc directory
@@ -60,13 +61,31 @@ This sprint will complete the following Github Cards.
 * #6- Add CW2 to README
 * #7- Add team contact info and mission statement
 * #8- Add Sprint1.md
+* #12- Add team image to README
+* #13- Darin add personal info
+* #14- Create image folder, put team image in there
+* #16- Matt's bio
+* #17- Kass add personal info
+* #18- Update Member Table
+* #20- Update scrum in README
+* #22- Remove success and factors secton from README 
+* #26- Add team information for Aaron
+* #29- Add Kass image
+* #37- Add file for Aaron
+* #40- Add kass bio and pic
+* 
 
 
 ## Review 
 
 #### Epics completed
 
-* #2- Create shared doc directory   
+* #2- Create shared doc directory  
+* #3- Make the design.md file in the reports folder
+* #5- Add team name to README
+* #6- Add CW2 to README
+* #8- Add Sprint1.md
+*  
 
 #### Epics not completed
 
