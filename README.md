@@ -12,6 +12,7 @@
 | Young | Matt | asterix | honeybadgerofdoom | asterix@rams.colostate.edu |
 | Barram | Kassidy | kbarram | Kmbear3 | kbarram@rams.colostate.edu |
 | Harter | Darin | darinh | darin3 | darinh@rams.colostate.edu |
+| Brooks | Lani | lani09br | bonnie-123 | lani09br@rams.colostate.edu |
 
 
 ## Member Bios
