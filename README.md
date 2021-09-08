@@ -16,7 +16,7 @@
 ## Member Bios
 
 ### April Kelly
-April is a senior in the computer science department and works for Alpha Security in Aspen, CO as resident unix ~~neckbeard~~ sysadmin. 
+April is a senior in the computer science department and works for Alpha Security in Aspen, CO as resident unix ~~neckbeard~~ sysadmin. Outside of class, she enjoys trying to reverse engineer software to find security vulnerabilities. 
 
 ### Matt Young
 <img src="/images/matt-selfie.jpg" width=250 />
