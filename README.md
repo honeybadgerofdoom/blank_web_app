@@ -17,7 +17,7 @@
 
 ### April Kelly
 <img src="/images/april.jpg" width=250 />
-April is a senior in the computer science department and works for Alpha Security in Aspen, CO as resident UNIX ~~neckbeard~~ sysadmin. Outside of class, she enjoys looking for security vulnerabilities and developing hypochondria from reading random articles on PubMed. She hopes to go to medical school one day.
+April is a senior in the computer science department and works for Alpha Security in Aspen, CO as resident UNIX sysadmin/programmer. Outside of class, she enjoys looking for security vulnerabilities and developing hypochondria from reading random articles on PubMed. She hopes to go to medical school one day.
 
 <img src="/images/matt-selfie.jpg" width=250 />
 Matt is a senior in the CS Department, works on Dr. Shrideep Pallickara's research project doing UI and web development, and is a UTA for cs314. In his free time Matt likes to play music, ride bicycles, and eat tacos.
