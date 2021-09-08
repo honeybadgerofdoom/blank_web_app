@@ -16,6 +16,7 @@
 ## Member Bios
 
 ### April Kelly
+<img src="/images/april.jpg" width=250 />
 April is a senior in the computer science department and works for Alpha Security in Aspen, CO as resident UNIX ~~neckbeard~~ sysadmin. Outside of class, she enjoys looking for security vulnerabilities and developing hypochondria from reading random articles on PubMed. She hopes to go to medical school one day.
 
 <img src="/images/matt-selfie.jpg" width=250 />
