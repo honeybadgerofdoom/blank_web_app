@@ -10,7 +10,8 @@
 | Kelly | April | wckelly | april-kelly | wckelly@rams.colostate.edu |
 | Lawrence | Aaron | catninja | catninja11 | catninja@rams.colostate.edu |
 | Young | Matt | asterix | honeybadgerofdoom | asterix@rams.colostate.edu |
-| Barram | Kassidy | kbarram | Kmbear3 | kbarram@rams.colostate.edu | 
+| Barram | Kassidy | kbarram | Kmbear3 | kbarram@rams.colostate.edu |
+| Harter | Darin | darinh | darin3 | darinh@rams.colostate.edu |
 
 
 ## Member Bios
