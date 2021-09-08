@@ -1,4 +1,5 @@
 # t02: Team ReaKt
+![team picture](/images/t02TeamImage.jpg)
 > ## Mission
 > ***Our object is to create a fully functional, interactive online chess application using Agile software development practices.***
 >
