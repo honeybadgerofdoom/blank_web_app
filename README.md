@@ -17,6 +17,10 @@
 <img src="/images/matt-selfie.jpg" width=250 />
 Matt is a senior in the CS Department, works on Dr. Shrideep Pallickara's research project doing UI and web development, and is a UTA for cs314. In his free time Matt likes to play music, ride bicycles, and eat tacos.
 
+<img src="/images/kass_team_image.jpg" width=250 />
+Kassidy is a senior at Colorado State University and will graduate in Spring of 2022 with a degree in Computer Science. She’s worked on drone stabilization research as well as a committee focusing on women’s inclusion in STEM at CSU. She is a proud member of the software engineering Team Reakt and is looking forward to a great semester.
+
+
 ## Scrum Ceremonies
 Scrum ceremonies include sprint planning, daily scrum, sprint review, and sprint retrospective.
 
