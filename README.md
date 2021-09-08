@@ -7,7 +7,7 @@
 | Last name | First Name | CSU eName | GitHub | CSU email |
 | --------- | ---------- | --------- | ------ | --------- |
 | Kelly | April | wckelly | april-kelly | wckelly@rams.colostate.edu |
-
+| Lawrence | Aaron | catninja | catninja11 | catninja@rams.colostate.edu |
 
 ## Scrum Ceremonies
 Scrum ceremonies include sprint planning, daily scrum, sprint review, and sprint retrospective.
