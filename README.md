@@ -1,25 +1,5 @@
 # t02: Team ReaKt
 
-## Keys to Success
-We believe that a successful Software Development project:
-1. Starts with a solid plan.
-2. Meets the Product Owner’s specifications.
-3. Gets completed in the required time.
-4. Is written with clean code standards.
-5. Utilizes continuous integration.
-
-**Metrics associated with success:** testing coverage, days worked, Code Climate maintainability statistics, and timeframe analysis.
-
-## Factors in Project Development
-
-**Biggest challenges:** Asking for help in a timely manner, addressing team issues early on, bringing together a wide variety of ideas, agreeing on coding standards, divvying up work appropriately, and planning.
-
-**How we overcome them:** We will use clear, honest, and frequent communication; plan sprints thoroughly from the start; and attempt to anticipate and prevent problems that may arise.
-
-**Critical elements to success:** Communication, short daily scrums, regression testing, and practicing clean coding standards.
-
-**Critical elements to failure/ challenges:** Lack of communication, lack of planning, tension without working things out as a team, and not starting early enough.
-
 ## Scrum Ceremonies
 Scrum ceremonies include sprint planning, daily scrum, sprint review, and sprint retrospective.
 
