@@ -7,6 +7,7 @@
 | Last name | First Name | CSU eName | GitHub | CSU email |
 | --------- | ---------- | --------- | ------ | --------- |
 | Kelly | April | wckelly | april-kelly | wckelly@rams.colostate.edu |
+| Young | Matt | asterix | honeybadgerofdoom | asterix@rams.colostate.edu |
 
 
 ## Scrum Ceremonies
