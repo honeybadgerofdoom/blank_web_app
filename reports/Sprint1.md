@@ -52,7 +52,7 @@ This sprint will complete the following Github Cards.
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | ---: | ---: | ---: | ---: |
 | 9/4 | # 2| #3, #5, #6, #7, #8 | None | 
-| 9/8 | #3, #5, #6, #8| #12, #13, $14, #15, #16, #17, #18, #19, #20, #21, #22, #26, #29, #36, #37, #38, #40
+| 9/8 | #3, #5, #6, #8| #12, #13, #14, #15, #16, #17, #18, #19, #20, #21, #22, #26, #29, #36, #37, #38, #40, #41, #42, #44
 
 
 * #2- Create shared doc directory
@@ -64,16 +64,23 @@ This sprint will complete the following Github Cards.
 * #12- Add team image to README
 * #13- Darin add personal info
 * #14- Create image folder, put team image in there
+* #15- Lani add personal info
 * #16- Matt's bio
 * #17- Kass add personal info
-* #18- Update Member Table
+* #18- Update member table
+* #19- Initial codedump
 * #20- Update scrum in README
-* #22- Remove success and factors secton from README 
+* #21- Update Sprint1.md
+* #22- Remove success and factors section from README 
 * #26- Add team information for Aaron
 * #29- Add Kass image
+* #36- Add Aaron self picture
 * #37- Add file for Aaron
+* #38- Add bio info
 * #40- Add kass bio and pic
-* 
+* #41- Add bio info ( April)
+* #42- Lani- update table
+* #44- Lani bio/pic
 
 
 ## Review 
