@@ -18,7 +18,7 @@
 <img src="/images/matt-selfie.jpg" width=250 />
 Matt is a senior in the CS Department, works on Dr. Shrideep Pallickara's research project doing UI and web development, and is a UTA for cs314. In his free time Matt likes to play music, ride bicycles, and eat tacos.
 
-<img src="/images/Lani-image.jpg" width= 250>
+<img src="/images/LaniB- image.jpg" width= 250>
 Lani is a senior in the Computer Science Department.  She also works full time.  This is the last class needed for her to obtain her degree.  When she is not studying or working, she enjoys traveling, hanging out with friends, cosplay, and hiking.  
 
 ## Scrum Ceremonies
