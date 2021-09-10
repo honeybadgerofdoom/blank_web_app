@@ -29,6 +29,7 @@ Matt is a senior in the CS Department, works on Dr. Shrideep Pallickara's resear
 Kassidy is a senior at Colorado State University and will graduate in Spring of 2022 with a degree in Computer Science. She’s worked on drone stabilization research as well as a committee focusing on women’s inclusion in STEM at CSU. She is a proud member of the software engineering Team Reakt and is looking forward to a great semester.
 
 ### Darin Harter
+<img src="/images/darin.jpg" width=250 />
 Darin is a computer science student at CSU studying in his final semester. He took up programming in early high school where he developed small games in Java. He is now a software engineering TA and hoping to attend Georgia Tech for his Master’s in CS. He spends his free time watching Colorado sports, learning piano, petting his dog, reading, and playing Switch.
 
 
