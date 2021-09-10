@@ -43,7 +43,9 @@ Lani is a senior in the Computer Science Department.  She also works full time. 
 <img src="/images/matt-selfie.jpg" width=250 />
 Matt is a senior in the CS Department, works on Dr. Shrideep Pallickara's research project doing UI and web development, and is a UTA for cs314. In his free time Matt likes to play music, ride bicycles, and eat tacos.
 
-## Scrum Ceremonies
+## Scrum Information
+
+### Scrum Ceremonies 
 Scrum ceremonies include sprint planning, daily scrum, sprint review, and sprint retrospective.
 
 Our **Scrum Master** will vary across sprints, with each member getting a turn by the end. Matt will be first.
@@ -62,18 +64,18 @@ In these meetings, we will take at most 15 minutes to discuss:
 
 During sprint planning, the Product Owner should be consulted to construct the Product Backlog. Occasionally, daily scrums may warrant an appearance of the PO if there is confusion or a concept to discuss.
 
-## Sprints
+## Sprint Calender
 **Total sprints:** 6
 
 **Sprint duration:** 2 weeks
 
-| Sprint | Planning | Review | Retrospective | Demo |
-| ------ | -------- | ------ | ------------- | ---- |
-| 1 | Sep 11 | Sep 30 | Oct 1 | Sep 27 |
-| 2 | Oct 4 | Oct 14 | Oct 15 |  |
-| 3 | Oct 18 | Oct 28 | Oct 29 |  | 
-| 4 | Nov 1 | Nov 11 | Nov 12 | Nov 1 |
-| 5 | Nov 15 | Nov 25 | Nov 26 |  |
-| 6 | Nov 29 | Dec 9 | Dec 10 | Dec 6 |
+| Sprint | Planning | Review | Retrospective | Demo | Daily Scrum List |
+| ------ | -------- | ------ | ------------- | ---- | ---------------- |
+| 1 | Sep 11 | Sep 30 | Oct 1 | Sep 27 | 11, 13, 15, 18, 20, 22, 25, 27, 29, 1/2 |
+| 2 | Oct 4 | Oct 14 | Oct 15 |  | 4, 6, 9, 11, 13, 15/16 |
+| 3 | Oct 18 | Oct 28 | Oct 29 |  | 18, 20, 23, 25, 27, 29/30 |
+| 4 | Nov 1 | Nov 11 | Nov 12 | Nov 1 | 1, 3, 6, 8, 10, 12/13 |
+| 5 | Nov 15 | Nov 25 | Nov 26 |  | 15, 17, 20, 22, 24, 26/27 |
+| 6 | Nov 29 | Dec 9 | Dec 10 | Dec 6 | 29, 1, 4, 6, 8, 10/11 |
 
 *These dates are estimations and subject to change.*
