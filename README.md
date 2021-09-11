@@ -17,7 +17,7 @@
 
 ## Member Bios
 
-<img src="/images/Aaron Lawrence 414 pic.jpg" width=250 align="left" alt="Aaron picture" />
+<img src="/images/Aaron Lawrence 414 pic.jpg" width=220 align="left" alt="Aaron's picture" />
 
 ### Aaron Lawrence
 Aaron is a senior majoring in computer science at CSU. A love of video games lead him to learn programming in hopes of being able to create his own games. Since he started learning how to program, he has worked with a number of different languages such as Java, Python, BASIC, and more. In his free time, Aaron enjoys talking to friends and, of course, playing various games.
@@ -26,7 +26,7 @@ Aaron is a senior majoring in computer science at CSU. A love of video games lea
 
 ---           
 
-<img src="/images/april.jpg" width=250 align="left" />
+<img src="/images/april.jpg" width=220 align="left" alt="April's picture" />
 
 ### April Kelly
 April is a senior in the computer science department and works for Alpha Security in Aspen, CO as a UNIX sysadmin/programmer. Outside of class, she enjoys looking for security vulnerabilities and developing hypochondria from reading random articles on PubMed. She hopes to go to medical school one day.
@@ -35,7 +35,7 @@ April is a senior in the computer science department and works for Alpha Securit
 
 ---          
 
-<img src="/images/darin.jpg" width=250 align="left" />
+<img src="/images/darin.jpg" width=220 align="left" alt="Darin's picture" />
 
 ### Darin Harter
 Darin is a computer science student at CSU studying in his final semester. He took up programming in early high school where he developed small games in Java. He is now a software engineering TA and hoping to attend Georgia Tech for his Master’s in CS. He spends his free time watching Colorado sports, learning piano, petting his dog, reading, and playing Switch.
@@ -44,7 +44,7 @@ Darin is a computer science student at CSU studying in his final semester. He to
 
 ---          
 
-<img src="/images/kass_team_image.jpg" width=250 align="left" />
+<img src="/images/kass_team_image.jpg" width=220 align="left" alt="Kassidy's picture" />
 
 ### Kassidy Barram
 Kassidy is a senior at Colorado State University and will graduate in Spring of 2022 with a degree in Computer Science. She’s worked on drone stabilization research as well as a committee focusing on women’s inclusion in STEM at CSU. She is a proud member of the software engineering Team Reakt and is looking forward to a great semester.
@@ -53,7 +53,7 @@ Kassidy is a senior at Colorado State University and will graduate in Spring of 
 
 ---          
 
-<img src="/images/LaniB- image.jpg" width=250 align="left" />
+<img src="/images/LaniB- image.jpg" width=220 align="left" alt="Lani's picture" />
 
 ### Lani Brooks
 Lani is a senior in the Computer Science Department.  She also works full time.  This is the last class needed for her to obtain her degree.  When she is not studying or working, she enjoys traveling, hanging out with friends, cosplay, and hiking.  
@@ -62,7 +62,7 @@ Lani is a senior in the Computer Science Department.  She also works full time. 
 
 ---          
 
-<img src="/images/matt-selfie.jpg" width=250 align="left" />
+<img src="/images/matt-selfie.jpg" width=220 align="left" alt="Matt's picture" />
 
 ### Matt Young
 Matt is a senior in the CS Department, works on Dr. Shrideep Pallickara's research project doing UI and web development, and is a UTA for cs314. In his free time Matt likes to play music, ride bicycles, and eat tacos.
