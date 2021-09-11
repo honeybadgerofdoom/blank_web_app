@@ -1,26 +1,51 @@
 # t02: Team ReaKt
+![team picture](/images/t02TeamImage.jpg)
+> ## Mission
+> ***Our object is to create a fully functional, interactive online chess application using Agile software development practices.***
+>
+## Member Information
 
-## Keys to Success
-We believe that a successful Software Development project:
-1. Starts with a solid plan.
-2. Meets the Product Owner’s specifications.
-3. Gets completed in the required time.
-4. Is written with clean code standards.
-5. Utilizes continuous integration.
+| Last name | First Name | CSU eName | GitHub | CSU email |
+| --------- | ---------- | --------- | ------ | --------- |
+| Barram | Kassidy | kbarram | Kmbear3 | kbarram@rams.colostate.edu |
+| Brooks | Lani | lani09br | bonnie-123 | lani09br@rams.colostate.edu |
+| Harter | Darin | darinh | darin3 | darinh@rams.colostate.edu |
+| Kelly | April | wckelly | april-kelly | wckelly@rams.colostate.edu |
+| Lawrence | Aaron | catninja | catninja11 | catninja@rams.colostate.edu |
+| Young | Matt | asterix | honeybadgerofdoom | asterix@rams.colostate.edu |
 
-**Metrics associated with success:** testing coverage, days worked, Code Climate maintainability statistics, and timeframe analysis.
 
-## Factors in Project Development
 
-**Biggest challenges:** Asking for help in a timely manner, addressing team issues early on, bringing together a wide variety of ideas, agreeing on coding standards, divvying up work appropriately, and planning.
 
-**How we overcome them:** We will use clear, honest, and frequent communication; plan sprints thoroughly from the start; and attempt to anticipate and prevent problems that may arise.
+## Member Bios
 
-**Critical elements to success:** Communication, short daily scrums, regression testing, and practicing clean coding standards.
+### Aaron Lawrence
+<img src="/images/Aaron Lawrence 414 pic.jpg" width=250 alt="Aaron picture" />
+Aaron is a senior majoring in computer science at CSU. A love of video games lead him to learn programming in hopes of being able to create his own games. Since he started learning how to program, he has worked with a number of different languages such as Java, Python, BASIC, and more. In his free time, Aaron enjoys talking to friends and, of course, playing various games. 
 
-**Critical elements to failure/ challenges:** Lack of communication, lack of planning, tension without working things out as a team, and not starting early enough.
+### April Kelly
+<img src="/images/april.jpg" width=250 />
+April is a senior in the computer science department and works for Alpha Security in Aspen, CO as a UNIX sysadmin/programmer. Outside of class, she enjoys looking for security vulnerabilities and developing hypochondria from reading random articles on PubMed. She hopes to go to medical school one day.
 
-## Scrum Ceremonies
+### Darin Harter
+<img src="/images/darin.jpg" width=250 />
+Darin is a computer science student at CSU studying in his final semester. He took up programming in early high school where he developed small games in Java. He is now a software engineering TA and hoping to attend Georgia Tech for his Master’s in CS. He spends his free time watching Colorado sports, learning piano, petting his dog, reading, and playing Switch.
+
+### Kassidy Barram
+<img src="/images/kass_team_image.jpg" width=250 />
+Kassidy is a senior at Colorado State University and will graduate in Spring of 2022 with a degree in Computer Science. She’s worked on drone stabilization research as well as a committee focusing on women’s inclusion in STEM at CSU. She is a proud member of the software engineering Team Reakt and is looking forward to a great semester.
+
+### Lani Brooks
+<img src="/images/LaniB- image.jpg" width= 250>
+Lani is a senior in the Computer Science Department.  She also works full time.  This is the last class needed for her to obtain her degree.  When she is not studying or working, she enjoys traveling, hanging out with friends, cosplay, and hiking.  
+
+### Matt Young
+<img src="/images/matt-selfie.jpg" width=250 />
+Matt is a senior in the CS Department, works on Dr. Shrideep Pallickara's research project doing UI and web development, and is a UTA for cs314. In his free time Matt likes to play music, ride bicycles, and eat tacos.
+
+## Scrum Information
+
+### Scrum Ceremonies 
 Scrum ceremonies include sprint planning, daily scrum, sprint review, and sprint retrospective.
 
 Our **Scrum Master** will vary across sprints, with each member getting a turn by the end. Matt will be first.
@@ -39,19 +64,18 @@ In these meetings, we will take at most 15 minutes to discuss:
 
 During sprint planning, the Product Owner should be consulted to construct the Product Backlog. Occasionally, daily scrums may warrant an appearance of the PO if there is confusion or a concept to discuss.
 
-## Sprints
-**Total sprints:** 7
+## Sprint Calender
+**Total sprints:** 6
 
 **Sprint duration:** 2 weeks
 
-| Sprint | Planning | Review | Retrospective |
-| ------ | -------- | ------ | ------------- |
-| 1 | Sep 6 | Sep 16 | Sep 17 |
-| 2 | Sep 20 | Sep 30 | Oct 1 |
-| 3 | Oct 4 | Oct 14 | Oct 15 |
-| 4 | Oct 18 | Oct 28 | Oct 29 |
-| 5 | Nov 1 | Nov 11 | Nov 12 |
-| 6 | Nov 15 | Nov 25 | Nov 26 |
-| 7 | Nov 29 | Dec 9 | Dec 10 |
+| Sprint | Planning | Review | Retrospective | Demo | Daily Scrum List |
+| ------ | -------- | ------ | ------------- | ---- | ---------------- |
+| 1 | Sep 11 | Sep 30 | Oct 1 | Sep 27 | 11, 13, 15, 18, 20, 22, 25, 27, 29, 1/2 |
+| 2 | Oct 4 | Oct 14 | Oct 15 |  | 4, 6, 9, 11, 13, 15/16 |
+| 3 | Oct 18 | Oct 28 | Oct 29 |  | 18, 20, 23, 25, 27, 29/30 |
+| 4 | Nov 1 | Nov 11 | Nov 12 | Nov 1 | 1, 3, 6, 8, 10, 12/13 |
+| 5 | Nov 15 | Nov 25 | Nov 26 |  | 15, 17, 20, 22, 24, 26/27 |
+| 6 | Nov 29 | Dec 9 | Dec 10 | Dec 6 | 29, 1, 4, 6, 8, 10/11 |
 
 *These dates are estimations and subject to change.*
