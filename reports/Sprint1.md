@@ -62,9 +62,6 @@ This sprint will complete the following Github Cards.
 
 #### Epics not completed
 
-* These Cards were not completed.
-
-*
 
 ## Retrospective
 
