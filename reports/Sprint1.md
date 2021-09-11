@@ -58,13 +58,7 @@ This sprint will complete the following Github Cards.
 ## Review 
 
 #### Epics completed
-
-* #2- Create shared doc directory  
-* #3- Make the design.md file in the reports folder
-* #5- Add team name to README
-* #6- Add CW2 to README
-* #8- Add Sprint1.md
-*  
+  
 
 #### Epics not completed
 
