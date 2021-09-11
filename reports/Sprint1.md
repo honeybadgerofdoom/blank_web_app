@@ -1,4 +1,4 @@
-# Sprint 1 - T02 - Insert team name
+# Sprint 1 - T02 - Team Reakt
 
 ## Goal
 
@@ -52,27 +52,16 @@ This sprint will complete the following Github Cards.
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | ---: | ---: | ---: | ---: |
 | 9/4 | # 2| #3, #5, #6, #7, #8 | None | 
-
-
-* #2- Create shared doc directory
-* #3- Make the design.md file in the reports folder
-* #5- Add team name and image to README
-* #6- Add CW2 to README
-* #7- Add team contact info and mission statement
-* #8- Add Sprint1.md
+| 9/8 | #3, #5, #6, #8| #12, #13, #14, #15, #16, #17, #18, #19, #20, #21, #22, #26, #29, #36, #37, #38, #40, #41, #42, #44| None|
 
 
 ## Review 
 
 #### Epics completed
-
-* #2- Create shared doc directory   
+  
 
 #### Epics not completed
 
-* These Cards were not completed.
-
-*
 
 ## Retrospective
 
