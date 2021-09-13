@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Page() {
 	const classes = useStyles();
 
-	const tabSwitchingStyles = [[{display: 'block'}, 'contained', 'primary'], [{display: 'none'}, 'outlined', ''], [{display: 'none'}, 'outlined', '', {disabled: true}]];
+	const tabSwitchingStyles = [[{display: 'block'}, 'contained', 'primary', false], [{display: 'none'}, 'outlined', '', false], [{display: 'none'}, 'outlined', '', true]];
 	const [loginPageStyles, setLoginPageStyles] = useState(tabSwitchingStyles[0]);
 	const [aboutPageStyles, setAboutPageStyles] = useState(tabSwitchingStyles[1]);
 	const [matchFindingPageStyles, setMatchFindingPageStyles] = useState(tabSwitchingStyles[2]);
@@ -53,11 +53,11 @@ export default function Page() {
 				>
 					<Grid item>
 						<ButtonGroup className={classes.buttonSpacing} size="large">
-							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<VpnKeyIcon/>} onClick={() => switchTabs(0)}>Log In</Button>
-							<Button variant={profilePageStyles[1]} color={profilePageStyles[2]} startIcon={<AccountCircleIcon/>} onClick={() => switchTabs(2)}>Profile</Button>
-							<Button variant={matchFindingPageStyles[1]} color={matchFindingPageStyles[2]} startIcon={<SearchIcon/>} onClick={() => switchTabs(2)}>Find A Game</Button>
-							<Button variant={gamePageStyles[1]} color={gamePageStyles[2]} startIcon={<SportsEsportsIcon/>} onClick={() => switchTabs(2)}>Play</Button>
-							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} onClick={() => switchTabs(1)}>About</Button>
+							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<VpnKeyIcon/>} disabled={loginPageStyles[3]} onClick={() => switchTabs(0)}>Log In</Button>
+							<Button variant={profilePageStyles[1]} color={profilePageStyles[2]} startIcon={<AccountCircleIcon/>} disabled={profilePageStyles[3]} onClick={() => switchTabs(2)}>Profile</Button>
+							<Button variant={matchFindingPageStyles[1]} color={matchFindingPageStyles[2]} startIcon={<SearchIcon/>} disabled={matchFindingPageStyles[3]}  onClick={() => switchTabs(2)}>Find A Game</Button>
+							<Button variant={gamePageStyles[1]} color={gamePageStyles[2]} startIcon={<SportsEsportsIcon/>} disabled={gamePageStyles[3]}  onClick={() => switchTabs(2)}>Play</Button>
+							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} disabled={aboutPageStyles[3]}  onClick={() => switchTabs(1)}>About</Button>
 						</ButtonGroup>
 					</Grid>
 				</Grid>
