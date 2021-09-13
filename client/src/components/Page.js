@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, ButtonGroup, Grid, makeStyles, Typography} from "@material-ui/core";
+import {Button, ButtonGroup, Grid, makeStyles} from "@material-ui/core";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InfoIcon from '@material-ui/icons/Info';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
@@ -9,6 +9,7 @@ import About from "./SitePages/About";
 import Profile from "./SitePages/Profile";
 import FindGame from "./SitePages/FindGame";
 import Play from "./SitePages/Play";
+import Login from "./SitePages/Login";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -71,7 +72,7 @@ export default function Page() {
 
 			<br/>
 
-			{pageSection(loginPageStyles, <About />)}
+			{pageSection(loginPageStyles, <Login />)}
 			{pageSection(profilePageStyles, <Profile />)}
 			{pageSection(matchFindingPageStyles, <FindGame />)}
 			{pageSection(gamePageStyles, <Play />)}
