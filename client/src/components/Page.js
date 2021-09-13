@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 import {Button, ButtonGroup, Grid, makeStyles, Paper, Typography} from "@material-ui/core";
-import PersonIcon from '@material-ui/icons/Person';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InfoIcon from '@material-ui/icons/Info';
+import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -20,9 +23,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Page() {
 	const classes = useStyles();
 
-	const tabSwitchingStyles = [[{display: 'block'}, 'contained', 'primary'], [{display: 'none'}, 'outlined', '']];
+	const tabSwitchingStyles = [[{display: 'block'}, 'contained', 'primary'], [{display: 'none'}, 'outlined', ''], [{display: 'none'}, 'outlined', '', {disabled: true}]];
 	const [loginPageStyles, setLoginPageStyles] = useState(tabSwitchingStyles[0]);
 	const [aboutPageStyles, setAboutPageStyles] = useState(tabSwitchingStyles[1]);
+	const [matchFindingPageStyles, setMatchFindingPageStyles] = useState(tabSwitchingStyles[2]);
+	const [profilePageStyles, setProfilePageStyles] = useState(tabSwitchingStyles[2]);
+	const [gamePageStyles, setGamePageStyles] = useState(tabSwitchingStyles[2]);
 
 	function switchTabs(index) {
 		if(index === 0) {
@@ -33,6 +39,7 @@ export default function Page() {
 			setLoginPageStyles(tabSwitchingStyles[1]);
 			setAboutPageStyles(tabSwitchingStyles[0]);
 		}
+		else {}
 	}
 
 	return (
@@ -46,8 +53,11 @@ export default function Page() {
 				>
 					<Grid item>
 						<ButtonGroup className={classes.buttonSpacing} size="large">
-							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<PersonIcon/>} onClick={() => switchTabs(0)}>Data Exploration</Button>
-							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} onClick={() => switchTabs(1)}>Modeling</Button>
+							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<VpnKeyIcon/>} onClick={() => switchTabs(0)}>Log In</Button>
+							<Button variant={profilePageStyles[1]} color={profilePageStyles[2]} startIcon={<AccountCircleIcon/>} onClick={() => switchTabs(2)}>Profile</Button>
+							<Button variant={matchFindingPageStyles[1]} color={matchFindingPageStyles[2]} startIcon={<SearchIcon/>} onClick={() => switchTabs(2)}>Find A Game</Button>
+							<Button variant={gamePageStyles[1]} color={gamePageStyles[2]} startIcon={<SportsEsportsIcon/>} onClick={() => switchTabs(2)}>Play</Button>
+							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} onClick={() => switchTabs(1)}>About</Button>
 						</ButtonGroup>
 					</Grid>
 				</Grid>
@@ -57,20 +67,19 @@ export default function Page() {
 			<div style={loginPageStyles[0]}>
 				<Typography>Login Page</Typography>
 			</div>
+			<div style={profilePageStyles[0]}>
+				<Typography>Profile</Typography>
+			</div>
+			<div style={matchFindingPageStyles[0]}>
+				<Typography>Find A Game</Typography>
+			</div>
+			<div style={gamePageStyles[0]}>
+				<Typography>Play</Typography>
+			</div>
 			<div style={aboutPageStyles[0]}>
 				<Typography>About Page</Typography>
 			</div>
 		</div>
 	)
-
-	function styledPageItem(content) {
-		return (
-			<Grid item>
-				<Paper className={classes.root} elevation={3}>
-					{content}
-				</Paper>
-			</Grid>
-		)
-	}
 }
 
