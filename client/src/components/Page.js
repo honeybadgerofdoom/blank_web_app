@@ -65,19 +65,19 @@ export default function Page() {
 
 			<br/>
 			<div style={loginPageStyles[0]}>
-				<Typography>Login Page</Typography>
+				<Typography align="center">Login Page</Typography>
 			</div>
 			<div style={profilePageStyles[0]}>
-				<Typography>Profile</Typography>
+				<Typography align="center">Profile</Typography>
 			</div>
 			<div style={matchFindingPageStyles[0]}>
-				<Typography>Find A Game</Typography>
+				<Typography align="center">Find A Game</Typography>
 			</div>
 			<div style={gamePageStyles[0]}>
-				<Typography>Play</Typography>
+				<Typography align="center">Play</Typography>
 			</div>
 			<div style={aboutPageStyles[0]}>
-				<Typography>About Page</Typography>
+				<Typography align="center">About Page</Typography>
 			</div>
 		</div>
 	)
