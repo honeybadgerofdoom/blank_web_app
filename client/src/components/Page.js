@@ -72,10 +72,10 @@ export default function Page() {
 			<br/>
 
 			{pageSection(loginPageStyles, <About />)}
-			{pageSection(profilePageStyles, <Profile/>)}
-			{pageSection(matchFindingPageStyles, <FindGame/>)}
-			{pageSection(gamePageStyles, <Play/>)}
-			{pageSection(aboutPageStyles, <About/>)}
+			{pageSection(profilePageStyles, <Profile />)}
+			{pageSection(matchFindingPageStyles, <FindGame />)}
+			{pageSection(gamePageStyles, <Play />)}
+			{pageSection(aboutPageStyles, <About />)}
 		</div>
 	)
 }
