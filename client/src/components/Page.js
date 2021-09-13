@@ -67,21 +67,19 @@ export default function Page() {
 
 			<br/>
 
-			<div style={loginPageStyles[0]}>
-				<Typography align="center">Login Page</Typography>
-			</div>
-			<div style={profilePageStyles[0]}>
-				<Typography align="center">Profile Page Coming Soon</Typography>
-			</div>
-			<div style={matchFindingPageStyles[0]}>
-				<Typography align="center">Match Finding Page Coming Soon</Typography>
-			</div>
-			<div style={gamePageStyles[0]}>
-				<Typography align="center">Game Page Coming Soon</Typography>
-			</div>
-			<div style={aboutPageStyles[0]}>
-				<Typography align="center">About Page</Typography>
-			</div>
+			{pageSection(loginPageStyles, "Login Page")}
+			{pageSection(profilePageStyles, "Profile Page Coming Soon")}
+			{pageSection(matchFindingPageStyles, "Game Finding Page Coming Soon")}
+			{pageSection(gamePageStyles, "Game Play Page Coming Soon")}
+			{pageSection(aboutPageStyles, "About Page")}
+		</div>
+	)
+}
+
+function pageSection(styles, title) {
+	return (
+		<div style={styles[0]}>
+			<Typography align="center">{title}</Typography>
 		</div>
 	)
 }
