@@ -1,10 +1,14 @@
 import React, {useState} from "react";
-import {Button, ButtonGroup, Grid, makeStyles, Paper, Typography} from "@material-ui/core";
+import {Button, ButtonGroup, Grid, makeStyles, Typography} from "@material-ui/core";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InfoIcon from '@material-ui/icons/Info';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import SearchIcon from '@material-ui/icons/Search';
+import About from "./SitePages/About";
+import Profile from "./SitePages/Profile";
+import FindGame from "./SitePages/FindGame";
+import Play from "./SitePages/Play";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -67,19 +71,19 @@ export default function Page() {
 
 			<br/>
 
-			{pageSection(loginPageStyles, "Login Page")}
-			{pageSection(profilePageStyles, "Profile Page Coming Soon")}
-			{pageSection(matchFindingPageStyles, "Game Finding Page Coming Soon")}
-			{pageSection(gamePageStyles, "Game Play Page Coming Soon")}
-			{pageSection(aboutPageStyles, "About Page")}
+			{pageSection(loginPageStyles, <About />)}
+			{pageSection(profilePageStyles, <Profile/>)}
+			{pageSection(matchFindingPageStyles, <FindGame/>)}
+			{pageSection(gamePageStyles, <Play/>)}
+			{pageSection(aboutPageStyles, <About/>)}
 		</div>
 	)
 }
 
-function pageSection(styles, title) {
+function pageSection(styles, component) {
 	return (
 		<div style={styles[0]}>
-			<Typography align="center">{title}</Typography>
+			{component}
 		</div>
 	)
 }
