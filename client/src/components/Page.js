@@ -1,47 +1,66 @@
-import React from "react";
-import {Grid, makeStyles, Paper, Typography} from "@material-ui/core";
-import ToDoList from "./ToDoList";
-import LanguageIcon from '@material-ui/icons/Language';
+import React, {useState} from "react";
+import {Button, ButtonGroup, Grid, makeStyles, Paper, Typography} from "@material-ui/core";
+import PersonIcon from '@material-ui/icons/Person';
+import InfoIcon from '@material-ui/icons/Info';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		margin: theme.spacing(3),
-		padding: theme.spacing(3),
+		flexGrow: 1,
+		width: '100%',
+		overflowX: "hidden",
 	},
-	formControl: {
+	buttonSpacing: {
 		margin: theme.spacing(3),
+	},
+	tabs: {
+		borderBottom: '2px solid #adadad',
 	},
 }));
 
 export default function Page() {
 	const classes = useStyles();
-	const toDoList =
-		[["Initial 314 Code Gut", true],
-		["Clean Console Output", true],
-		["Clean Up Client Tests", false],
-		["Clean Up Client Files", false],
-		["Clean Up Server Tests", false],
-		["Clean Up Server Files", false],
-		["Clean Up Dependencies", false],
-		["Test entry.js", false],
-		["Create README.md", false],
-		["Update Design.md (let's use one!)", false],
-		["Generalize Existing API Endpoint", false]];
+
+	const tabSwitchingStyles = [[{display: 'block'}, 'contained', 'primary'], [{display: 'none'}, 'outlined', '']];
+	const [loginPageStyles, setLoginPageStyles] = useState(tabSwitchingStyles[0]);
+	const [aboutPageStyles, setAboutPageStyles] = useState(tabSwitchingStyles[1]);
+
+	function switchTabs(index) {
+		if(index === 0) {
+			setLoginPageStyles(tabSwitchingStyles[0]);
+			setAboutPageStyles(tabSwitchingStyles[1]);
+		}
+		else if(index === 1) {
+			setLoginPageStyles(tabSwitchingStyles[1]);
+			setAboutPageStyles(tabSwitchingStyles[0]);
+		}
+	}
 
 	return (
-		<Grid
-			container
-			direction="column"
-			justifyContent="center"
-			alignItems="center"
-		>
-			{styledPageItem(
-				<Typography align="center"><LanguageIcon/>&nbsp;&nbsp;This is a landing page representing the client side of our web app project</Typography>)
-			}
-			{styledPageItem(
-				<ToDoList list={toDoList}/>
-			)}
-		</Grid>
+		<div className={classes.root}>
+			<div className={classes.tabs}>
+				<Grid
+					container
+					spacing={3}
+					justifyContent="center"
+					alignItems="center"
+				>
+					<Grid item>
+						<ButtonGroup className={classes.buttonSpacing} size="large">
+							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<PersonIcon/>} onClick={() => switchTabs(0)}>Data Exploration</Button>
+							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} onClick={() => switchTabs(1)}>Modeling</Button>
+						</ButtonGroup>
+					</Grid>
+				</Grid>
+			</div>
+
+			<br/>
+			<div style={loginPageStyles[0]}>
+				<Typography>Login Page</Typography>
+			</div>
+			<div style={aboutPageStyles[0]}>
+				<Typography>About Page</Typography>
+			</div>
+		</div>
 	)
 
 	function styledPageItem(content) {
@@ -54,3 +73,4 @@ export default function Page() {
 		)
 	}
 }
+
