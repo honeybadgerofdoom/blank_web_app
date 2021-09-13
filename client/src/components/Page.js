@@ -23,23 +23,25 @@ const useStyles = makeStyles((theme) => ({
 export default function Page() {
 	const classes = useStyles();
 
-	const tabSwitchingStyles = [[{display: 'block'}, 'contained', 'primary', false], [{display: 'none'}, 'outlined', '', false], [{display: 'none'}, 'outlined', '', true]];
+	const tabSwitchingStyles = [[{display: 'block'}, 'contained', 'primary'], [{display: 'none'}, 'outlined', '']];
+
 	const [loginPageStyles, setLoginPageStyles] = useState(tabSwitchingStyles[0]);
+	const [profilePageStyles, setProfilePageStyles] = useState(tabSwitchingStyles[1]);
+	const [matchFindingPageStyles, setMatchFindingPageStyles] = useState(tabSwitchingStyles[1]);
+	const [gamePageStyles, setGamePageStyles] = useState(tabSwitchingStyles[1]);
 	const [aboutPageStyles, setAboutPageStyles] = useState(tabSwitchingStyles[1]);
-	const [matchFindingPageStyles, setMatchFindingPageStyles] = useState(tabSwitchingStyles[2]);
-	const [profilePageStyles, setProfilePageStyles] = useState(tabSwitchingStyles[2]);
-	const [gamePageStyles, setGamePageStyles] = useState(tabSwitchingStyles[2]);
+
+	const setterArray = [setLoginPageStyles, setProfilePageStyles, setMatchFindingPageStyles, setGamePageStyles, setAboutPageStyles];
 
 	function switchTabs(index) {
-		if(index === 0) {
-			setLoginPageStyles(tabSwitchingStyles[0]);
-			setAboutPageStyles(tabSwitchingStyles[1]);
-		}
-		else if(index === 1) {
-			setLoginPageStyles(tabSwitchingStyles[1]);
-			setAboutPageStyles(tabSwitchingStyles[0]);
-		}
-		else {}
+		setterArray.forEach((setter, internalIndex) => {
+			if(index === internalIndex) {
+				setter(tabSwitchingStyles[0]);
+			}
+			else {
+				setter(tabSwitchingStyles[1]);
+			}
+		});
 	}
 
 	return (
@@ -53,28 +55,29 @@ export default function Page() {
 				>
 					<Grid item>
 						<ButtonGroup className={classes.buttonSpacing} size="large">
-							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<VpnKeyIcon/>} disabled={loginPageStyles[3]} onClick={() => switchTabs(0)}>Log In</Button>
-							<Button variant={profilePageStyles[1]} color={profilePageStyles[2]} startIcon={<AccountCircleIcon/>} disabled={profilePageStyles[3]} onClick={() => switchTabs(2)}>Profile</Button>
-							<Button variant={matchFindingPageStyles[1]} color={matchFindingPageStyles[2]} startIcon={<SearchIcon/>} disabled={matchFindingPageStyles[3]}  onClick={() => switchTabs(2)}>Find A Game</Button>
-							<Button variant={gamePageStyles[1]} color={gamePageStyles[2]} startIcon={<SportsEsportsIcon/>} disabled={gamePageStyles[3]}  onClick={() => switchTabs(2)}>Play</Button>
-							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} disabled={aboutPageStyles[3]}  onClick={() => switchTabs(1)}>About</Button>
+							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<VpnKeyIcon/>} onClick={() => switchTabs(0)}>Log In</Button>
+							<Button variant={profilePageStyles[1]} color={profilePageStyles[2]} startIcon={<AccountCircleIcon/>} onClick={() => switchTabs(1)}>Profile</Button>
+							<Button variant={matchFindingPageStyles[1]} color={matchFindingPageStyles[2]} startIcon={<SearchIcon/>} onClick={() => switchTabs(2)}>Find A Game</Button>
+							<Button variant={gamePageStyles[1]} color={gamePageStyles[2]} startIcon={<SportsEsportsIcon/>} onClick={() => switchTabs(3)}>Play</Button>
+							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} onClick={() => switchTabs(4)}>About</Button>
 						</ButtonGroup>
 					</Grid>
 				</Grid>
 			</div>
 
 			<br/>
+
 			<div style={loginPageStyles[0]}>
 				<Typography align="center">Login Page</Typography>
 			</div>
 			<div style={profilePageStyles[0]}>
-				<Typography align="center">Profile</Typography>
+				<Typography align="center">Profile Page Coming Soon</Typography>
 			</div>
 			<div style={matchFindingPageStyles[0]}>
-				<Typography align="center">Find A Game</Typography>
+				<Typography align="center">Match Finding Page Coming Soon</Typography>
 			</div>
 			<div style={gamePageStyles[0]}>
-				<Typography align="center">Play</Typography>
+				<Typography align="center">Game Page Coming Soon</Typography>
 			</div>
 			<div style={aboutPageStyles[0]}>
 				<Typography align="center">About Page</Typography>
