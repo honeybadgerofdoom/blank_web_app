@@ -36,7 +36,7 @@ export default function Page() {
 	const [gamePageStyles, setGamePageStyles] = useState(tabSwitchingStyles[1]);
 	const [aboutPageStyles, setAboutPageStyles] = useState(tabSwitchingStyles[1]);
 
-	const setterArray = [setLoginPageStyles, setProfilePageStyles, setMatchFindingPageStyles, setGamePageStyles, setAboutPageStyles];
+	const setterArray = [setLoginPageStyles, setGamePageStyles, setMatchFindingPageStyles, setProfilePageStyles, setAboutPageStyles];
 
 	function switchTabs(index) {
 		setterArray.forEach((setter, internalIndex) => {
@@ -61,9 +61,9 @@ export default function Page() {
 					<Grid item>
 						<ButtonGroup className={classes.buttonSpacing} size="large">
 							<Button variant={loginPageStyles[1]} color={loginPageStyles[2]} startIcon={<VpnKeyIcon/>} onClick={() => switchTabs(0)}>Log In</Button>
-							<Button variant={gamePageStyles[1]} color={gamePageStyles[2]} startIcon={<SportsEsportsIcon/>} onClick={() => switchTabs(3)}>Play</Button>
+							<Button variant={gamePageStyles[1]} color={gamePageStyles[2]} startIcon={<SportsEsportsIcon/>} onClick={() => switchTabs(1)}>Play</Button>
 							<Button variant={matchFindingPageStyles[1]} color={matchFindingPageStyles[2]} startIcon={<SearchIcon/>} onClick={() => switchTabs(2)}>Find A Game</Button>
-							<Button variant={profilePageStyles[1]} color={profilePageStyles[2]} startIcon={<AccountCircleIcon/>} onClick={() => switchTabs(1)}>Profile</Button>
+							<Button variant={profilePageStyles[1]} color={profilePageStyles[2]} startIcon={<AccountCircleIcon/>} onClick={() => switchTabs(3)}>Profile</Button>
 							<Button variant={aboutPageStyles[1]} color={aboutPageStyles[2]} startIcon={<InfoIcon/>} onClick={() => switchTabs(4)}>About</Button>
 						</ButtonGroup>
 					</Grid>
