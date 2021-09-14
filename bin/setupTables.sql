@@ -47,5 +47,5 @@ CREATE TABLE userProfile (
     profileID INT NOT NULL,
     FOREIGN KEY (userID) REFERENCES users (userID),
     FOREIGN KEY (profileID) REFERENCES profiles (profileID),
-    UNIQUE (userID, profile)
+    UNIQUE (userID, profileID)
 );
