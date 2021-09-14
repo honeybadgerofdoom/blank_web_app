@@ -44,7 +44,7 @@ CREATE TABLE profiles (
 
 CREATE TABLE userProfile (
     userID INT NOT NULL,
-    profile INT NOT NULL,
+    profileID INT NOT NULL,
     FOREIGN KEY (userID) REFERENCES users (userID),
     FOREIGN KEY (profileID) REFERENCES profiles (profileID),
     UNIQUE (userID, profile)
