@@ -24,7 +24,7 @@ CREATE TABLE users (
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
 
-    --These fields are set as fixed width, with the assumption they will hold a SHA256 hash
+    -- These fields are set as fixed width, with the assumption they will hold a SHA256 hash
     password CHAR(64) NOT NULL,
     salt CHAR(64) NOT NULL,
 
