@@ -5,10 +5,14 @@
 -- Create database (if needed)
 CREATE DATABASE IF NOT EXISTS chess;
 
+-- Connect to our db
+CONNECT chess;
+
 -- Recreate tables every time this script is run
 DROP TABLE IF EXISTS users,
                      userProfile,
                      profiles;
+
 
 --
 -- Tables:
