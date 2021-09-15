@@ -105,7 +105,7 @@ export default function LoginForm() {
                                 </FormControl>
                             </Grid>
                             <Grid item>
-                                <Button className={classes.shortTextField} variant="outlined" size="large">Submit</Button>
+                                <Button className={classes.shortTextField} variant="outlined" size="large">Log In</Button>
                             </Grid>
                         </Grid>
                     </Paper>

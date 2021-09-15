@@ -153,7 +153,7 @@ export default function RegistrationForm() {
                                 </FormControl>
                             </Grid>
                             <Grid item>
-                                <Button className={classes.shortTextField} variant="outlined" size="large">Submit</Button>
+                                <Button className={classes.shortTextField} variant="outlined" size="large">Sign Me Up!</Button>
                             </Grid>
                         </Grid>
                     </Paper>
