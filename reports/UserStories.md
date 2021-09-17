@@ -23,7 +23,7 @@ A player will be able to view profiles by searching for a specific user or by ch
 
 #### Tests
 - Test if the user can view other user’s profiles
-- Test if the user can view their own profile.
+- Test if the user can view their own profile
 - Test if the user can change the pic
 - Test if the user can change the bio
 - Test if the user can see their statistics update on their profile
