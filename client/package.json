@@ -31,6 +31,7 @@
     "@babel/runtime": "^7.9.6",
     "@babel/standalone": "^7.9.6",
     "@jest/globals": "^26.6.2",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "11.2.6",
     "@testing-library/react-hooks": "^7.0.2",
