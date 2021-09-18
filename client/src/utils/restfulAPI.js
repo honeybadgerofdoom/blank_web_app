@@ -4,7 +4,7 @@ import { LOG } from "./constants";
 
 const SCHEMAS = {
     config: configSchema
-}
+};
 
 export async function sendAPIRequest(requestBody, serverUrl) {
     const response = await sendRequest(requestBody, serverUrl);
