@@ -1,6 +1,5 @@
-import React from 'react';
-import LoginForm from "./LoginForm";
-import RegistrationForm from "./RegistrationForm";
+import React from "react";
+import {Typography} from "@material-ui/core";
 
 export default function Login() {
 
