@@ -1,6 +1,7 @@
 import Ajv from 'ajv';
 import * as configSchema from "../../schemas/ConfigResponse";
 import { LOG } from "./constants";
+
 const SCHEMAS = {
     config: configSchema
 }
@@ -56,4 +57,3 @@ export function isJsonResponseValid(object, schema) {
     LOG.error(`bad arguments - isJsonResponseValid(object: ${object}, schema: ${schema})`);
     return false;
 }
-

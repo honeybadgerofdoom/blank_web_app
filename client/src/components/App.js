@@ -11,9 +11,11 @@ export default function App() {
 }
 
 export const HookCaller = () => {
-
     const { enqueueSnackbar } = useSnackbar();
-    function showMessage(message, variant = "info") { enqueueSnackbar(message, { variant: variant }) };
+
+    function showMessage(message, variant = "info") {
+        enqueueSnackbar(message, { variant: variant });
+    }
 
     return <Page showMessage={showMessage} />;
 };

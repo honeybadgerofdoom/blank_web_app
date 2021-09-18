@@ -14,5 +14,4 @@ describe('Constants', () => {
         setLogLevelIfDefault();
         expect(ulog.level).toEqual(ulog.INFO);
     });
-
 });
