@@ -14,7 +14,7 @@ export default function TabNavigator(props) {
     const classes = useStyles();
 
 	return (
-		<div className={classes.tabs}>
+	    <div className={classes.tabs}>
             <Grid container spacing={3} justifyContent="center" alignItems="center">
                 <Grid item>
                     <NavigationButtons {...props} />
