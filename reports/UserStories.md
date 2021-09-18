@@ -97,15 +97,17 @@ A user can search and filter through all other registered users to find an oppon
 As a user, I can update and personalize my profile.
 
 #### Conversation
-A registered user can visit their own profile and configure it to their liking. Information such as email, nickname, avatar, and bio can be edited and saved for others to see.
+A registered user can visit their own profile and configure it to their liking. Information such as nickname, avatar, and bio can be edited and saved for others to see.
 
 #### Acceptance Criteria
 - Test that a user can only update their own profile information
 - Test that changes persist across page reloads and logouts
-- Test that the user can change the nickname and/or email
-- Test that the new nickname/email must be unique
+- Test that the user can change the nickname
+- Test that the new nickname must be unique
 - Test that the user can change the pic/ avatar
 - Test that the user can change the bio
+- Test updates with long text inputs
+- Test updates with empty text inputs
 - Test that other users can see the changes (the database is updated)
 
 <hr/>
