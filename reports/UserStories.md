@@ -11,6 +11,8 @@ The game exists on the website, as some kind of virtual chessboard that users ca
 - Test that the system recognizes when the game is over
 - Test that the system knows who won a completed game
 
+<hr/>
+
 ### Playing multiple games at once
 #### Description
 As a user, I can play multiple games at once.
@@ -22,6 +24,8 @@ Several games can be played at a time, and those games are unrelated. The games 
 - Test that if a user quits one game, they do not leave any other game
 - Test that joining a new game does not affect existing games
 - Test that a user can view a list of all matches they are apart of
+
+<hr/>
 
 ### Register/Unregister account
 #### Description
@@ -35,6 +39,8 @@ Completing the registration form on the website creates an account for a user, a
 - Test that deleting an account removes that entry from the database
 - Test that trying to log in to a deleted account fails
 - Test that creating a new account with the same name/username/email as a deleted account yields a new, blank account
+
+<hr/>
 
 ### Match Invitations
 #### Description
@@ -53,6 +59,8 @@ A player can find an opponent to invite to a game by means of searching or viewi
 - Test that accepting makes a match
 - Test that a match is only created with the first person who accepts the invitation
 
+<hr/>
+
 ### Viewing User Profiles
 #### Description
 As a user, I can view my own profile or those of the other registered users.
@@ -66,6 +74,8 @@ A player can select another user's profile to view their game statistics and pro
 - Test if the user can see their statistics update on their profile
 - Test if the user can see other user’s statistics update on their profile
 - Test if the profile is only visible to registered users
+
+<hr/>
 
 ### Searching for Users
 #### Description
@@ -97,3 +107,5 @@ A registered user can visit their own profile and configure it to their liking. 
 - Test that the user can change the pic/ avatar
 - Test that the user can change the bio
 - Test that other users can see the changes (the database is updated)
+
+<hr/>
