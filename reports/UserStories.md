@@ -65,3 +65,27 @@ A player will be able to view profiles by searching for a specific user or by ch
 - Test if the user can see their statistics update on their profile
 - Test if the user can see other user’s statistics update on their profile
 - Test to see if the database is updating with all information 
+
+### Quit the game
+#### Description
+As a user, I can quit the game at any time.
+#### Conversation
+The game will have an option to quit the game at any time. 
+#### Tests
+- Test that when a user quits the game, they can not revist the game
+- Test that when a user quits the game, it doesn't quit any other game they are playing
+- Test that when a user quits the game, it is stored in the database as an abandon game
+- Test that 
+- Test that 
+
+### View the Rules
+#### Description
+As a user, I can view the rules at any time.
+#### Conversation
+Chess has many rules on what is allowed.  The player will be able to access these rules the entire they are playing the game.  
+#### Tests
+- Test that a user can view the rules while playing the game
+- Test that a user can view the rules before playing a game
+- Test that when a user views the rules, it does not disrupt the game
+- Test that 
+- Test that 
