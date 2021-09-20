@@ -73,17 +73,16 @@ As a user, I can quit the game at any time.
 The game will have an option to quit the game at any time. Once a user decides to quit the game, a second window will appear confirming whether or not the user wants to quit the game. If they select yes, the game ends for both users. If they select no, the game resumes for both users. If the user selects yes, the game will be stored in each user profile as an abandon game.
 #### Tests
 - Test that when a user quits the game, they can not revist the game
-- Test that when a user quits the game, it does not quit any other game they are currently playing
-- Test that when a user quits the game, it is stored in the database as an abandon game
-- Test that when a user quits a game, it is also recorded as an abandon game for the user that did not quit the game 
-- Test that when a user quits a game, it does not quit any other game for the other user as well
+- Test that when a user quits the game, it does not quit any other game they are currently playing, for both players
+- Test that when a user quits the game, it is stored in the database as an abandon game for both players
+- Test that when a user quits the game, is is added to their profile, for both players
 
 ### View the Rules
 #### Description
 As a user, I can view the rules at any time.
 #### Conversation
-A player can easily nagivate to the rules at any time whether before, during, or after a games.  The rules are very straight forward, easy to understand, and easy to read. A player will be able to read the rules, top to bottom, or have the option to search for specific words and be taken to that specific part of the rules.
+A player can easily nagivate to the rules at any time whether before, during, or after a game.  The rules are very straight forward, easy to understand, and easy to read. A player will be able to read the rules, top to bottom, or have the option to search for specific words and be taken to that specific part of the rules.
 #### Tests
 - Test that a user can navigate to the rules while playing the game
 - Test that the rules are legible
-- Test that search takes you to specified rule
+- Test that the search bar takes you to the specified rule
