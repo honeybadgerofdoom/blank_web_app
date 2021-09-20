@@ -70,22 +70,20 @@ A player will be able to view profiles by searching for a specific user or by ch
 #### Description
 As a user, I can quit the game at any time.
 #### Conversation
-The game will have an option to quit the game at any time. Once a user decides to quit the game, a second window will appear confirming weather or not the user wants to quit the game. If the select yes, the game ends for both users. If they select no, the game resumes. 
+The game will have an option to quit the game at any time. Once a user decides to quit the game, a second window will appear confirming whether or not the user wants to quit the game. If they select yes, the game ends for both users. If they select no, the game resumes for both users. If the user selects yes, the game will be stored in each user profile as an abandon game.
 #### Tests
 - Test that when a user quits the game, they can not revist the game
 - Test that when a user quits the game, it does not quit any other game they are currently playing
 - Test that when a user quits the game, it is stored in the database as an abandon game
 - Test that when a user quits a game, it is also recorded as an abandon game for the user that did not quit the game 
-- Test that when a user quits a game, it does not quit any other game for the other user 
+- Test that when a user quits a game, it does not quit any other game for the other user as well
 
 ### View the Rules
 #### Description
 As a user, I can view the rules at any time.
 #### Conversation
-Chess has many rules on what is allowed.  The player will be able to access these rules the entire they are playing the game.   There will be a tab at the top that is titled rules. They can either read the rules too to bottom or use the search bar to search specific words such as "queen" if they specifically only want to read the rules for the queen. 
+A player can easily nagivate to the rules at any time whether before, during, or after a games.  The rules are very straight forward, easy to understand, and easy to read. A player will be able to read the rules, top to bottom, or have the option to search for specific words and be taken to that specific part of the rules.
 #### Tests
-- Test that a user can view the rules while playing the game
-- Test that a user can view the rules before playing a game
-- Test that when a user views the rules, it does not disrupt the game
-- Test that when a user uses the search bar, it takes them to that specific part of the rules. 
-- Test that 
+- Test that a user can navigate to the rules while playing the game
+- Test that the rules are legible
+- Test that search takes you to specified rule
