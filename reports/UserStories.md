@@ -126,6 +126,7 @@ What else?  Oh right.  The state of the matches should be saved in some way, so 
 - Test that the relationship between a specific saved game and a specific user is preserved after log out.
 - Test that a game can be loaded from a save.
 - Test that a user can return to a game after logging out.
+- Test that a user can see a list of active games to return to.
 
 <hr/>
 
