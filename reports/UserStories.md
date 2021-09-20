@@ -111,3 +111,35 @@ A registered user can visit their own profile and configure it to their liking. 
 - Test that other users can see the changes (the database is updated)
 
 <hr/>
+
+### Returning to a game after logging out
+#### Description
+As a user, I can return to a game after I log out.
+
+#### Conversation
+What else?  Oh right.  The state of the matches should be saved in some way, so the user can play whenever she wants.  My guess is that users won't be playing the whole time, so for example, a user would make a move whenever is her turn and log out, and after a while she would come back and check if the other player made a move and it’s her turn again. 
+
+#### Acceptance Criteria
+- Test that a user can login.
+- Test that a user can logout.
+- Test that a game can be saved.
+- Test that the relationship between a specific saved game and a specific user is preserved after log out.
+- Test that a game can be loaded from a save.
+- Test that a user can return to a game after logging out.
+
+<hr/>
+
+### Notification of an opponent’s move
+
+#### Description
+As a user, I can be notified when my opponents make a move.
+
+#### Conversation
+Asynchronous matches, I think that describes it.The system needs to know when a game is over **and should let know the players who won or lost**
+
+#### Acceptance Criteria
+- Test that a user can recieve a notification.
+- Test that the system can send a notification.
+- Test that a win triggers a notification.
+- Test that a loss/concession triggers a notification.
+- Test that both players are notified.
