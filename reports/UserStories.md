@@ -73,6 +73,32 @@ A player can select another user's profile to view their game statistics and pro
 - Test if the user can view their own profile
 - Test if the user can see their statistics update on their profile
 - Test if the user can see other user’s statistics update on their profile
+- Test to see if the database is updating with all information 
+
+<hr/>
+
+### Quit the game
+#### Description
+As a user, I can quit the game at any time.
+#### Conversation
+The platform will have an option to quit the game at any time while the game is being played. Once a user decides to quit their current game, a second window will appear confirming whether or not the user wants to quit the game or not. If they select yes, the game ends for both users. If they select no, the game resumes for both users. If the user selects yes, the game will be stored in each user profile as an abandon game.
+#### Tests
+- Test that when a user quits the game, they can not revist the game
+- Test that when a user quits the game, it does not quit any other game they are currently playing, for both players
+- Test that when a user quits the game, it is stored in the database as an abandon game for both players
+- Test that when a user quits the game, is is added to their profile, for both players
+
+<hr/>
+
+### View the Rules
+#### Description
+As a user, I can view the rules at any time.
+#### Conversation
+A player can easily nagivate to the rules at any time whether before, during, or after a game.  The rules are very straight forward, easy to understand, and easy to read. A player will be able to read the rules, top to bottom, or have the option to search for specific words and be taken to that specific part of the rules.
+#### Tests
+- Test that a user can navigate to the rules while playing the game
+- Test that the rules are legible
+- Test that the search bar takes you to the specified rule
 - Test if the profile is only visible to registered users
 
 <hr/>
@@ -110,4 +136,3 @@ A registered user can visit their own profile and configure it to their liking. 
 - Test updates with empty text inputs
 - Test that other users can see the changes (the database is updated)
 
-<hr/>
