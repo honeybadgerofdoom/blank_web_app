@@ -136,3 +136,33 @@ A registered user can visit their own profile and configure it to their liking. 
 - Test updates with empty text inputs
 - Test that other users can see the changes (the database is updated)
 
+<hr/>
+
+### Navigating the page
+#### Description
+As a user, I can navigate the web page between the different sections based on whether I want to play a game, view a users profile, or register/unregister.
+
+#### Conversation
+The user profiles, registration page, and game board is all on a website. Different tabs would allow one to switch between the different features, as long as the user is currently signed in.
+
+#### Acceptance Criteria
+- Test that there are multiple tabs at the top of the web page
+- Test that the tabs take you to the correct pages.
+- Test that the tabs either don't work or take you to a register prompt if a user attempts to use them without being logged in.
+
+<hr/>
+
+### Recording game history and stats
+#### Description
+As a user, I can have my statistics related to games I've played recorded.
+
+#### Conversation
+When you finish a game, information related to that game will be stored and displayed on their profile. This information includes the times and dates the game began and ended, who won and who lost the game, and whether the game was abandoned partway through. All this information will be recorded for multiple games, and will all be displayed on a users profile. 
+
+#### Acceptance Criteria
+- Test that the start time and date are recorded when a game is started.
+- Test that the end date and time are recorded when a game is finished.
+- Test that the way the game ends is recorded (who wins and loses, or whether the game was abandoned)
+- Test that the game information that is recorded updates on the users profile correctly.
+- Test that the information for multiple games can be recorded at the same time.
+
