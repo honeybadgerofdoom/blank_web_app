@@ -3,7 +3,7 @@ package com.tco.server;
 import com.tco.misc.BadRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.requests.ConfigRequest;
-import com.tco.requests.RequestHeader;
+import com.tco.requests.Request;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import static spark.Spark.*;
 
 class MicroServer {
-
     private final Logger log = LoggerFactory.getLogger(MicroServer.class);
     private DateTimeFormatter dateTimeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
@@ -41,12 +40,13 @@ class MicroServer {
 
     /* You shouldn't need to change what is found below. */
 
-    private String processHttpRequest(spark.Request httpRequest, spark.Response httpResponse, Type type) {
+    private String processHttpRequest(spark.Request httpRequest, spark.Response httpResponse, Type requestType) {
         setupResponse(httpResponse);
         String jsonString = httpRequest.body();
         try {
-            JSONValidator.validate(jsonString, type);
-            return buildJSONResponse(new Gson().fromJson(jsonString, type));
+            JSONValidator.validate(jsonString, requestType);
+            Request requestObj = new Gson().fromJson(jsonString, requestType);
+            return buildJSONResponse(requestObj);
         } catch (IOException | BadRequestException e) {
             log.info("Bad Request - {}", e.getMessage());
             httpResponse.status(HTTP_BAD_REQUEST);
@@ -64,7 +64,7 @@ class MicroServer {
         response.status(HTTP_OK);
     }
 
-    private String buildJSONResponse(RequestHeader request) throws BadRequestException {
+    private String buildJSONResponse(Request request) throws BadRequestException {
         request.buildResponse();
         String responseBody = new Gson().toJson(request);
         log.trace("Response - {}", responseBody);

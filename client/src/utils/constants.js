@@ -15,5 +15,3 @@ export function setLogLevelIfDefault() {
 setLogLevelIfDefault();
 
 export const LOG = ulog("App");
-
-export const EARTH_RADIUS_UNITS_DEFAULT = { "miles": 3959 };

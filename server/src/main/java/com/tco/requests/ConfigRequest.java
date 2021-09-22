@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConfigRequest extends RequestHeader {
-
+public class ConfigRequest extends Request {
     private String serverName;
     private final transient Logger log = LoggerFactory.getLogger(ConfigRequest.class);
     private ArrayList<String> features;
 
     @Override
     public void buildResponse() {
-        serverName = "414 Project";
-        features = new ArrayList<String>();
+        serverName = "Team-ReaKt";
+        features = new ArrayList<>();
         features.add("config");
         log.trace("buildResponse -> {}", this);
     }

@@ -1,13 +1,19 @@
-import '../jestConfig/enzyme.config.js';
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
-import App from "../../src/components/App";
-import { describe, it } from "@jest/globals";
+import { render, screen } from '@testing-library/react';
+import { beforeEach, describe, it } from '@jest/globals';
+import { LOG } from '../../src/utils/constants';
+import App from '../../src/components/App';
 
 describe('App', () => {
-    it('bad connection shows snackbar', async () => {
+    beforeEach(() => {
         fetch.resetMocks();
-        fetch.mockReject();
-        const { findByText } = render(<App />);
+    });
+
+    it('shows error snackbar if no server config', async () => {
+        jest.spyOn(LOG, 'error').mockImplementation(() => {});
+        fetch.mockReject(() => Promise.reject("API is down (expected)."));
+
+        render(<App />);
+        //await screen.findByText(/failed/i);
     });
 });

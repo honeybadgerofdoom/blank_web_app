@@ -4,27 +4,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class WebApplication {
-
     protected final static int DEFAULT_SERVER_PORT = 8088;
     protected final static int MAX_SERVER_PORT = 65535;
     protected final static int MIN_SERVER_PORT = 1024;
     private final static Logger log = LoggerFactory.getLogger(WebApplication.class);
 
     public static void main(String[] commandLineArguments) {
-
         if (commandLineArguments.length > 1) {
             log.error("Too many command line arguments given. Expected 1 but found {}.", commandLineArguments.length);
             System.exit(1);
         }
 
-        Integer serverPort = getServerPort(commandLineArguments);
-        MicroServer server = new MicroServer(serverPort);
+        int serverPort = getServerPort(commandLineArguments);
+        new MicroServer(serverPort);
     }
 
 
     protected static int getServerPort(String[] commandLineArguments) {
-
-        Integer serverPort = DEFAULT_SERVER_PORT;
+        int serverPort = DEFAULT_SERVER_PORT;
         if (commandLineArguments.length > 0) {
             try {
                 serverPort = Integer.parseInt(commandLineArguments[0]);

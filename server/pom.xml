@@ -4,8 +4,8 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
     </properties>
 
     <modelVersion>4.0.0</modelVersion>
@@ -15,11 +15,23 @@
     <version>${revision}</version>
     <name>tco</name>
 
+    <profiles>
+        <profile>
+            <id>no-nfs</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.directory.prefix>..</build.directory.prefix>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
-        <directory>../target</directory>
+        <directory>${build.directory.prefix}/target</directory>
         <resources>
             <resource>
-                <directory>../client/dist</directory>
+                <directory>${build.directory.prefix}/client/dist</directory>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
@@ -50,6 +62,19 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/DEPENDENCIES</exclude>
+                                <exclude>META-INF/LICENSE*</exclude>
+                                <exclude>META-INF/NOTICE*</exclude>
+                                <exclude>about.html</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -66,8 +91,8 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.5</version>
                 <configuration>
-                    <destFile>../target/coverage/server/jacoco-unit.exec</destFile>
-                    <dataFile>../target/coverage/server/jacoco-unit.exec</dataFile>
+                    <destFile>${build.directory.prefix}/target/coverage/server/jacoco-unit.exec</destFile>
+                    <dataFile>${build.directory.prefix}/target/coverage/server/jacoco-unit.exec</dataFile>
                 </configuration>
                 <executions>
                     <execution>
@@ -84,6 +109,15 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>

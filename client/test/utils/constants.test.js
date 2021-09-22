@@ -1,4 +1,3 @@
-import '../jestConfig/enzyme.config.js';
 import { describe, expect, it } from "@jest/globals";
 import { setLogLevelIfDefault } from '../../src/utils/constants'
 import { ulog } from 'ulog/ulog';
@@ -14,5 +13,4 @@ describe('Constants', () => {
         setLogLevelIfDefault();
         expect(ulog.level).toEqual(ulog.INFO);
     });
-
 });
