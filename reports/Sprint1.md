@@ -19,7 +19,7 @@ For P1, we set a goal of planning out the structure, design, and development pro
 We started planning early, which gave us ample time to complete all of the planning tasks. We communicated regularly and effectively both on Teams and in person. We always approached new challenges with energy and enthusiasm. We made sure to ask questions to the product owner on requirements that were not clear.
 
 ### Things that we need to improve
-In future sprints, we need to make sure everyone finishes their individual tasks on time, and stays up to speed with agreed upon deadlines. We will have to make more detailed and descriptive tasks after gaining a better understanding of our desired project structure.
+In future sprints, we need to make sure everyone finishes their individual tasks on time, and stays up to speed with agreed upon deadlines. We will have to make more detailed and descriptive tasks after gaining a better understanding of our desired project structure. Task assignment during group work sessions was difficult, we should experiment with breaking up group work sessions into individual sections so that everyone has an equal chance to participate.
 
 ### One thing we will change next time
 In the future we will double check the assignment specifications so that we do not waste time working on parts that are not as important to meeting our goals.
