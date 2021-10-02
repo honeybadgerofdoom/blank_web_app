@@ -31,12 +31,8 @@ const useStyles = makeStyles((theme) => ({
 export default function LoginForm() {
     const classes = useStyles();
     const [values, setValues] = React.useState({
-        firstName: '',
-        lastName: '',
-        userName: '',
         email: '',
         password: '',
-        confirmPassword: '',
         showPassword: false,
     });
 
@@ -83,12 +79,12 @@ export default function LoginForm() {
                                     />
                                 </FormControl>
                                 <FormControl className={classes.shortTextField} variant="outlined">
-                                    <InputLabel htmlFor="confirmPassword">Confirm Password</InputLabel>
+                                    <InputLabel htmlFor="password">Password</InputLabel>
                                     <OutlinedInput
-                                        id="confirmPassword"
+                                        id="password"
                                         type={values.showPassword ? 'text' : 'password'}
                                         value={values.password}
-                                        onChange={handleChange('confirmPassword')}
+                                        onChange={handleChange('password')}
                                         endAdornment={
                                             <InputAdornment position="end">
                                                 <IconButton

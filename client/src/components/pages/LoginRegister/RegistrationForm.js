@@ -135,7 +135,7 @@ export default function RegistrationForm() {
                                     <OutlinedInput
                                         id="confirmPassword"
                                         type={values.showPassword ? 'text' : 'password'}
-                                        value={values.password}
+                                        value={values.confirmPassword}
                                         onChange={handleChange('confirmPassword')}
                                         endAdornment={
                                             <InputAdornment position="end">
