@@ -1,4 +1,3 @@
-import Square from "./Square";
 import React from "react";
 
 const pieces = {
@@ -22,7 +21,6 @@ const pieces = {
 }
 
 export const mockChessboard = [
-    //String array, order on the client is implied
     [pieces.white.rook,
     pieces.white.knight,
     pieces.white.bishop,
