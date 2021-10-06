@@ -33,12 +33,12 @@ export default function Play() {
     }
 
     function getPosition(rowIndex, colIndex) {
+        //FIXME This still isn't right
         const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
         return letterArray[colIndex] + (rowIndex % (colIndex + 1) + 1);
     }
 
     function renderCells(row, rowIndex) {
-        const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
         return (
             row.map((piece, index) => {
                 const position = getPosition(rowIndex, index);
