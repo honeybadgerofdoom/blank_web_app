@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Button, Grid, Paper, Typography} from "@material-ui/core";
 import CustomInputField from "./CustomInputField";
 import PasswordInputField from "./PasswordInputField";
+import CustomColumn from "../../../utils/CustomColumn";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,13 +33,7 @@ export default function RegistrationForm() {
             >
                 <Grid item>
                     <Paper elevation={3} className={classes.paper}>
-                        <Grid
-                            className={classes.root}
-                            container
-                            direction="column"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
+                        <CustomColumn>
                             <Grid item>
                                 <Typography variant="h4" align="center">Register</Typography>
                                 <br/>
@@ -56,7 +51,7 @@ export default function RegistrationForm() {
                             <Grid item>
                                 <Button className={classes.shortTextField} variant="outlined" size="large">Sign Me Up!</Button>
                             </Grid>
-                        </Grid>
+                        </CustomColumn>
                     </Paper>
                 </Grid>
             </Grid>
