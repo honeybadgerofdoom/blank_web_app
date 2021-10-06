@@ -9,6 +9,7 @@ import {
     TableRow,
     Typography
 } from "@material-ui/core";
+import {chessRows} from "./MockChessboard";
 import Square from "./Square";
 
 const useStyles = makeStyles({
@@ -20,26 +21,23 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Play(props) {
+export default function Play() {
     const classes = useStyles();
-    const pieces = {
-        white: {
-            king: "\u2654",
-            queen: "\u2655",
-            rook: "\u2656",
-            bishop: "\u2657",
-            knight: "\u2658",
-            pawn: "\u2659"
-        },
-        black: {
-            king: "\u265A",
-            queen: "\u265B",
-            rook: "\u265C",
-            bishop: "\u265D",
-            knight: "\u265E",
-            pawn: "\u265F"
-        },
-        empty: "\u1806"
+
+    function renderRows() {
+        let rows = []
+        chessRows.reverse().forEach((row, index) => {
+            rows.push(<TableRow key={index}>{renderCells(row)}</TableRow>)
+        })
+        return rows;
+    }
+
+    function renderCells(row) {
+        let cells = [];
+        for(const [key, value] of Object.entries(row)) {
+            cells.push(<Square key={key} piece={value} position={key}/>);
+        }
+        return cells;
     }
 
     return <>
@@ -53,86 +51,7 @@ export default function Play(props) {
             <TableContainer component={Paper} className={classes.board}>
                 <Table>
                     <TableBody>
-                        <TableRow>
-                            <Square piece={pieces.black.rook}/>
-                            <Square piece={pieces.black.knight}/>
-                            <Square piece={pieces.black.bishop}/>
-                            <Square piece={pieces.black.queen}/>
-                            <Square piece={pieces.black.king}/>
-                            <Square piece={pieces.black.bishop}/>
-                            <Square piece={pieces.black.knight}/>
-                            <Square piece={pieces.black.rook}/>
-                        </TableRow>
-                        <TableRow>
-                            <Square piece={pieces.black.pawn}/>
-                            <Square piece={pieces.black.pawn}/>
-                            <Square piece={pieces.black.pawn}/>
-                            <Square piece={pieces.black.pawn}/>
-                            <Square piece={pieces.black.pawn}/>
-                            <Square piece={pieces.black.pawn}/>
-                            <Square piece={pieces.black.pawn}/>
-                            <Square piece={pieces.black.pawn}/>
-                        </TableRow>
-                        <TableRow>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                        </TableRow>
-                        <TableRow>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                        </TableRow>
-                        <TableRow>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                        </TableRow>
-                        <TableRow>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                            <Square piece={pieces.empty}/>
-                        </TableRow>
-                        <TableRow>
-                            <Square piece={pieces.white.pawn}/>
-                            <Square piece={pieces.white.pawn}/>
-                            <Square piece={pieces.white.pawn}/>
-                            <Square piece={pieces.white.pawn}/>
-                            <Square piece={pieces.white.pawn}/>
-                            <Square piece={pieces.white.pawn}/>
-                            <Square piece={pieces.white.pawn}/>
-                            <Square piece={pieces.white.pawn}/>
-                        </TableRow>
-                        <TableRow>
-                            <Square piece={pieces.white.rook}/>
-                            <Square piece={pieces.white.knight}/>
-                            <Square piece={pieces.white.bishop}/>
-                            <Square piece={pieces.white.queen}/>
-                            <Square piece={pieces.white.king}/>
-                            <Square piece={pieces.white.bishop}/>
-                            <Square piece={pieces.white.knight}/>
-                            <Square piece={pieces.white.rook}/>
-                        </TableRow>
+                        {renderRows()}
                     </TableBody>
                 </Table>
             </TableContainer>

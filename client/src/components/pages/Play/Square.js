@@ -16,7 +16,7 @@ export default function Play(props) {
     const [backgroundColor, setBackgroundColor] = useState('#fff');
 
     function handleClick() {
-        console.log(props.piece);
+        console.log(props.position);
         setBackgroundColor('#111');
     }
 
