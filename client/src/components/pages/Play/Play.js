@@ -39,7 +39,6 @@ export default function Play() {
     }
 
     function renderCells(row, rowIndex) {
-        console.log({rowIndex})
         return (
             row.map((piece, index) => {
                 const position = getPosition(rowIndex, index);
