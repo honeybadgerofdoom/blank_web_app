@@ -9,7 +9,7 @@ import {
     TableRow,
     Typography
 } from "@material-ui/core";
-import {chessRows} from "./MockChessboard";
+import {mockChessboard} from "./MockChessboard";
 import Square from "./Square";
 
 const useStyles = makeStyles({
@@ -25,19 +25,30 @@ export default function Play() {
     const classes = useStyles();
 
     function renderRows() {
-        let rows = []
-        chessRows.reverse().forEach((row, index) => {
-            rows.push(<TableRow key={index}>{renderCells(row)}</TableRow>)
-        })
-        return rows;
+        return (
+            mockChessboard.reverse().map((row, index) => {
+                return (<TableRow key={index}>{renderCells(row, index)}</TableRow>);
+            })
+        )
     }
 
-    function renderCells(row) {
-        let cells = [];
-        for(const [key, value] of Object.entries(row)) {
-            cells.push(<Square key={key} piece={value} position={key}/>);
-        }
-        return cells;
+    function getPosition(rowIndex, colIndex) {
+        const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        return letterArray[colIndex] + (rowIndex % (colIndex + 1) + 1);
+    }
+
+    function renderCells(row, rowIndex) {
+        const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        return (
+            row.map((piece, index) => {
+                const position = getPosition(rowIndex, index);
+                return <Square key={index} piece={piece} position={position}/>
+            })
+        )
+    }
+
+    function nextChar(c) {
+        return String.fromCharCode(c.charCodeAt(0) + 1);
     }
 
     return <>
