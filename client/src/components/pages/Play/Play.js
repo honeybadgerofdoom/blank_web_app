@@ -33,22 +33,19 @@ export default function Play() {
     }
 
     function getPosition(rowIndex, colIndex) {
-        //FIXME This still isn't right
+        const indexArray = ['8', '7', '6', '5', '4', '3', '2', '1'];
         const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-        return letterArray[colIndex] + (rowIndex % (colIndex + 1) + 1);
+        return letterArray[colIndex] + indexArray[rowIndex];
     }
 
     function renderCells(row, rowIndex) {
+        console.log({rowIndex})
         return (
             row.map((piece, index) => {
                 const position = getPosition(rowIndex, index);
                 return <Square key={index} piece={piece} position={position}/>
             })
         )
-    }
-
-    function nextChar(c) {
-        return String.fromCharCode(c.charCodeAt(0) + 1);
     }
 
     return <>
