@@ -15,7 +15,7 @@ export default function Play() {
     function renderRows() {
         return (
             mockChessboard.reverse().map((row, index) => {
-                return (<TableRow key={index}>{renderCells(row, index)}</TableRow>);
+                return <TableRow key={index}>{renderCells(row, index)}</TableRow>;
             })
         )
     }
@@ -35,7 +35,7 @@ export default function Play() {
         return letterArray[colIndex] + indexArray[rowIndex];
     }
 
-    return <>
+    return (
         <Grid
             container
             direction="column"
@@ -50,5 +50,5 @@ export default function Play() {
                 </Table>
             </TableContainer>
         </Grid>
-    </>
+    )
 }
