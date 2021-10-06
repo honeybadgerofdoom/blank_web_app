@@ -14,14 +14,12 @@ const useStyles = makeStyles({
 
 export default function Play(props) {
     const classes = useStyles();
-    const [backgroundColor, setBackgroundColor] = useState('#fff');
 
     function handleClick() {
         console.log(props.position);
-        setBackgroundColor('#111');
     }
 
     return (
-        <TableCell align="center" className={classes.root} style={{backgroundColor: {backgroundColor}}} onClick={handleClick}>{props.piece}</TableCell>
+        <TableCell align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
     )
 }
