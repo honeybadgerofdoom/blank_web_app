@@ -7,7 +7,8 @@ const useStyles = makeStyles({
         borderColor: 'black',
         borderStyle: 'solid',
         height: "10vh",
-        width: "10vw"
+        width: "10vw",
+        fontSize: "32pt",
     },
 });
 
