@@ -18,7 +18,7 @@ const pieces = {
         knight: "\u265E",
         pawn: "\u265F"
     },
-    empty: "\u1806"
+    empty: ""
 }
 
 export const mockChessboard = [
