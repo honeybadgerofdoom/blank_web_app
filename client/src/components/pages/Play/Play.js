@@ -1,22 +1,10 @@
 import React from "react";
-import {
-    Grid,
-    makeStyles,
-    Paper,
-    Table,
-    TableBody,
-    TableContainer,
-    TableRow,
-    Typography
-} from "@material-ui/core";
+import {Grid, makeStyles, Paper, Table, TableBody, TableContainer, TableRow,} from "@material-ui/core";
 import {mockChessboard} from "./MockChessboard";
 import Square from "./Square";
 
 const useStyles = makeStyles({
-    title: {
-        margin: "10px",
-    },
-    board: {
+    root: {
         width: "80vw",
     },
 });
@@ -32,12 +20,6 @@ export default function Play() {
         )
     }
 
-    function getPosition(rowIndex, colIndex) {
-        const indexArray = ['8', '7', '6', '5', '4', '3', '2', '1'];
-        const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-        return letterArray[colIndex] + indexArray[rowIndex];
-    }
-
     function renderCells(row, rowIndex) {
         return (
             row.map((piece, index) => {
@@ -47,15 +29,20 @@ export default function Play() {
         )
     }
 
+    function getPosition(rowIndex, colIndex) {
+        const indexArray = ['8', '7', '6', '5', '4', '3', '2', '1'];
+        const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        return letterArray[colIndex] + indexArray[rowIndex];
+    }
+
     return <>
-        <Typography className={classes.title} align="center">Play Page</Typography>
         <Grid
             container
             direction="column"
             justifyContent="center"
             alignItems="center"
         >
-            <TableContainer component={Paper} className={classes.board}>
+            <TableContainer component={Paper} className={classes.root}>
                 <Table>
                     <TableBody>
                         {renderRows()}
