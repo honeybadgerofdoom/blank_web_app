@@ -18,7 +18,7 @@ export default function Board() {
 
     function renderRows() {
         return (
-            mockChessboard.reverse().map((row, index) => {
+            mockChessboard.map((row, index) => {
                 return <TableRow key={index}>{renderCells(row, index)}</TableRow>;
             })
         )

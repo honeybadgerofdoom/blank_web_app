@@ -63,9 +63,7 @@ export default function Square(props) {
             props.setClickedSquare(props.position);
         }
         const position = props.position;
-        const piece = props.piece;
         console.log({position});
-        console.log({piece});
     }
 
     return (
