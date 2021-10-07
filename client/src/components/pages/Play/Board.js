@@ -29,7 +29,7 @@ export default function Board() {
             row.map((piece, index) => {
                 const position = getPosition(rowIndex, index);
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
-                               highlightedSquares={highlightedSquares} setHighlightedSquare={setHighlightedSquares()}
+                               highlightedSquares={highlightedSquares} setHighlightedSquare={setHighlightedSquares}
                                key={index} piece={piece} position={position}/>
             })
         )

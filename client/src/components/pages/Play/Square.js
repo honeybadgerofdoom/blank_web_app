@@ -15,15 +15,14 @@ const useStyles = makeStyles({
 export default function Square(props) {
     const classes = useStyles();
     const [squareColor, setSquareColor] = useState();
-    // const [legalMoves, setLegalMoves] = useState([]);
 
     useEffect(() => {
         if(props.clickedSquare === props.position) {
-            const clickedSquareColor = "#0011ff";
+            const clickedSquareColor = "#0000ff";
             setSquareColor(clickedSquareColor);
         }
         else if(props.highlightedSquares.includes(props.position)) {
-            const highlightedSquare = "#6b97ff";
+            const highlightedSquare = "#ff0000";
             setSquareColor(highlightedSquare);
         }
         else {
@@ -53,14 +52,14 @@ export default function Square(props) {
 
         if(props.piece !== "") {
             props.setClickedSquare(props.position);
-        }
-        const legalMovesResponse = await(sendAPIRequest({requestType: "legalMoves", position: {position}});
-        console.log({legalMovesResponse});
-        if(legalMovesResponse) {
-            props.setHighlightedSquares(legalMovesResponse);
-        }
-        else {
-            console.log("ERROR");
+            const legalMovesResponse = await(sendAPIRequest({requestType: "legalMoves", position: {position}});
+            console.log({legalMovesResponse});
+            if(legalMovesResponse) {
+                props.setHighlightedSquares(legalMovesResponse);
+            }
+            else {
+                console.log("ERROR");
+            }
         }
          */
         if(props.piece !== "") {
