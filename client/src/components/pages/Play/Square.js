@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Play(props) {
+export default function Square(props) {
     const classes = useStyles();
     const squareColor = getSquareColor();
     // const [legalMoves, setLegalMoves] = useState([]);
