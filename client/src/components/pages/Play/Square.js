@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles, TableCell} from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -14,7 +14,8 @@ const useStyles = makeStyles({
 
 export default function Play(props) {
     const classes = useStyles();
-    const squareColor = getSquareColor();
+    const [squareColor, setSquareColor] = useState(getSquareColor())
+    // const squareColor = getSquareColor();
     // const [legalMoves, setLegalMoves] = useState([]);
 
     function getSquareColor() {
@@ -46,11 +47,13 @@ export default function Play(props) {
             console.log("ERROR");
         }
          */
+        const highlightedSquare = "#0011ff";
+        setSquareColor(highlightedSquare);
         const position = props.position;
         console.log({position});
     }
 
     return (
-        <TableCell style={{background: `${squareColor}`}} align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
+        <TableCell id={props.position} style={{background: `${squareColor}`}} align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
     )
 }
