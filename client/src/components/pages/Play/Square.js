@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles, TableCell} from "@material-ui/core";
+import {squareColors} from "./squareColors";
 
 const useStyles = makeStyles({
     root: {
@@ -18,12 +19,10 @@ export default function Square(props) {
 
     useEffect(() => {
         if(props.clickedSquare === props.position) {
-            const clickedSquareColor = "#0000ff";
-            setSquareColor(clickedSquareColor);
+            setSquareColor(squareColors.clickedSquareColor);
         }
         else if(props.highlightedSquares.includes(props.position)) {
-            const highlightedSquare = "#ff0000";
-            setSquareColor(highlightedSquare);
+            setSquareColor(squareColors.highlightedSquare);
         }
         else {
             setSquareColor(getSquareColor());
@@ -31,9 +30,7 @@ export default function Square(props) {
     })
 
     function getSquareColor() {
-        const whiteSquare = "#fff5db";
-        const blackSquare = "#a39d8c";
-        return squareIsBlack() ? blackSquare : whiteSquare;
+        return squareIsBlack() ? squareColors.blackSquare : squareColors.whiteSquare;
     }
 
     function squareIsBlack() {
