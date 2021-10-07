@@ -46,8 +46,8 @@ export default function Play(props) {
             console.log("ERROR");
         }
          */
-        console.log(props.position);
-        console.log({squareColor});
+        const position = props.position;
+        console.log({position});
     }
 
     return (
