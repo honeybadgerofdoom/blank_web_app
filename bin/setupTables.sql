@@ -9,9 +9,9 @@ CREATE DATABASE IF NOT EXISTS chess;
 CONNECT chess;
 
 -- Recreate tables every time this script is run
-DROP TABLE IF EXISTS users,
-                     userProfile,
-                     profiles;
+DROP TABLE IF EXISTS userGames,
+                     users,
+                     games;
 
 
 --
@@ -20,9 +20,10 @@ DROP TABLE IF EXISTS users,
 
 CREATE TABLE users (
     userID INT NOT NULL AUTO_INCREMENT,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    firstName VARCHAR(255) NOT NULL,
-    lastName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    nickname VARCHAR(255) NOT NULL UNIQUE,
+    bio VARCHAR(1024),
+    picURL VARCHAR(255),
 
     -- These fields are set as fixed width, with the assumption they will hold a SHA256 hash
     password CHAR(64) NOT NULL,
@@ -31,21 +32,22 @@ CREATE TABLE users (
     PRIMARY KEY (userID) 
 );
 
-CREATE TABLE profiles (
-    profileID INT NOT NULL AUTO_INCREMENT,
-    bio VARCHAR(255),
-    picURL VARCHAR(255),
-    PRIMARY KEY (profileID)
+CREATE TABLE games (
+                       gameID INT NOT NULL,
+                       turn enum ('WHITE', 'BLACK') NOT NULL,
+                       board CHAR(64) NOT NULL,
+                       PRIMARY KEY (gameID)
 );
 
 -- 
 -- Relations:
 --
-
-CREATE TABLE userProfile (
+CREATE TABLE userGames (
+    gameID INT NOT NULL,
     userID INT NOT NULL,
-    profileID INT NOT NULL,
-    FOREIGN KEY (userID) REFERENCES users (userID),
-    FOREIGN KEY (profileID) REFERENCES profiles (profileID),
-    UNIQUE (userID, profileID)
+     color enum ('WHITE', 'BLACK') NOT NULL,
+     FOREIGN KEY (userID) REFERENCES users (userID),
+     FOREIGN KEY (gameID) REFERENCES games (gameID),
+     UNIQUE (gameID, color)
 );
+
