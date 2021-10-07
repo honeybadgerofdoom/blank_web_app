@@ -27,8 +27,8 @@ export const mockChessboard = [
     pieces.white.queen,
     pieces.white.king,
     pieces.white.bishop,
-    pieces.white.rook,
-    pieces.white.knight,],
+    pieces.white.knight,
+    pieces.white.rook,],
 
     [pieces.white.pawn,
     pieces.white.pawn,
@@ -90,6 +90,6 @@ export const mockChessboard = [
     pieces.black.queen,
     pieces.black.king,
     pieces.black.bishop,
-    pieces.black.rook,
-    pieces.black.knight,],
+    pieces.black.knight,
+    pieces.black.rook,],
 ];
