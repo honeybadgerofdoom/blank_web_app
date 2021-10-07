@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Play(props) {
+export default function Square(props) {
     const classes = useStyles();
     const [squareColor, setSquareColor] = useState(getSquareColor())
     // const squareColor = getSquareColor();
@@ -47,6 +47,7 @@ export default function Play(props) {
             console.log("ERROR");
         }
          */
+        props.setClickedSquare(props.position);
         const highlightedSquare = "#0011ff";
         setSquareColor(highlightedSquare);
         const position = props.position;
