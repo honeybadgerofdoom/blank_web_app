@@ -14,6 +14,7 @@ const useStyles = makeStyles({
 export default function Board() {
     const classes = useStyles();
     const [clickedSquare, setClickedSquare] = useState("");
+    const [highlightedSquares, setHighlightedSquares] = useState([]);
 
     function renderRows() {
         return (
@@ -28,6 +29,7 @@ export default function Board() {
             row.map((piece, index) => {
                 const position = getPosition(rowIndex, index);
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
+                               highlightedSquares={highlightedSquares} setHighlightedSquare={setHighlightedSquares()}
                                key={index} piece={piece} position={position}/>
             })
         )

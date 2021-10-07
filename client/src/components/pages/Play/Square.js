@@ -19,8 +19,12 @@ export default function Square(props) {
 
     useEffect(() => {
         if(props.clickedSquare === props.position) {
-            const highlightedSquareColor = "#0011ff";
-            setSquareColor(highlightedSquareColor);
+            const clickedSquareColor = "#0011ff";
+            setSquareColor(clickedSquareColor);
+        }
+        else if(props.highlightedSquares.includes(props.position)) {
+            const highlightedSquare = "#6b97ff";
+            setSquareColor(highlightedSquare);
         }
         else {
             setSquareColor(getSquareColor());
@@ -47,18 +51,25 @@ export default function Square(props) {
         The request is an object with a type of legal moves and a String position.
         The response should be a String array containing the legal moves, as in A2.
 
+        if(props.piece !== "") {
+            props.setClickedSquare(props.position);
+        }
         const legalMovesResponse = await(sendAPIRequest({requestType: "legalMoves", position: {position}});
         console.log({legalMovesResponse});
         if(legalMovesResponse) {
-            setLegalMoves(legalMovesResponse);
+            props.setHighlightedSquares(legalMovesResponse);
         }
         else {
             console.log("ERROR");
         }
          */
-        props.setClickedSquare(props.position);
+        if(props.piece !== "") {
+            props.setClickedSquare(props.position);
+        }
         const position = props.position;
+        const piece = props.piece;
         console.log({position});
+        console.log({piece});
     }
 
     return (
