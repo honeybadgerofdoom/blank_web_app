@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import {Input} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,12 +17,12 @@ export default function CustomInputField(props) {
 
     function handleChange(event) {
         setValue(event.target.value);
-    };
+    }
 
     return (
-        <FormControl className={classes.root} variant="outlined">
+        <FormControl className={classes.root}>
             <InputLabel htmlFor={props.title}>{props.name}</InputLabel>
-            <OutlinedInput
+            <Input
                 id={props.title}
                 value={value}
                 onChange={handleChange}
