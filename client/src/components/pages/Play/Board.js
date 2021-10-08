@@ -31,7 +31,7 @@ export default function Board() {
         return (
             boardState.map((piece, index) => {
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
-                               highlightedSquares={highlightedSquares} setHighlightedSquare={setHighlightedSquares}
+                               highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
                                key={index} piece={piece} position={positionMap[index]}/>
             })
         )

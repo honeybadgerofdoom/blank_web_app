@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core";
 import {squareColors} from "./squareColors";
+import {sendAPIRequest, sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles({
     square: {
@@ -60,35 +61,36 @@ export default function Square(props) {
         return blackOdds.includes(letter) && number % 2 || blackEvens.includes(letter) && !(number % 2);
     }
 
+    async function sendLegalMovesRequest(position) {
+        const legalMovesResponse = await(sendRequest({requestType: "legalMoves", position: position}, 'http://localhost:8000'));
+        if(legalMovesResponse) {
+            props.setHighlightedSquares(legalMovesResponse.legalMoves);
+        }
+    }
+
     function handleClick() {
-        /*
-        This is essentially the code we want to use on the client to make the API request.
-        The request is an object with a type of legal moves and a String position.
-        The response should be a String array containing the legal moves, as in A2.
+
+        // This is essentially the code we want to use on the client to make the API request.
+        // The request is an object with a type of legal moves and a String position.
+        // The response should be a String array containing the legal moves, as in A2.
 
         if(props.piece !== "") {
             props.setClickedSquare(props.position);
-            const legalMovesResponse = await(sendAPIRequest({requestType: "legalMoves", position: {position}});
-            console.log({legalMovesResponse});
-            if(legalMovesResponse) {
-                props.setHighlightedSquares(legalMovesResponse);
-            }
-            else {
-                console.log("ERROR");
-            }
-        else {
-            props.setClickedSquare("");
-        }
-        }
-         */
-        if(props.piece !== "") {
-            props.setClickedSquare(props.position);
+            sendLegalMovesRequest(props.position);
         }
         else {
             props.setClickedSquare("");
+            props.setHighlightedSquares([]);
         }
-        const position = props.position;
-        console.log({position});
+
+        // if(props.piece !== "") {
+        //     props.setClickedSquare(props.position);
+        // }
+        // else {
+        //     props.setClickedSquare("");
+        // }
+        // const position = props.position;
+        // console.log({position});
     }
 
     return (
