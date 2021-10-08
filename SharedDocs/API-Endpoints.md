@@ -1,0 +1,36 @@
+## Endpoints
+### Chess
+- /chess/legalMoves
+  - type: post
+  - req: String position
+  - res: ArrayList<String> legalMoves
+- /chess/move
+  - type: post
+  - req: String fromPosition, String toPosition
+  - res: Boolean success
+- /chess/board/<matchID>
+  - type: get
+  - res: String[] boardState
+### User accounts
+- /login
+  - type: post
+  - req: String username, String password
+  - res: Boolean success, String token
+- /account/register
+  - type: post
+  - req: String firstName, String lastName, String username, String password, String email, String password
+  - res: Boolean success
+- /account/update
+  - type: post
+  - req: String firstName, String lastName, String username, String password, String email, String bio
+  - res: Boolean success
+- /account/search
+  - type: get
+  - req: String username
+  - res: String[] users
+- /account/available/<username>
+  - type: get
+  - res: Boolean available
+- /profile/<username>
+  - type: get
+  - String[] user
