@@ -1,3 +1,9 @@
 {
-
+  "board" : {
+    "description": "the current state of the board",
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  }
 }
