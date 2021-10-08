@@ -22,6 +22,7 @@ public class Board {
             board.move("d2", "d4");
             board.move("a7", "a5");
             board.move("a8", "a6");
+            board.move("f2", "f3");
         } catch(IllegalMoveException e) {
             e.printStackTrace();
         }
