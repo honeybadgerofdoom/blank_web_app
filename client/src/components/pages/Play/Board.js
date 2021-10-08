@@ -23,7 +23,18 @@ export default function Board() {
     async function sendBoardRequest() {
         const boardResponse = await(sendRequest({requestType: "board"}, 'http://localhost:8000'));
         if(boardResponse) {
-            setBoardState(boardResponse.boardString.reverse());
+            const theBoard = boardResponse.boardString;
+            let allRows = [];
+            for(let i = 0; i < 8; i++) {
+                let thisRow = [];
+                for(let j = 0; j < 8; j++) {
+                    thisRow.push(theBoard[(i*8) + (j)])
+                }
+                allRows.push(thisRow);
+            }
+            allRows.reverse();
+            const masterBoard = allRows[0].concat(allRows[1], allRows[2], allRows[3], allRows[4], allRows[5], allRows[6], allRows[7]);
+            setBoardState(masterBoard);
         }
     }
 

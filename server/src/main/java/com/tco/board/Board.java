@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import com.tco.chess.ChessBoard;
 import com.tco.chess.IllegalPositionException;
+import com.tco.chess.IllegalMoveException;
 
 
 import org.slf4j.Logger;
@@ -17,6 +18,13 @@ public class Board {
     public Board() {
         ChessBoard board = new ChessBoard();
         board.initialize();
+        try {
+            board.move("d2", "d4");
+            board.move("a7", "a5");
+            board.move("a8", "a6");
+        } catch(IllegalMoveException e) {
+            e.printStackTrace();
+        }
         try {
             boardString = buildBoardString(board);
         } catch (IllegalPositionException e) {
