@@ -1,6 +1,7 @@
 package com.tco.requests;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import com.tco.chess.ChessBoard;
 import com.tco.chess.IllegalPositionException;
 
@@ -28,21 +29,25 @@ public class Board {
     }
 
     private String[] buildBoardString(ChessBoard board) throws IllegalPositionException {
-        String[] tempBoardString = new String[64];
-        int currentLocation = -2;
+        ArrayList<String> tempBoardString = new ArrayList<String>();
         for(int row = 0; row < 8; row++) {
-            currentLocation ++;
             for(int column = 0; column < 8; column++) {
-                currentLocation ++;
                 if(board.getPiece(arrayToString(row, column)) != null) {
-                    tempBoardString[currentLocation] = board.getPiece(arrayToString(row, column)).toString();
+                    tempBoardString.add(board.getPiece(arrayToString(row, column)).toString());
                 }
                 else {
-                    tempBoardString[currentLocation] = "";
+                    tempBoardString.add("");
                 }
             }
         }
-        return tempBoardString;
+        int count = 0;
+        String[] listToArray = new String[64];
+        for(String position : tempBoardString) {
+            listToArray[count] = position;
+            count++;
+        }
+        System.out.println(Arrays.toString(listToArray));
+        return listToArray;
     }
 
     private String arrayToString(int row, int column) {

@@ -1,9 +1,32 @@
 {
-  "board" : {
-    "description": "the current state of the board",
-    "type": "array",
-    "items": {
-      "type": "string"
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "board",
+  "description": "board request/response",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description":"the TIP object type should be locations",
+      "type":"string",
+      "pattern":"^board$"
+    },
+    "board": {
+      "description": "an array of piece strings",
+      "type":"array",
+      "items": {
+        "type":"object",
+        "properties": {
+          "position": {
+            "type":"string",
+            "pattern":"(a-h)(1-8)"
+          }
+        },
+        "required": ["latitude","longitude"],
+        "additionalProperties": true
+      },
+      "minitems": 0
     }
-  }
+  },
+  "required":["requestType"],
+  "additionalProperties": false
 }

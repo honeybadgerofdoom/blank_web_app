@@ -1,9 +1,11 @@
 import Ajv from 'ajv';
 import * as configSchema from "../../schemas/ConfigResponse";
+import * as boardSchema from "../../schemas/BoardResponse";
 import { LOG } from "./constants";
 
 const SCHEMAS = {
-    config: configSchema
+    config: configSchema,
+    board: boardSchema
 };
 
 export async function sendAPIRequest(requestBody, serverUrl) {
