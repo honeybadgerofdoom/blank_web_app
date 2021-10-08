@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Grid, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import {mockChessboard, positionMap} from "./MockChessboard";
 import Square from "./Square";
 import CustomColumn from "../../../utils/CustomColumn";
