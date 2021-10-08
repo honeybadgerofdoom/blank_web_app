@@ -17,6 +17,14 @@ export default function Board() {
     const [clickedSquare, setClickedSquare] = useState("");
     const [highlightedSquares, setHighlightedSquares] = useState([]);
 
+    /*
+    API NOTES
+    Because the client renders things from the top-left to the bottom-right, we need iterate the board in the
+    server-side chess class in that same direction. The response from a /chess/board request should be a
+    String[] built by iterating the ChessBoard from 'h1' -> 'a8' and adding the toString() for each square. If
+    null, add "".
+     */
+
     function renderBoard() {
         return (
             mockChessboard.map((piece, index) => {

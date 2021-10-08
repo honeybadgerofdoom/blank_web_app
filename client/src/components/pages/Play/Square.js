@@ -90,9 +90,9 @@ export default function Square(props) {
 
     return (
         <div className={classes.square}>
-            <div className={classes.content} style={{background: `${squareColor}`}}>
+            <div className={classes.content} style={{background: `${squareColor}`}} onClick={handleClick}>
                 <div className={classes.table}>
-                    <div className={classes.tableCell} onClick={handleClick}>
+                    <div className={classes.tableCell}>
                         {props.piece}
                     </div>
                 </div>
