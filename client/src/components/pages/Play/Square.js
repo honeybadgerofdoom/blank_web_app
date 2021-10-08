@@ -3,12 +3,28 @@ import {makeStyles, TableCell} from "@material-ui/core";
 import {squareColors} from "./squareColors";
 
 const useStyles = makeStyles({
-    root: {
-        borderWidth: 1,
-        borderColor: 'black',
-        borderStyle: 'solid',
-        height: "10vh",
-        width: "10vw",
+    square: {
+        float: "left",
+        position: "relative",
+        width: "12.5%",
+        paddingBottom : "12.5%",
+    },
+    content: {
+        position: "absolute",
+        height: "98%",
+        width: "98%",
+        padding: "1%",
+    },
+    table: {
+        display: "table",
+        height: "100%",
+        width: "100%",
+    },
+    tableCell: {
+        display: "table-cell",
+        verticalAlign: "middle",
+        height: "100%",
+        width: "100%",
         fontSize: "32pt",
     },
 });
@@ -67,6 +83,15 @@ export default function Square(props) {
     }
 
     return (
-        <TableCell id={props.position} style={{background: `${squareColor}`}} align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
+        <div className={classes.square}>
+            <div className={classes.content} style={{background: `${squareColor}`}}>
+                <div className={classes.table}>
+                    <div className={classes.tableCell} onClick={handleClick}>
+                        {props.piece}
+                    </div>
+                </div>
+            </div>
+        </div>
+        // <TableCell id={props.position} style={{background: `${squareColor}`}} align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
     )
 }
