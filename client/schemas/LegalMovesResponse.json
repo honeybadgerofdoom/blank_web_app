@@ -18,7 +18,7 @@
         "properties": {
           "position": {
             "type":"string",
-            "pattern":"(.*?)"
+            "pattern":"(a-h)(1-8)"
           }
         },
         "required": ["latitude","longitude"],
