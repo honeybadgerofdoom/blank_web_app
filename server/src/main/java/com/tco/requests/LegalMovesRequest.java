@@ -15,6 +15,7 @@ public class LegalMovesRequest extends Request {
 
     @Override
     public void buildResponse() {
+        //FIXME This is temporary. Eventually we need this to reference a specific board that already exists. That will come.
         ChessBoard board = new ChessBoard();
         board.initialize();
         try {

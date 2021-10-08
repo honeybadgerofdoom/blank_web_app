@@ -66,14 +66,12 @@ export default function Square(props) {
         if(legalMovesResponse) {
             props.setHighlightedSquares(legalMovesResponse.legalMoves);
         }
+        else {
+            console.log("legalMovesResponse is null");
+        }
     }
 
     function handleClick() {
-
-        // This is essentially the code we want to use on the client to make the API request.
-        // The request is an object with a type of legal moves and a String position.
-        // The response should be a String array containing the legal moves, as in A2.
-
         if(props.piece !== "") {
             props.setClickedSquare(props.position);
             sendLegalMovesRequest(props.position);
@@ -82,15 +80,6 @@ export default function Square(props) {
             props.setClickedSquare("");
             props.setHighlightedSquares([]);
         }
-
-        // if(props.piece !== "") {
-        //     props.setClickedSquare(props.position);
-        // }
-        // else {
-        //     props.setClickedSquare("");
-        // }
-        // const position = props.position;
-        // console.log({position});
     }
 
     return (
