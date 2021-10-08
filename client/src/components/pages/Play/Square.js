@@ -23,6 +23,7 @@ const useStyles = makeStyles({
     tableCell: {
         display: "table-cell",
         verticalAlign: "middle",
+        textAlign: "center",
         height: "100%",
         width: "100%",
         fontSize: "32pt",
@@ -92,6 +93,5 @@ export default function Square(props) {
                 </div>
             </div>
         </div>
-        // <TableCell id={props.position} style={{background: `${squareColor}`}} align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
     )
 }
