@@ -20,7 +20,6 @@ public class LegalMovesRequest extends Request {
         board.initialize();
         try {
             legalMoves = board.getPiece(position).legalMoves();
-            for(String move : legalMoves) System.out.println(move);
         } catch(IllegalPositionException e) {
             e.printStackTrace();
         }
