@@ -6,11 +6,8 @@ import Square from "./Square";
 const useStyles = makeStyles({
     root: {
         margin: "20px",
-        // boxShadow: "10px 5px 5px #757575",
-        // borderWidth: 1,
-        // borderColor: 'black',
-        // borderStyle: 'solid',
-        backgroundColor: "#333",
+        boxShadow: "10px 5px 5px #757575",
+
     },
 });
 
@@ -31,8 +28,8 @@ export default function Board() {
     }
 
     return (
-        <div className={classes.root}>
+        <Paper className={classes.root}>
             {renderBoard()}
-        </div>
+        </Paper>
     )
 }

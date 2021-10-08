@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {makeStyles, TableCell} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import {squareColors} from "./squareColors";
 
 const useStyles = makeStyles({
@@ -8,12 +8,14 @@ const useStyles = makeStyles({
         position: "relative",
         width: "12.5%",
         paddingBottom : "12.5%",
+        borderWidth: 0.1,
+        borderColor: 'black',
+        borderStyle: 'solid',
     },
     content: {
         position: "absolute",
-        height: "98%",
-        width: "98%",
-        padding: "1%",
+        height: "100%",
+        width: "100%",
     },
     table: {
         display: "table",
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
         textAlign: "center",
         height: "100%",
         width: "100%",
-        fontSize: "32pt",
+        fontSize: "45pt",
     },
 });
 
