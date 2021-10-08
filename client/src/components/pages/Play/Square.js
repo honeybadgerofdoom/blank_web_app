@@ -81,6 +81,9 @@ export default function Square(props) {
         if(props.piece !== "") {
             props.setClickedSquare(props.position);
         }
+        else {
+            props.setClickedSquare("");
+        }
         const position = props.position;
         console.log({position});
     }
