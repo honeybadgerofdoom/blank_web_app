@@ -46,7 +46,6 @@ public class Board {
             listToArray[count] = position;
             count++;
         }
-        System.out.println(Arrays.toString(listToArray));
         return listToArray;
     }
 

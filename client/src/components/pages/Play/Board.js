@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {makeStyles} from "@material-ui/core";
+import {Button, makeStyles} from "@material-ui/core";
 import {mockChessboard, positionMap} from "./MockChessboard";
 import Square from "./Square";
 import CustomColumn from "../../../utils/CustomColumn";
@@ -19,12 +19,8 @@ export default function Board() {
     const [clickedSquare, setClickedSquare] = useState("");
     const [highlightedSquares, setHighlightedSquares] = useState([]);
 
-    useEffect(() => {
-        sendBoardRequest();
-    })
-
     async function sendBoardRequest() {
-        const boardResponse = await(sendAPIRequest({requestType: "board"}, 'http://localhost:8000'));
+        const boardResponse = await(sendRequest({requestType: "board"}, 'http://localhost:8000'));
         console.log({boardResponse});
     }
 
@@ -48,6 +44,7 @@ export default function Board() {
 
     return (
         <CustomColumn>
+            <Button onClick={sendBoardRequest}>Send Board Request</Button>
             <div className={classes.root}>
                 {renderBoard()}
             </div>

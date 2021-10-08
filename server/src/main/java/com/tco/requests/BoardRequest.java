@@ -1,5 +1,6 @@
 package com.tco.requests;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import com.tco.requests.Board;
 
@@ -14,7 +15,7 @@ public class BoardRequest extends Request {
     public void buildResponse() {
         Board board = new Board();
         boardString = board.getBoard();
-        System.out.println(boardString);
+        System.out.println(Arrays.toString(boardString));
         log.trace("buildResponse -> {}", this);
     }
 }

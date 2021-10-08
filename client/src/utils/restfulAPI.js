@@ -22,7 +22,6 @@ export async function sendAPIRequest(requestBody, serverUrl) {
 }
 
 export async function sendRequest(requestBody, serverUrl) {
-    console.log({requestBody})
     const fetchOptions = {
         method: "POST",
         body: JSON.stringify(requestBody)
