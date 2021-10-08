@@ -1,6 +1,10 @@
 import React from "react";
-import {Typography} from "@material-ui/core";
+import RegistrationForm from "./RegistrationForm";
 
 export default function Register(props) {
-    return <Typography align="center">Register Page</Typography>
+    return(
+        <div>
+            <RegistrationForm />
+        </div>
+    )
 }
