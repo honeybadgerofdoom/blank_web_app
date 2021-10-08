@@ -15,7 +15,6 @@ public class BoardRequest extends Request {
     public void buildResponse() {
         Board board = new Board();
         boardString = board.getBoard();
-        System.out.println(Arrays.toString(boardString));
         log.trace("buildResponse -> {}", this);
     }
 }
