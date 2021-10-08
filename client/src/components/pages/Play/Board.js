@@ -6,7 +6,8 @@ import CustomColumn from "../../../utils/CustomColumn";
 
 const useStyles = makeStyles({
     root: {
-        width: "70vw",
+        width: "90vw",
+        maxWidth: "800px",
         margin: "20px",
         boxShadow: "10px 5px 5px #757575",
     },
