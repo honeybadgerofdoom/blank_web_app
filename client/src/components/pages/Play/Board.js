@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {makeStyles} from "@material-ui/core";
+import {Grid, makeStyles} from "@material-ui/core";
 import {mockChessboard, positionMap} from "./MockChessboard";
 import Square from "./Square";
 
@@ -28,8 +28,15 @@ export default function Board() {
     }
 
     return (
-        <div className={classes.root}>
-            {renderBoard()}
-        </div>
+        <Grid
+            container
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+        >
+            <div className={classes.root}>
+                {renderBoard()}
+            </div>
+        </Grid>
     )
 }
