@@ -97,11 +97,13 @@ export const mockChessboard = mockChessboardInitial.reverse();
 function generateMappingArray() {
     let stringArray = [];
     const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    letterArray.forEach((letter) => {
-        for(let i = 8; i >=1; i--) {
-            stringArray.push(letter + i);
+    const numberArray = ['1', '2', '3', '4', '5', '6', '7', '8'];
+    numberArray.reverse().forEach((number) => {
+        for(let i = 0; i < 8; i++) {
+            stringArray.push(letterArray[i] + number);
         }
     })
+    console.log(stringArray.reverse())
     return stringArray.reverse();
 }
 
