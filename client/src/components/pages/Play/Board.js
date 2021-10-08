@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Grid, makeStyles} from "@material-ui/core";
 import {mockChessboard, positionMap} from "./MockChessboard";
 import Square from "./Square";
+import CustomColumn from "../../../utils/CustomColumn";
 
 const useStyles = makeStyles({
     root: {
@@ -27,15 +28,10 @@ export default function Board() {
     }
 
     return (
-        <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-        >
+        <CustomColumn>
             <div className={classes.root}>
                 {renderBoard()}
             </div>
-        </Grid>
+        </CustomColumn>
     )
 }
