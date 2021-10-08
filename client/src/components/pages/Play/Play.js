@@ -6,6 +6,8 @@ import Square from "./Square";
 const useStyles = makeStyles({
     root: {
         width: "80vw",
+        margin: "20px",
+        boxShadow: "10px 5px 5px #757575",
     },
 });
 
