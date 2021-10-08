@@ -1,15 +1,20 @@
 package com.tco.requests;
 
 import java.util.ArrayList;
+import com.tco.requests.Board;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BoardRequest extends Request {
-    private String[64];
+    private String[] boardString;
+    private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
 
     @Override
-    buildResponse() {
-
+    public void buildResponse() {
+        Board board = new Board();
+        boardString = board.getBoard();
+        System.out.println(boardString);
+        log.trace("buildResponse -> {}", this);
     }
 }

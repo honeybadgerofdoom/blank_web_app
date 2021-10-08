@@ -15,6 +15,7 @@ public class ConfigRequest extends Request {
         serverName = "Team-ReaKt";
         features = new ArrayList<>();
         features.add("config");
+        features.add("board");
         log.trace("buildResponse -> {}", this);
     }
 
