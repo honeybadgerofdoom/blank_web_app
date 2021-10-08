@@ -76,6 +76,9 @@ export default function Square(props) {
             else {
                 console.log("ERROR");
             }
+        else {
+            props.setClickedSquare("");
+        }
         }
          */
         if(props.piece !== "") {

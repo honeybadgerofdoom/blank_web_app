@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core";
 import {mockChessboard, positionMap} from "./MockChessboard";
 import Square from "./Square";
 import CustomColumn from "../../../utils/CustomColumn";
+import {sendAPIRequest, sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles({
     root: {
@@ -17,6 +18,15 @@ export default function Board() {
     const classes = useStyles();
     const [clickedSquare, setClickedSquare] = useState("");
     const [highlightedSquares, setHighlightedSquares] = useState([]);
+
+    useEffect(() => {
+        sendBoardRequest();
+    })
+
+    async function sendBoardRequest() {
+        const boardResponse = await(sendRequest({requestType: "board"}, 3000));
+        console.log({boardResponse});
+    }
 
     /*
     API NOTES

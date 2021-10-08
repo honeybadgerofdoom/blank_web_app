@@ -19,7 +19,7 @@ export async function sendAPIRequest(requestBody, serverUrl) {
     return null;
 }
 
-async function sendRequest(requestBody, serverUrl) {
+export async function sendRequest(requestBody, serverUrl) {
     const fetchOptions = {
         method: "POST",
         body: JSON.stringify(requestBody)
