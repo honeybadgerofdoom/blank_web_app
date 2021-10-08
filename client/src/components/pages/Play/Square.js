@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         textAlign: "center",
         height: "100%",
         width: "100%",
-        fontSize: "45pt",
+        fontSize: "5vw",
     },
 });
 

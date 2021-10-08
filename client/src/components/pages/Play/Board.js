@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {makeStyles, Paper} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import {mockChessboard, positionMap} from "./MockChessboard";
 import Square from "./Square";
 
 const useStyles = makeStyles({
     root: {
+        width: "60%",
         margin: "20px",
         boxShadow: "10px 5px 5px #757575",
 
@@ -19,17 +20,16 @@ export default function Board() {
     function renderBoard() {
         return (
             mockChessboard.map((piece, index) => {
-                const position = positionMap[index];
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
                                highlightedSquares={highlightedSquares} setHighlightedSquare={setHighlightedSquares}
-                               key={index} piece={piece} position={position}/>
+                               key={index} piece={piece} position={positionMap[index]}/>
             })
         )
     }
 
     return (
-        <Paper className={classes.root}>
+        <div className={classes.root}>
             {renderBoard()}
-        </Paper>
+        </div>
     )
 }
