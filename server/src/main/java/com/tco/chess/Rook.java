@@ -1,4 +1,4 @@
-package a2;
+package com.tco.chess;
 
 import java.util.ArrayList;
 

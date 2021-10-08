@@ -1,4 +1,4 @@
-package a2;
+package com.tco.chess;
 
 public class IllegalPositionException extends Exception {
 	
