@@ -48,6 +48,6 @@ export default function Board() {
     }
 
     else {
-        return <Button onClick={sendBoardRequest}>Send Board Request</Button>
+        return <CustomColumn><Button variant="outlined" onClick={sendBoardRequest}>Send Board API Request</Button></CustomColumn>
     }
 }
