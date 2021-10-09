@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles, TableCell} from "@material-ui/core";
+import {squareColors} from "./squareColors";
 
 const useStyles = makeStyles({
     root: {
@@ -14,13 +15,22 @@ const useStyles = makeStyles({
 
 export default function Square(props) {
     const classes = useStyles();
-    const squareColor = getSquareColor();
-    // const [legalMoves, setLegalMoves] = useState([]);
+    const [squareColor, setSquareColor] = useState();
+
+    useEffect(() => {
+        if(props.clickedSquare === props.position) {
+            setSquareColor(squareColors.clickedSquareColor);
+        }
+        else if(props.highlightedSquares.includes(props.position)) {
+            setSquareColor(squareColors.highlightedSquare);
+        }
+        else {
+            setSquareColor(getSquareColor());
+        }
+    })
 
     function getSquareColor() {
-        const whiteSquare = "#fff5db";
-        const blackSquare = "#a39d8c";
-        return squareIsBlack() ? blackSquare : whiteSquare;
+        return squareIsBlack() ? squareColors.blackSquare : squareColors.whiteSquare;
     }
 
     function squareIsBlack() {
@@ -37,20 +47,29 @@ export default function Square(props) {
         The request is an object with a type of legal moves and a String position.
         The response should be a String array containing the legal moves, as in A2.
 
-        const legalMovesResponse = await(sendAPIRequest({requestType: "legalMoves", position: {position}});
-        console.log({legalMovesResponse});
-        if(legalMovesResponse) {
-            setLegalMoves(legalMovesResponse);
-        }
-        else {
-            console.log("ERROR");
+        if(props.piece !== "") {
+            props.setClickedSquare(props.position);
+            const legalMovesResponse = await(sendAPIRequest({requestType: "legalMoves", position: {position}});
+            console.log({legalMovesResponse});
+            if(legalMovesResponse) {
+                props.setHighlightedSquares(legalMovesResponse);
+            }
+            else {
+                console.log("ERROR");
+            }
         }
          */
+        if(props.piece !== "") {
+            props.setClickedSquare(props.position);
+        }
+        else {
+            props.setClickedSquare("");
+        }
         const position = props.position;
         console.log({position});
     }
 
     return (
-        <TableCell style={{background: `${squareColor}`}} align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
+        <TableCell id={props.position} style={{background: `${squareColor}`}} align="center" className={classes.root} onClick={handleClick}>{props.piece}</TableCell>
     )
 }

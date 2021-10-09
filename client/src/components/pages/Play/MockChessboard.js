@@ -1,5 +1,3 @@
-import React from "react";
-
 const pieces = {
     white: {
         king: "\u2654",
@@ -20,7 +18,7 @@ const pieces = {
     empty: ""
 }
 
-export const mockChessboard = [
+const mockChessboardInitial = [
     [pieces.white.rook,
     pieces.white.knight,
     pieces.white.bishop,
@@ -93,3 +91,5 @@ export const mockChessboard = [
     pieces.black.knight,
     pieces.black.rook,],
 ];
+
+export const mockChessboard = mockChessboardInitial.reverse();
