@@ -117,7 +117,6 @@ class KnightTest {
 
 	@Test
 	void test_legalMoves_not_contain_friendly_pieces() {
-		ArrayList<String> testList = new ArrayList<String>();
 		ChessPiece blackKnight = new Knight(testBoard, Color.BLACK);
 		testBoard.placePiece(blackKnight, "d5");
 		ChessPiece blackPawn = new Pawn(testBoard, Color.BLACK);
@@ -125,12 +124,16 @@ class KnightTest {
 		ChessPiece blackKing = new King(testBoard, Color.BLACK);
 		testBoard.placePiece(blackKing, "b6");
 
-		assertTrue(blackKnight.legalMoves().size() == 6);
+		ArrayList<String> testList = new ArrayList<String>(Arrays.asList("b4","c7", "e3", "e7", "f4", "f6"));
+		assertTrue(blackKnight.legalMoves().size() == testList.size());
+
+		for (int i = 0; i < testList.size(); i++) {
+			assertTrue(blackKnight.legalMoves().contains(testList.get(i)));
+		}
 	}
 
 	@Test
 	void test_capturing_enemy() {
-		ArrayList<String> testList = new ArrayList<String>();
 		ChessPiece whiteKnight = new Knight(testBoard, Color.WHITE);
 		testBoard.placePiece(whiteKnight, "d5");
 		ChessPiece blackPawn = new Pawn(testBoard, Color.BLACK);
@@ -138,7 +141,12 @@ class KnightTest {
 		ChessPiece blackKing = new King(testBoard, Color.BLACK);
 		testBoard.placePiece(blackKing, "b6");
 
-		assertTrue(whiteKnight.legalMoves().size() == 8);
+		ArrayList<String> testList = new ArrayList<String>(Arrays.asList("b4","c7", "e3", "e7", "f4", "f6", "c3", "b6"));
+		assertTrue(whiteKnight.legalMoves().size() == testList.size());
+
+		for (int i = 0; i < testList.size(); i++) {
+			assertTrue(whiteKnight.legalMoves().contains(testList.get(i)));
+		}
 	}
 
 	@Test
