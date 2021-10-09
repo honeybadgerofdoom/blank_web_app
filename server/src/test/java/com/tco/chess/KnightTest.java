@@ -67,5 +67,28 @@ class KnightTest {
 		assertTrue(whiteKnight.legalMoves().size() == 0);
 		
 	}
+
+	@Test
+	void test_number_legalMoves_from_initialize() {
+		testBoard.initialize();
+
+		Knight knight1 = testBoard.getPiece("b1");
+		Knight knight2 = testBoard.getPiece("g1");
+		Knight blackKnight1 = testBoard.getPiece("b8");
+		Knight blackKnight2 = testBoard.getPiece("g8");
+
+		assertTrue(knight1.legalMoves().size() == 2);
+		assertTrue(knight2.legalMoves().size() == 2):
+		assertTrue(blackKnight1.legalMoves().size() == 2);
+		assertTrue(blackKnight2.legalMoves().size() == 2);
+	}
+	
+	@Test
+	void test_actual_legalMoves_from_initialize() {
+		testBoard.initialize();
+		ArrayList<String> testList = new ArrayList<String>;
+		
+
+	} 
 	
 }
