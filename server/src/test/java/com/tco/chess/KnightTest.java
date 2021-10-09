@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 
+import java.util.*;
 import com.tco.chess.ChessPiece.Color;
 
 class KnightTest {
@@ -53,7 +55,7 @@ class KnightTest {
 		testBoard.placePiece(pawn1, "a3");
 		testBoard.placePiece(pawn2, "c3");
 		try {
-			assertTrue(board.getPiece("b1").legalMoves().size() == 0);
+			assertTrue(testBoard.getPiece("b1").legalMoves().size() == 0);
 		} catch (IllegalPositionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,10 +67,10 @@ class KnightTest {
 	void test_number_legalMoves_from_initialize() {
 		testBoard.initialize();
 		try {
-			Knight knight1 = testBoard.getPiece("b1");
-			Knight knight2 = testBoard.getPiece("g1");
-			Knight blackKnight1 = testBoard.getPiece("b8");
-			Knight blackKnight2 = testBoard.getPiece("g8");
+			ChessPiece knight1 = testBoard.getPiece("b1");
+			ChessPiece knight2 = testBoard.getPiece("g1");
+			ChessPiece blackKnight1 = testBoard.getPiece("b8");
+			ChessPiece blackKnight2 = testBoard.getPiece("g8");
 
 			assertTrue(knight1.legalMoves().size() == 2);
 			assertTrue(knight2.legalMoves().size() == 2);
@@ -84,7 +86,7 @@ class KnightTest {
 	void test_actual_legalMoves_from_initialize() {
 		testBoard.initialize();
 		try {
-			ArrayList<String> testList = new ArrayList<String>("a3", "c3");
+			ArrayList<String> testList = new ArrayList<String>(Arrays.asList("a3", "c3"));
 			assertEquals(testBoard.getPiece("b1"), testList, () -> "Knight at b1 has invalid legal move list");
 			testList.set(0, "f3");
 			testList.set(1, "h3");
@@ -109,7 +111,7 @@ class KnightTest {
 		testBoard.placePiece(blackKnight, "d5");
 
 
-		assertTrue(whiteKnight.legalMoves().size() == 8);
+		assertTrue(blackKnight.legalMoves().size() == 8);
 
 	}
 
@@ -123,7 +125,7 @@ class KnightTest {
 		ChessPiece blackKing = new King(testBoard, Color.BLACK);
 		testBoard.placePiece(blackKing, "b6");
 
-		assertTrue(whiteKnight.legalMoves().size() == 6);
+		assertTrue(blackKnight.legalMoves().size() == 6);
 	}
 
 	@Test
@@ -141,8 +143,21 @@ class KnightTest {
 
 	@Test
 	void test_moving_three_times() {
-		ChessPiece blackKnight = new Knight(testBoard, Color.BLACK);
-		testBoard.placePiece(blackKnight, "a1");
+		try {
+			ChessPiece blackKnight = new Knight(testBoard, Color.BLACK);
+			testBoard.placePiece(blackKnight, "a1");
+			assertTrue(blackKnight.legalMoves().size() == 2);
+			testBoard.move("a1", "b3");
+			assertTrue(blackKnight.legalMoves().size() == 6);
+			testBoard.move("b3", "d4");
+			ArrayList<String> testList = new ArrayList<String>(Arrays.asList("b5", "b3", "c6", "e6", "f5", "f3", "e2", "c2"));
+			assertTrue(blackKnight.legalMoves().size() == testList.size());
+			for (int i = 0; i < testList.size(); i++) {
+				assertTrue(blackKnight.legalMoves().contains(testList.get(i)));
+			}
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
