@@ -39,7 +39,7 @@ class QueenTest {
 		}
 		
 		@Test
-		void legalMoves_0_initial() {
+		void legalMoves_14_initial() {
 			testBoard.initialize();
 			
 			try {
