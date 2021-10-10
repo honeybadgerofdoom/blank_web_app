@@ -42,8 +42,13 @@ export default function Square(props) {
             setSquareColor(squareColors.clickedSquareColor);
         }
         else if(props.highlightedSquares.includes(props.position)) {
-            setSquareColor(squareColors.highlightedSquare);
-            // Check if square no null!
+            if(props.piece === "") {
+                setSquareColor(squareColors.highlightedSquare);
+            }
+            else {
+                setSquareColor((squareColors.captureSquare));
+            }
+            // Check if square not null!
         }
         else {
             setSquareColor(getSquareColor());

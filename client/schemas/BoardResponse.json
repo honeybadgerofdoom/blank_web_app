@@ -10,23 +10,20 @@
       "type":"string",
       "pattern":"^board$"
     },
-    "board": {
+    "boardString": {
       "description": "an array of piece strings",
       "type":"array",
       "items": {
-        "type":"object",
+        "type": "object",
         "properties": {
           "position": {
-            "type":"string",
-            "pattern":"(.*?)"
+            "type": "string",
+            "pattern": "(.*?)"
           }
-        },
-        "required": ["latitude","longitude"],
-        "additionalProperties": true
-      },
-      "minitems": 0
+        }
+      }
     }
   },
-  "required":["requestType"],
+  "required":["requestType","boardString"],
   "additionalProperties": false
 }

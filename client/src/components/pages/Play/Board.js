@@ -22,6 +22,7 @@ export default function Board() {
 
     async function sendBoardRequest() {
         const boardResponse = await(sendRequest({requestType: "board"}, 'http://localhost:8000'));
+        console.log({boardResponse});
         if(boardResponse) {
             const theBoard = boardResponse.boardString;
             let allRows = [];
