@@ -84,6 +84,9 @@
                     <includes>
                         <include>**/*Test*.*</include>
                     </includes>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${build.directory.prefix}/target/classes</additionalClasspathElement>
+                    </additionalClasspathElements>
                 </configuration>
             </plugin>
             <plugin>
