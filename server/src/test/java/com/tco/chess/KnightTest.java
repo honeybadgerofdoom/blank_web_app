@@ -86,17 +86,10 @@ class KnightTest {
 	void test_actual_legalMoves_from_initialize() {
 		testBoard.initialize();
 		try {
-			ArrayList<String> testList = new ArrayList<String>(Arrays.asList("a3", "c3"));
-			assertEquals(testBoard.getPiece("b1"), testList, () -> "Knight at b1 has invalid legal move list");
-			testList.set(0, "f3");
-			testList.set(1, "h3");
-			assertEquals(testBoard.getPiece("g1"), testList, () -> "Knight at g1 has invalid legal move list");
-			testList.set(0, "a6");
-			testList.set(1, "c6");
-			assertEquals(testBoard.getPiece("b8"), testList, () -> "Knight at b8 has invalid legal move list");
-			testList.set(0, "f6");
-			testList.set(1, "h6");
-			assertEquals(testBoard.getPiece("g8"), testList, () -> "Knight at g8 has invalid legal move list");
+			assertTrue(testBoard.getPiece("b1").legalMoves().contains("a3") && testBoard.getPiece("b1").legalMoves().contains("c3"));
+			assertTrue(testBoard.getPiece("g1").legalMoves().contains("f3") && testBoard.getPiece("g1").legalMoves().contains("h3"));
+			assertTrue(testBoard.getPiece("b8").legalMoves().contains("a6") && testBoard.getPiece("b8").legalMoves().contains("c6"));
+			assertTrue(testBoard.getPiece("g8").legalMoves().contains("f6") && testBoard.getPiece("g8").legalMoves().contains("h6"));
 		} catch (IllegalPositionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
