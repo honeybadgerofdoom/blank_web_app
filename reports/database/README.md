@@ -15,7 +15,7 @@
 SSH into a lab machine and run this command:
 `mysql -u eid -D cs414_team2 -h faure -p`
 
-Then, you can run query commands normally. Examples:
+Then, you can run your SQL commands. Examples:
 * SHOW tables;
 * DESCRIBE users;
 * SELECT * FROM users;
@@ -23,7 +23,7 @@ Then, you can run query commands normally. Examples:
 ### Running our JDBC code
 **RemoteSSH:** Your code is running remotely on the lab machines, which are inside the CSU network and firewall. This does not require port forwarding or additional setup to reach Faure.
 
-**Docker container:** simply run "connectdb" in a separate VSCode terminal within the container. This does the forwarding.
+**Docker container:** Simply run "connectdb" in a separate VSCode terminal within the container. This does the forwarding.
 
 **Local Linux or Mac:** You must define a shell variable and use port forwarding whenever you run the program.
 
