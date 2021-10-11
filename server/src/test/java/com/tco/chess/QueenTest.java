@@ -53,12 +53,12 @@ class QueenTest {
 			
 		}
 		
-		@Test
+		/*@Test
 		void legalMoves_0() {
 			ChessPiece whiteQueen = new Queen(testBoard, Color.BLACK);
 			testBoard.placePiece(whiteQueen, "f6");
 			assertTrue(whiteQueen.legalMoves().size() == 0);
 			
-		}
+		} */
 		
 }
