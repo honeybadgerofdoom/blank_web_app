@@ -22,7 +22,6 @@ public class Queen extends ChessPiece{
 	@Override
 	public ArrayList<String> legalMoves(){
 				ArrayList<String> legalMoves = new ArrayList<>();
-				ArrayList<String> legalMoves = new ArrayList<>();
 		int col = this.column;
 		int row = this.row;
 		
@@ -107,6 +106,10 @@ public class Queen extends ChessPiece{
 				break;
 			}
 		}
+		
+		
+		col = this.column;
+		row = this.row;
 		
 		for(int i = col+1, j = row+1; i < 8 && j < 8; i++, j++ ) {
 			char colChar = (char) (i + 'a');
