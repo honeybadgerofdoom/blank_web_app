@@ -44,7 +44,7 @@ class QueenTest {
 			
 			try {
 				ChessPiece whiteQueen = testBoard.getPiece("d1");
-				assertTrue(whiteQueen.legalMoves().size() == 0);
+				assertTrue(whiteQueen.legalMoves().size() == 14);
 				
 			} catch (IllegalPositionException e) {
 				// TODO Auto-generated catch block
