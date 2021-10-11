@@ -45,27 +45,8 @@ class KnightTest {
 		
 	}
 	
-	@Test
-	void legalMoves_0_initial() {
-		testBoard.initialize();
-		
-		try {
-			ChessPiece whiteKnight = testBoard.getPiece("b1");
-			assertTrue(whiteKnight.legalMoves().size() == 0);
-			
-		} catch (IllegalPositionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 	
-	@Test
-	void legalMoves_0() {
-		ChessPiece whiteKnight = new Knight(testBoard, Color.BLACK);
-		testBoard.placePiece(whiteKnight, "f6");
-		assertTrue(whiteKnight.legalMoves().size() == 0);
-		
-	}
+	
+	
 	
 }
