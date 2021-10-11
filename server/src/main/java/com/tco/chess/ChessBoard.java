@@ -6,13 +6,14 @@ import com.tco.chess.ChessPiece.Color;
 
 public class ChessBoard {
 	private ChessPiece[][] board;
-	
+	private Color winner;
+	//FIXME after each move is made, check the board for surviving pieces.
 	
 	public ChessBoard() {
 		board = new ChessPiece[8][8];// Each place needs to be null 		
 	}
-	
-	
+
+
 	public void  initialize() {
 
 		for(int i = 0; i < 8; i++) {
