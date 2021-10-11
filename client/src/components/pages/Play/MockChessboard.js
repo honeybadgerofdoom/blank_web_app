@@ -19,77 +19,91 @@ const pieces = {
 }
 
 const mockChessboardInitial = [
-    [pieces.white.rook,
-    pieces.white.knight,
-    pieces.white.bishop,
-    pieces.white.queen,
-    pieces.white.king,
-    pieces.white.bishop,
-    pieces.white.knight,
-    pieces.white.rook,],
-
-    [pieces.white.pawn,
-    pieces.white.pawn,
-    pieces.white.pawn,
-    pieces.white.pawn,
-    pieces.white.pawn,
-    pieces.white.pawn,
-    pieces.white.pawn,
-    pieces.white.pawn,],
-
-    [pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,],
-
-    [pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,],
-
-    [pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,],
-
-    [pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,
-    pieces.empty,],
-
-    [pieces.black.pawn,
-    pieces.black.pawn,
-    pieces.black.pawn,
-    pieces.black.pawn,
-    pieces.black.pawn,
-    pieces.black.pawn,
-    pieces.black.pawn,
-    pieces.black.pawn,],
-
-    [pieces.black.rook,
+    pieces.black.rook,
     pieces.black.knight,
     pieces.black.bishop,
     pieces.black.queen,
     pieces.black.king,
     pieces.black.bishop,
     pieces.black.knight,
-    pieces.black.rook,],
+    pieces.black.rook,
+
+    pieces.black.pawn,
+    pieces.black.pawn,
+    pieces.black.pawn,
+    pieces.black.pawn,
+    pieces.black.pawn,
+    pieces.black.pawn,
+    pieces.black.pawn,
+    pieces.black.pawn,
+
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+    pieces.empty,
+
+    pieces.white.pawn,
+    pieces.white.pawn,
+    pieces.white.pawn,
+    pieces.white.pawn,
+    pieces.white.pawn,
+    pieces.white.pawn,
+    pieces.white.pawn,
+    pieces.white.pawn,
+
+    pieces.white.rook,
+    pieces.white.knight,
+    pieces.white.bishop,
+    pieces.white.queen,
+    pieces.white.king,
+    pieces.white.bishop,
+    pieces.white.knight,
+    pieces.white.rook,
 ];
 
-export const mockChessboard = mockChessboardInitial.reverse();
+export const mockChessboard = mockChessboardInitial;
+
+function generateMappingArray() {
+    let stringArray = [];
+    const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const numberArray = ['8', '7', '6', '5', '4', '3', '2', '1'];
+    numberArray.forEach((number) => {
+        for(let i = 0; i < 8; i++) {
+            stringArray.push(letterArray[i] + number);
+        }
+    })
+    return stringArray;
+}
+
+export const positionMap = generateMappingArray();
