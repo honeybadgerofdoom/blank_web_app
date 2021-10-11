@@ -314,14 +314,6 @@ class ChessBoardTest {
 	}
 	
 	@Test
-	void initialKnightMove() {
-		testBoard.initialize();
-		assertThrows(IllegalMoveException.class, () -> {
-			testBoard.move("b1", "c3");
-		});
-	}
-	
-	@Test
 	void rowColCheck() {
 		
 		try {
