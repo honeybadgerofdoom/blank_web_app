@@ -298,7 +298,7 @@ class ChessBoardTest {
 	}
 	
 	// Other tests:::::::::: 
-	
+	/*
 	@Test
 	void initialQueenMove() {
 		testBoard.initialize();
@@ -312,7 +312,7 @@ class ChessBoardTest {
 			testBoard.move("d1", "d2");
 		});
 	}
-	
+	*/
 	@Test
 	void initialKnightMove() {
 		testBoard.initialize();
@@ -687,8 +687,8 @@ class ChessBoardTest {
 			fail();
 		}
 	}
-	
-/*	@Test
+	/*
+	@Test
 	void queenCantMove() {
 		testBoard.initialize();
 		try {
@@ -706,6 +706,7 @@ class ChessBoardTest {
 		}
 	}
 	*/
+	
 	@Test
 	void knightCantMove() {
 		testBoard.initialize();

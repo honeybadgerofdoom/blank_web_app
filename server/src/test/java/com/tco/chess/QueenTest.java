@@ -29,25 +29,21 @@ class QueenTest {
 				assertTrue(whiteQueen.getColor().equals(Color.WHITE));
 				assertTrue(blackQueen.getColor().equals(Color.BLACK));
 				
-				System.out.println("Testidslfjdslf");
-				
 			} catch (IllegalPositionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
-		/*
+		
 		@Test
-		void legalMoves_14_initial() {
+		void legalMoves_0_initial() {
 			testBoard.initialize();
 			
 			try {
 				ChessPiece whiteQueen = testBoard.getPiece("d1");
 
-				//testing 
-				System.out.println("Queen size:   " + whiteQueen.legalMoves().size() + "\n\n\n");
-				//assertTrue(whiteQueen.legalMoves().size() == 14);
+				assertTrue(whiteQueen.legalMoves().size() == 0);
 				
 			} catch (IllegalPositionException e) {
 				// TODO Auto-generated catch block
@@ -55,7 +51,28 @@ class QueenTest {
 			}
 			
 		}
-		*/
+
+		@Test
+		void testLegalMoves_12() {
+		try {
+			ChessPiece Queen = new Queen(testBoard, Color.WHITE);
+			ChessPiece Queen1 = new Bishop(testBoard, Color.WHITE);
+			testBoard.placePiece(Queen, "a6");
+			testBoard.placePiece(Queen1, "f6");
+
+			int expect = 18;
+			int actual = Queen.legalMoves().size();
+			assertEquals(expect, actual);
+
+
+			//assertTrue(Queen.legalMoves().size() == 28);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+		
 		/*@Test
 		void legalMoves_0() {
 			ChessPiece whiteQueen = new Queen(testBoard, Color.BLACK);
