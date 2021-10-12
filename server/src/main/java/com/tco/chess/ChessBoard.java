@@ -24,7 +24,7 @@ public class ChessBoard {
 	11: black kings
 
 	After each move is made, check if a pieces was captured. If so, increment that index in the capturedPieces array.
-	If promotion occurred, decrement that location in the array.
+	******If promotion occurred, decrement that location in the array******
 	Then, check if index 0 or 6 == 6, indices 1-3, 7-9 == 2, or 4-5, 10-11 == 1. If true, declare winner.
 	 */
 	
