@@ -176,6 +176,9 @@ public class ChessBoard {
 			ArrayList<String> legalMoves = piece.legalMoves();
 			
 			if(legalMoves.contains(toPosition)) {
+				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
+					handleCapture(getPiece(toPosition));
+				}
 				placePiece(piece, toPosition);
 			}
 			else {
@@ -186,6 +189,35 @@ public class ChessBoard {
 			e.printStackTrace();
 		}
 	}
+
+	private handleCapture(ChessPiece captured) {
+		Color color = captured.getColor();
+		int incrementBasedOnColor = color == Color.WHITE ? 0 : 6;
+		int capturedIndex = -1; //FIXME can this be uninitialized?
+		if(captured instanceof Pawn) {
+			capturedIndex = 0 + incrementBasedOnColor;
+		}
+		else if(captured instanceof Rook) {
+			capturedIndex = 1 + incrementBasedOnColor;
+		}
+		else if(captured instanceof Knight) {
+			capturedIndex = 2 + incrementBasedOnColor;
+		}
+		else if(captured instanceof Bishop) {
+			capturedIndex = 3 + incrementBasedOnColor;
+		}
+		else if(captured instanceof Queen) {
+			capturedIndex = 4 + incrementBasedOnColor;
+		}
+		else if(captured instanceof King) {
+			capturedIndex = 5 + incrementBasedOnColor;
+		}
+		else {
+			System.out.println("ERROR in hanldeCapture()");
+		}
+		piecesCaptured[capturedIndex]++;
+	}
+
 
 	
 	public String toString(){
