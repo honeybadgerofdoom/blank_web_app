@@ -12,20 +12,20 @@ public abstract class ChessPiece {
 	
 	//Helper Methods
 	
-	private int[] boardRowCol(String position) throws IllegalPositionException {
-		
-		if(ChessBoard.validatePosition(position)) {
-			int[] arr = new int[2];
-			int column = position.charAt(0) % 'a'; // always sets the position to a1
-			int row = position.charAt(1) % '1'; 
-			
-			arr[0] = row;
-			arr[1] = column;
-			return arr;
-			
-		}
-		throw new IllegalPositionException("Error in boardRowCol");
-	}
+//	private int[] boardRowCol(String position) throws IllegalPositionException {
+//
+//		if(ChessBoard.validatePosition(position)) {
+//			int[] arr = new int[2];
+//			int column = position.charAt(0) % 'a'; // always sets the position to a1
+//			int row = position.charAt(1) % '1';
+//
+//			arr[0] = row;
+//			arr[1] = column;
+//			return arr;
+//
+//		}
+//		throw new IllegalPositionException("Error in boardRowCol");
+//	}
 	// Helper Methods
 	
 	public ChessPiece(ChessBoard board, Color color) {
@@ -50,7 +50,7 @@ public abstract class ChessPiece {
 	}
 	
 	public void setPosition(String position) throws IllegalPositionException{
-		int[] rowCol = boardRowCol(position);
+		int[] rowCol = ChessBoard.boardRowCol(position);
 		this.row = rowCol[0];
 		this.column = rowCol[1];
 		

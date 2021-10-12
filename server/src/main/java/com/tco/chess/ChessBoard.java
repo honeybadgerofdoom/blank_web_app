@@ -73,7 +73,7 @@ public class ChessBoard {
 	}
 	
 	
-	private int[] boardRowCol(String position) throws IllegalPositionException {
+	protected static int[] boardRowCol(String position) throws IllegalPositionException {
 		
 		if(validatePosition(position)) {
 			int[] arr = new int[2];
