@@ -7,7 +7,26 @@ import com.tco.chess.ChessPiece.Color;
 public class ChessBoard {
 	private ChessPiece[][] board;
 	private Color winner;
-	//FIXME after each move is made, check the board for surviving pieces.
+	private int[] piecesCaptured;
+	/*
+	INDICES
+	0: white pawns
+	1: white rooks
+	2: white knights
+	3: white bishops
+	4: white queens
+	5: white kings
+	6: black pawns
+	7: black rooks
+	8: black knights
+	9: black bishops
+	10: black queens
+	11: black kings
+
+	After each move is made, check if a pieces was captured. If so, increment that index in the capturedPieces array.
+	If promotion occurred, decrement that location in the array.
+	Then, check if index 0 or 6 == 6, indices 1-3, 7-9 == 2, or 4-5, 10-11 == 1. If true, declare winner.
+	 */
 	
 	public ChessBoard() {
 		board = new ChessPiece[8][8];// Each place needs to be null 		
@@ -15,7 +34,8 @@ public class ChessBoard {
 
 
 	public void  initialize() {
-
+		winner = null;
+		piecesCaptured = new int[12];
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 2; j++) {
 				placePiece(new Rook(this, j == 0 ? Color.WHITE : Color.BLACK), "a"+ (j*7+1));
