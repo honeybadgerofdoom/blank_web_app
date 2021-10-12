@@ -45,7 +45,7 @@ public class ChessBoard {
 	}
 	
 	
-	private boolean validatePosition(String position) {
+	protected static boolean validatePosition(String position) {
 		
 		if(position.length() != 2) {
 			return false;
