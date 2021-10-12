@@ -1,8 +1,8 @@
-const clickedSquareColor = "#5BD5FF";
-const highlightedSquare = "#35FF4F";
-const captureSquare = "#FF5B83";
-const whiteSquare = "#fff5db";
-const blackSquare = "#a39d8c";
+const clickedSquareColor = "#458AB9";
+const highlightedSquare = "#2DA661";
+const captureSquare = "#DD3700";
+const whiteSquare = "#FFF5DB";
+const blackSquare = "#A39D8C";
 
 export const squareColors = {
     whiteSquare,
