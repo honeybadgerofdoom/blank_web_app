@@ -1,6 +1,7 @@
 package com.tco.chess;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.tco.chess.ChessPiece.Color;
 
@@ -127,6 +128,38 @@ public class ChessBoard {
 			this.board[rowCol[0]][rowCol[1]] = piece;
 
 			piece.setPosition(position);
+
+			// Pawn Promotion
+			if(piece instanceof Pawn) {
+				Color color = piece.getColor();
+				int incrementForColor = color == Color.WHITE ? 7 : 0;
+				if(rowCol[0] == incrementForColor) {
+					// Promote the Pawn
+					Scanner reader = new Scanner(System.in);
+					System.out.println("Choose a piece to promote: ");
+					String promotion = reader.next();
+					switch(promotion) {
+						case "Queen":
+							Queen queen = new Queen(this, color);
+							placePiece(queen, position);
+						case "King":
+							King king = new King(this, color);
+							placePiece(king, position);
+						case "Rook":
+							Rook rook = new Rook(this, color);
+							placePiece(rook, position);
+						case "Knight":
+							Knight knight = new Knight(this, color);
+							placePiece(knight, position);
+						case "Bishop":
+							Bishop bishop = new Bishop(this, color);
+							placePiece(bishop, position);
+						default:
+							System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
+					}
+					reader.close();
+				}
+			}
 	
 			return true; 
 		
