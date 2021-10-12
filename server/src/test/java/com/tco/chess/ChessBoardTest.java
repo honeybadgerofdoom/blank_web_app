@@ -873,6 +873,29 @@ class ChessBoardTest {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@Test
+	void piecesCapturedInitialization() {
+		testBoard.initialize();
+		int[] piecesCaptured = testBoard.getPiecesCaptured();
+		for(int index : piecesCaptured) {
+			assertEquals(0, index);
+		}
+	}
+
+	@Test
+	void blackPawnIsCaptured() {
+		testBoard.initialize();
+		try {
+			testBoard.move("d2", "d4");
+			testBoard.move("e7", "e5");
+			testBoard.move("d4", "e5");
+			assertEquals(1, testBoard.getPiecesCaptured()[6]);
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 }
 

@@ -190,7 +190,7 @@ public class ChessBoard {
 		}
 	}
 
-	private handleCapture(ChessPiece captured) {
+	private void handleCapture(ChessPiece captured) {
 		Color color = captured.getColor();
 		int incrementBasedOnColor = color == Color.WHITE ? 0 : 6;
 		int capturedIndex = -1; //FIXME can this be uninitialized?
@@ -218,8 +218,10 @@ public class ChessBoard {
 		piecesCaptured[capturedIndex]++;
 	}
 
+	public int[] getPiecesCaptured() {
+		return piecesCaptured;
+	}
 
-	
 	public String toString(){
 	    String chess="";
 	    String upperLeft = "\u250C";
