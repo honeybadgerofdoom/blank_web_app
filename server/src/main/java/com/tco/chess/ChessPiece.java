@@ -10,24 +10,6 @@ public abstract class ChessPiece {
 	protected int column;
 	protected Color color;
 	
-	//Helper Methods
-	
-//	private int[] boardRowCol(String position) throws IllegalPositionException {
-//
-//		if(ChessBoard.validatePosition(position)) {
-//			int[] arr = new int[2];
-//			int column = position.charAt(0) % 'a'; // always sets the position to a1
-//			int row = position.charAt(1) % '1';
-//
-//			arr[0] = row;
-//			arr[1] = column;
-//			return arr;
-//
-//		}
-//		throw new IllegalPositionException("Error in boardRowCol");
-//	}
-	// Helper Methods
-	
 	public ChessPiece(ChessBoard board, Color color) {
 		this.board = board;
 		this.color = color;
