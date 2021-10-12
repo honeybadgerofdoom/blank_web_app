@@ -135,9 +135,9 @@ public class ChessBoard {
 				int incrementForColor = color == Color.WHITE ? 7 : 0;
 				if(rowCol[0] == incrementForColor) {
 					// Promote the Pawn
+					System.out.println("Choose a piece to promote to: ");
 					Scanner reader = new Scanner(System.in);
-					System.out.println("Choose a piece to promote: ");
-					String promotion = reader.next();
+					String promotion = reader.nextLine();
 					switch(promotion) {
 						case "Queen":
 							Queen queen = new Queen(this, color);
@@ -158,6 +158,7 @@ public class ChessBoard {
 							System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
 					}
 					reader.close();
+					System.out.println("Piece promoted??");
 				}
 			}
 	

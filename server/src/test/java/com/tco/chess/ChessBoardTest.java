@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 
 import com.tco.chess.ChessPiece.Color;
 
@@ -871,6 +873,30 @@ class ChessBoardTest {
 		} catch (IllegalPositionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+	@Test
+	void pawnPromotionToRook() {
+		testBoard.initialize();
+		try {
+			testBoard.move("a2", "a4");
+			testBoard.move("a4", "a5");
+			testBoard.move("a5", "a6");
+			testBoard.move("a6", "b7");
+			testBoard.move("b7", "a8");
+
+			// Input Rook to System.in
+			InputStream sysInBackup = System.in;
+			ByteArrayInputStream in = new ByteArrayInputStream("Rook".getBytes());
+			System.setIn(in);
+			System.setIn(sysInBackup);
+
+			assertTrue(testBoard.getPiece("a8") instanceof Rook);
+			assertEquals(Color.WHITE, testBoard.getPiece("a8").getColor());
+		} catch (IllegalMoveException | IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
 		}
 	}
 	
