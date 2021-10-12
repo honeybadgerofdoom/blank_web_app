@@ -9,9 +9,10 @@ CREATE DATABASE IF NOT EXISTS chess;
 CONNECT chess;
 
 -- Recreate tables every time this script is run
-DROP TABLE IF EXISTS userGames,
-                     users,
-                     games;
+DROP TABLE IF EXISTS
+    userGames,
+    users,
+    games;
 
 
 --
@@ -29,14 +30,14 @@ CREATE TABLE users (
     password CHAR(64) NOT NULL,
     salt CHAR(64) NOT NULL,
 
-    PRIMARY KEY (userID) 
+    PRIMARY KEY (userID)
 );
 
 CREATE TABLE games (
-                       gameID INT NOT NULL,
-                       turn enum ('WHITE', 'BLACK') NOT NULL,
-                       board CHAR(64) NOT NULL,
-                       PRIMARY KEY (gameID)
+    gameID INT NOT NULL,
+    turn enum ('WHITE', 'BLACK') NOT NULL,
+    board CHAR(64) NOT NULL,
+    PRIMARY KEY (gameID)
 );
 
 -- 
@@ -45,9 +46,9 @@ CREATE TABLE games (
 CREATE TABLE userGames (
     gameID INT NOT NULL,
     userID INT NOT NULL,
-     color enum ('WHITE', 'BLACK') NOT NULL,
-     FOREIGN KEY (userID) REFERENCES users (userID),
-     FOREIGN KEY (gameID) REFERENCES games (gameID),
-     UNIQUE (gameID, color)
+    color enum ('WHITE', 'BLACK') NOT NULL,
+    FOREIGN KEY (userID) REFERENCES users (userID),
+    FOREIGN KEY (gameID) REFERENCES games (gameID),
+    UNIQUE (gameID, color)
 );
 
