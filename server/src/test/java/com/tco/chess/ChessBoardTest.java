@@ -915,6 +915,25 @@ class ChessBoardTest {
 	}
 
 	@Test
+	void windConditionAllWhiteKingCaptured() {
+		testBoard.initialize();
+		try {
+			testBoard.move("e2", "e4");
+			testBoard.move("e1", "e2");
+			testBoard.move("e2", "e3");
+			testBoard.move("e3", "d3");
+			testBoard.move("d3", "d4");
+			testBoard.move("d4", "d5");
+			testBoard.move("d5", "d6");
+			testBoard.move("c7", "d6");
+			assertEquals(Color.BLACK, testBoard.getWinner());
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
 	void windConditionAllBlackRooksCaptured() {
 		testBoard.initialize();
 		try {
@@ -924,7 +943,6 @@ class ChessBoardTest {
 			testBoard.move("b6", "b3");
 			testBoard.move("a2", "b3");
 			assertEquals(1, testBoard.getPiecesCaptured()[7]);
-			assertEquals(null, testBoard.getWinner());
 			testBoard.move("h7", "h5");
 			testBoard.move("h8", "h6");
 			testBoard.move("h6", "g6");
