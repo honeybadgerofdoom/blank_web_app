@@ -915,6 +915,21 @@ class ChessBoardTest {
 	}
 
 	@Test
+	void whiteQueenCaptured() {
+		testBoard.initialize();
+		try {
+			testBoard.move("e2", "e3");
+			testBoard.move("d1", "h5");
+			testBoard.move("h5", "f7");
+			testBoard.move("e8", "f7");
+			assertEquals(Color.BLACK, testBoard.getWinner());
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
 	void windConditionAllBlackKnightsCaptured() {
 		testBoard.initialize();
 		try {
