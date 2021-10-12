@@ -158,6 +158,10 @@ public class ChessBoard {
 	
 	
 	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
+
+		if(winner != null) {
+			throw new IllegalMoveException("The game is already over.");
+		}
 		
 		 try {
 			 
@@ -190,12 +194,11 @@ public class ChessBoard {
 	}
 
 	private void checkIfTheGameIsOver() {
-		int[] maxNumberOfCapturedPieces = {6, 2, 2, 2, 1, 1, 6, 2, 2, 2, 1, 1};
+		int[] maxNumberOfCapturedPieces = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
 		for(int i = 0; i < piecesCaptured.length; i++) {
 			if(piecesCaptured[i] >= maxNumberOfCapturedPieces[i]) {
-				Color color = i < 6 ? Color.BLACK : Color.WHITE;
-				winner = color;
-				System.out.println("Game is over. Winner is " + color);
+				winner = i < 6 ? Color.BLACK : Color.WHITE;
+				//FIXME Do whatever needs to be done to prevent further moves, etc...
 			}
 		}
 	}
