@@ -18,19 +18,6 @@ public class Pawn extends ChessPiece{
 			return "\u2659"; // "\u2659" white pawn
 		}
 	}
-//	private boolean validatePosition(String position) {
-//
-//		if(position.length() != 2) {
-//			return false;
-//		}
-//		if(!(position.charAt(0) >= 'a' && position.charAt(0) <= 'h' )) {
-//			return false;
-//		}
-//		if(!(position.charAt(1) >= '1' && position.charAt(1) <= '8')) {
-//			return false;
-//		}
-//		return true;
-//	}
 		
 	@Override
 	public ArrayList<String> legalMoves(){
