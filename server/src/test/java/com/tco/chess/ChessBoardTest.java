@@ -897,5 +897,22 @@ class ChessBoardTest {
 		}
 	}
 
+	@Test
+	void windConditionAllWhiteBishopsCaptured() {
+		testBoard.initialize();
+		try {
+			testBoard.move("d2", "d4");
+			testBoard.move("e2", "e4");
+			testBoard.move("c1", "h6");
+			testBoard.move("g7", "h6");
+			testBoard.move("f1", "a6");
+			testBoard.move("b7", "a6");
+			assertEquals(Color.BLACK, testBoard.getWinner());
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 }
 

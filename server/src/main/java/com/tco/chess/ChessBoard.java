@@ -6,8 +6,8 @@ import com.tco.chess.ChessPiece.Color;
 
 public class ChessBoard {
 	private ChessPiece[][] board;
-	private Color winner;
-	private int[] piecesCaptured;
+	private Color winner = null;
+	private int[] piecesCaptured = new int[12];
 	/*
 	INDICES
 	0: white pawns
@@ -34,8 +34,6 @@ public class ChessBoard {
 
 
 	public void  initialize() {
-		winner = null;
-		piecesCaptured = new int[12];
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 2; j++) {
 				placePiece(new Rook(this, j == 0 ? Color.WHITE : Color.BLACK), "a"+ (j*7+1));
@@ -180,6 +178,7 @@ public class ChessBoard {
 					handleCapture(getPiece(toPosition));
 				}
 				placePiece(piece, toPosition);
+				checkIfTheGameIsOver();
 			}
 			else {
 				throw new IllegalMoveException("Illegal Move attempted");
@@ -190,10 +189,21 @@ public class ChessBoard {
 		}
 	}
 
+	private void checkIfTheGameIsOver() {
+		int[] maxNumberOfCapturedPieces = {6, 2, 2, 2, 1, 1, 6, 2, 2, 2, 1, 1};
+		for(int i = 0; i < piecesCaptured.length; i++) {
+			if(piecesCaptured[i] >= maxNumberOfCapturedPieces[i]) {
+				Color color = i < 6 ? Color.BLACK : Color.WHITE;
+				winner = color;
+				System.out.println("Game is over. Winner is " + color);
+			}
+		}
+	}
+
 	private void handleCapture(ChessPiece captured) {
 		Color color = captured.getColor();
 		int incrementBasedOnColor = color == Color.WHITE ? 0 : 6;
-		int capturedIndex = -1; //FIXME can this be uninitialized?
+		int capturedIndex = -1;
 		if(captured instanceof Pawn) {
 			capturedIndex = 0 + incrementBasedOnColor;
 		}
@@ -213,13 +223,22 @@ public class ChessBoard {
 			capturedIndex = 5 + incrementBasedOnColor;
 		}
 		else {
-			System.out.println("ERROR in hanldeCapture()");
+			System.out.println("ERROR in hanldeCapture() - captured piece type not recognized");
 		}
-		piecesCaptured[capturedIndex]++;
+		try {
+			piecesCaptured[capturedIndex]++;
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+			System.out.println("ERROR in hanldeCapture() - capturedIndex was never set.");
+		}
 	}
 
 	public int[] getPiecesCaptured() {
 		return piecesCaptured;
+	}
+
+	public Color getWinner() {
+		return winner;
 	}
 
 	public String toString(){
