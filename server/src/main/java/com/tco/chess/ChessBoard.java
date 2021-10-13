@@ -23,7 +23,7 @@ public class ChessBoard {
 	10: black queens
 	11: black kings
 
-	******If promotion occurred, decrement that location in the array******
+	******If promotion occurred, call handleCapture() on the pawn and handlePromotion() on the new piece******
 	 */
 	
 	public ChessBoard() {
