@@ -208,8 +208,8 @@ public class ChessBoard {
 	}
 
 	private void handlePromotion(ChessPiece promoted) {
-		int capturedIndex = getIndexInPiecesCaptured(promoted);
-		piecesCaptured[capturedIndex]--;
+		int promotedIndex = getIndexInPiecesCaptured(promoted);
+		piecesCaptured[promotedIndex]--;
 	}
 
 	private int getIndexInPiecesCaptured(ChessPiece piece) {
