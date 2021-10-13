@@ -130,7 +130,7 @@ public class ChessBoard {
 
 			// NOTE: At this point, check if the piece is a pawn, and if it is in a position to be promoted. If so,
 			// call promotePawn(). Will implement this later as we really need client/API connection to implement
-			// this in a meaningful way. Thus, this does *enforce* pawn promotion, it merely makes it possible.
+			// this in a meaningful way. Thus, this does not *enforce* pawn promotion, it merely makes it possible.
 
 			// NOTE: The response for a /move request will include a boolean saying whether or not a pawn must
 			// 	     be promoted. At which point a /promote request will be made, which will call promotePawn()
@@ -156,26 +156,29 @@ public class ChessBoard {
 			throw new IllegalPromotionException("You can only promote a pawn if it is on its enemy's first row");
 		}
 		else {
+			//handleCapture(pawn); DO THIS once merged with win_condition logic
 			board[rowCol[0]][rowCol[1]] = null;
+			ChessPiece newPiece;
 			switch (promotion) {
 				case "Queen":
-					Queen queen = new Queen(this, color);
+					newPiece = new Queen(this, color);
 					placePiece(queen, position);
 				case "King":
-					King king = new King(this, color);
+					newPiece = new King(this, color);
 					placePiece(king, position);
 				case "Rook":
-					Rook rook = new Rook(this, color);
+					newPiece = new Rook(this, color);
 					placePiece(rook, position);
 				case "Knight":
-					Knight knight = new Knight(this, color);
+					newPiece = new Knight(this, color);
 					placePiece(knight, position);
 				case "Bishop":
-					Bishop bishop = new Bishop(this, color);
+					newPiece = new Bishop(this, color);
 					placePiece(bishop, position);
 				default:
 					System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
 			}
+			//handlePromotion(newPiece); DO THIS once merged with win_condition logic
 		}
 	}
 
