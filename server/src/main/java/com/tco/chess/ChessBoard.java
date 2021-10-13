@@ -202,33 +202,33 @@ public class ChessBoard {
 	}
 
 	private void handleCapture(ChessPiece captured) {
-		int capturedIndex = getIndexInPiecesCaptures(captured);
+		int capturedIndex = getIndexInPiecesCaptured(captured);
 		piecesCaptured[capturedIndex]++;
 
 	}
 
-	private void handlePromotion(ChessPiece captured) {
-		int capturedIndex = getIndexInPiecesCaptures(captured);
+	private void handlePromotion(ChessPiece promoted) {
+		int capturedIndex = getIndexInPiecesCaptured(promoted);
 		piecesCaptured[capturedIndex]--;
 	}
 
-	private int getIndexInPiecesCaptures(ChessPiece captured) {
-		Color color = captured.getColor();
+	private int getIndexInPiecesCaptured(ChessPiece piece) {
+		Color color = piece.getColor();
 		int incrementBasedOnColor = color == Color.WHITE ? 0 : 6;
 		int capturedIndex = -1;
-		if(captured instanceof Pawn) {
+		if(piece instanceof Pawn) {
 			capturedIndex = 0 + incrementBasedOnColor;
 		}
-		else if(captured instanceof Rook) {
+		else if(piece instanceof Rook) {
 			capturedIndex = 1 + incrementBasedOnColor;
 		}
-		else if(captured instanceof Knight) {
+		else if(piece instanceof Knight) {
 			capturedIndex = 2 + incrementBasedOnColor;
 		}
-		else if(captured instanceof Bishop) {
+		else if(piece instanceof Bishop) {
 			capturedIndex = 3 + incrementBasedOnColor;
 		}
-		else if(captured instanceof Queen) {
+		else if(piece instanceof Queen) {
 			capturedIndex = 4 + incrementBasedOnColor;
 		}
 		else {
