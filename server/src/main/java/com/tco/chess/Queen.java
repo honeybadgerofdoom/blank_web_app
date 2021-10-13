@@ -21,6 +21,28 @@ public class Queen extends ChessPiece{
 	
 	@Override
 	public ArrayList<String> legalMoves(){
-		return new ArrayList<String>();
+		ArrayList<String> legalMoves = new ArrayList<>();
+
+		try{
+			//ChessBoard testBoard = ChessBoard();
+			ChessPiece Bishop = new Bishop(board, this.color);
+			Bishop.setPosition(getPosition());
+			legalMoves = Bishop.legalMoves();
+
+			ArrayList<String> getMoves = new ArrayList<>();
+			ChessPiece Rook = new Rook(board, this.color);
+			Rook.setPosition(getPosition());
+			getMoves = Rook.legalMoves();
+			
+			for(String get:  getMoves){
+				legalMoves.add(get);
+			}
+		} catch (IllegalPositionException e) {
+			//Not a legal move
+		}
+
+		return legalMoves;
+		
+		
 	}
 }
