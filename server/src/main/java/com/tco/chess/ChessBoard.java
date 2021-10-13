@@ -129,38 +129,12 @@ public class ChessBoard {
 
 			piece.setPosition(position);
 
-			// Pawn Promotion
-			if(piece instanceof Pawn) {
-				Color color = piece.getColor();
-				int incrementForColor = color == Color.WHITE ? 7 : 0;
-				if(rowCol[0] == incrementForColor) {
-					// Promote the Pawn
-					System.out.println("Choose a piece to promote to: ");
-					Scanner reader = new Scanner(System.in);
-					String promotion = reader.nextLine();
-					switch(promotion) {
-						case "Queen":
-							Queen queen = new Queen(this, color);
-							placePiece(queen, position);
-						case "King":
-							King king = new King(this, color);
-							placePiece(king, position);
-						case "Rook":
-							Rook rook = new Rook(this, color);
-							placePiece(rook, position);
-						case "Knight":
-							Knight knight = new Knight(this, color);
-							placePiece(knight, position);
-						case "Bishop":
-							Bishop bishop = new Bishop(this, color);
-							placePiece(bishop, position);
-						default:
-							System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
-					}
-					reader.close();
-					System.out.println("Piece promoted??");
-				}
-			}
+			// NOTE: At this point, check if the piece is a pawn, and if it is in a position to be promoted. If so,
+			// call promotePawn(). Will implement this later as we really need client/API connection to implement
+			// this in a meaningful way. Thus, this does *enforce* pawn promotion, it merely makes it possible.
+
+			// NOTE: The response for a /move request will include a boolean saying whether or not a pawn must
+			// 	     be promoted. At which point a /promote request will be made, which will call promotePawn()
 	
 			return true; 
 		
@@ -170,8 +144,42 @@ public class ChessBoard {
 		}
 		return false;
 	}
-	
-	
+
+	public void promotePawn(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
+		Color color = pawn.getColor();
+		String position = pawn.getPosition();
+		int[] rowCol = boardRowCol(position);
+		int incrementForColor = color == Color.WHITE ? 7 : 0;
+		if(!(pawn instanceof Pawn)) {
+			throw new IllegalPromotionException("You can only promote pawns.");
+		}
+		else if(rowCol[0] != incrementForColor) {
+			throw new IllegalPromotionException("You can only promote a pawn if it is on its enemy's first row");
+		}
+		else {
+			board[rowCol[0]][rowCol[1]] = null;
+			switch (promotion) {
+				case "Queen":
+					Queen queen = new Queen(this, color);
+					placePiece(queen, position);
+				case "King":
+					King king = new King(this, color);
+					placePiece(king, position);
+				case "Rook":
+					Rook rook = new Rook(this, color);
+					placePiece(rook, position);
+				case "Knight":
+					Knight knight = new Knight(this, color);
+					placePiece(knight, position);
+				case "Bishop":
+					Bishop bishop = new Bishop(this, color);
+					placePiece(bishop, position);
+				default:
+					System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
+			}
+		}
+	}
+
 	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
 		
 		 try {
