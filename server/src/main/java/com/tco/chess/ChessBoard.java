@@ -192,6 +192,47 @@ public class ChessBoard {
 	}
 
 	private void checkIfTheGameIsOver() {
+		// ...just iterate the board
+
+		int whitePawns = 0;
+		int whiteRooks = 0;
+		int whiteKnights = 0;
+		int whiteBishops = 0;
+		int whiteQueens = 0;
+		int whiteKings = 0;
+
+		int blackPawns = 0;
+		int blackRooks = 0;
+		int blackKnights = 0;
+		int blackBishops = 0;
+		int blackQueens = 0;
+		int blackKings = 0;
+
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				if(board[i][j] instanceof Pawn) {
+					board[i][j].getColor() == Color.WHITE ? whitePawns++ : blackPawns++;
+				}
+				else if(board[i][j] instanceof Rook) {
+					board[i][j].getColor() == Color.WHITE ? whiteRooks++ : blackRooks++;
+				}
+				else if(board[i][j] instanceof Knight) {
+					board[i][j].getColor() == Color.WHITE ? whiteKnights++ : blackKnights++;
+				}
+				else if(board[i][j] instanceof Bishop) {
+					board[i][j].getColor() == Color.WHITE ? whiteBishops++ : blackBishops++;
+				}
+				else if(board[i][j] instanceof King) {
+					board[i][j].getColor() == Color.WHITE ? whiteKings++ : blackKings++;
+				}
+				else if(board[i][j] instanceof Queen) {
+					board[i][j].getColor() == Color.WHITE ? whiteQueens++ : blackQueens++;
+				}
+			}
+		}
+
+
+
 		int[] maxNumberOfCapturedPieces = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
 		for(int i = 0; i < piecesCaptured.length; i++) {
 			if(piecesCaptured[i] >= maxNumberOfCapturedPieces[i]) {
