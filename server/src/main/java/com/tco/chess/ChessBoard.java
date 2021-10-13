@@ -162,19 +162,19 @@ public class ChessBoard {
 			switch (promotion) {
 				case "Queen":
 					newPiece = new Queen(this, color);
-					placePiece(queen, position);
+					placePiece(newPiece, position);
 				case "King":
 					newPiece = new King(this, color);
-					placePiece(king, position);
+					placePiece(newPiece, position);
 				case "Rook":
 					newPiece = new Rook(this, color);
-					placePiece(rook, position);
+					placePiece(newPiece, position);
 				case "Knight":
 					newPiece = new Knight(this, color);
-					placePiece(knight, position);
+					placePiece(newPiece, position);
 				case "Bishop":
 					newPiece = new Bishop(this, color);
-					placePiece(bishop, position);
+					placePiece(newPiece, position);
 				default:
 					System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
 			}
