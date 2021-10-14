@@ -3,10 +3,14 @@ package com.tco.chess;
 import java.util.ArrayList;
 
 public class Rook extends ChessPiece {
+	private boolean hasMoved;
 	public Rook(ChessBoard board, Color color) {
 		super(board, color);
-		// TODO Auto-generated constructor stub
+		hasMoved = false;
 	}
+
+	public boolean getHasMoved() { return hasMoved; }
+	public void setHasMoved(boolean moved) { hasMoved = moved; }
 
 	@Override
 	public String toString() {
