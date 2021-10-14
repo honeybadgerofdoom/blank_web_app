@@ -157,6 +157,21 @@ public class ChessBoard {
 	}
 
 	public void promotePawn(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
+		validatePromotion(pawn, promotion);
+
+		Color color = pawn.getColor();
+		String position = pawn.getPosition();
+		int[] rowCol = boardRowCol(position);
+
+		handleCapture(pawn);
+		board[rowCol[0]][rowCol[1]] = null;
+		ChessPiece promotedPiece = createPromotedPiece(promotion, color);
+		placePiece(promotedPiece, position);
+		handlePromotion(promotedPiece);
+		checkIfTheGameIsOver();
+	}
+
+	private void validatePromotion(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
 		if(!validatePromotionString(promotion)) {
 			throw new IllegalPromotionException("You can't promote to a " + promotion);
 		}
@@ -170,11 +185,6 @@ public class ChessBoard {
 		if(rowCol[0] != incrementForColor) {
 			throw new IllegalPromotionException("You can only promote a pawn if it is on its enemy's first row");
 		}
-		handleCapture(pawn);
-		board[rowCol[0]][rowCol[1]] = null;
-		ChessPiece promotedPiece = createPromotedPiece(promotion, color);
-		placePiece(promotedPiece, position);
-		handlePromotion(promotedPiece);
 	}
 
 	private ChessPiece createPromotedPiece(String promotion, Color color) {

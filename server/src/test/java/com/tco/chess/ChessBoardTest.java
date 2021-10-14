@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
+
+import java.util.Arrays;
 
 import com.tco.chess.ChessPiece.Color;
 
@@ -1090,6 +1090,66 @@ class ChessBoardTest {
 			testBoard.move("e1", "f2");
 			assertEquals(Color.WHITE, testBoard.getWinner());
 		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void promotionIncrementsAndDecrementsPiecesRemaings() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("a2"), "f8");
+			testBoard.promotePawn(testBoard.getPiece("f8"), "Knight");
+			assertEquals(3, testBoard.getPiecesRemaining()[2]);
+			assertEquals(7, testBoard.getPiecesRemaining()[0]);
+		} catch(IllegalPositionException | IllegalPromotionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void promotingLastPawnLosesGame() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("a2"), "a6");
+			testBoard.move("a6", "b7");
+			testBoard.placePiece(testBoard.getPiece("b2"), "b6");
+			testBoard.move("b6", "c7");
+			testBoard.placePiece(testBoard.getPiece("c2"), "c6");
+			testBoard.move("c6", "d7");
+			testBoard.placePiece(testBoard.getPiece("d2"), "d6");
+			testBoard.move("d6", "e7");
+			testBoard.placePiece(testBoard.getPiece("e2"), "e6");
+			testBoard.move("e6", "f7");
+			testBoard.placePiece(testBoard.getPiece("f2"), "f6");
+			testBoard.move("f6", "g7");
+			testBoard.placePiece(testBoard.getPiece("g2"), "g6");
+			testBoard.move("g6", "h7");
+
+			testBoard.placePiece(testBoard.getPiece("a7"), "a1");
+			assertEquals(null, testBoard.getWinner());
+			testBoard.promotePawn(testBoard.getPiece("a1"), "Queen");
+			assertEquals(Color.WHITE, testBoard.getWinner());
+		} catch(IllegalPositionException | IllegalPromotionException | IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void promotionCanPreventGameLoss() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("a8"), "a3");
+			testBoard.placePiece(testBoard.getPiece("h8"), "h3");
+			testBoard.move("b2", "a3");
+			testBoard.placePiece(testBoard.getPiece("d7"), "b1");
+			testBoard.promotePawn(testBoard.getPiece("b1"), "Rook");
+			testBoard.move("g2", "h3");
+			assertEquals(null, testBoard.getWinner());
+		} catch(IllegalPositionException | IllegalPromotionException | IllegalMoveException e) {
 			e.printStackTrace();
 			fail();
 		}
