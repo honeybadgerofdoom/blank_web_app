@@ -978,13 +978,21 @@ class ChessBoardTest {
 			testBoard.move("h5", "h6");
 
 			testBoard.move("b8", "a6");
+			assertEquals(7, testBoard.getPiecesRemaining()[0]);
 			testBoard.move("a7", "b6");
+			assertEquals(6, testBoard.getPiecesRemaining()[0]);
 			testBoard.move("b7", "c6");
+			assertEquals(5, testBoard.getPiecesRemaining()[0]);
 			testBoard.move("c7", "d6");
+			assertEquals(4, testBoard.getPiecesRemaining()[0]);
 			testBoard.move("d7", "e6");
+			assertEquals(3, testBoard.getPiecesRemaining()[0]);
 			testBoard.move("e7", "f6");
+			assertEquals(2, testBoard.getPiecesRemaining()[0]);
 			testBoard.move("f7", "g6");
+			assertEquals(1, testBoard.getPiecesRemaining()[0]);
 			testBoard.move("g7", "h6");
+			assertEquals(0, testBoard.getPiecesRemaining()[0]);
 			assertEquals(Color.BLACK, testBoard.getWinner());
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();
@@ -992,41 +1000,40 @@ class ChessBoardTest {
 		}
 	}
 
-	//These can be commented in when Queen branch is merged in
-//	@Test
-//	void whiteQueenCaptured() {
-//		testBoard.initialize();
-//		try {
-//			testBoard.move("e2", "e3");
-//			testBoard.move("d1", "h5");
-//			testBoard.move("h5", "f7");
-//			testBoard.move("e8", "f7");
-//			assertEquals(Color.BLACK, testBoard.getWinner());
-//		} catch (IllegalMoveException e) {
-//			e.printStackTrace();
-//			fail();
-//		}
-//	}
+	@Test
+	void whiteQueenCaptured() {
+		testBoard.initialize();
+		try {
+			testBoard.move("e2", "e3");
+			testBoard.move("d1", "h5");
+			testBoard.move("h5", "f7");
+			testBoard.move("e8", "f7");
+			assertEquals(Color.BLACK, testBoard.getWinner());
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 
-//	@Test
-//	void windConditionAllBlackKnightsCaptured() {
-//		testBoard.initialize();
-//		try {
-//			testBoard.move("b8", "a6");
-//			testBoard.move("a6", "b4");
-//			testBoard.move("b4", "c2");
-//			testBoard.move("d1", "c2");
-//			assertEquals(null, testBoard.getWinner());
-//			testBoard.move("g8", "f6");
-//			testBoard.move("f6", "g4");
-//			testBoard.move("g4", "f2");
-//			testBoard.move("e1", "f2");
-//			assertEquals(Color.WHITE, testBoard.getWinner());
-//		} catch (IllegalMoveException e) {
-//			e.printStackTrace();
-//			fail();
-//		}
-//	}
+	@Test
+	void windConditionAllBlackKnightsCaptured() {
+		testBoard.initialize();
+		try {
+			testBoard.move("b8", "a6");
+			testBoard.move("a6", "b4");
+			testBoard.move("b4", "c2");
+			testBoard.move("d1", "c2");
+			assertEquals(null, testBoard.getWinner());
+			testBoard.move("g8", "f6");
+			testBoard.move("f6", "g4");
+			testBoard.move("g4", "f2");
+			testBoard.move("e1", "f2");
+			assertEquals(Color.WHITE, testBoard.getWinner());
+		} catch (IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 
 }
 

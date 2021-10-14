@@ -202,7 +202,6 @@ public class ChessBoard {
 	private void handleCapture(ChessPiece captured) {
 		int capturedIndex = getIndexInPiecesRemaining(captured);
 		piecesRemaining[capturedIndex]--;
-
 	}
 
 	private void handlePromotion(ChessPiece promoted) {
