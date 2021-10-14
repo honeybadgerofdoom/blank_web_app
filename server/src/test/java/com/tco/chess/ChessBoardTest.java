@@ -1179,5 +1179,20 @@ class ChessBoardTest {
 		}
 	}
 
+	@Test
+	void promotionDoesntSwitchTurnIncorrectly() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("a2"), "b7");
+			testBoard.move("b7", "a8");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.promotePawn(testBoard.getPiece("a8"), "King");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 }
 
