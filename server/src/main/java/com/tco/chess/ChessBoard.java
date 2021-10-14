@@ -211,28 +211,13 @@ public class ChessBoard {
 	}
 
 	private int getIndexInPiecesRemaining(ChessPiece piece) {
-		Color color = piece.getColor();
-		int incrementBasedOnColor = color == Color.WHITE ? 0 : 6;
-		int capturedIndex = -1;
-		if(piece instanceof Pawn) {
-			capturedIndex = 0 + incrementBasedOnColor;
-		}
-		else if(piece instanceof Rook) {
-			capturedIndex = 1 + incrementBasedOnColor;
-		}
-		else if(piece instanceof Knight) {
-			capturedIndex = 2 + incrementBasedOnColor;
-		}
-		else if(piece instanceof Bishop) {
-			capturedIndex = 3 + incrementBasedOnColor;
-		}
-		else if(piece instanceof Queen) {
-			capturedIndex = 4 + incrementBasedOnColor;
-		}
-		else {
-			capturedIndex = 5 + incrementBasedOnColor;
-		}
-		return capturedIndex;
+		int incrementBasedOnColor = piece.getColor() == Color.WHITE ? 0 : 6;
+		if (piece instanceof Pawn) return 0 + incrementBasedOnColor;
+		else if (piece instanceof Rook) return 1 + incrementBasedOnColor;
+		else if (piece instanceof Knight) return 2 + incrementBasedOnColor;
+		else if (piece instanceof Bishop) return 3 + incrementBasedOnColor;
+		else if (piece instanceof Queen) return 4 + incrementBasedOnColor;
+		else return 5 + incrementBasedOnColor;
 	}
 
 	public int[] getPiecesRemaining() {
