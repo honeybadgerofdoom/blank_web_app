@@ -144,6 +144,13 @@ public class ChessBoard {
 			this.board[rowCol[0]][rowCol[1]] = piece;
 
 			piece.setPosition(position);
+
+			// NOTE: At this point, check if the piece is a pawn, and if it is in a position to be promoted. If so,
+			// call promotePawn(). Will implement this later as we really need client/API connection to implement
+			// this in a meaningful way. Thus, this does not *enforce* pawn promotion, it merely makes it possible.
+
+			// NOTE: The response for a /move request will include a boolean saying whether or not a pawn must
+			// 	     be promoted. At which point a /promote request will be made, which will call promotePawn()
 	
 			return true; 
 		
@@ -153,8 +160,45 @@ public class ChessBoard {
 		}
 		return false;
 	}
-	
-	
+
+	public void promotePawn(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
+		Color color = pawn.getColor();
+		String position = pawn.getPosition();
+		int[] rowCol = boardRowCol(position);
+		int incrementForColor = color == Color.WHITE ? 7 : 0;
+		if(!(pawn instanceof Pawn)) {
+			throw new IllegalPromotionException("You can only promote pawns.");
+		}
+		else if(rowCol[0] != incrementForColor) {
+			throw new IllegalPromotionException("You can only promote a pawn if it is on its enemy's first row");
+		}
+		else {
+			//handleCapture(pawn); DO THIS once merged with win_condition logic
+			board[rowCol[0]][rowCol[1]] = null;
+			ChessPiece newPiece;
+			switch (promotion) {
+				case "Queen":
+					newPiece = new Queen(this, color);
+					placePiece(newPiece, position);
+				case "King":
+					newPiece = new King(this, color);
+					placePiece(newPiece, position);
+				case "Rook":
+					newPiece = new Rook(this, color);
+					placePiece(newPiece, position);
+				case "Knight":
+					newPiece = new Knight(this, color);
+					placePiece(newPiece, position);
+				case "Bishop":
+					newPiece = new Bishop(this, color);
+					placePiece(newPiece, position);
+				default:
+					System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
+			}
+			//handlePromotion(newPiece); DO THIS once merged with win_condition logic
+		}
+	}
+
 	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
 
 		if(winner != null) {

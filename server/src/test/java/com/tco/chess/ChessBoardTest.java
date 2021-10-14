@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
 
 import com.tco.chess.ChessPiece.Color;
 
@@ -831,8 +833,8 @@ class ChessBoardTest {
 			
 			
 		} catch (IllegalPositionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
 		}
 	}
 	
@@ -870,8 +872,66 @@ class ChessBoardTest {
 			
 			
 		} catch (IllegalPositionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void pawnPromotionToRookWhite() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("a2"), "a8");
+			testBoard.promotePawn(testBoard.getPiece("a8"), "Rook");
+			assertTrue(testBoard.getPiece("a8") instanceof Rook);
+			assertEquals(Color.WHITE, testBoard.getPiece("a8").getColor());
+		} catch (IllegalPositionException | IllegalPromotionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void pawnPromotionToBishopBlack() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f7"), "h1");
+			testBoard.promotePawn(testBoard.getPiece("h1"), "Bishop");
+			assertTrue(testBoard.getPiece("h1") instanceof Bishop);
+			assertEquals(Color.BLACK, testBoard.getPiece("h1").getColor());
+		} catch (IllegalPositionException | IllegalPromotionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void illegalPromotion() {
+		testBoard.initialize();
+		try {
+			ChessPiece c2Pawn = testBoard.getPiece("c2");
+			testBoard.placePiece(c2Pawn, "f2");
+			assertThrows(IllegalPromotionException.class, ()-> {
+				testBoard.promotePawn(c2Pawn, "King");
+			});
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void cantPromoteARook() {
+		testBoard.initialize();
+		try {
+			ChessPiece whiteRook = testBoard.getPiece("h1");
+			testBoard.placePiece(whiteRook, "f8");
+			assertThrows(IllegalPromotionException.class, ()-> {
+				testBoard.promotePawn(whiteRook, "Queen");
+			});
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
 		}
 	}
 
