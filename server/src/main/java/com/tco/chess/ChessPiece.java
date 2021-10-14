@@ -69,6 +69,18 @@ public abstract class ChessPiece {
 		this.column = rowCol[1];
 		
 	}
+
+	protected String rowColToPosition(int row, int col) {
+		String position = "";
+		position += colToCharacter(col);
+		position += (char) row+1;
+		return position;
+	}
+
+	private char colToCharacter(int col) {
+		char letter = (char) (col + 97);
+		return letter;
+	}
 	
 	abstract public String toString();
 	

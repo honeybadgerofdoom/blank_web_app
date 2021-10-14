@@ -17,7 +17,17 @@ public class King extends ChessPiece{
 		}
 	}
 	
-	
+	private boolean checkEmptySquares(int[] squaresToCheck, int row) {
+		for (int square : squaresToCheck) {
+			try {
+				if (board.getPiece(rowColToPosition(row, square)) != null) return false;
+			} catch (IllegalPositionException e) {
+				e.printStackTrace();
+			}
+		}
+		return true;
+	}
+
 	//The king can only move one square horizontally, vertically, or diagonally. Assume that it cannot castle3.
 	@Override
 	public ArrayList<String> legalMoves(){
@@ -25,7 +35,23 @@ public class King extends ChessPiece{
 		String str = this.getPosition();
 
 		// FIXME check for hasMoved, add moves accordingly
-		
+		int kingRow = color == Color.WHITE ? 0 : 7;
+		int[] squaresForQueensideCastle = {1, 2, 3};
+		int[] squaresForKingsideCastle = {5, 6};
+		boolean kingRookHasntMoved = true;
+		boolean queenRookHasntMoved = true;
+		try {
+			queenRookHasntMoved = board.getPiece(rowColToPosition(kingRow, 0)).hasMoved;
+			kingRookHasntMoved = board.getPiece(rowColToPosition(kingRow, 7)).hasMoved;
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+		boolean queensideSquaresEmpty = checkEmptySquares(squaresForQueensideCastle, kingRow);
+		boolean kingsideSquaresEmpty = checkEmptySquares(squaresForKingsideCastle, kingRow);
+
+		boolean queensideCastle = queenRookHasntMoved && queensideSquaresEmpty && !this.hasMoved;
+		boolean kingsideCastle = kingRookHasntMoved && kingsideSquaresEmpty && !this.hasMoved;
+
 		for(int i = -1; i < 2; i++) {
 			for(int j = -1; j < 2; j++) {
 				
