@@ -875,22 +875,13 @@ class ChessBoardTest {
 	}
 
 	@Test
-	void piecesCapturedInitialization() {
-		testBoard.initialize();
-		int[] piecesCaptured = testBoard.getPiecesCaptured();
-		for(int index : piecesCaptured) {
-			assertEquals(0, index);
-		}
-	}
-
-	@Test
 	void blackPawnIsCaptured() {
 		testBoard.initialize();
 		try {
 			testBoard.move("d2", "d4");
 			testBoard.move("e7", "e5");
 			testBoard.move("d4", "e5");
-			assertEquals(1, testBoard.getPiecesCaptured()[6]);
+			assertEquals(7, testBoard.getPiecesRemaining()[6]);
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();
 			fail();
@@ -942,7 +933,6 @@ class ChessBoardTest {
 			testBoard.move("a6", "b6");
 			testBoard.move("b6", "b3");
 			testBoard.move("a2", "b3");
-			assertEquals(1, testBoard.getPiecesCaptured()[7]);
 			testBoard.move("h7", "h5");
 			testBoard.move("h8", "h6");
 			testBoard.move("h6", "g6");
@@ -986,26 +976,14 @@ class ChessBoardTest {
 			testBoard.move("g5", "g6");
 			testBoard.move("h5", "h6");
 
-			for(int captureIndex : testBoard.getPiecesCaptured()) {
-				assertEquals(captureIndex, 0);
-			}
-
 			testBoard.move("b8", "a6");
-			assertEquals(1, testBoard.getPiecesCaptured()[0]);
 			testBoard.move("a7", "b6");
-			assertEquals(2, testBoard.getPiecesCaptured()[0]);
 			testBoard.move("b7", "c6");
-			assertEquals(3, testBoard.getPiecesCaptured()[0]);
 			testBoard.move("c7", "d6");
-			assertEquals(4, testBoard.getPiecesCaptured()[0]);
 			testBoard.move("d7", "e6");
-			assertEquals(5, testBoard.getPiecesCaptured()[0]);
 			testBoard.move("e7", "f6");
-			assertEquals(6, testBoard.getPiecesCaptured()[0]);
 			testBoard.move("f7", "g6");
-			assertEquals(7, testBoard.getPiecesCaptured()[0]);
 			testBoard.move("g7", "h6");
-			assertEquals(8, testBoard.getPiecesCaptured()[0]);
 			assertEquals(Color.BLACK, testBoard.getWinner());
 		} catch (IllegalMoveException e) {
 			e.printStackTrace();

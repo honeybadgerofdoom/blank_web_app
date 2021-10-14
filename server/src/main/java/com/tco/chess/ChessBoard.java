@@ -7,7 +7,7 @@ import com.tco.chess.ChessPiece.Color;
 public class ChessBoard {
 	private ChessPiece[][] board;
 	private Color winner = null;
-	private int[] piecesCaptured = new int[12];
+	private int[] piecesRemaining = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
 	/*
 	INDICES
 	0: white pawns
@@ -192,27 +192,25 @@ public class ChessBoard {
 	}
 
 	private void checkIfTheGameIsOver() {
-		int[] maxNumberOfCapturedPieces = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
-		for(int i = 0; i < piecesCaptured.length; i++) {
-			if(piecesCaptured[i] >= maxNumberOfCapturedPieces[i]) {
+		for(int i = 0; i < piecesRemaining.length; i++) {
+			if(piecesRemaining[i] == 0) {
 				winner = i < 6 ? Color.BLACK : Color.WHITE;
-				//FIXME Do whatever needs to be done to prevent further moves, etc...
 			}
 		}
 	}
 
 	private void handleCapture(ChessPiece captured) {
-		int capturedIndex = getIndexInPiecesCaptured(captured);
-		piecesCaptured[capturedIndex]++;
+		int capturedIndex = getIndexInPiecesRemaining(captured);
+		piecesRemaining[capturedIndex]--;
 
 	}
 
 	private void handlePromotion(ChessPiece promoted) {
-		int promotedIndex = getIndexInPiecesCaptured(promoted);
-		piecesCaptured[promotedIndex]--;
+		int promotedIndex = getIndexInPiecesRemaining(promoted);
+		piecesRemaining[promotedIndex]++;
 	}
 
-	private int getIndexInPiecesCaptured(ChessPiece piece) {
+	private int getIndexInPiecesRemaining(ChessPiece piece) {
 		Color color = piece.getColor();
 		int incrementBasedOnColor = color == Color.WHITE ? 0 : 6;
 		int capturedIndex = -1;
@@ -237,8 +235,8 @@ public class ChessBoard {
 		return capturedIndex;
 	}
 
-	public int[] getPiecesCaptured() {
-		return piecesCaptured;
+	public int[] getPiecesRemaining() {
+		return piecesRemaining;
 	}
 
 	public Color getWinner() {
