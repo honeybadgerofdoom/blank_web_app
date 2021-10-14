@@ -30,7 +30,6 @@ public class ChessBoard {
 		board = new ChessPiece[8][8];// Each place needs to be null 		
 	}
 
-
 	public void  initialize() {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 2; j++) {
@@ -60,8 +59,7 @@ public class ChessBoard {
 		}
 		
 	}
-	
-	
+
 	private boolean validatePosition(String position) {
 		
 		if(position.length() != 2) {
@@ -76,7 +74,6 @@ public class ChessBoard {
 		return true;
 	}
 	
-	
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
 		
 		if(!validatePosition(position)) {
@@ -88,7 +85,6 @@ public class ChessBoard {
 		return board[arr[0]][arr[1]]; //0 = row, 1 = col
 			
 	}
-	
 	
 	private int[] boardRowCol(String position) throws IllegalPositionException {
 		
@@ -117,7 +113,6 @@ public class ChessBoard {
 		}
 		return onBoard;
 	}
-	
 	
 	public boolean placePiece(ChessPiece piece, String position) {
 		try {
@@ -162,41 +157,47 @@ public class ChessBoard {
 	}
 
 	public void promotePawn(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
+		if(!validatePromotionString(promotion)) {
+			throw new IllegalPromotionException("You can't promote to a " + promotion);
+		}
+		else if(!(pawn instanceof Pawn)) {
+			throw new IllegalPromotionException("You can only promote pawns.");
+		}
 		Color color = pawn.getColor();
 		String position = pawn.getPosition();
 		int[] rowCol = boardRowCol(position);
 		int incrementForColor = color == Color.WHITE ? 7 : 0;
-		if(!(pawn instanceof Pawn)) {
-			throw new IllegalPromotionException("You can only promote pawns.");
-		}
-		else if(rowCol[0] != incrementForColor) {
+		if(rowCol[0] != incrementForColor) {
 			throw new IllegalPromotionException("You can only promote a pawn if it is on its enemy's first row");
 		}
-		else {
-			//handleCapture(pawn); DO THIS once merged with win_condition logic
-			board[rowCol[0]][rowCol[1]] = null;
-			ChessPiece newPiece;
-			switch (promotion) {
-				case "Queen":
-					newPiece = new Queen(this, color);
-					placePiece(newPiece, position);
-				case "King":
-					newPiece = new King(this, color);
-					placePiece(newPiece, position);
-				case "Rook":
-					newPiece = new Rook(this, color);
-					placePiece(newPiece, position);
-				case "Knight":
-					newPiece = new Knight(this, color);
-					placePiece(newPiece, position);
-				case "Bishop":
-					newPiece = new Bishop(this, color);
-					placePiece(newPiece, position);
-				default:
-					System.out.println("You must enter either Queen, King, Rook, Bishop, or Knight");
-			}
-			//handlePromotion(newPiece); DO THIS once merged with win_condition logic
+		handleCapture(pawn);
+		board[rowCol[0]][rowCol[1]] = null;
+		ChessPiece promotedPiece = createPromotedPiece(promotion, color);
+		placePiece(promotedPiece, position);
+		handlePromotion(promotedPiece);
+	}
+
+	private ChessPiece createPromotedPiece(String promotion, Color color) {
+		switch (promotion) {
+			case "Queen":
+				return new Queen(this, color);
+			case "King":
+				return new King(this, color);
+			case "Rook":
+				return new Rook(this, color);
+			case "Knight":
+				return new Knight(this, color);
+			default:
+				return new Bishop(this, color);
 		}
+	}
+
+	private boolean validatePromotionString(String promotion) {
+		String[] validPromotions = {"Rook", "Knight", "Bishop", "Queen", "King"};
+		for(String piece : validPromotions) {
+			if(piece == promotion) return true;
+		}
+		return false;
 	}
 
 	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
