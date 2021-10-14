@@ -1164,6 +1164,19 @@ class ChessBoardTest {
 	@Test
 	void moveSwitchesTurn() {
 		testBoard.initialize();
+		try {
+			testBoard.move("f2", "f4");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.move("h7", "h6");
+			assertEquals(Color.WHITE, testBoard.getTurn());
+			testBoard.move("d2", "d3");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.move("b7", "b6");
+			assertEquals(Color.WHITE, testBoard.getTurn());
+		} catch(IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
 }
