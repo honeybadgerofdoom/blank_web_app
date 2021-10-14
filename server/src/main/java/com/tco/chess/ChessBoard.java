@@ -22,12 +22,10 @@ public class ChessBoard {
 	9: black bishops
 	10: black queens
 	11: black kings
-
-	******If promotion occurred, call handleCapture() on the pawn and handlePromotion() on the new piece******
 	 */
 	
 	public ChessBoard() {
-		board = new ChessPiece[8][8];// Each place needs to be null 		
+		board = new ChessPiece[8][8];
 	}
 
 	public void  initialize() {
@@ -235,6 +233,7 @@ public class ChessBoard {
 					handleCapture(getPiece(toPosition));
 				}
 				placePiece(piece, toPosition);
+				if ((piece instanceof Rook || piece instanceof King) && !piece.hasMoved) piece.hasMoved = true;
 				checkIfTheGameIsOver();
 			}
 			else {

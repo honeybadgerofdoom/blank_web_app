@@ -3,14 +3,9 @@ package com.tco.chess;
 import java.util.ArrayList;
 
 public class King extends ChessPiece{
-	private boolean hasMoved;
 	public King(ChessBoard board, Color color) {
 		super(board, color);
-		hasMoved = false;
 	}
-
-	public boolean getHasMoved() { return hasMoved; }
-	public void setHasMoved(boolean moved) { hasMoved = moved; }
 
 	@Override
 	public String toString() {
@@ -28,6 +23,8 @@ public class King extends ChessPiece{
 	public ArrayList<String> legalMoves(){
 		ArrayList<String> legalMoves = new ArrayList<>();
 		String str = this.getPosition();
+
+		// FIXME check for hasMoved, add moves accordingly
 		
 		for(int i = -1; i < 2; i++) {
 			for(int j = -1; j < 2; j++) {

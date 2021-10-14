@@ -9,6 +9,7 @@ public abstract class ChessPiece {
 	protected int row;
 	protected int column;
 	protected Color color;
+	protected boolean hasMoved = false; // This is only used for Rook and King, for castling purposes.
 	
 	//Helper Methods
 	

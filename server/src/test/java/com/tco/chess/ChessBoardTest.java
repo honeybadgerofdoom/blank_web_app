@@ -1155,5 +1155,35 @@ class ChessBoardTest {
 		}
 	}
 
+	@Test
+	void hasMovedUpdatesForRook() {
+		testBoard.initialize();
+		try {
+			ChessPiece rook = testBoard.getPiece("a1");
+			assertFalse(rook.hasMoved);
+			testBoard.move("a2", "a4");
+			testBoard.move("a1", "a3");
+			assertTrue(rook.hasMoved);
+		} catch(IllegalPositionException | IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void hasMovedUpdatesForKing() {
+		testBoard.initialize();
+		try {
+			ChessPiece king = testBoard.getPiece("e8");
+			assertFalse(king.hasMoved);
+			testBoard.move("d7", "d5");
+			testBoard.move("e8", "d7");
+			assertTrue(king.hasMoved);
+		} catch(IllegalPositionException | IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 }
 
