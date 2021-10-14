@@ -1155,5 +1155,16 @@ class ChessBoardTest {
 		}
 	}
 
+	@Test
+	void turnStartOnWhite() {
+		testBoard.initialize();
+		assertEquals(Color.WHITE, testBoard.getTurn());
+	}
+
+	@Test
+	void moveSwitchesTurn() {
+		testBoard.initialize();
+	}
+
 }
 

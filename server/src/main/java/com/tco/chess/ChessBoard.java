@@ -6,6 +6,7 @@ import com.tco.chess.ChessPiece.Color;
 
 public class ChessBoard {
 	private ChessPiece[][] board;
+	private Color turn;
 	private Color winner = null;
 	private int[] piecesRemaining = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
 	/*
@@ -22,12 +23,11 @@ public class ChessBoard {
 	9: black bishops
 	10: black queens
 	11: black kings
-
-	******If promotion occurred, call handleCapture() on the pawn and handlePromotion() on the new piece******
 	 */
 	
 	public ChessBoard() {
-		board = new ChessPiece[8][8];// Each place needs to be null 		
+		board = new ChessPiece[8][8];
+		turn = Color.WHITE;
 	}
 
 	public void  initialize() {
@@ -235,6 +235,7 @@ public class ChessBoard {
 					handleCapture(getPiece(toPosition));
 				}
 				placePiece(piece, toPosition);
+				switchTurn();
 				checkIfTheGameIsOver();
 			}
 			else {
@@ -278,9 +279,15 @@ public class ChessBoard {
 		return piecesRemaining;
 	}
 
+	private void switchTurn() {
+		turn = turn == Color.WHITE ? Color.BLACK : Color.WHITE;
+	}
+
 	public Color getWinner() {
 		return winner;
 	}
+
+	public Color getTurn() { return turn; }
 
 	public String toString(){
 	    String chess="";
