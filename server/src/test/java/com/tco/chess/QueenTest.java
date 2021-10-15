@@ -53,5 +53,22 @@ class QueenTest {
           
        }
 
+       @Test
+       void testLegalMoves_18() {
+       try {
+           ChessPiece Queen = new Queen(testBoard, Color.WHITE);
+           ChessPiece Queen1 = new Queen(testBoard, Color.WHITE);
+           testBoard.placePiece(Queen, "a6");
+           testBoard.placePiece(Queen1, "f6");
+           int expect = 18;
+           int actual = Queen.legalMoves().size();
+           assertEquals(expect, actual);
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+    
+       }
+
+
       
 }
