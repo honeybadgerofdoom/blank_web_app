@@ -38,6 +38,20 @@ class QueenTest {
           
        }
 
-      
+       @Test
+       void legalMoves_0_initial() {
+           testBoard.initialize();
+          
+           try {
+               ChessPiece whiteQueen = testBoard.getPiece("d1");
+               assertTrue(whiteQueen.legalMoves().size() == 0);
+              
+           } catch (IllegalPositionException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+           }
+          
+       }
+
       
 }
