@@ -237,6 +237,7 @@ public class ChessBoard {
 					handleCapture(getPiece(toPosition));
 				}
 				placePiece(piece, toPosition);
+				if ((piece instanceof Rook || piece instanceof King) && !piece.hasMoved) piece.hasMoved = true;
 				switchTurn();
 				checkIfTheGameIsOver();
 			}
