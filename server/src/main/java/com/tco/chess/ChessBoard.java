@@ -6,15 +6,32 @@ import com.tco.chess.ChessPiece.Color;
 
 public class ChessBoard {
 	private ChessPiece[][] board;
-	
+	private Color winner = null;
+	private int[] piecesRemaining = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
+	/*
+	INDICES
+	0: white pawns
+	1: white rooks
+	2: white knights
+	3: white bishops
+	4: white queens
+	5: white kings
+	6: black pawns
+	7: black rooks
+	8: black knights
+	9: black bishops
+	10: black queens
+	11: black kings
+
+	******If promotion occurred, call handleCapture() on the pawn and handlePromotion() on the new piece******
+	 */
 	
 	public ChessBoard() {
 		board = new ChessPiece[8][8];// Each place needs to be null 		
 	}
-	
-	
-	public void  initialize() {
 
+
+	public void  initialize() {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 2; j++) {
 				placePiece(new Rook(this, j == 0 ? Color.WHITE : Color.BLACK), "a"+ (j*7+1));
@@ -139,6 +156,10 @@ public class ChessBoard {
 	
 	
 	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
+
+		if(winner != null) {
+			throw new IllegalMoveException("The game is already over.");
+		}
 		
 		 try {
 			 
@@ -155,7 +176,11 @@ public class ChessBoard {
 			ArrayList<String> legalMoves = piece.legalMoves();
 			
 			if(legalMoves.contains(toPosition)) {
+				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
+					handleCapture(getPiece(toPosition));
+				}
 				placePiece(piece, toPosition);
+				checkIfTheGameIsOver();
 			}
 			else {
 				throw new IllegalMoveException("Illegal Move attempted");
@@ -166,7 +191,43 @@ public class ChessBoard {
 		}
 	}
 
-	
+	private void checkIfTheGameIsOver() {
+		for(int i = 0; i < piecesRemaining.length; i++) {
+			if(piecesRemaining[i] == 0) {
+				winner = i < 6 ? Color.BLACK : Color.WHITE;
+			}
+		}
+	}
+
+	private void handleCapture(ChessPiece captured) {
+		int capturedIndex = getIndexInPiecesRemaining(captured);
+		piecesRemaining[capturedIndex]--;
+	}
+
+	private void handlePromotion(ChessPiece promoted) {
+		int promotedIndex = getIndexInPiecesRemaining(promoted);
+		piecesRemaining[promotedIndex]++;
+	}
+
+	private int getIndexInPiecesRemaining(ChessPiece piece) {
+		int incrementBasedOnColor = piece.getColor() == Color.WHITE ? 0 : 6;
+		if (piece instanceof Pawn) incrementBasedOnColor += 0;
+		else if (piece instanceof Rook) incrementBasedOnColor += 1;
+		else if (piece instanceof Knight) incrementBasedOnColor += 2;
+		else if (piece instanceof Bishop) incrementBasedOnColor += 3;
+		else if (piece instanceof Queen) incrementBasedOnColor += 4;
+		else incrementBasedOnColor += 5;
+		return incrementBasedOnColor;
+	}
+
+	public int[] getPiecesRemaining() {
+		return piecesRemaining;
+	}
+
+	public Color getWinner() {
+		return winner;
+	}
+
 	public String toString(){
 	    String chess="";
 	    String upperLeft = "\u250C";
