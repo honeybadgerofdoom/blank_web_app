@@ -1186,7 +1186,7 @@ class ChessBoardTest {
 	}
 
 	@Test
-	void queenSideCastleIsPossibleWhenTrue() {
+	void queenSideCastleIsPossible_True() {
 		testBoard.initialize();
 		try {
 			testBoard.placePiece(testBoard.getPiece("b1"), "b3");
@@ -1200,7 +1200,7 @@ class ChessBoardTest {
 	}
 
 	@Test
-	void queenSideCastleIsPossibleWhenFalse() {
+	void queenSideCastleIsPossible_False() {
 		testBoard.initialize();
 		try {
 			testBoard.placePiece(testBoard.getPiece("b1"), "b3");
@@ -1213,7 +1213,7 @@ class ChessBoardTest {
 	}
 
 	@Test
-	void kingSideCastleIsPossibleWhenTrue() {
+	void kingSideCastleIsPossible_True() {
 		testBoard.initialize();
 		try {
 			testBoard.placePiece(testBoard.getPiece("f8"), "f6");
@@ -1226,12 +1226,98 @@ class ChessBoardTest {
 	}
 
 	@Test
-	void kingSideCastleIsPossibleWhenFalse() {
+	void kingSideCastleIsPossible_False() {
 		testBoard.initialize();
 		try {
 			testBoard.placePiece(testBoard.getPiece("f8"), "f6");
 			assertFalse(testBoard.kingsideCastleIsPossible(7));
 		} catch(IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void castlingWorksQueenside() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("b1"), "b3");
+			testBoard.placePiece(testBoard.getPiece("c1"), "c3");
+			testBoard.placePiece(testBoard.getPiece("d1"), "d3");
+			ChessPiece rook = testBoard.getPiece("a1");
+			ChessPiece king = testBoard.getPiece("e1");
+			testBoard.castle(rook, king);
+			assertEquals("d1", rook.getPosition());
+			assertEquals("c1", king.getPosition());
+		} catch(IllegalPositionException | IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void castlingWorksKingside() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f8"), "f6");
+			testBoard.placePiece(testBoard.getPiece("g8"), "g6");
+			ChessPiece rook = testBoard.getPiece("h8");
+			ChessPiece king = testBoard.getPiece("e8");
+			testBoard.castle(rook, king);
+			assertEquals("f8", rook.getPosition());
+			assertEquals("g8", king.getPosition());
+		} catch(IllegalPositionException | IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void invalidCastleThrowsException_1() {
+		testBoard.initialize();
+		try {
+			ChessPiece rook = testBoard.getPiece("h8");
+			ChessPiece king = testBoard.getPiece("e8");
+			assertThrows(IllegalMoveException.class, () -> {
+				testBoard.castle(rook, king);
+			});
+		} catch(IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void invalidCastleThrowsException_2() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f8"), "f6");
+			ChessPiece rook = testBoard.getPiece("h8");
+			ChessPiece king = testBoard.getPiece("e8");
+			assertThrows(IllegalMoveException.class, () -> {
+				testBoard.castle(rook, king);
+			});
+		} catch(IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void invalidCastleThrowsExceptionAfterRookMoves() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("b1"), "b3");
+			testBoard.placePiece(testBoard.getPiece("c1"), "c3");
+			testBoard.placePiece(testBoard.getPiece("d1"), "d3");
+			ChessPiece rook = testBoard.getPiece("a1");
+			ChessPiece king = testBoard.getPiece("e1");
+			testBoard.move("a1", "b1");
+			testBoard.move("b1", "a1");
+			assertThrows(IllegalMoveException.class, () -> {
+				testBoard.castle(rook, king);
+			});
+		} catch(IllegalPositionException | IllegalMoveException e) {
 			e.printStackTrace();
 			fail();
 		}

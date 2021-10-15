@@ -245,27 +245,28 @@ public class ChessBoard {
 		}
 	}
 
+	private String rowColToPosition(int row, int column) {
+		char letter = (char) (column + 97);
+		int newRow = row + 1;
+		return letter + "" + newRow;
+	}
+
 	public void castle(ChessPiece rook, ChessPiece king) throws IllegalMoveException {
 		if (validateCastle(rook, king)) {
 			int kingRow = king.getColor() == Color.WHITE ? 0 : 7;
 			if (rook.column == 0 && queensideCastleIsPossible(kingRow)) {
-				board[rook.row][rook.column] = null;
-				board[rook.row][king.column-1] = rook;
-				board[king.row][king.column] = null;
-				board[king.row][rook.column-1] = king;
+				placePiece(rook, rowColToPosition(rook.row, king.column-1));
+				placePiece(king, rowColToPosition(rook.row, rook.column-1));
 //				switchTurn(); Comment this in when merged with turns branch
 			}
 			else if (rook.column == 7 && kingsideCastleIsPossible(kingRow)) {
-				board[rook.row][rook.column] = null;
-				board[rook.row][king.column+1] = rook;
-				board[king.row][king.column] = null;
-				board[king.row][rook.column+1] = king;
+				placePiece(rook, rowColToPosition(rook.row, king.column+1));
+				placePiece(king, rowColToPosition(rook.row, rook.column+1));
 //				switchTurn(); Comment this in when merged with turns branch
 			}
+			else throw new IllegalMoveException("Pieces are in the way of castling.");
 		}
-		else {
-			throw new IllegalMoveException("Illegal castle attempt.");
-		}
+		else throw new IllegalMoveException("Illegal castle attempt.");
 	}
 
 	public boolean queensideCastleIsPossible(int kingRow) {
