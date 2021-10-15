@@ -52,6 +52,14 @@ public class King extends ChessPiece{
 		boolean queensideCastle = queenRookHasntMoved && queensideSquaresEmpty && !this.hasMoved;
 		boolean kingsideCastle = kingRookHasntMoved && kingsideSquaresEmpty && !this.hasMoved;
 
+		if (queensideCastle) {
+			legalMoves.add(rowColToPosition(kingRow, 2));
+		}
+
+		if (kingsideCastle) {
+			legalMoves.add(rowColToPosition(kingRow, 6));
+		}
+
 		for(int i = -1; i < 2; i++) {
 			for(int j = -1; j < 2; j++) {
 				

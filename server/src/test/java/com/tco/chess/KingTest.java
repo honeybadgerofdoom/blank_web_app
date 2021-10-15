@@ -211,5 +211,21 @@ class KingTest {
 		
 	}
 
+	@Test
+	void whiteKingCanCastle() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("b1"), "b4");
+			testBoard.placePiece(testBoard.getPiece("c1"), "c4");
+			testBoard.placePiece(testBoard.getPiece("d1"), "d4");
+			ChessPiece whiteKing = testBoard.getPiece("e1");
+//			String[]
+			assertTrue(whiteKing.legalMoves())
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 
 }
