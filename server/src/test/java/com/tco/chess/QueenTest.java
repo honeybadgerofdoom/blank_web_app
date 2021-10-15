@@ -98,6 +98,26 @@ class QueenTest {
         }
        
     }
+
+
+    @Test
+    void testLegalMoves_blackColor() {
+    try {
+        ChessPiece Queen = new Queen(testBoard, Color.WHITE);
+        ChessPiece Pawn1 = new Pawn(testBoard, Color.BLACK);
+        ChessPiece Pawn2 = new Pawn(testBoard, Color.BLACK);
+        testBoard.placePiece(Queen, "f6");
+        testBoard.placePiece(Pawn1, "e6");
+        testBoard.placePiece(Pawn2, "f5");
+        int expect = 17;
+        int actual = Queen.legalMoves().size();
+        assertEquals(expect, actual);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+   
+}
+
  
 
 
