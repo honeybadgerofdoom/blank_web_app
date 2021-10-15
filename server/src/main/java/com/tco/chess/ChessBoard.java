@@ -261,12 +261,12 @@ public class ChessBoard {
 			if (rook.column == 0 && queensideCastleIsPossible(kingRow)) {
 				placePiece(rook, rowColToPosition(rook.row, king.column-1));
 				placePiece(king, rowColToPosition(rook.row, rook.column-1));
-//				switchTurn(); Comment this in when merged with turns branch
+				switchTurn();
 			}
 			else if (rook.column == 7 && kingsideCastleIsPossible(kingRow)) {
 				placePiece(rook, rowColToPosition(rook.row, king.column+1));
 				placePiece(king, rowColToPosition(rook.row, rook.column+1));
-//				switchTurn(); Comment this in when merged with turns branch
+				switchTurn();
 			}
 			else throw new IllegalMoveException("Pieces are in the way of castling.");
 		}
