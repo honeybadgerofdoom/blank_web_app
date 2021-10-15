@@ -30,7 +30,6 @@ public class ChessBoard {
 		board = new ChessPiece[8][8];// Each place needs to be null 		
 	}
 
-
 	public void  initialize() {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 2; j++) {
@@ -60,8 +59,7 @@ public class ChessBoard {
 		}
 		
 	}
-	
-	
+
 	protected static boolean validatePosition(String position) {
 		
 		if(position.length() != 2) {
@@ -76,7 +74,6 @@ public class ChessBoard {
 		return true;
 	}
 	
-	
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
 		
 		if(!validatePosition(position)) {
@@ -88,7 +85,6 @@ public class ChessBoard {
 		return board[arr[0]][arr[1]]; //0 = row, 1 = col
 			
 	}
-	
 	
 	protected static int[] boardRowCol(String position) throws IllegalPositionException {
 		
@@ -118,7 +114,6 @@ public class ChessBoard {
 		return onBoard;
 	}
 	
-	
 	public boolean placePiece(ChessPiece piece, String position) {
 		try {
 		
@@ -144,6 +139,13 @@ public class ChessBoard {
 			this.board[rowCol[0]][rowCol[1]] = piece;
 
 			piece.setPosition(position);
+
+			// NOTE: At this point, check if the piece is a pawn, and if it is in a position to be promoted. If so,
+			// call promotePawn(). Will implement this later as we really need client/API connection to implement
+			// this in a meaningful way. Thus, this does not *enforce* pawn promotion, it merely makes it possible.
+
+			// NOTE: The response for a /move request will include a boolean saying whether or not a pawn must
+			// 	     be promoted. At which point a /promote request will be made, which will call promotePawn()
 	
 			return true; 
 		
@@ -153,8 +155,61 @@ public class ChessBoard {
 		}
 		return false;
 	}
-	
-	
+
+	public void promotePawn(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
+		validatePromotion(pawn, promotion);
+
+		Color color = pawn.getColor();
+		String position = pawn.getPosition();
+		int[] rowCol = boardRowCol(position);
+
+		handleCapture(pawn);
+		board[rowCol[0]][rowCol[1]] = null;
+		ChessPiece promotedPiece = createPromotedPiece(promotion, color);
+		placePiece(promotedPiece, position);
+		handlePromotion(promotedPiece);
+		checkIfTheGameIsOver();
+	}
+
+	private void validatePromotion(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
+		if(!validatePromotionString(promotion)) {
+			throw new IllegalPromotionException("You can't promote to a " + promotion);
+		}
+		else if(!(pawn instanceof Pawn)) {
+			throw new IllegalPromotionException("You can only promote pawns.");
+		}
+		Color color = pawn.getColor();
+		String position = pawn.getPosition();
+		int[] rowCol = boardRowCol(position);
+		int incrementForColor = color == Color.WHITE ? 7 : 0;
+		if(rowCol[0] != incrementForColor) {
+			throw new IllegalPromotionException("You can only promote a pawn if it is on its enemy's first row");
+		}
+	}
+
+	private ChessPiece createPromotedPiece(String promotion, Color color) {
+		switch (promotion) {
+			case "Queen":
+				return new Queen(this, color);
+			case "King":
+				return new King(this, color);
+			case "Rook":
+				return new Rook(this, color);
+			case "Knight":
+				return new Knight(this, color);
+			default:
+				return new Bishop(this, color);
+		}
+	}
+
+	private boolean validatePromotionString(String promotion) {
+		String[] validPromotions = {"Rook", "Knight", "Bishop", "Queen", "King"};
+		for(String piece : validPromotions) {
+			if(piece == promotion) return true;
+		}
+		return false;
+	}
+
 	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
 
 		if(winner != null) {
