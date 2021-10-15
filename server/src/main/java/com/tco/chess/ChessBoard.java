@@ -248,62 +248,32 @@ public class ChessBoard {
 	public void castle(ChessPiece rook, ChessPiece king) throws IllegalMoveException {
 		if (validateCastle(rook, king)) {
 			int kingRow = king.getColor() == Color.WHITE ? 0 : 7;
-			if (rook.column == 0 && queensideCastleIsPossible(rook.getColor())) {
+			if (rook.column == 0 && queensideCastleIsPossible(kingRow)) {
 				board[rook.row][rook.column] = null;
 				board[rook.row][king.column-1] = rook;
 				board[king.row][king.column] = null;
 				board[king.row][rook.column-1] = king;
-				switchTurn();
+//				switchTurn(); Comment this in when merged with turns branch
 			}
-			else if (rook.column == 7 && kingsideCastleIsPossible(rook.getColor())) {
+			else if (rook.column == 7 && kingsideCastleIsPossible(kingRow)) {
 				board[rook.row][rook.column] = null;
 				board[rook.row][king.column+1] = rook;
 				board[king.row][king.column] = null;
 				board[king.row][rook.column+1] = king;
-				switchTurn();
+//				switchTurn(); Comment this in when merged with turns branch
 			}
 		}
 		else {
-			throw new IllegalMoveException("Illegal castle attempt.")
+			throw new IllegalMoveException("Illegal castle attempt.");
 		}
 	}
 
-	public boolean queensideCastleIsPossible(Color color) {
-		int kingRow = color == Color.WHITE ? 0 : 7;
-		try {
-			ChessPiece queenRook = board.getPiece(rowColToPosition(kingRow, 0));
-			if(queenRook != null) {
-				int[] squaresForQueensideCastle = {1, 2, 3};
-				boolean queenRookHasntMoved = !(queenRook.hasMoved);
-				boolean queensideSquaresEmpty = checkEmptySquares(squaresForQueensideCastle, kingRow);
-				boolean queensideCastle = queenRookHasntMoved && queensideSquaresEmpty && !this.hasMoved;
-				if (queensideCastle) {
-					return true;
-				}
-			}
-		} catch (IllegalPositionException e) {
-			e.printStackTrace();
-		}
-		return false;
+	public boolean queensideCastleIsPossible(int kingRow) {
+		return board[kingRow][1] == null && board[kingRow][2] == null && board[kingRow][3] == null;
 	}
 
-	public boolean kingsideCastleIsPossible(Color color) {
-		int kingRow = color == Color.WHITE ? 0 : 7;
-		try {
-			ChessPiece kingRook = board.getPiece(rowColToPosition(kingRow, 7));
-			if(kingRook != null) {
-				int[] squaresForKingsideCastle = {5, 6};
-				boolean kingRookHasntMoved = !(kingRook.hasMoved);
-				boolean kingsideSquaresEmpty = checkEmptySquares(squaresForKingsideCastle, kingRow);
-				boolean kingsideCastle = kingRookHasntMoved && kingsideSquaresEmpty && !this.hasMoved;
-				if (kingsideCastle) {
-					return true;
-				}
-			}
-		} catch (IllegalPositionException e) {
-			e.printStackTrace();
-		}
-		return false;
+	public boolean kingsideCastleIsPossible(int kingRow) {
+		return board[kingRow][5] == null && board[kingRow][6] == null;
 	}
 
 	private boolean validateCastle(ChessPiece rook, ChessPiece king) {

@@ -1185,5 +1185,57 @@ class ChessBoardTest {
 		}
 	}
 
+	@Test
+	void queenSideCastleIsPossibleWhenTrue() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("b1"), "b3");
+			testBoard.placePiece(testBoard.getPiece("c1"), "c3");
+			testBoard.placePiece(testBoard.getPiece("d1"), "d3");
+			assertTrue(testBoard.queensideCastleIsPossible(0));
+		} catch(IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void queenSideCastleIsPossibleWhenFalse() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("b1"), "b3");
+			testBoard.placePiece(testBoard.getPiece("d1"), "d3");
+			assertFalse(testBoard.queensideCastleIsPossible(0));
+		} catch(IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void kingSideCastleIsPossibleWhenTrue() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f8"), "f6");
+			testBoard.placePiece(testBoard.getPiece("g8"), "g6");
+			assertTrue(testBoard.kingsideCastleIsPossible(7));
+		} catch(IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void kingSideCastleIsPossibleWhenFalse() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f8"), "f6");
+			assertFalse(testBoard.kingsideCastleIsPossible(7));
+		} catch(IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 }
 
