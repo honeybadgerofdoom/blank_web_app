@@ -70,11 +70,10 @@ public abstract class ChessPiece {
 		
 	}
 
-	protected String rowColToPosition(int row, int col) {
-		String position = "";
-		position += colToCharacter(col);
-		position += (char) row+1;
-		return position;
+	protected String rowColToPosition(int row, int column) {
+		char letter = (char) (column + 97);
+		int newRow = row + 1;
+		return letter + "" + newRow;
 	}
 
 	private char colToCharacter(int col) {

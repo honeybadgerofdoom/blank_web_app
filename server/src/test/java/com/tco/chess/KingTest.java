@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import com.tco.chess.ChessPiece.Color;
 
 class KingTest {
@@ -219,8 +221,14 @@ class KingTest {
 			testBoard.placePiece(testBoard.getPiece("c1"), "c4");
 			testBoard.placePiece(testBoard.getPiece("d1"), "d4");
 			ChessPiece whiteKing = testBoard.getPiece("e1");
-//			String[]
-			assertTrue(whiteKing.legalMoves())
+			ArrayList<String> legalMoves = whiteKing.legalMoves();
+			assertEquals(2, legalMoves.size());
+			ArrayList<String> validMoves = new ArrayList<String>();
+			validMoves.add("c1");
+			validMoves.add("d1");
+			for (String move : legalMoves) {
+				assertTrue(validMoves.contains(move));
+			}
 		} catch (IllegalPositionException e) {
 			e.printStackTrace();
 			fail();
