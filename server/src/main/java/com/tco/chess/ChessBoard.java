@@ -60,7 +60,7 @@ public class ChessBoard {
 		
 	}
 
-	private boolean validatePosition(String position) {
+	protected static boolean validatePosition(String position) {
 		
 		if(position.length() != 2) {
 			return false;
@@ -86,7 +86,7 @@ public class ChessBoard {
 			
 	}
 	
-	private int[] boardRowCol(String position) throws IllegalPositionException {
+	protected static int[] boardRowCol(String position) throws IllegalPositionException {
 		
 		if(validatePosition(position)) {
 			int[] arr = new int[2];
