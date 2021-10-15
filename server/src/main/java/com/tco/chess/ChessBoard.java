@@ -245,6 +245,75 @@ public class ChessBoard {
 		}
 	}
 
+	public void castle(ChessPiece rook, ChessPiece king) throws IllegalMoveException {
+		if (validateCastle(rook, king)) {
+			int kingRow = king.getColor() == Color.WHITE ? 0 : 7;
+			if (rook.column == 0 && queensideCastleIsPossible(rook.getColor())) {
+				board[rook.row][rook.column] = null;
+				board[rook.row][king.column-1] = rook;
+				board[king.row][king.column] = null;
+				board[king.row][rook.column-1] = king;
+				switchTurn();
+			}
+			else if (rook.column == 7 && kingsideCastleIsPossible(rook.getColor())) {
+				board[rook.row][rook.column] = null;
+				board[rook.row][king.column+1] = rook;
+				board[king.row][king.column] = null;
+				board[king.row][rook.column+1] = king;
+				switchTurn();
+			}
+		}
+		else {
+			throw new IllegalMoveException("Illegal castle attempt.")
+		}
+	}
+
+	public boolean queensideCastleIsPossible(Color color) {
+		int kingRow = color == Color.WHITE ? 0 : 7;
+		try {
+			ChessPiece queenRook = board.getPiece(rowColToPosition(kingRow, 0));
+			if(queenRook != null) {
+				int[] squaresForQueensideCastle = {1, 2, 3};
+				boolean queenRookHasntMoved = !(queenRook.hasMoved);
+				boolean queensideSquaresEmpty = checkEmptySquares(squaresForQueensideCastle, kingRow);
+				boolean queensideCastle = queenRookHasntMoved && queensideSquaresEmpty && !this.hasMoved;
+				if (queensideCastle) {
+					return true;
+				}
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean kingsideCastleIsPossible(Color color) {
+		int kingRow = color == Color.WHITE ? 0 : 7;
+		try {
+			ChessPiece kingRook = board.getPiece(rowColToPosition(kingRow, 7));
+			if(kingRook != null) {
+				int[] squaresForKingsideCastle = {5, 6};
+				boolean kingRookHasntMoved = !(kingRook.hasMoved);
+				boolean kingsideSquaresEmpty = checkEmptySquares(squaresForKingsideCastle, kingRow);
+				boolean kingsideCastle = kingRookHasntMoved && kingsideSquaresEmpty && !this.hasMoved;
+				if (kingsideCastle) {
+					return true;
+				}
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	private boolean validateCastle(ChessPiece rook, ChessPiece king) {
+		boolean itsARook = rook instanceof Rook;
+		boolean itsAKing = king instanceof King;
+		boolean rookAndKingAreTheSameColor = rook.getColor() == king.getColor();
+		boolean neitherHasMoved = !rook.hasMoved && !king.hasMoved;
+		return itsAKing && itsARook && rookAndKingAreTheSameColor && neitherHasMoved;
+	}
+
 	private void checkIfTheGameIsOver() {
 		for(int i = 0; i < piecesRemaining.length; i++) {
 			if(piecesRemaining[i] == 0) {

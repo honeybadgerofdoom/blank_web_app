@@ -23,7 +23,7 @@ public class Rook extends ChessPiece {
 		int col = this.column;
 		int row = this.row;
 
-		// FIXME check for hasMoved, add moves accordingly
+		// NOTE The castling positions are ALREADY in the Rook's legalMoves array
 		
 		for(int i = col+1; i < 8; i++) {
 			char colChar = (char) (i + 'a');
