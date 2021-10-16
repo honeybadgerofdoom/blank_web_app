@@ -23,8 +23,6 @@ public class ChessBoard {
 	9: black bishops
 	10: black queens
 	11: black kings
-
-	******If promotion occurred, call handleCapture() on the pawn and handlePromotion() on the new piece******
 	 */
 	
 	public ChessBoard() {
