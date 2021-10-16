@@ -298,21 +298,20 @@ class ChessBoardTest {
 	}
 	
 	// Other tests:::::::::: 
-	/*
+	
 	@Test
 	void initialQueenMove() {
 		testBoard.initialize();
 		try {
 			testBoard.move("d2", "d3");
-		} catch (IllegalMoveException e) {
+			testBoard.move("d1", "d2");
+			assertTrue(testBoard.getPiece("d2") instanceof Queen);
+		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
-		assertThrows(IllegalMoveException.class, () -> {
-			testBoard.move("d1", "d2");
-		});
 	}
-	*/
+	
 	@Test
 	void rowColCheck() {
 		
