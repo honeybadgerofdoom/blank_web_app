@@ -24,6 +24,12 @@ public class Database {
         }
     }
 
+    public static ResultSet query(String query, Object... parameters) throws SQLException {
+        PreparedStatement statement = prepare(query, parameters);
+        return statement.executeQuery();
+    }
+
+
     public static List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
         try (statement; ResultSet results = statement.executeQuery()) {
             List<Map<String, String>> ret = new ArrayList<>();
