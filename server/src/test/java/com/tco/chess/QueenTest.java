@@ -153,7 +153,6 @@ class QueenTest {
    @Test
       void testLegalMoves_0_SurroundedByOppositeColor_testPosition() {
          try {
-           ArrayList<String> actual = new ArrayList<>();
            ChessPiece Queen = new Queen(testBoard, Color.BLACK);
            ChessPiece Pawn1 = new Pawn(testBoard, Color.WHITE);
            ChessPiece Pawn2 = new Pawn(testBoard, Color.WHITE);
@@ -182,8 +181,13 @@ class QueenTest {
            expect.add("g5");
            expect.add("g7");
 
-           int actual = Queen.legalMoves().size();
-           assertEquals(sort.Collection(expect), sort.Collection(actual = Queen.legalMoves()));
+           Collections.sort(expect);
+
+           ArrayList<String> actual = Queen.legalMoves();
+
+           Collections.sort(actual);
+
+           assertEquals(expect, actual);
            } catch (Exception e) {
            e.printStackTrace();
        }
