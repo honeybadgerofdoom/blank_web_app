@@ -4,6 +4,22 @@ import java.sql.*;
 import java.util.*;
 
 public class Database {
+
+    private Connection dbc;
+
+    private void connect() {
+        try {
+            this.dbc = DriverManager.getConnection(
+                    Credential.getConnectionURL(),
+                    Credential.USER,
+                    Credential.PASSWORD
+            );
+        } catch (SQLException e) {
+            System.err.println("Error connecting to database");
+            e.printStackTrace();
+        }
+    }
+
     public static List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
         try (statement; ResultSet results = statement.executeQuery()) {
             List<Map<String, String>> ret = new ArrayList<>();
