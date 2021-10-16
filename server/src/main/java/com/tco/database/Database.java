@@ -7,6 +7,10 @@ public class Database {
 
     private Connection dbc;
 
+    public Database() {
+        connect();
+    }
+
     private void connect() {
         try {
             this.dbc = DriverManager.getConnection(
