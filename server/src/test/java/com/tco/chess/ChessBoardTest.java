@@ -1135,5 +1135,44 @@ class ChessBoardTest {
 		}
 	}
 
+	@Test
+	void turnStartOnWhite() {
+		testBoard.initialize();
+		assertEquals(Color.WHITE, testBoard.getTurn());
+	}
+
+	@Test
+	void moveSwitchesTurn() {
+		testBoard.initialize();
+		try {
+			testBoard.move("f2", "f4");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.move("h7", "h6");
+			assertEquals(Color.WHITE, testBoard.getTurn());
+			testBoard.move("d2", "d3");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.move("b7", "b6");
+			assertEquals(Color.WHITE, testBoard.getTurn());
+		} catch(IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void promotionDoesntSwitchTurnIncorrectly() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("a2"), "b7");
+			testBoard.move("b7", "a8");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.promotePawn(testBoard.getPiece("a8"), "King");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+		} catch(Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 }
 
