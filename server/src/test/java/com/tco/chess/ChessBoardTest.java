@@ -300,21 +300,20 @@ class ChessBoardTest {
 	}
 	
 	// Other tests:::::::::: 
-	/*
+	
 	@Test
 	void initialQueenMove() {
 		testBoard.initialize();
 		try {
 			testBoard.move("d2", "d3");
-		} catch (IllegalMoveException e) {
+			testBoard.move("d1", "d2");
+			assertTrue(testBoard.getPiece("d2") instanceof Queen);
+		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
-		assertThrows(IllegalMoveException.class, () -> {
-			testBoard.move("d1", "d2");
-		});
 	}
-	*/
+	
 	@Test
 	void rowColCheck() {
 		
@@ -681,25 +680,6 @@ class ChessBoardTest {
 			fail();
 		}
 	}
-	/*
-	@Test
-	void queenCantMove() {
-		testBoard.initialize();
-		try {
-			
-			Assertions.assertThrows(IllegalMoveException.class, () -> {
-			testBoard.move("e2", "e4");
-			testBoard.move("d1", "h5");
-			testBoard.move("h5", "f7");
-		
-			});
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	*/
 	
 	@Test
 	void knightCantMove() {
