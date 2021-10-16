@@ -24,9 +24,17 @@ public class Database {
         }
     }
 
-    private static PreparedStatement bindParms(PreparedStatement statement, Object... parameters) {
-        for (Object parameter : parameters) {
-
+    private static PreparedStatement bindParms(PreparedStatement statement, Object... parameters) throws SQLException {
+        for (int i = 0; i < parameters.length; i++) {
+            if (parameters[i] instanceof String) {
+                statement.setString(i, (String) parameters[i]);
+            } else if (parameters[i] instanceof Integer) {
+                statement.setInt(i, (Integer) parameters[i]);
+            } else if (parameters[i] instanceof Double) {
+                statement.setDouble(i, (Double) parameters[i]);
+            } else if (parameters[i] instanceof Float) {
+                statement.setFloat(i, (Float) parameters[i]);
+            }
         }
         return statement;
     }
