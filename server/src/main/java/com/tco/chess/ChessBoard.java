@@ -60,75 +60,58 @@ public class ChessBoard {
 		
 	}
 
-	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
+	private boolean validatePosition(String position) {
 
-		if(winner != null) {
-			throw new IllegalMoveException("The game is already over.");
+		if(position.length() != 2) {
+			return false;
+		}
+		if(!(position.charAt(0) >= 'a' && position.charAt(0) <= 'h' )) {
+			return false;
+		}
+		if(!(position.charAt(1) >= '1' && position.charAt(1) <= '8')) {
+			return false;
+		}
+		return true;
+	}
+
+	public ChessPiece getPiece(String position) throws IllegalPositionException {
+
+		if(!validatePosition(position)) {
+			throw new IllegalPositionException("Invalid Board Position");
 		}
 
-		try {
+		int[] arr = boardRowCol(position);
 
-			if(!validatePosition(fromPosition) || !validatePosition(toPosition)) {
-				throw new IllegalMoveException("Invalid Input in move");
-			}
+		return board[arr[0]][arr[1]]; //0 = row, 1 = col
 
-			ChessPiece piece = getPiece(fromPosition);
+	}
 
-			if(piece == null) {
-				throw new IllegalMoveException("No piece selected");
-			}
+	private int[] boardRowCol(String position) throws IllegalPositionException {
 
-			ArrayList<String> legalMoves = piece.legalMoves();
+		if(validatePosition(position)) {
+			int[] arr = new int[2];
+			int column = position.charAt(0) % 'a';
+			int row = position.charAt(1) % '1';
 
-			if(legalMoves.contains(toPosition)) {
-				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
-					handleCapture(getPiece(toPosition));
+			arr[0] = row;
+			arr[1] = column;
+			return arr;
+
+		}
+		throw new IllegalPositionException("Error in boardRowCol");
+	}
+
+	private boolean checkPieceOnBoard(ChessPiece piece) {
+		boolean onBoard = false;
+
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				if(board[i][j]!= null && board[i][j].equals(piece)) {
+					onBoard = true;
 				}
-				placePiece(piece, toPosition);
-				if ((piece instanceof Rook || piece instanceof King) && !piece.hasMoved) piece.hasMoved = true;
-				switchTurn();
-				checkIfTheGameIsOver();
 			}
-			else {
-				throw new IllegalMoveException("Illegal Move attempted");
-			}
-
-		} catch (IllegalPositionException e) {
-			e.printStackTrace();
 		}
-	}
-
-	public void promotePawn(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
-		validatePromotion(pawn, promotion);
-
-		Color color = pawn.getColor();
-		String position = pawn.getPosition();
-		int[] rowCol = boardRowCol(position);
-
-		handleCapture(pawn);
-		board[rowCol[0]][rowCol[1]] = null;
-		ChessPiece promotedPiece = createPromotedPiece(promotion, color);
-		placePiece(promotedPiece, position);
-		handlePromotion(promotedPiece);
-		checkIfTheGameIsOver();
-	}
-
-	public void castle(ChessPiece rook, ChessPiece king) throws IllegalMoveException {
-		if (validateCastle(rook, king)) {
-			int kingRow = king.getColor() == Color.WHITE ? 0 : 7;
-			if (rook.column == 0 && queensideCastleIsPossible(kingRow)) {
-				placePiece(rook, rowColToPosition(rook.row, king.column-1));
-				placePiece(king, rowColToPosition(rook.row, rook.column-1));
-				switchTurn();
-			}
-			else if (rook.column == 7 && kingsideCastleIsPossible(kingRow)) {
-				placePiece(rook, rowColToPosition(rook.row, king.column+1));
-				placePiece(king, rowColToPosition(rook.row, rook.column+1));
-				switchTurn();
-			}
-			else throw new IllegalMoveException("Pieces are in the way of castling.");
-		}
-		else throw new IllegalMoveException("Illegal castle attempt.");
+		return onBoard;
 	}
 
 	public boolean placePiece(ChessPiece piece, String position) {
@@ -173,58 +156,19 @@ public class ChessBoard {
 		return false;
 	}
 
-	public ChessPiece getPiece(String position) throws IllegalPositionException {
+	public void promotePawn(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
+		validatePromotion(pawn, promotion);
 
-		if(!validatePosition(position)) {
-			throw new IllegalPositionException("Invalid Board Position");
-		}
+		Color color = pawn.getColor();
+		String position = pawn.getPosition();
+		int[] rowCol = boardRowCol(position);
 
-		int[] arr = boardRowCol(position);
-
-		return board[arr[0]][arr[1]]; //0 = row, 1 = col
-
-	}
-
-	private boolean validatePosition(String position) {
-		
-		if(position.length() != 2) {
-			return false;
-		}
-		if(!(position.charAt(0) >= 'a' && position.charAt(0) <= 'h' )) {
-			return false;
-		}
-		if(!(position.charAt(1) >= '1' && position.charAt(1) <= '8')) {
-			return false;
-		}
-		return true;
-	}
-	
-	private int[] boardRowCol(String position) throws IllegalPositionException {
-		
-		if(validatePosition(position)) {
-			int[] arr = new int[2];
-			int column = position.charAt(0) % 'a';
-			int row = position.charAt(1) % '1'; 
-			
-			arr[0] = row;
-			arr[1] = column;
-			return arr;
-			
-		}
-		throw new IllegalPositionException("Error in boardRowCol");
-	}
-	
-	private boolean checkPieceOnBoard(ChessPiece piece) {
-		boolean onBoard = false;
-		
-		for(int i = 0; i < 8; i++) {
-			for(int j = 0; j < 8; j++) {
-				if(board[i][j]!= null && board[i][j].equals(piece)) {
-					onBoard = true;
-				}
-			}
-		}
-		return onBoard;
+		handleCapture(pawn);
+		board[rowCol[0]][rowCol[1]] = null;
+		ChessPiece promotedPiece = createPromotedPiece(promotion, color);
+		placePiece(promotedPiece, position);
+		handlePromotion(promotedPiece);
+		checkIfTheGameIsOver();
 	}
 
 	private void validatePromotion(ChessPiece pawn, String promotion) throws IllegalPositionException, IllegalPromotionException {
@@ -266,26 +210,42 @@ public class ChessBoard {
 		return false;
 	}
 
-	private String rowColToPosition(int row, int column) {
-		char letter = (char) (column + 97);
-		int newRow = row + 1;
-		return letter + "" + newRow;
-	}
+	public void move(String fromPosition, String toPosition) throws IllegalMoveException {
 
-	public boolean queensideCastleIsPossible(int kingRow) {
-		return board[kingRow][1] == null && board[kingRow][2] == null && board[kingRow][3] == null;
-	}
+		if(winner != null) {
+			throw new IllegalMoveException("The game is already over.");
+		}
 
-	public boolean kingsideCastleIsPossible(int kingRow) {
-		return board[kingRow][5] == null && board[kingRow][6] == null;
-	}
+		try {
 
-	private boolean validateCastle(ChessPiece rook, ChessPiece king) {
-		boolean itsARook = rook instanceof Rook;
-		boolean itsAKing = king instanceof King;
-		boolean rookAndKingAreTheSameColor = rook.getColor() == king.getColor();
-		boolean neitherHasMoved = !rook.hasMoved && !king.hasMoved;
-		return itsAKing && itsARook && rookAndKingAreTheSameColor && neitherHasMoved;
+			if(!validatePosition(fromPosition) || !validatePosition(toPosition)) {
+				throw new IllegalMoveException("Invalid Input in move");
+			}
+
+			ChessPiece piece = getPiece(fromPosition);
+
+			if(piece == null) {
+				throw new IllegalMoveException("No piece selected");
+			}
+
+			ArrayList<String> legalMoves = piece.legalMoves();
+
+			if(legalMoves.contains(toPosition)) {
+				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
+					handleCapture(getPiece(toPosition));
+				}
+				placePiece(piece, toPosition);
+				if ((piece instanceof Rook || piece instanceof King) && !piece.hasMoved) piece.hasMoved = true;
+				switchTurn();
+				checkIfTheGameIsOver();
+			}
+			else {
+				throw new IllegalMoveException("Illegal Move attempted");
+			}
+
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void checkIfTheGameIsOver() {
@@ -317,12 +277,12 @@ public class ChessBoard {
 		return incrementBasedOnColor;
 	}
 
-	private void switchTurn() {
-		turn = turn == Color.WHITE ? Color.BLACK : Color.WHITE;
-	}
-
 	public int[] getPiecesRemaining() {
 		return piecesRemaining;
+	}
+
+	private void switchTurn() {
+		turn = turn == Color.WHITE ? Color.BLACK : Color.WHITE;
 	}
 
 	public Color getWinner() {
@@ -332,53 +292,93 @@ public class ChessBoard {
 	public Color getTurn() { return turn; }
 
 	public String toString(){
-	    String chess="";
-	    String upperLeft = "\u250C";
-	    String upperRight = "\u2510";
-	    String horizontalLine = "\u2500";
-	    String horizontal3 = horizontalLine + "\u3000" + horizontalLine;
-	    String verticalLine = "\u2502";
-	    String upperT = "\u252C";
-	    String bottomLeft = "\u2514";
-	    String bottomRight = "\u2518";
-	    String bottomT = "\u2534";
-	    String plus = "\u253C";
-	    String leftT = "\u251C";
-	    String rightT = "\u2524";
+		String chess="";
+		String upperLeft = "\u250C";
+		String upperRight = "\u2510";
+		String horizontalLine = "\u2500";
+		String horizontal3 = horizontalLine + "\u3000" + horizontalLine;
+		String verticalLine = "\u2502";
+		String upperT = "\u252C";
+		String bottomLeft = "\u2514";
+		String bottomRight = "\u2518";
+		String bottomT = "\u2534";
+		String plus = "\u253C";
+		String leftT = "\u251C";
+		String rightT = "\u2524";
 
-	    String topLine = upperLeft;
-	    for (int i = 0; i<7; i++){
-	        topLine += horizontal3 + upperT;
-	    }
-	    topLine += horizontal3 + upperRight;
+		String topLine = upperLeft;
+		for (int i = 0; i<7; i++){
+			topLine += horizontal3 + upperT;
+		}
+		topLine += horizontal3 + upperRight;
 
-	    String bottomLine = bottomLeft;
-	    for (int i = 0; i<7; i++){
-	        bottomLine += horizontal3 + bottomT;
-	    }
-	    bottomLine += horizontal3 + bottomRight;
-	    chess+=topLine + "\n";
+		String bottomLine = bottomLeft;
+		for (int i = 0; i<7; i++){
+			bottomLine += horizontal3 + bottomT;
+		}
+		bottomLine += horizontal3 + bottomRight;
+		chess+=topLine + "\n";
 
-	    for (int row = 7; row >=0; row--){
-	        String midLine = "";
-	        for (int col = 0; col < 8; col++){
-	            if(board[row][col]==null) {
-	                midLine += verticalLine + " \u3000 ";
-	            } else {midLine += verticalLine + " "+board[row][col]+" ";}
-	        }
-	        midLine += verticalLine;
-	        String midLine2 = leftT;
-	        for (int i = 0; i<7; i++){
-	            midLine2 += horizontal3 + plus;
-	        }
-	        midLine2 += horizontal3 + rightT;
-	        chess+=midLine+ "\n";
-	        if(row>=1)
-	            chess+=midLine2+ "\n";
-	    }
+		for (int row = 7; row >=0; row--){
+			String midLine = "";
+			for (int col = 0; col < 8; col++){
+				if(board[row][col]==null) {
+					midLine += verticalLine + " \u3000 ";
+				} else {midLine += verticalLine + " "+board[row][col]+" ";}
+			}
+			midLine += verticalLine;
+			String midLine2 = leftT;
+			for (int i = 0; i<7; i++){
+				midLine2 += horizontal3 + plus;
+			}
+			midLine2 += horizontal3 + rightT;
+			chess+=midLine+ "\n";
+			if(row>=1)
+				chess+=midLine2+ "\n";
+		}
 
-	    chess+=bottomLine;
-	    return chess;
+		chess+=bottomLine;
+		return chess;
+	}
+
+	public void castle(ChessPiece rook, ChessPiece king) throws IllegalMoveException {
+		if (validateCastle(rook, king)) {
+			int kingRow = king.getColor() == Color.WHITE ? 0 : 7;
+			if (rook.column == 0 && queensideCastleIsPossible(kingRow)) {
+				placePiece(rook, rowColToPosition(rook.row, king.column-1));
+				placePiece(king, rowColToPosition(rook.row, rook.column-1));
+				switchTurn();
+			}
+			else if (rook.column == 7 && kingsideCastleIsPossible(kingRow)) {
+				placePiece(rook, rowColToPosition(rook.row, king.column+1));
+				placePiece(king, rowColToPosition(rook.row, rook.column+1));
+				switchTurn();
+			}
+			else throw new IllegalMoveException("Pieces are in the way of castling.");
+		}
+		else throw new IllegalMoveException("Illegal castle attempt.");
+	}
+
+	private String rowColToPosition(int row, int column) {
+		char letter = (char) (column + 97);
+		int newRow = row + 1;
+		return letter + "" + newRow;
+	}
+
+	public boolean queensideCastleIsPossible(int kingRow) {
+		return board[kingRow][1] == null && board[kingRow][2] == null && board[kingRow][3] == null;
+	}
+
+	public boolean kingsideCastleIsPossible(int kingRow) {
+		return board[kingRow][5] == null && board[kingRow][6] == null;
+	}
+
+	private boolean validateCastle(ChessPiece rook, ChessPiece king) {
+		boolean itsARook = rook instanceof Rook;
+		boolean itsAKing = king instanceof King;
+		boolean rookAndKingAreTheSameColor = rook.getColor() == king.getColor();
+		boolean neitherHasMoved = !rook.hasMoved && !king.hasMoved;
+		return itsAKing && itsARook && rookAndKingAreTheSameColor && neitherHasMoved;
 	}
 
 }
