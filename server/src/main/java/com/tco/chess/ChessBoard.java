@@ -60,8 +60,8 @@ public class ChessBoard {
 		
 	}
 
-	private boolean validatePosition(String position) {
-
+	protected static boolean validatePosition(String position) {
+		
 		if(position.length() != 2) {
 			return false;
 		}
@@ -85,25 +85,25 @@ public class ChessBoard {
 		return board[arr[0]][arr[1]]; //0 = row, 1 = col
 
 	}
-
-	private int[] boardRowCol(String position) throws IllegalPositionException {
-
+	
+	protected static int[] boardRowCol(String position) throws IllegalPositionException {
+		
 		if(validatePosition(position)) {
 			int[] arr = new int[2];
 			int column = position.charAt(0) % 'a';
-			int row = position.charAt(1) % '1';
-
+			int row = position.charAt(1) % '1'; 
+			
 			arr[0] = row;
 			arr[1] = column;
 			return arr;
-
+			
 		}
 		throw new IllegalPositionException("Error in boardRowCol");
 	}
-
+	
 	private boolean checkPieceOnBoard(ChessPiece piece) {
 		boolean onBoard = false;
-
+		
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				if(board[i][j]!= null && board[i][j].equals(piece)) {
@@ -113,29 +113,29 @@ public class ChessBoard {
 		}
 		return onBoard;
 	}
-
+	
 	public boolean placePiece(ChessPiece piece, String position) {
 		try {
-
+		
 			if(!validatePosition(position)) {
 				return false;
 			}
-
-
+	
+			
 			ChessPiece pieceAtPosition = getPiece(position);
 			int[] rowCol = boardRowCol(position);
-
+			
 			if(pieceAtPosition != null && pieceAtPosition.getColor().equals(piece.getColor())) {
 				return false;
 			}
-
+			
 			boolean onBoard = checkPieceOnBoard(piece);
-
+			
 			if(onBoard) {
-				this.board[piece.row][piece.column] = null;
+				this.board[piece.row][piece.column] = null; 
 			}
-
-			//	this.board[piece.row][piece.column] = null;
+		
+		//	this.board[piece.row][piece.column] = null; 
 			this.board[rowCol[0]][rowCol[1]] = piece;
 
 			piece.setPosition(position);
@@ -146,9 +146,9 @@ public class ChessBoard {
 
 			// NOTE: The response for a /move request will include a boolean saying whether or not a pawn must
 			// 	     be promoted. At which point a /promote request will be made, which will call promotePawn()
-
-			return true;
-
+	
+			return true; 
+		
 		}catch(Exception e) {
 			System.out.println("There was an exception in placePiece");
 			e.printStackTrace();
@@ -215,21 +215,21 @@ public class ChessBoard {
 		if(winner != null) {
 			throw new IllegalMoveException("The game is already over.");
 		}
-
-		try {
-
+		
+		 try {
+			 
 			if(!validatePosition(fromPosition) || !validatePosition(toPosition)) {
 				throw new IllegalMoveException("Invalid Input in move");
 			}
-
+			
 			ChessPiece piece = getPiece(fromPosition);
-
+			
 			if(piece == null) {
 				throw new IllegalMoveException("No piece selected");
 			}
-
+			
 			ArrayList<String> legalMoves = piece.legalMoves();
-
+			
 			if(legalMoves.contains(toPosition)) {
 				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
 					handleCapture(getPiece(toPosition));
@@ -242,7 +242,7 @@ public class ChessBoard {
 			else {
 				throw new IllegalMoveException("Illegal Move attempted");
 			}
-
+			
 		} catch (IllegalPositionException e) {
 			e.printStackTrace();
 		}
@@ -292,53 +292,53 @@ public class ChessBoard {
 	public Color getTurn() { return turn; }
 
 	public String toString(){
-		String chess="";
-		String upperLeft = "\u250C";
-		String upperRight = "\u2510";
-		String horizontalLine = "\u2500";
-		String horizontal3 = horizontalLine + "\u3000" + horizontalLine;
-		String verticalLine = "\u2502";
-		String upperT = "\u252C";
-		String bottomLeft = "\u2514";
-		String bottomRight = "\u2518";
-		String bottomT = "\u2534";
-		String plus = "\u253C";
-		String leftT = "\u251C";
-		String rightT = "\u2524";
+	    String chess="";
+	    String upperLeft = "\u250C";
+	    String upperRight = "\u2510";
+	    String horizontalLine = "\u2500";
+	    String horizontal3 = horizontalLine + "\u3000" + horizontalLine;
+	    String verticalLine = "\u2502";
+	    String upperT = "\u252C";
+	    String bottomLeft = "\u2514";
+	    String bottomRight = "\u2518";
+	    String bottomT = "\u2534";
+	    String plus = "\u253C";
+	    String leftT = "\u251C";
+	    String rightT = "\u2524";
 
-		String topLine = upperLeft;
-		for (int i = 0; i<7; i++){
-			topLine += horizontal3 + upperT;
-		}
-		topLine += horizontal3 + upperRight;
+	    String topLine = upperLeft;
+	    for (int i = 0; i<7; i++){
+	        topLine += horizontal3 + upperT;
+	    }
+	    topLine += horizontal3 + upperRight;
 
-		String bottomLine = bottomLeft;
-		for (int i = 0; i<7; i++){
-			bottomLine += horizontal3 + bottomT;
-		}
-		bottomLine += horizontal3 + bottomRight;
-		chess+=topLine + "\n";
+	    String bottomLine = bottomLeft;
+	    for (int i = 0; i<7; i++){
+	        bottomLine += horizontal3 + bottomT;
+	    }
+	    bottomLine += horizontal3 + bottomRight;
+	    chess+=topLine + "\n";
 
-		for (int row = 7; row >=0; row--){
-			String midLine = "";
-			for (int col = 0; col < 8; col++){
-				if(board[row][col]==null) {
-					midLine += verticalLine + " \u3000 ";
-				} else {midLine += verticalLine + " "+board[row][col]+" ";}
-			}
-			midLine += verticalLine;
-			String midLine2 = leftT;
-			for (int i = 0; i<7; i++){
-				midLine2 += horizontal3 + plus;
-			}
-			midLine2 += horizontal3 + rightT;
-			chess+=midLine+ "\n";
-			if(row>=1)
-				chess+=midLine2+ "\n";
-		}
+	    for (int row = 7; row >=0; row--){
+	        String midLine = "";
+	        for (int col = 0; col < 8; col++){
+	            if(board[row][col]==null) {
+	                midLine += verticalLine + " \u3000 ";
+	            } else {midLine += verticalLine + " "+board[row][col]+" ";}
+	        }
+	        midLine += verticalLine;
+	        String midLine2 = leftT;
+	        for (int i = 0; i<7; i++){
+	            midLine2 += horizontal3 + plus;
+	        }
+	        midLine2 += horizontal3 + rightT;
+	        chess+=midLine+ "\n";
+	        if(row>=1)
+	            chess+=midLine2+ "\n";
+	    }
 
-		chess+=bottomLine;
-		return chess;
+	    chess+=bottomLine;
+	    return chess;
 	}
 
 	public void castle(ChessPiece rook, ChessPiece king) throws IllegalMoveException {

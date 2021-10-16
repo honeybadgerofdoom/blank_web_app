@@ -11,37 +11,6 @@ public abstract class ChessPiece {
 	protected Color color;
 	protected boolean hasMoved = false; // This is only used for Rook and King, for castling purposes.
 	
-	//Helper Methods
-	
-	private boolean validatePosition(String position) {
-		if(position.length() != 2) {
-			return false;
-		}
-		if(!(position.charAt(0) >= 'a' && position.charAt(0) <= 'h' )) {
-			return false;
-		}
-		if(!(position.charAt(1) >= '1' && position.charAt(1) <= '8')) {
-			return false;
-		}
-		return true;
-	}
-	
-	private int[] boardRowCol(String position) throws IllegalPositionException {
-		
-		if(validatePosition(position)) {
-			int[] arr = new int[2];
-			int column = position.charAt(0) % 'a'; // always sets the position to a1
-			int row = position.charAt(1) % '1'; 
-			
-			arr[0] = row;
-			arr[1] = column;
-			return arr;
-			
-		}
-		throw new IllegalPositionException("Error in boardRowCol");
-	}
-	// Helper Methods
-	
 	public ChessPiece(ChessBoard board, Color color) {
 		this.board = board;
 		this.color = color;
@@ -64,7 +33,7 @@ public abstract class ChessPiece {
 	}
 	
 	public void setPosition(String position) throws IllegalPositionException{
-		int[] rowCol = boardRowCol(position);
+		int[] rowCol = ChessBoard.boardRowCol(position);
 		this.row = rowCol[0];
 		this.column = rowCol[1];
 		

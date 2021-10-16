@@ -18,19 +18,6 @@ public class Pawn extends ChessPiece{
 			return "\u2659"; // "\u2659" white pawn
 		}
 	}
-	private boolean validatePosition(String position) {
-		
-		if(position.length() != 2) {
-			return false;
-		}
-		if(!(position.charAt(0) >= 'a' && position.charAt(0) <= 'h' )) {
-			return false;
-		}
-		if(!(position.charAt(1) >= '1' && position.charAt(1) <= '8')) {
-			return false;
-		}
-		return true;
-	}
 		
 	@Override
 	public ArrayList<String> legalMoves(){
@@ -60,7 +47,7 @@ public class Pawn extends ChessPiece{
 				enemyStrR += (char)(enemyRow + '1');
 				
 				
-				if(enemyStrR.length() > 0 && validatePosition(enemyStrR)) {
+				if(enemyStrR.length() > 0 && ChessBoard.validatePosition(enemyStrR)) {
 					enemyPieceR = board.getPiece(enemyStrR);
 				}
 			}
@@ -71,7 +58,7 @@ public class Pawn extends ChessPiece{
 				enemyStrL += (char)((col + 'a') + 1);
 				enemyStrL += (char)(enemyRow + '1');
 				
-				if(enemyStrL.length() > 0 && validatePosition(enemyStrL)) {
+				if(enemyStrL.length() > 0 && ChessBoard.validatePosition(enemyStrL)) {
 					enemyPieceL = board.getPiece(enemyStrL);
 				}
 			}
@@ -93,7 +80,7 @@ public class Pawn extends ChessPiece{
 			positionalStr += colChar;
 			positionalStr += (char) (this.getColor() == Color.WHITE ? row + i + 1 + '1' : row - i - 1 + '1');
 			
-			if(validatePosition(positionalStr) && board.getPiece(positionalStr) == null) {
+			if(ChessBoard.validatePosition(positionalStr) && board.getPiece(positionalStr) == null) {
 				legalMoves.add(positionalStr);
 			}
 			
