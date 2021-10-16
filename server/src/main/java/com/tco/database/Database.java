@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Database {
 
-    private Connection dbc;
+    private static Connection dbc;
 
     public Database() {
         connect();
@@ -24,7 +24,7 @@ public class Database {
         }
     }
 
-    private static PreparedStatement prepare(String query, Object... parameters) {
+    private static PreparedStatement prepare(String query, Object... parameters) throws SQLException {
         PreparedStatement statement = dbc.prepareStatement(query);
         return bindParms(statement, parameters);
     }
