@@ -678,25 +678,6 @@ class ChessBoardTest {
 			fail();
 		}
 	}
-	/*
-	@Test
-	void queenCantMove() {
-		testBoard.initialize();
-		try {
-			
-			Assertions.assertThrows(IllegalMoveException.class, () -> {
-			testBoard.move("e2", "e4");
-			testBoard.move("d1", "h5");
-			testBoard.move("h5", "f7");
-		
-			});
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	*/
 	
 	@Test
 	void knightCantMove() {
