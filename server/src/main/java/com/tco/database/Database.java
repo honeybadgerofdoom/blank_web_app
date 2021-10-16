@@ -24,6 +24,11 @@ public class Database {
         }
     }
 
+    private static PreparedStatement prepare(String query, Object... parameters) {
+        PreparedStatement statement = dbc.prepareStatement(query);
+        return bindParms(statement, parameters);
+    }
+
     public static ResultSet query(String query, Object... parameters) throws SQLException {
         PreparedStatement statement = prepare(query, parameters);
         return statement.executeQuery();
