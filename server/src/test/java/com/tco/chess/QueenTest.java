@@ -121,26 +121,16 @@ class QueenTest {
 }
 
 @Test
-      void testLegalMoves_0_SurroundedByOppositeColor() {
+      void testLegalMoves_SurroundedByOppositeColor() {
          try {
            ChessPiece Queen = new Queen(testBoard, Color.BLACK);
            ChessPiece Pawn1 = new Pawn(testBoard, Color.WHITE);
            ChessPiece Pawn2 = new Pawn(testBoard, Color.WHITE);
            ChessPiece Pawn3 = new Pawn(testBoard, Color.WHITE);
-           ChessPiece Pawn4 = new Pawn(testBoard, Color.WHITE);
-           ChessPiece Pawn5 = new Pawn(testBoard, Color.WHITE);
-           ChessPiece Pawn6 = new Pawn(testBoard, Color.WHITE);
-           ChessPiece Pawn7 = new Pawn(testBoard, Color.WHITE);
-           ChessPiece Pawn8 = new Pawn(testBoard, Color.WHITE);
            testBoard.placePiece(Queen, "f6");
            testBoard.placePiece(Pawn1, "f7");
            testBoard.placePiece(Pawn2, "f5");
            testBoard.placePiece(Pawn3, "e6");
-           testBoard.placePiece(Pawn4, "g6");
-           testBoard.placePiece(Pawn5, "e5");
-           testBoard.placePiece(Pawn6, "e7");
-           testBoard.placePiece(Pawn7, "g5");
-           testBoard.placePiece(Pawn8, "g7");
            int expect = 8;
            int actual = Queen.legalMoves().size();
            assertEquals(expect, actual);
@@ -151,7 +141,7 @@ class QueenTest {
    }
 
    @Test
-      void testLegalMoves_0_SurroundedByOppositeColor_testPosition() {
+      void testLegalMoves_SurroundedByOppositeColor_testPosition() {
          try {
            ChessPiece Queen = new Queen(testBoard, Color.BLACK);
            ChessPiece Pawn1 = new Pawn(testBoard, Color.WHITE);
@@ -193,6 +183,51 @@ class QueenTest {
        }
       
    }
+
+
+   @Test
+   void testLegalMoves_TestPosition() {
+      try {
+        ChessPiece Queen = new Queen(testBoard, Color.BLACK);
+        ChessPiece Pawn1 = new Pawn(testBoard, Color.WHITE);
+        ChessPiece Pawn2 = new Pawn(testBoard, Color.WHITE);
+        ChessPiece Pawn3 = new Pawn(testBoard, Color.WHITE);
+        ChessPiece Pawn4 = new Pawn(testBoard, Color.WHITE);
+        ChessPiece Pawn5 = new Pawn(testBoard, Color.WHITE);
+        ChessPiece Pawn6 = new Pawn(testBoard, Color.WHITE);
+        ChessPiece Pawn7 = new Pawn(testBoard, Color.WHITE);
+        ChessPiece Pawn8 = new Pawn(testBoard, Color.WHITE);
+        testBoard.placePiece(Queen, "f6");
+        testBoard.placePiece(Pawn1, "f7");
+        testBoard.placePiece(Pawn2, "f5");
+        testBoard.placePiece(Pawn3, "e6");
+        testBoard.placePiece(Pawn4, "g6");
+        testBoard.placePiece(Pawn5, "e5");
+        testBoard.placePiece(Pawn6, "e7");
+        testBoard.placePiece(Pawn7, "g5");
+        testBoard.placePiece(Pawn8, "g7");
+        ArrayList<String> expect = new ArrayList<>();
+        expect.add("f7");
+        expect.add("f5");
+        expect.add("e6");
+        expect.add("g6");
+        expect.add("e5");
+        expect.add("e7");
+        expect.add("g5");
+        expect.add("g7");
+
+        Collections.sort(expect);
+
+        ArrayList<String> actual = Queen.legalMoves();
+
+        Collections.sort(actual);
+
+        assertEquals(expect, actual);
+        } catch (Exception e) {
+        e.printStackTrace();
+    }
+   
+}
 
 
 
