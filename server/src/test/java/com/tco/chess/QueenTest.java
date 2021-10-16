@@ -206,7 +206,8 @@ class QueenTest {
         testBoard.placePiece(Pawn1, "f7");
         testBoard.placePiece(Pawn2, "f5");
         testBoard.placePiece(Pawn3, "e6");
-        ArrayList<String> expect = new ArrayList<>("f7, f5, e6, a1, b2, c3, d4, e5, g7, h8, d8, e7, g5, h4 ");
+        ArrayList<String> expect = new ArrayList<>();
+        Collections.addAll(expect, "f7", "f5", "e6", "a1", "b2", "c3", "d4", "e5", "g7", "h8", "d8", "e7", "g5", "h4 ");
        /* expect.add("f7");
         expect.add("f5");
         expect.add("e6");
