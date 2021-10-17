@@ -47,6 +47,10 @@ public class Database {
     public static List<Map<String, String>> query(String query, Object... parameters) throws SQLException {
         PreparedStatement statement = prepare(query, parameters);
         ResultSet results = statement.executeQuery();
+        return parseResults(results);
+    }
+
+    private static List<Map<String, String>> parseResults(ResultSet results) throws SQLException {
         List<Map<String, String>> ret = new ArrayList<>();
         ResultSetMetaData rsMetaData = results.getMetaData();
 
@@ -65,19 +69,7 @@ public class Database {
 
     public static List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
         try (statement; ResultSet results = statement.executeQuery()) {
-            List<Map<String, String>> ret = new ArrayList<>();
-            ResultSetMetaData rsMetaData = results.getMetaData();
-
-            while (results.next()) {
-                ret.add(new HashMap<>());
-                for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
-                    String columnName = rsMetaData.getColumnLabel(i);
-                    String columnValue = results.getString(columnName);
-
-                    ret.get(ret.size()-1).put(columnName, columnValue);
-                }
-            }
-            return ret;
+            return parseResults(results);
         }
     }
 
@@ -90,25 +82,11 @@ public class Database {
     public static void main(String[] args) {
         try {
             connect();
-            String query ="SELECT gameID, userID, board, color, turn, nickname FROM games NATURAL JOIN userGames NATURAL JOIN users WHERE nickname=?";
-            String username = "april";
-            System.out.printf("\nMatches for username '%s':\n\n", username);
-            List<Map<String, String>> rows = query(query, username);
-            for (int i = 0; i < rows.size(); i++) {
-                Map<String, String> row = rows.get(i);
-                System.out.printf("Match %d (gameID=%s)\n", i+1, row.get("gameID"));
-                System.out.printf("  User #%s: %s - color=%s\n", row.get("userID"), row.get("nickname"), row.get("color"));
-                System.out.printf("  Board: %s\n", row.get("board"));
-                boolean isTurn = row.get("color").equals(row.get("turn"));
-                System.out.printf("  %s's turn? %s\n", username, isTurn);
-
-                System.out.println();
-            }
-            /*List<Map<String, String>> rows = queryDB(QueryBuilder.countUsers());
+            List<Map<String, String>> rows = queryDB(QueryBuilder.countUsers());
             System.out.println("Total users: " + rows.get(0).get("count"));
 
             System.out.println("\nUsers:\n");
-            rows = queryDB(QueryBuilder.getAllUsers());
+            rows = query("SELECT * FROM users");
             for (Map<String, String> row : rows) {
                 for (String key : row.keySet()) {
                     System.out.println(key + ": " + row.get(key));
@@ -118,7 +96,8 @@ public class Database {
 
             String username = "april";
             System.out.printf("\nMatches for username '%s':\n\n", username);
-            rows = queryDB(QueryBuilder.getMatches(username));
+            String sql = "SELECT gameID, userID, board, color, turn, nickname FROM games NATURAL JOIN userGames NATURAL JOIN users WHERE nickname=?";
+            rows = query(sql, username);
             for (int i = 0; i < rows.size(); i++) {
                 Map<String, String> row = rows.get(i);
                 System.out.printf("Match %d (gameID=%s)\n", i+1, row.get("gameID"));
@@ -130,7 +109,7 @@ public class Database {
                 System.out.println();
             }
 
-            int rowsUpdated = updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
+            /*int rowsUpdated = updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
             if (rowsUpdated == 1) {
                 System.out.println("User successfully added.");
             }*/
