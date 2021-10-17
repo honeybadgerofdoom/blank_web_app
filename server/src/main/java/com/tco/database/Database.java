@@ -37,11 +37,10 @@ public class Database {
         }
     }
 
-    private static PreparedStatement bindParms(PreparedStatement statement, Object... parameters) throws SQLException {
+    private static void bindParms(PreparedStatement statement, Object... parameters) throws SQLException {
         for (int i = 0; i < parameters.length; i++) {
             bindParm(statement, i, parameters[i]);
         }
-        return statement;
     }
 
     private static PreparedStatement prepare(String query) throws SQLException {
