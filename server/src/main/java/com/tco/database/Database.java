@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Database {
 
-    private static Connection dbc;
+    private Connection dbc;
 
     public Database() {
         connect();
