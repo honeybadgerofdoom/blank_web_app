@@ -39,13 +39,13 @@ public class Database {
         return statement;
     }
 
-    private static PreparedStatement prepare(String query, Object... parameters) throws SQLException {
-        PreparedStatement statement = dbc.prepareStatement(query);
-        return bindParms(statement, parameters);
+    private static PreparedStatement prepare(String query) throws SQLException {
+        return dbc.prepareStatement(query);
     }
 
     public static List<Map<String, String>> query(String query, Object... parameters) throws SQLException {
-        PreparedStatement statement = prepare(query, parameters);
+        PreparedStatement statement = prepare(query);
+        bindParms(statement, parameters);
         ResultSet results = statement.executeQuery();
         return parseResults(results);
     }
