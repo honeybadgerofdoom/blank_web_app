@@ -89,7 +89,7 @@ public class Database {
     public static void main(String[] args) {
         try {
             Database db = new Database();
-            List<Map<String, String>> rows = db.queryDB(QueryBuilder.countUsers());
+            List<Map<String, String>> rows = db.query("SELECT COUNT(*) AS count FROM users");
             System.out.println("Total users: " + rows.get(0).get("count"));
 
             System.out.println("\nUsers:\n");
