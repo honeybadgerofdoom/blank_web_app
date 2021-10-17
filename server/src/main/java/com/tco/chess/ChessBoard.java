@@ -24,118 +24,114 @@ public class ChessBoard {
 	10: black queens
 	11: black kings
 	 */
-	
+
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
 		turn = Color.WHITE;
 	}
 
-	public void  initialize() {
-		for(int i = 0; i < 8; i++) {
-			for(int j = 0; j < 2; j++) {
-				placePiece(new Rook(this, j == 0 ? Color.WHITE : Color.BLACK), "a"+ (j*7+1));
-				placePiece(new Knight(this, j == 0 ? Color.WHITE : Color.BLACK), "b"+ (j*7+1));
-				placePiece(new Bishop(this, j == 0 ? Color.WHITE : Color.BLACK), "c"+ (j*7+1));
-				placePiece(new Queen(this, j == 0 ? Color.WHITE : Color.BLACK), "d"+ (j*7+1));
-				placePiece(new King(this, j == 0 ? Color.WHITE : Color.BLACK), "e"+ (j*7+1));
-				placePiece(new Bishop(this, j == 0 ? Color.WHITE : Color.BLACK), "f"+ (j*7+1));
-				placePiece(new Knight(this, j == 0 ? Color.WHITE : Color.BLACK), "g"+ (j*7+1));
-				placePiece(new Rook(this, j == 0 ? Color.WHITE : Color.BLACK), "h"+ (j*7+1));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "a"+ (j*5+2));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "b"+ (j*5+2));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "c"+ (j*5+2));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "d"+ (j*5+2));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "e"+ (j*5+2));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "f"+ (j*5+2));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "g"+ (j*5+2));
-				placePiece(new Pawn(this, j == 0 ? Color.WHITE : Color.BLACK), "h"+ (j*5+2));
-			}
+	public void initialize() {
+		addNonPawns(8, Color.BLACK);
+		addPawns(7, Color.BLACK);
+		addPawns(2, Color.WHITE);
+		addNonPawns(1, Color.WHITE);
+	}
+
+	private void addPawns(int row, Color color) {
+		for (char colSymbol : "abcdefgh".toCharArray()) {
+			placePiece(new Pawn(this, color), String.valueOf(colSymbol) + row);
 		}
-		
-		for(int i = 2; i < 6; i ++ ) {
-			for(int j = 0; j < 8; j++) {
-				board[i][j] = null;
-			}
-		}
-		
+	}
+
+	private void addNonPawns(int row, Color color) {
+        ChessPiece[] pieces = {
+                new Rook(this, color),
+                new Knight(this, color),
+                new Bishop(this, color),
+                new Queen(this, color),
+                new King(this, color),
+                new Bishop(this, color),
+                new Knight(this, color),
+                new Rook(this, color)
+        };
+
+        String colSymbols = "abcdefgh";
+        for (int i = 0; i < pieces.length; i++) {
+            placePiece(pieces[i], String.valueOf(colSymbols.charAt(i)) + row);
+        }
 	}
 
 	protected static boolean validatePosition(String position) {
-		
+
 		if(position.length() != 2) {
 			return false;
 		}
 		if(!(position.charAt(0) >= 'a' && position.charAt(0) <= 'h' )) {
 			return false;
 		}
-		if(!(position.charAt(1) >= '1' && position.charAt(1) <= '8')) {
-			return false;
-		}
-		return true;
+		return position.charAt(1) >= '1' && position.charAt(1) <= '8';
 	}
-	
+
 	public ChessPiece getPiece(String position) throws IllegalPositionException {
-		
+
 		if(!validatePosition(position)) {
 			throw new IllegalPositionException("Invalid Board Position");
 		}
-		
+
 		int[] arr = boardRowCol(position);
-		
+
 		return board[arr[0]][arr[1]]; //0 = row, 1 = col
-			
+
 	}
-	
+
 	protected static int[] boardRowCol(String position) throws IllegalPositionException {
-		
+
 		if(validatePosition(position)) {
 			int[] arr = new int[2];
 			int column = position.charAt(0) % 'a';
-			int row = position.charAt(1) % '1'; 
-			
+			int row = position.charAt(1) % '1';
+
 			arr[0] = row;
 			arr[1] = column;
 			return arr;
-			
+
 		}
 		throw new IllegalPositionException("Error in boardRowCol");
 	}
-	
+
 	private boolean checkPieceOnBoard(ChessPiece piece) {
-		boolean onBoard = false;
-		
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
-				if(board[i][j]!= null && board[i][j].equals(piece)) {
-					onBoard = true;
+				if (board[i][j]!= null && board[i][j].equals(piece)) {
+					return true;
 				}
 			}
 		}
-		return onBoard;
+		return false;
 	}
-	
+
 	public boolean placePiece(ChessPiece piece, String position) {
 		try {
-		
+
 			if(!validatePosition(position)) {
 				return false;
 			}
-	
-			
+
+
 			ChessPiece pieceAtPosition = getPiece(position);
 			int[] rowCol = boardRowCol(position);
-			
+
 			if(pieceAtPosition != null && pieceAtPosition.getColor().equals(piece.getColor())) {
 				return false;
 			}
-			
+
 			boolean onBoard = checkPieceOnBoard(piece);
-			
+
 			if(onBoard) {
-				this.board[piece.row][piece.column] = null; 
+				this.board[piece.row][piece.column] = null;
 			}
-		
-		//	this.board[piece.row][piece.column] = null; 
+
+		//	this.board[piece.row][piece.column] = null;
 			this.board[rowCol[0]][rowCol[1]] = piece;
 
 			piece.setPosition(position);
@@ -146,9 +142,9 @@ public class ChessBoard {
 
 			// NOTE: The response for a /move request will include a boolean saying whether or not a pawn must
 			// 	     be promoted. At which point a /promote request will be made, which will call promotePawn()
-	
-			return true; 
-		
+
+			return true;
+
 		}catch(Exception e) {
 			System.out.println("There was an exception in placePiece");
 			e.printStackTrace();
@@ -181,8 +177,8 @@ public class ChessBoard {
 		Color color = pawn.getColor();
 		String position = pawn.getPosition();
 		int[] rowCol = boardRowCol(position);
-		int incrementForColor = color == Color.WHITE ? 7 : 0;
-		if(rowCol[0] != incrementForColor) {
+		int promotionRow = color == Color.WHITE ? 7 : 0;
+		if(rowCol[0] != promotionRow) {
 			throw new IllegalPromotionException("You can only promote a pawn if it is on its enemy's first row");
 		}
 	}
@@ -205,7 +201,7 @@ public class ChessBoard {
 	private boolean validatePromotionString(String promotion) {
 		String[] validPromotions = {"Rook", "Knight", "Bishop", "Queen", "King"};
 		for(String piece : validPromotions) {
-			if(piece == promotion) return true;
+			if(piece.equals(promotion)) return true;
 		}
 		return false;
 	}
@@ -215,21 +211,21 @@ public class ChessBoard {
 		if(winner != null) {
 			throw new IllegalMoveException("The game is already over.");
 		}
-		
+
 		 try {
-			 
+
 			if(!validatePosition(fromPosition) || !validatePosition(toPosition)) {
 				throw new IllegalMoveException("Invalid Input in move");
 			}
-			
+
 			ChessPiece piece = getPiece(fromPosition);
-			
+
 			if(piece == null) {
 				throw new IllegalMoveException("No piece selected");
 			}
-			
+
 			ArrayList<String> legalMoves = piece.legalMoves();
-			
+
 			if(legalMoves.contains(toPosition)) {
 				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
 					handleCapture(getPiece(toPosition));
@@ -241,7 +237,7 @@ public class ChessBoard {
 			else {
 				throw new IllegalMoveException("Illegal Move attempted");
 			}
-			
+
 		} catch (IllegalPositionException e) {
 			e.printStackTrace();
 		}
@@ -339,5 +335,4 @@ public class ChessBoard {
 	    chess+=bottomLine;
 	    return chess;
 	}
-
 }
