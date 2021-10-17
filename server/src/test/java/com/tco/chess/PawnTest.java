@@ -115,6 +115,15 @@ class PawnTest {
 		}
 		
 	}
+
+	@Test
+	void hasNoLegalMovesBlockedByPiece() throws IllegalMoveException {
+		testBoard.initialize();
+		testBoard.move("f7", "f5");
+		testBoard.move("f5", "f4");
+		testBoard.move("f4", "f3");
+		assertThrows(IllegalMoveException.class, () -> testBoard.move("f2", "f4"));
+	}
 	
 	@Test
 	void testBlackDec() {
