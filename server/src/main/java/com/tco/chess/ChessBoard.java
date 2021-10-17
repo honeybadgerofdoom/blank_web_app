@@ -30,7 +30,7 @@ public class ChessBoard {
 		turn = Color.WHITE;
 	}
 
-	public void  initialize() {
+	public void initialize() {
 		addNonPawns(8, Color.BLACK);
 		addPawns(7, Color.BLACK);
 		addPawns(2, Color.WHITE);
