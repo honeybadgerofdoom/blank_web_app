@@ -116,10 +116,10 @@ public class Database {
                 System.out.println();
             }
 
-            /*int rowsUpdated = db.updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
+            int rowsUpdated = db.updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
             if (rowsUpdated == 1) {
                 System.out.println("User successfully added.");
-            }*/
+            }
         } catch (Exception e) {
             System.err.println("Exception: " + e.getMessage());
             e.printStackTrace();
