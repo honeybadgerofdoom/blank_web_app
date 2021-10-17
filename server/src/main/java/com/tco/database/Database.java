@@ -11,7 +11,7 @@ public class Database {
         connect();
     }
 
-    private static void connect() {
+    private void connect() {
         try {
             dbc = DriverManager.getConnection(
                     Credential.getConnectionURL(),
@@ -24,8 +24,10 @@ public class Database {
         }
     }
 
-    private static void bindParm(PreparedStatement s, int index, Object parameter) throws SQLException {
+    private void bindParm(PreparedStatement s, int index, Object parameter) throws SQLException {
+
         int parameterNum = index + 1;
+
         if (parameter instanceof String) {
             s.setString(parameterNum, (String) parameter);
         } else if (parameter instanceof Integer) {
@@ -35,26 +37,27 @@ public class Database {
         } else if (parameter instanceof Float) {
             s.setFloat(parameterNum, (Float) parameter);
         }
+
     }
 
-    private static void bindParms(PreparedStatement statement, Object... parameters) throws SQLException {
+    private void bindParms(PreparedStatement statement, Object... parameters) throws SQLException {
         for (int i = 0; i < parameters.length; i++) {
             bindParm(statement, i, parameters[i]);
         }
     }
 
-    private static PreparedStatement prepare(String query) throws SQLException {
+    private PreparedStatement prepare(String query) throws SQLException {
         return dbc.prepareStatement(query);
     }
 
-    public static List<Map<String, String>> query(String query, Object... parameters) throws SQLException {
+    public List<Map<String, String>> query(String query, Object... parameters) throws SQLException {
         PreparedStatement statement = prepare(query);
         bindParms(statement, parameters);
         ResultSet results = statement.executeQuery();
         return parseResults(results);
     }
 
-    private static List<Map<String, String>> parseResults(ResultSet results) throws SQLException {
+    private List<Map<String, String>> parseResults(ResultSet results) throws SQLException {
         List<Map<String, String>> ret = new ArrayList<>();
         ResultSetMetaData rsMetaData = results.getMetaData();
 
@@ -71,13 +74,13 @@ public class Database {
     }
 
 
-    public static List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
+    public List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
         try (statement; ResultSet results = statement.executeQuery()) {
             return parseResults(results);
         }
     }
 
-    public static int updateDB(PreparedStatement statement) throws Exception {
+    public int updateDB(PreparedStatement statement) throws Exception {
         try (statement) {
             return statement.executeUpdate();
         }
@@ -85,12 +88,12 @@ public class Database {
 
     public static void main(String[] args) {
         try {
-            connect();
-            List<Map<String, String>> rows = queryDB(QueryBuilder.countUsers());
+            Database db = new Database();
+            List<Map<String, String>> rows = db.queryDB(QueryBuilder.countUsers());
             System.out.println("Total users: " + rows.get(0).get("count"));
 
             System.out.println("\nUsers:\n");
-            rows = query("SELECT * FROM users");
+            rows = db.query("SELECT * FROM users");
             for (Map<String, String> row : rows) {
                 for (String key : row.keySet()) {
                     System.out.println(key + ": " + row.get(key));
@@ -101,7 +104,7 @@ public class Database {
             String username = "april";
             System.out.printf("\nMatches for username '%s':\n\n", username);
             String sql = "SELECT gameID, userID, board, color, turn, nickname FROM games NATURAL JOIN userGames NATURAL JOIN users WHERE nickname=?";
-            rows = query(sql, username);
+            rows = db.query(sql, username);
             for (int i = 0; i < rows.size(); i++) {
                 Map<String, String> row = rows.get(i);
                 System.out.printf("Match %d (gameID=%s)\n", i+1, row.get("gameID"));
@@ -113,7 +116,7 @@ public class Database {
                 System.out.println();
             }
 
-            /*int rowsUpdated = updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
+            /*int rowsUpdated = db.updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
             if (rowsUpdated == 1) {
                 System.out.println("User successfully added.");
             }*/
