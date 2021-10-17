@@ -12,8 +12,7 @@ USE chess;
 DROP TABLE IF EXISTS
     users,
     games,
-    notifications;
-
+    invites;
 
 --
 -- Tables:
@@ -24,7 +23,7 @@ CREATE TABLE users (
     nickname VARCHAR(255) NOT NULL UNIQUE,
     email VARCHAR(255) NOT NULL UNIQUE,
     bio VARCHAR(1024),
-    picture BLOB,
+    picURL VARCHAR(255),
 
     -- These fields are set as fixed width, with the assumption they will hold a SHA256 hash
     password CHAR(64) NOT NULL,
@@ -39,17 +38,18 @@ CREATE TABLE games (
     player2 INT,
     turn ENUM ('WHITE', 'BLACK') NOT NULL DEFAULT 'WHITE',
     board CHAR(64) NOT NULL DEFAULT 'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR',
+
     FOREIGN KEY (player1) REFERENCES users (userID),
     FOREIGN KEY (player2) REFERENCES users (userID),
+
     PRIMARY KEY (gameID)
 );
 
-CREATE TABLE notifications (
+CREATE TABLE invites (
     gameID INT NOT NULL,
     sender INT NOT NULL,
     receiver INT NOT NULL,
-    status ENUM ('PENDING', 'ACCEPTED', 'CANCELLED'),
-    type ENUM ('INVITE', 'GAME_WON'),
+    status ENUM ('PENDING', 'ACCEPTED', 'CANCELLED') NOT NULL DEFAULT 'PENDING',
 
     FOREIGN KEY (gameID) REFERENCES games (gameID),
     FOREIGN KEY (sender) REFERENCES users (userID),
@@ -57,16 +57,3 @@ CREATE TABLE notifications (
 
     PRIMARY KEY (gameID, sender, receiver)
 );
-
--- 
--- Relations:
---
-/* CREATE TABLE userGames (
-    gameID INT NOT NULL,
-    userID INT NOT NULL,
-    color enum ('WHITE', 'BLACK') NOT NULL,
-    FOREIGN KEY (userID) REFERENCES users (userID),
-    FOREIGN KEY (gameID) REFERENCES games (gameID),
-    UNIQUE (gameID, color)
-); */
-

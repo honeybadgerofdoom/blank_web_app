@@ -13,6 +13,6 @@ INSERT INTO `games` VALUES
 (204, 105, 106, 'WHITE', 'r-bqkbnrpppppppp--n------------------------P----PPP-PPPPRNBQKBNR'),
 (205, 105, null, 'WHITE', 'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR');
 
-INSERT INTO `notifications` VALUES
-(205, 105, 101, 'PENDING', 'INVITE'),
-(205, 105, 103, 'PENDING', 'INVITE');
+INSERT INTO `invites` VALUES
+(205, 105, 101, 'PENDING'),
+(205, 105, 103, 'PENDING');
