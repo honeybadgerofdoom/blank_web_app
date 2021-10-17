@@ -24,17 +24,22 @@ public class Database {
         }
     }
 
+    private static void bindParm(PreparedStatement s, int index, Object parameter) throws SQLException {
+        int parameterNum = index + 1;
+        if (parameter instanceof String) {
+            s.setString(parameterNum, (String) parameter);
+        } else if (parameter instanceof Integer) {
+            s.setInt(parameterNum, (Integer) parameter);
+        } else if (parameter instanceof Double) {
+            s.setDouble(parameterNum, (Double) parameter);
+        } else if (parameter instanceof Float) {
+            s.setFloat(parameterNum, (Float) parameter);
+        }
+    }
+
     private static PreparedStatement bindParms(PreparedStatement statement, Object... parameters) throws SQLException {
         for (int i = 0; i < parameters.length; i++) {
-            if (parameters[i] instanceof String) {
-                statement.setString(i+1, (String) parameters[i]);
-            } else if (parameters[i] instanceof Integer) {
-                statement.setInt(i+1, (Integer) parameters[i]);
-            } else if (parameters[i] instanceof Double) {
-                statement.setDouble(i+1, (Double) parameters[i]);
-            } else if (parameters[i] instanceof Float) {
-                statement.setFloat(i+1, (Float) parameters[i]);
-            }
+            bindParm(statement, i, parameters[i]);
         }
         return statement;
     }
