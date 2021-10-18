@@ -30,6 +30,11 @@ public class Board {
             board.move("d8", "d6");
             board.move("b1", "a3");
             board.move("c1", "g5");
+            board.move("g7", "g6");
+            board.move("f8", "g7");
+            board.move("g8", "f6");
+            board.move("h8", "f8");
+            board.move("f8", "h8");
         } catch(IllegalMoveException e) {
             e.printStackTrace();
         }
