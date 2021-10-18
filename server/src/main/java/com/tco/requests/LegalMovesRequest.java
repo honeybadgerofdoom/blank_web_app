@@ -29,6 +29,8 @@ public class LegalMovesRequest extends Request {
             board.move("d1", "d3");
             board.move("d7", "d5");
             board.move("d8", "d6");
+            board.move("b1", "a3");
+            board.move("c1", "g5");
         } catch(IllegalMoveException e) {
             e.printStackTrace();
         }
