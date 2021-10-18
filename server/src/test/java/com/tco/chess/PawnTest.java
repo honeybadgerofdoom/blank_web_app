@@ -115,7 +115,39 @@ class PawnTest {
 		}
 		
 	}
-	
+
+	@Test
+	void hasNoLegalMovesBlockedByPieceWhite() throws IllegalMoveException {
+		testBoard.initialize();
+		testBoard.move("f7", "f5");
+		testBoard.move("f5", "f4");
+		testBoard.move("f4", "f3");
+		assertThrows(IllegalMoveException.class, () -> testBoard.move("f2", "f4"));
+	}
+
+	@Test
+	void hasNoLegalMovesBlockedByPieceBlack() throws IllegalMoveException {
+		testBoard.initialize();
+		testBoard.move("f2", "f4");
+		testBoard.move("f4", "f5");
+		testBoard.move("f5", "f6");
+		assertThrows(IllegalMoveException.class, () -> testBoard.move("f7", "f5"));
+	}
+
+	@Test
+	void hasNoLegalMovesBlocked() throws IllegalMoveException {
+		try {
+			testBoard.initialize();
+			testBoard.move("f2", "f4");
+			testBoard.move("f4", "f5");
+			testBoard.move("f5", "f6");
+			assertTrue(testBoard.getPiece("f7").legalMoves().size() == 0);
+		}catch (Exception e){
+			e.printStackTrace();
+			fail();
+		}
+	}
+
 	@Test
 	void testBlackDec() {
 		try {
