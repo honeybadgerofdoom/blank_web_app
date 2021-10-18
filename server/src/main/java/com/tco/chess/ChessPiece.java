@@ -9,6 +9,7 @@ public abstract class ChessPiece {
 	protected int row;
 	protected int column;
 	protected Color color;
+	protected boolean hasMoved = false; // This is only used for Rook and King, for castling purposes.
 	
 	public ChessPiece(ChessBoard board, Color color) {
 		this.board = board;
@@ -36,6 +37,17 @@ public abstract class ChessPiece {
 		this.row = rowCol[0];
 		this.column = rowCol[1];
 		
+	}
+
+	protected String rowColToPosition(int row, int column) {
+		char letter = (char) (column + 97);
+		int newRow = row + 1;
+		return letter + "" + newRow;
+	}
+
+	private char colToCharacter(int col) {
+		char letter = (char) (col + 97);
+		return letter;
 	}
 	
 	abstract public String toString();
