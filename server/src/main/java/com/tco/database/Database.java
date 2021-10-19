@@ -29,7 +29,7 @@ public class Database implements AutoCloseable{
         this.dbc.close();
     }
 
-    private void bindParm(PreparedStatement s, int index, Object parameter) throws SQLException {
+    private void bindParam(PreparedStatement s, int index, Object parameter) throws SQLException {
 
         int parameterNum = index + 1;
 
@@ -45,9 +45,9 @@ public class Database implements AutoCloseable{
 
     }
 
-    private void bindParms(PreparedStatement statement, Object... parameters) throws SQLException {
+    private void bindParams(PreparedStatement statement, Object... parameters) throws SQLException {
         for (int i = 0; i < parameters.length; i++) {
-            bindParm(statement, i, parameters[i]);
+            bindParam(statement, i, parameters[i]);
         }
     }
 
@@ -57,7 +57,7 @@ public class Database implements AutoCloseable{
 
     public List<Map<String, String>> query(String query, Object... parameters) throws SQLException {
         PreparedStatement statement = prepare(query);
-        bindParms(statement, parameters);
+        bindParams(statement, parameters);
         ResultSet results = statement.executeQuery();
         return parseResults(results);
     }
@@ -80,7 +80,7 @@ public class Database implements AutoCloseable{
 
     public int update(String query, Object... parameters) throws SQLException {
         PreparedStatement statement = prepare(query);
-        bindParms(statement, parameters);
+        bindParams(statement, parameters);
         return statement.executeUpdate();
     }
 
