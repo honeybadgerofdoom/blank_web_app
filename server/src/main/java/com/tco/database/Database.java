@@ -3,7 +3,7 @@ package com.tco.database;
 import java.sql.*;
 import java.util.*;
 
-public class Database {
+public class Database implements AutoCloseable{
 
     private Connection dbc;
 
@@ -22,6 +22,11 @@ public class Database {
             System.err.println("Error connecting to database");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void close() throws Exception {
+        this.dbc.close();
     }
 
     private void bindParm(PreparedStatement s, int index, Object parameter) throws SQLException {
@@ -87,8 +92,7 @@ public class Database {
     }
 
     public static void main(String[] args) {
-        try {
-            Database db = new Database();
+        try (Database db = new Database()) {
             List<Map<String, String>> rows = db.query("SELECT COUNT(*) AS count FROM users");
             System.out.println("Total users: " + rows.get(0).get("count"));
 
@@ -116,13 +120,14 @@ public class Database {
                 System.out.println();
             }
 
-            int rowsUpdated = db.updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
+            /*int rowsUpdated = db.updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
             if (rowsUpdated == 1) {
                 System.out.println("User successfully added.");
-            }
+            }*/
         } catch (Exception e) {
             System.err.println("Exception: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 }
