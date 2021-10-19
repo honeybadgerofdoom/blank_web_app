@@ -78,24 +78,23 @@ public class Database implements AutoCloseable{
         return ret;
     }
 
-
-    public List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
-        try (statement; ResultSet results = statement.executeQuery()) {
-            return parseResults(results);
-        }
-    }
-
     public int update(String query, Object... parameters) throws SQLException {
         PreparedStatement statement = prepare(query);
         bindParms(statement, parameters);
         return statement.executeUpdate();
     }
 
-    public int updateDB(PreparedStatement statement) throws Exception {
+    /*public int updateDB(PreparedStatement statement) throws Exception {
         try (statement) {
             return statement.executeUpdate();
         }
     }
+
+    public List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
+        try (statement; ResultSet results = statement.executeQuery()) {
+            return parseResults(results);
+        }
+    }*/
 
     public static void main(String[] args) {
         try (Database db = new Database()) {
