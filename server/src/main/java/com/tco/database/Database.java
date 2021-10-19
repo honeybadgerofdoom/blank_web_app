@@ -85,6 +85,12 @@ public class Database implements AutoCloseable{
         }
     }
 
+    public int update(String query, Object... parameters) throws SQLException {
+        PreparedStatement statement = prepare(query);
+        bindParms(statement, parameters);
+        return statement.executeUpdate();
+    }
+
     public int updateDB(PreparedStatement statement) throws Exception {
         try (statement) {
             return statement.executeUpdate();
@@ -120,10 +126,14 @@ public class Database implements AutoCloseable{
                 System.out.println();
             }
 
-            /*int rowsUpdated = db.updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
+            //int rowsUpdated = db.updateDB(QueryBuilder.addUser("aaron", "catninja@rams.colostate.edu"));
+            //"INSERT INTO users (nickname, email, password, salt) VALUES (?, ?, ?, ?) --ON DUPLICATE KEY UPDATE (nickname, email, password, salt) VALUES (?, ?, ?, ?)"
+            //Object[] temp = {"aaron", "catninja@rams.colostate.edu", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "b61ec97750d754b09cd822317d0f5c3a7aae75bd1c4bbbf2cf08afa77123b2dc"};//, "aaron", "catninja@rams.colostate.edu", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "b61ec97750d754b09cd822317d0f5c3a7aae75bd1c4bbbf2cf08afa77123b2dc"};
+            int rowsUpdated = db.update("INSERT INTO users (nickname, email, password, salt) VALUES (?, ?, ?, ?)", "aaron", "catninja@rams.colostate.edu", "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", "b61ec97750d754b09cd822317d0f5c3a7aae75bd1c4bbbf2cf08afa77123b2dc" );
+
             if (rowsUpdated == 1) {
                 System.out.println("User successfully added.");
-            }*/
+            }
         } catch (Exception e) {
             System.err.println("Exception: " + e.getMessage());
             e.printStackTrace();
