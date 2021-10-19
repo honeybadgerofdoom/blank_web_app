@@ -63,19 +63,21 @@ public class Database implements AutoCloseable{
     }
 
     private List<Map<String, String>> parseResults(ResultSet results) throws SQLException {
-        List<Map<String, String>> ret = new ArrayList<>();
-        ResultSetMetaData rsMetaData = results.getMetaData();
+        try (results) {
+            List<Map<String, String>> ret = new ArrayList<>();
+            ResultSetMetaData rsMetaData = results.getMetaData();
 
-        while (results.next()) {
-            ret.add(new HashMap<>());
-            for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
-                String columnName = rsMetaData.getColumnLabel(i);
-                String columnValue = results.getString(columnName);
+            while (results.next()) {
+                ret.add(new HashMap<>());
+                for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
+                    String columnName = rsMetaData.getColumnLabel(i);
+                    String columnValue = results.getString(columnName);
 
-                ret.get(ret.size()-1).put(columnName, columnValue);
+                    ret.get(ret.size() - 1).put(columnName, columnValue);
+                }
             }
+            return ret;
         }
-        return ret;
     }
 
     public int update(String query, Object... parameters) throws SQLException {
