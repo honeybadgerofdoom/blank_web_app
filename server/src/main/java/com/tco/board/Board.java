@@ -102,13 +102,7 @@ public class Board {
         String[] arrayOfPieces = dbResponseToPieceArray(mockedDatabaseResponse);
         System.out.println("arrayOfPieces: " + Arrays.toString(arrayOfPieces));
 
-        int count = 0;
-        String[] listToArray = new String[64];
-        for(String position : tempBoardString) {
-            listToArray[count] = position;
-            count++;
-        }
-        return listToArray;
+        return arrayOfPieces;
     }
 
     private String[] dbResponseToPieceArray(String dbResponse) {
