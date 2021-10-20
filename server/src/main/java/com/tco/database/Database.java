@@ -59,6 +59,7 @@ public class Database implements AutoCloseable{
         PreparedStatement statement = prepare(query);
         bindParams(statement, parameters);
         ResultSet results = statement.executeQuery();
+        statement.close();
         return parseResults(results);
     }
 
