@@ -88,18 +88,6 @@ public class Database implements AutoCloseable{
         }
     }
 
-    /*public int updateDB(PreparedStatement statement) throws Exception {
-        try (statement) {
-            return statement.executeUpdate();
-        }
-    }
-
-    public List<Map<String, String>> queryDB(PreparedStatement statement) throws Exception {
-        try (statement; ResultSet results = statement.executeQuery()) {
-            return parseResults(results);
-        }
-    }*/
-
     public static void main(String[] args) {
         try (Database db = new Database()) {
             List<Map<String, String>> rows = db.query("SELECT COUNT(*) AS count FROM users");
