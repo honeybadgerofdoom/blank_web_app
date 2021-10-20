@@ -56,11 +56,11 @@ public class Database implements AutoCloseable{
     }
 
     public List<Map<String, String>> query(String query, Object... parameters) throws SQLException {
-        PreparedStatement statement = prepare(query);
-        bindParams(statement, parameters);
-        ResultSet results = statement.executeQuery();
-        statement.close();
-        return parseResults(results);
+        try (PreparedStatement statement = prepare(query)) {
+            bindParams(statement, parameters);
+            ResultSet results = statement.executeQuery();
+            return parseResults(results);
+        }
     }
 
     private List<Map<String, String>> parseResults(ResultSet results) throws SQLException {
@@ -82,9 +82,10 @@ public class Database implements AutoCloseable{
     }
 
     public int update(String query, Object... parameters) throws SQLException {
-        PreparedStatement statement = prepare(query);
-        bindParams(statement, parameters);
-        return statement.executeUpdate();
+        try (PreparedStatement statement = prepare(query)) {
+            bindParams(statement, parameters);
+            return statement.executeUpdate();
+        }
     }
 
     /*public int updateDB(PreparedStatement statement) throws Exception {
