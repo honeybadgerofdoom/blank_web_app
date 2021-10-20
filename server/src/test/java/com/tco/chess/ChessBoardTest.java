@@ -300,21 +300,20 @@ class ChessBoardTest {
 	}
 	
 	// Other tests:::::::::: 
-	/*
+	
 	@Test
 	void initialQueenMove() {
 		testBoard.initialize();
 		try {
 			testBoard.move("d2", "d3");
-		} catch (IllegalMoveException e) {
+			testBoard.move("d1", "d2");
+			assertTrue(testBoard.getPiece("d2") instanceof Queen);
+		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
-		assertThrows(IllegalMoveException.class, () -> {
-			testBoard.move("d1", "d2");
-		});
 	}
-	*/
+	
 	@Test
 	void rowColCheck() {
 		
@@ -681,25 +680,6 @@ class ChessBoardTest {
 			fail();
 		}
 	}
-	/*
-	@Test
-	void queenCantMove() {
-		testBoard.initialize();
-		try {
-			
-			Assertions.assertThrows(IllegalMoveException.class, () -> {
-			testBoard.move("e2", "e4");
-			testBoard.move("d1", "h5");
-			testBoard.move("h5", "f7");
-		
-			});
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail();
-		}
-	}
-	*/
 	
 	@Test
 	void knightCantMove() {
@@ -1150,6 +1130,45 @@ class ChessBoardTest {
 			testBoard.move("g2", "h3");
 			assertEquals(null, testBoard.getWinner());
 		} catch(IllegalPositionException | IllegalPromotionException | IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void turnStartOnWhite() {
+		testBoard.initialize();
+		assertEquals(Color.WHITE, testBoard.getTurn());
+	}
+
+	@Test
+	void moveSwitchesTurn() {
+		testBoard.initialize();
+		try {
+			testBoard.move("f2", "f4");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.move("h7", "h6");
+			assertEquals(Color.WHITE, testBoard.getTurn());
+			testBoard.move("d2", "d3");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.move("b7", "b6");
+			assertEquals(Color.WHITE, testBoard.getTurn());
+		} catch(IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void promotionDoesntSwitchTurnIncorrectly() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("a2"), "b7");
+			testBoard.move("b7", "a8");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+			testBoard.promotePawn(testBoard.getPiece("a8"), "King");
+			assertEquals(Color.BLACK, testBoard.getTurn());
+		} catch(Exception e) {
 			e.printStackTrace();
 			fail();
 		}
