@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import com.tco.chess.ChessPiece.Color;
 
 class KingTest {
@@ -211,5 +213,128 @@ class KingTest {
 		
 	}
 
+	@Test
+	void whiteKingCanCastleQueenside() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("b1"), "b4");
+			testBoard.placePiece(testBoard.getPiece("c1"), "c4");
+			testBoard.placePiece(testBoard.getPiece("d1"), "d4");
+			ChessPiece whiteKing = testBoard.getPiece("e1");
+			ArrayList<String> legalMoves = whiteKing.legalMoves();
+			assertEquals(2, legalMoves.size());
+			ArrayList<String> validMoves = new ArrayList<String>();
+			validMoves.add("c1");
+			validMoves.add("d1");
+			for (String move : legalMoves) {
+				assertTrue(validMoves.contains(move));
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void whiteKingCanCastleKingside() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f1"), "f4");
+			testBoard.placePiece(testBoard.getPiece("g1"), "g4");
+			ChessPiece whiteKing = testBoard.getPiece("e1");
+			ArrayList<String> legalMoves = whiteKing.legalMoves();
+			assertEquals(2, legalMoves.size());
+			ArrayList<String> validMoves = new ArrayList<String>();
+			validMoves.add("f1");
+			validMoves.add("g1");
+			for (String move : legalMoves) {
+				assertTrue(validMoves.contains(move));
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void blackKingCanCastleQueenside() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("b8"), "b5");
+			testBoard.placePiece(testBoard.getPiece("c8"), "c5");
+			testBoard.placePiece(testBoard.getPiece("d8"), "d5");
+			ChessPiece whiteKing = testBoard.getPiece("e8");
+			ArrayList<String> legalMoves = whiteKing.legalMoves();
+			assertEquals(2, legalMoves.size());
+			ArrayList<String> validMoves = new ArrayList<String>();
+			validMoves.add("c8");
+			validMoves.add("d8");
+			for (String move : legalMoves) {
+				assertTrue(validMoves.contains(move));
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void blackKingCanCastleKingside() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f8"), "f5");
+			testBoard.placePiece(testBoard.getPiece("g8"), "g5");
+			ChessPiece whiteKing = testBoard.getPiece("e8");
+			ArrayList<String> legalMoves = whiteKing.legalMoves();
+			assertEquals(2, legalMoves.size());
+			ArrayList<String> validMoves = new ArrayList<String>();
+			validMoves.add("f8");
+			validMoves.add("g8");
+			for (String move : legalMoves) {
+				assertTrue(validMoves.contains(move));
+			}
+		} catch (IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void kingCantCastleAfterMoving() {
+		testBoard.initialize();
+		try {
+			testBoard.placePiece(testBoard.getPiece("f8"), "f5");
+			testBoard.placePiece(testBoard.getPiece("g8"), "g5");
+			testBoard.move("e8", "f8");
+			testBoard.move("f8", "e8");
+			ChessPiece whiteKing = testBoard.getPiece("e8");
+			ArrayList<String> legalMoves = whiteKing.legalMoves();
+			assertEquals(1, legalMoves.size());
+			assertTrue(legalMoves.contains("f8"));
+		} catch (IllegalPositionException | IllegalMoveException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void kingCantCastleAfterRookMoves() {
+		testBoard.initialize();
+		try {
+			ChessPiece whiteKing = testBoard.getPiece("e1");
+			testBoard.placePiece(testBoard.getPiece("b1"), "b3");
+			testBoard.placePiece(testBoard.getPiece("c1"), "c3");
+			testBoard.placePiece(testBoard.getPiece("d1"), "d3");
+			testBoard.move("a1", "b1");
+			assertEquals(1, whiteKing.legalMoves().size());
+			assertTrue(whiteKing.legalMoves().contains("d1"));
+			testBoard.move("b1", "a1");
+			assertEquals(1, whiteKing.legalMoves().size());
+			assertTrue(whiteKing.legalMoves().contains("d1"));
+		} catch (IllegalMoveException | IllegalPositionException e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 
 }

@@ -231,6 +231,7 @@ public class ChessBoard {
 					handleCapture(getPiece(toPosition));
 				}
 				placePiece(piece, toPosition);
+				if ((piece instanceof Rook || piece instanceof King) && !piece.hasMoved) piece.hasMoved = true;
 				switchTurn();
 				checkIfTheGameIsOver();
 			}
@@ -335,4 +336,45 @@ public class ChessBoard {
 	    chess+=bottomLine;
 	    return chess;
 	}
+
+	public void castle(ChessPiece rook, ChessPiece king) throws IllegalMoveException {
+		if (validateCastle(rook, king)) {
+			int kingRow = king.getColor() == Color.WHITE ? 0 : 7;
+			if (rook.column == 0 && queensideCastleIsPossible(kingRow)) {
+				placePiece(rook, rowColToPosition(rook.row, king.column-1));
+				placePiece(king, rowColToPosition(rook.row, rook.column-1));
+				switchTurn();
+			}
+			else if (rook.column == 7 && kingsideCastleIsPossible(kingRow)) {
+				placePiece(rook, rowColToPosition(rook.row, king.column+1));
+				placePiece(king, rowColToPosition(rook.row, rook.column+1));
+				switchTurn();
+			}
+			else throw new IllegalMoveException("Pieces are in the way of castling.");
+		}
+		else throw new IllegalMoveException("Illegal castle attempt.");
+	}
+
+	private String rowColToPosition(int row, int column) {
+		char letter = (char) (column + 97);
+		int newRow = row + 1;
+		return letter + "" + newRow;
+	}
+
+	public boolean queensideCastleIsPossible(int kingRow) {
+		return board[kingRow][1] == null && board[kingRow][2] == null && board[kingRow][3] == null;
+	}
+
+	public boolean kingsideCastleIsPossible(int kingRow) {
+		return board[kingRow][5] == null && board[kingRow][6] == null;
+	}
+
+	private boolean validateCastle(ChessPiece rook, ChessPiece king) {
+		boolean itsARook = rook instanceof Rook;
+		boolean itsAKing = king instanceof King;
+		boolean rookAndKingAreTheSameColor = rook.getColor() == king.getColor();
+		boolean neitherHasMoved = !rook.hasMoved && !king.hasMoved;
+		return itsAKing && itsARook && rookAndKingAreTheSameColor && neitherHasMoved;
+	}
+
 }
