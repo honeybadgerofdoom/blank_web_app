@@ -85,19 +85,18 @@ public class Pawn extends ChessPiece{
 		return legalMoves;
 	}
 
-	public ArrayList<String> enPassant(String position){
+	public ArrayList<String> enPassant(){
 		ArrayList<String> legalMoves = new ArrayList<>();
 		int col = this.column;
 		int row = this.row;
 
+		try{
 
 
-
-
-
-
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
-
 }
 
 
