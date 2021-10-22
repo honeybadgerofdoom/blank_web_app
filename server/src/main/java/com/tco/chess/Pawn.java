@@ -93,6 +93,8 @@ public class Pawn extends ChessPiece{
 		try{
 
 
+
+
 		}catch(Exception e){
 			e.printStackTrace();
 		}
