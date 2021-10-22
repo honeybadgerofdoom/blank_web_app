@@ -595,6 +595,30 @@ class PawnTest {
 			e.printStackTrace();
 			fail();
 		}
+	}
+
+	@Test
+	void enPassantTest() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn, "g5");
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.Black);
+
+			testBoard.placePiece(pawn1, "f7");
+			testBoard.move("f7", "f5");
+			assertTrue(pawn.legalMoves().contains("f6"));
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(2, pawn.legalMoves().size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
 
 	}
 

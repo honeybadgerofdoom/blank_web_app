@@ -3,7 +3,8 @@ package com.tco.chess;
 import java.util.ArrayList;
 
 public class Pawn extends ChessPiece{
-	
+	int numberOfMoves;
+
 	public Pawn(ChessBoard board, Color color) {
 		super(board, color);
 		// TODO Auto-generated constructor stub
@@ -68,23 +69,34 @@ public class Pawn extends ChessPiece{
 			String positionalStr = "";
 			positionalStr += colChar;
 			positionalStr += (char) (this.getColor() == Color.WHITE ? row + i + 1 + '1' : row - i - 1 + '1');
-			
-			if(ChessBoard.validatePosition(positionalStr) && board.getPiece(positionalStr) == null) {
-				if(i == 1 && legalMoves.isEmpty()){
-					 break;
-				}
-				else {
+
+			if (ChessBoard.validatePosition(positionalStr) && board.getPiece(positionalStr) == null) {
+				if (i == 1 && legalMoves.isEmpty()) {
+					break;
+				} else {
 					legalMoves.add(positionalStr);
 				}
 			}
-			
 		}
+
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
 		return legalMoves;
 	}
-	
+
+	public ArrayList<String> enPassant(String position){
+		ArrayList<String> legalMoves = new ArrayList<>();
+		int col = this.column;
+		int row = this.row;
+
+
+
+
+
+
+
+	}
 
 }
 
