@@ -1,8 +1,9 @@
 package com.tco.chess;
 
 import java.util.ArrayList;
-
 import com.tco.chess.ChessPiece.Color;
+
+
 
 public class ChessBoard {
 	private ChessPiece[][] board;

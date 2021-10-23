@@ -607,7 +607,7 @@ class PawnTest {
 			assertTrue(pawn.legalMoves().contains("g6"));
 			assertEquals(1, pawn.legalMoves().size());
 
-			ChessPiece pawn1 = new Pawn(testBoard, Color.Black);
+			ChessPiece pawn1 = new Pawn(testBoard, Color.BLACK);
 
 			testBoard.placePiece(pawn1, "f7");
 			testBoard.move("f7", "f5");

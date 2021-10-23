@@ -3,7 +3,6 @@ package com.tco.chess;
 import java.util.ArrayList;
 
 public class Pawn extends ChessPiece{
-	int numberOfMoves;
 
 	public Pawn(ChessBoard board, Color color) {
 		super(board, color);
@@ -95,32 +94,32 @@ public class Pawn extends ChessPiece{
 			String enemyPositionL = rowColToPosition(row - 1, col);
 			String enemyPositionR = rowColToPosition(row + 1, col);
 
-			if(validatePosition(enemyPositionL)) {
+			if(ChessBoard.validatePosition(enemyPositionL)) {
 				ChessPiece pieceL = board.getPiece(enemyPositionL);
-			}
 
-			if(validatePosition(enemyPositionR)) {
-				ChessPiece pieceR = board.getPiece(enemyPositionR);
-			}
-
-
-			if(pieceL != null && this.getColor() != pieceL.getColor() && pieceL instanceof Pawn && pieceL.numberOfMoves == 1){
-				String positionalString = rowColToPosition(row - 1, col -1);
-				if(ChessBoard.validatePosition(positionalString)){
-					legalMoves.add(positionalString);
+				if(pieceL != null && this.getColor() != pieceL.getColor() && pieceL instanceof Pawn && pieceL.numberOfMoves == 1){
+					String positionalStringL = rowColToPosition(row - 1, col -1);
+					if(ChessBoard.validatePosition(positionalStringL)){
+						legalMoves.add(positionalStringL);
+					}
 				}
 			}
 
-			if(pieceR != null && this.getColor() != pieceR.getColor() && pieceR instanceof Pawn && pieceR.numberOfMoves == 1){
-				String positionalString = rowColToPosition(row + 1, col + 1);
-				if(ChessBoard.validatePosition(positionalString)){
-					legalMoves.add(positionalString);
+			if(ChessBoard.validatePosition(enemyPositionR)) {
+				ChessPiece pieceR = board.getPiece(enemyPositionR);
+
+				if(pieceR != null && this.getColor() != pieceR.getColor() && pieceR instanceof Pawn && pieceR.numberOfMoves == 1){
+					String positionalStringR = rowColToPosition(row + 1, col + 1);
+					if(ChessBoard.validatePosition(positionalStringR)){
+						legalMoves.add(positionalStringR);
+					}
 				}
 			}
 
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		return legalMoves;
 	}
 }
 

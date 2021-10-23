@@ -10,6 +10,7 @@ public abstract class ChessPiece {
 	protected int column;
 	protected Color color;
 	protected boolean hasMoved = false; // This is only used for Rook and King, for castling purposes.
+	protected int numberOfMoves = 0; //This is only used in Pawn for En Passant
 	
 	public ChessPiece(ChessBoard board, Color color) {
 		this.board = board;
