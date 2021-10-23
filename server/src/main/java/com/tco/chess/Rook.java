@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Rook extends ChessPiece {
 	public Rook(ChessBoard board, Color color) {
 		super(board, color);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -23,6 +22,8 @@ public class Rook extends ChessPiece {
 		ArrayList<String> legalMoves = new ArrayList<>();
 		int col = this.column;
 		int row = this.row;
+
+		// NOTE The castling positions are ALREADY in the Rook's legalMoves array
 		
 		for(int i = col+1; i < 8; i++) {
 			char colChar = (char) (i + 'a');
