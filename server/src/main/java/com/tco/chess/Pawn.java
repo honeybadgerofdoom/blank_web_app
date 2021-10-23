@@ -92,8 +92,31 @@ public class Pawn extends ChessPiece{
 
 		try{
 
+			String enemyPositionL = rowColToPosition(row - 1, col);
+			String enemyPositionR = rowColToPosition(row + 1, col);
+
+			if(validatePosition(enemyPositionL)) {
+				ChessPiece pieceL = board.getPiece(enemyPositionL);
+			}
+
+			if(validatePosition(enemyPositionR)) {
+				ChessPiece pieceR = board.getPiece(enemyPositionR);
+			}
 
 
+			if(pieceL != null && this.getColor() != pieceL.getColor() && pieceL instanceof Pawn && pieceL.numberOfMoves == 1){
+				String positionalString = rowColToPosition(row - 1, col -1);
+				if(ChessBoard.validatePosition(positionalString)){
+					legalMoves.add(positionalString);
+				}
+			}
+
+			if(pieceR != null && this.getColor() != pieceR.getColor() && pieceR instanceof Pawn && pieceR.numberOfMoves == 1){
+				String positionalString = rowColToPosition(row + 1, col + 1);
+				if(ChessBoard.validatePosition(positionalString)){
+					legalMoves.add(positionalString);
+				}
+			}
 
 		}catch(Exception e){
 			e.printStackTrace();
