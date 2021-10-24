@@ -6,9 +6,12 @@ import com.tco.database.Database;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.security.MessageDigest;
 import java.util.Base64;
+import java.util.List;
+import java.util.Map;
 
 public class LoginRequest extends Request {
     private final transient Logger log = LoggerFactory.getLogger(LoginRequest.class);
@@ -27,7 +30,9 @@ public class LoginRequest extends Request {
     }
 
     public boolean login(String username, String password) {
-        try (Database db = new Database()) {
+        try (Database connection = new Database()) {
+
+            String salt = fetchSalt(connection, username);
 
             //db.query(query, username, )
             return false;
@@ -35,6 +40,14 @@ public class LoginRequest extends Request {
             e.printStackTrace();
             return false;
         }
+    }
+
+    private String fetchSalt(Database db, String username) throws SQLException {
+        List<Map<String, String>> results;
+        results = db.query(getSaltQuery(), username);
+        String salt = "";
+        for (Map<String, String> row : results) { salt = row.get("salt"); }
+        return salt;
     }
 
     private String sha256(String s) {
