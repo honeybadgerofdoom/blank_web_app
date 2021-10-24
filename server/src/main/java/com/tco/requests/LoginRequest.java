@@ -14,7 +14,7 @@ public class LoginRequest extends Request {
     public void buildResponse() {
         serverName = "Team-ReaKt";
         features = new ArrayList<>();
-        features.add("config");
+        features.add("login");
         log.trace("buildResponse -> {}", this);
     }
 
@@ -22,7 +22,7 @@ public class LoginRequest extends Request {
   during normal execution, including the constructor. */
 
     public LoginRequest() {
-        this.requestType = "config";
+        this.requestType = "login";
     }
 
     public String getServerName() {

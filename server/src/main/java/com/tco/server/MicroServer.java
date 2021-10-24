@@ -3,6 +3,7 @@ package com.tco.server;
 import com.tco.misc.BadRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.requests.ConfigRequest;
+import com.tco.requests.LoginRequest;
 import com.tco.requests.Request;
 
 import java.io.IOException;
@@ -35,6 +36,7 @@ class MicroServer {
         path("/api", () -> {
             before("/*", (req, res) -> logRequest(req));
             post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
+            post("/login", (req, res) -> processHttpRequest(req, res, LoginRequest.class));
         });
     }
 
