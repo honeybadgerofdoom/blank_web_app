@@ -56,25 +56,34 @@ public abstract class ChessPiece {
 
 		while (true) {
 			String positionalStr = rowColToPosition(currentRow, currentCol);
-			try {
-				ChessPiece pieceAtDestination = board.getPiece(positionalStr);
-				if (pieceAtDestination != null) {
-					boolean squareHasEnemy = !pieceAtDestination.getColor().equals(this.getColor());
-					if (squareHasEnemy) {
-						legalMoves.add(positionalStr);
-					}
-					// captured enemy or ran into same colored piece, stop searching
-					break;
-				}
 
-				legalMoves.add(positionalStr);
-				currentRow += rowIncrement;
-				currentCol += colIncrement;
-			} catch (IllegalPositionException e) {
-				//Not a legal move
+			if (collisionOrInvalidSpace(legalMoves, positionalStr)) {
 				break;
 			}
+
+			legalMoves.add(positionalStr);
+			currentRow += rowIncrement;
+			currentCol += colIncrement;
 		}
+	}
+
+	private boolean collisionOrInvalidSpace(ArrayList<String> legalMoves, String positionalStr) {
+		try {
+			ChessPiece pieceAtDestination = board.getPiece(positionalStr);
+			boolean squareHasPiece = pieceAtDestination != null;
+			if (squareHasPiece) {
+				boolean squareHasEnemy = !pieceAtDestination.getColor().equals(this.getColor());
+				if (squareHasEnemy) {
+					legalMoves.add(positionalStr);
+				}
+				// Captured enemy or ran into same colored piece, stop searching
+				return true;
+			}
+		} catch (IllegalPositionException e) {
+			// Not a legal move
+			return true;
+		}
+		return false;
 	}
 	
 	abstract public String toString();
