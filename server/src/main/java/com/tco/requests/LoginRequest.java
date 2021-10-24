@@ -32,8 +32,8 @@ public class LoginRequest extends Request {
 
             String salt = fetchSalt(connection, username);
             String saltedPassword = sha256(password + salt);
-            log.error("Salt: " + salt);
-            log.error("Salted: " + saltedPassword);
+            log.info("Salt: " + salt);
+            log.info("Salted: " + saltedPassword);
             return tryLogin(connection, username, saltedPassword);
 
         } catch (UnauthorizedRequestException e) {
