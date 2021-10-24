@@ -18,14 +18,10 @@ public class LoginRequest extends Request {
     private String username;
     private String password;
     private boolean success;
-    private int userID;
-    private ArrayList<String> echo;
+    private int userID = 0;
 
     @Override
     public void buildResponse() {
-        echo = new ArrayList<>();
-        echo.add(this.username);
-        echo.add(sha256(this.password));
         success = login(this.username, this.password);
         log.trace("buildResponse -> {}", this);
     }
