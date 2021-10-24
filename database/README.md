@@ -6,7 +6,7 @@
 
 ## Diagram
 
-![DB Schema](DatabaseT02.png)
+![DB Schema](../reports/DatabaseT02.png)
 
 ## Using the Database
 
