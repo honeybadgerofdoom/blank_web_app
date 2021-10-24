@@ -48,6 +48,11 @@ public class LoginRequest extends Request {
         }
     }
 
+    /*
+     * Danger: DO NOT insert any user supplied data into a query directly.
+     *         It will defeat the purpose of using prepared statements.
+     *         Instead, use the '?' symbol and bind the parameter.
+     */
     private String getSaltQuery() {
         return "SELECT userID " +
                 "FROM users " +
