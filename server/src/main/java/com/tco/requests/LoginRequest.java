@@ -53,10 +53,15 @@ public class LoginRequest extends Request {
      *         It will defeat the purpose of using prepared statements.
      *         Instead, use the '?' symbol and bind the parameter.
      */
-    private String getSaltQuery() {
+    private String getLoginQuery() {
         return "SELECT userID " +
                 "FROM users " +
                 "WHERE nickname = ? AND password = ?";
+    }
+    private String getSaltQuery() {
+        return "SELECT salt " +
+                "FROM users " +
+                "WHERE nickname = ?";
     }
 
   /* The following methods exist only for testing purposes and are not used
