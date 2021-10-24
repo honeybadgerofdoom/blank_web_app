@@ -18,6 +18,7 @@ public class LoginRequest extends Request {
     private String username;
     private String password;
     private boolean success;
+    private int userID;
     private ArrayList<String> echo;
 
     @Override
@@ -33,11 +34,21 @@ public class LoginRequest extends Request {
         try (Database connection = new Database()) {
 
             String salt = fetchSalt(connection, username);
+            String saltedPassword = sha256(password + salt);
+            return tryLogin(connection, username, saltedPassword);
 
-            //db.query(query, username, )
-            return false;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean tryLogin(Database db, String username, String saltedPassword) throws SQLException {
+        List<Map<String, String>> results = db.query(getLoginQuery(), username, saltedPassword);
+        if (results.size() >= 1) {
+            this.userID = Integer.parseInt(results.get(0).get("userID"));
+            return true;
+        } else {
             return false;
         }
     }
@@ -45,9 +56,11 @@ public class LoginRequest extends Request {
     private String fetchSalt(Database db, String username) throws SQLException {
         List<Map<String, String>> results;
         results = db.query(getSaltQuery(), username);
-        String salt = "";
-        for (Map<String, String> row : results) { salt = row.get("salt"); }
-        return salt;
+        if (results.size() >= 1) {
+            return results.get(0).get("salt");
+        } else {
+            return "";
+        }
     }
 
     private String sha256(String s) {
