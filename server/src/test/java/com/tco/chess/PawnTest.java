@@ -611,7 +611,7 @@ class PawnTest {
 
 			testBoard.placePiece(pawn1, "f7");
 			testBoard.move("f7", "f5");
-			assertTrue(pawn.legalMoves().contains("f6")); // fails
+			assertTrue(pawn.legalMoves().contains("f6"));
 			assertTrue(pawn.legalMoves().contains("g6"));
 			assertEquals(2, pawn.legalMoves().size());
 
@@ -637,7 +637,7 @@ class PawnTest {
 
 			testBoard.placePiece(pawn1, "h7");
 			testBoard.move("h7", "h5");
-			assertTrue(pawn.legalMoves().contains("h6")); // fails
+			assertTrue(pawn.legalMoves().contains("h6"));
 			assertTrue(pawn.legalMoves().contains("g6"));
 			assertEquals(2, pawn.legalMoves().size());
 
@@ -647,5 +647,56 @@ class PawnTest {
 		}
 
 	}
+
+	@Test
+	void enPassantTestLBlack() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn, "g4");
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "f2");
+			testBoard.move("f2", "f4");
+			assertTrue(pawn.legalMoves().contains("f3"));
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(2, pawn.legalMoves().size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	void enPassantTestRBlack() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn, "g4");
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "h2");
+			testBoard.move("h2", "h4");
+			assertTrue(pawn.legalMoves().contains("h3"));
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(2, pawn.legalMoves().size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
 
 }
