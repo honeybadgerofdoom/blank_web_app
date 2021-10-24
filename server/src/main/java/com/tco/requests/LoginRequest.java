@@ -27,11 +27,4 @@ public class LoginRequest extends Request {
         this.requestType = "login";
     }
 
-    public String getServerName() {
-        return serverName;
-    }
-
-    /*public boolean validFeature(String feature){
-        return features.contains(feature);
-    }*/
 }
