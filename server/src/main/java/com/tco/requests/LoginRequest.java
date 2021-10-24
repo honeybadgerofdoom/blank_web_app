@@ -21,16 +21,13 @@ public class LoginRequest extends Request {
     public void buildResponse() {
         echo = new ArrayList<>();
         echo.add(this.username);
-        echo.add(this.password);
+        echo.add(sha256(this.password));
         success = login(this.username, this.password);
         log.trace("buildResponse -> {}", this);
     }
 
     public boolean login(String username, String password) {
         try (Database db = new Database()) {
-            String query = "SELECT userID " +
-                    "FROM users " +
-                    "WHERE nickname = ? AND password = ?";
 
             //db.query(query, username, )
             return false;
@@ -49,6 +46,12 @@ public class LoginRequest extends Request {
             e.printStackTrace();
             return "";
         }
+    }
+
+    private String getSaltQuery() {
+        return "SELECT userID " +
+                "FROM users " +
+                "WHERE nickname = ? AND password = ?";
     }
 
   /* The following methods exist only for testing purposes and are not used
