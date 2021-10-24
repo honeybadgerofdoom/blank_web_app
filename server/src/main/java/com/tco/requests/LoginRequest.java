@@ -9,6 +9,7 @@ public class LoginRequest extends Request {
     private final transient Logger log = LoggerFactory.getLogger(LoginRequest.class);
     private String username;
     private String password;
+    private boolean success;
     private ArrayList<String> echo;
 
     @Override
@@ -16,6 +17,7 @@ public class LoginRequest extends Request {
         echo = new ArrayList<>();
         echo.add(this.username);
         echo.add(this.password);
+        success = login(this.username, this.password);
         log.trace("buildResponse -> {}", this);
     }
 
