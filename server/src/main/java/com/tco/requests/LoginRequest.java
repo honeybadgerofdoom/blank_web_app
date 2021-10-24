@@ -2,19 +2,21 @@ package com.tco.requests;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.tco.database.Database;
 import java.util.ArrayList;
 
 public class LoginRequest extends Request {
-    private String serverName;
     private final transient Logger log = LoggerFactory.getLogger(LoginRequest.class);
-    private ArrayList<String> features;
+    private String username;
+    private String password;
+    private ArrayList<String> echo;
+
 
     @Override
     public void buildResponse() {
-        serverName = "Team-ReaKt";
-        features = new ArrayList<>();
-        features.add("login");
+        echo = new ArrayList<>();
+        echo.add(this.username);
+        echo.add(this.password);
         log.trace("buildResponse -> {}", this);
     }
 
@@ -29,7 +31,7 @@ public class LoginRequest extends Request {
         return serverName;
     }
 
-    public boolean validFeature(String feature){
+    /*public boolean validFeature(String feature){
         return features.contains(feature);
-    }
+    }*/
 }
