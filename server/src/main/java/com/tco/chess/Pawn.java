@@ -6,7 +6,6 @@ public class Pawn extends ChessPiece{
 	
 	public Pawn(ChessBoard board, Color color) {
 		super(board, color);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
