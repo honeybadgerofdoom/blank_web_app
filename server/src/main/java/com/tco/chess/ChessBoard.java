@@ -233,6 +233,7 @@ public class ChessBoard {
 				}
 				placePiece(piece, toPosition);
 				if ((piece instanceof Rook || piece instanceof King) && !piece.hasMoved) piece.hasMoved = true;
+				if (piece instanceof Pawn) piece.numberOfMoves++;
 				switchTurn();
 				checkIfTheGameIsOver();
 			}

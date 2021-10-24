@@ -77,6 +77,11 @@ public class Pawn extends ChessPiece{
 				}
 			}
 		}
+		if(this.row == 4 && this.getColor() == Color.WHITE){
+			ArrayList<String> enPassantMoves = new ArrayList<>();
+			enPassantMoves = this.enPassant();
+			legalMoves.addAll(enPassantMoves);
+		}
 
 	}catch(Exception e) {
 		e.printStackTrace();
@@ -91,14 +96,14 @@ public class Pawn extends ChessPiece{
 
 		try{
 
-			String enemyPositionL = rowColToPosition(row - 1, col);
-			String enemyPositionR = rowColToPosition(row + 1, col);
+			String enemyPositionL = rowColToPosition(row, col-1);
+			String enemyPositionR = rowColToPosition(row, col+1);
 
 			if(ChessBoard.validatePosition(enemyPositionL)) {
 				ChessPiece pieceL = board.getPiece(enemyPositionL);
 
 				if(pieceL != null && this.getColor() != pieceL.getColor() && pieceL instanceof Pawn && pieceL.numberOfMoves == 1){
-					String positionalStringL = rowColToPosition(row - 1, col -1);
+					String positionalStringL = rowColToPosition(row + 1, col -1);
 					if(ChessBoard.validatePosition(positionalStringL)){
 						legalMoves.add(positionalStringL);
 					}
