@@ -2,6 +2,7 @@ package com.tco.server;
 
 import com.tco.misc.BadRequestException;
 import com.tco.misc.JSONValidator;
+import com.tco.misc.UnauthorizedRequestException;
 import com.tco.requests.ConfigRequest;
 import com.tco.requests.LoginRequest;
 import com.tco.requests.Request;
@@ -24,6 +25,7 @@ class MicroServer {
     private final int HTTP_OK = 200;
     private final int HTTP_BAD_REQUEST = 400;
     private final int HTTP_SERVER_ERROR = 500;
+    private final int HTTP_UNAUTHORIZED = 418;
 
     MicroServer(int serverPort) {
         configureServer(serverPort);
@@ -52,6 +54,9 @@ class MicroServer {
         } catch (IOException | BadRequestException e) {
             log.info("Bad Request - {}", e.getMessage());
             httpResponse.status(HTTP_BAD_REQUEST);
+        } catch (UnauthorizedRequestException e) {
+            log.info("User is unauthorized - ", e);
+            httpResponse.status(HTTP_UNAUTHORIZED);
         } catch (Exception e) {
             log.info("Server Error - ", e);
             httpResponse.status(HTTP_SERVER_ERROR);
@@ -66,7 +71,7 @@ class MicroServer {
         response.status(HTTP_OK);
     }
 
-    private String buildJSONResponse(Request request) throws BadRequestException {
+    private String buildJSONResponse(Request request) throws Exception {
         request.buildResponse();
         String responseBody = new Gson().toJson(request);
         log.trace("Response - {}", responseBody);
