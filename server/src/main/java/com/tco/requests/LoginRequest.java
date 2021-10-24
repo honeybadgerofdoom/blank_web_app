@@ -11,13 +11,16 @@ public class LoginRequest extends Request {
     private String password;
     private ArrayList<String> echo;
 
-
     @Override
     public void buildResponse() {
         echo = new ArrayList<>();
         echo.add(this.username);
         echo.add(this.password);
         log.trace("buildResponse -> {}", this);
+    }
+
+    public boolean login(String username, String password) {
+        return false;
     }
 
   /* The following methods exist only for testing purposes and are not used
