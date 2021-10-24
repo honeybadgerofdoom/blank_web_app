@@ -83,6 +83,13 @@ public class Pawn extends ChessPiece{
 			legalMoves.addAll(enPassantMoves);
 		}
 
+		if(this.row == 3 && this.getColor() == Color.BLACK){
+			ArrayList<String> enPassantMoves = new ArrayList<>();
+			enPassantMoves = this.enPassantBlack();
+			legalMoves.addAll(enPassantMoves);
+		}
+
+
 	}catch(Exception e) {
 		e.printStackTrace();
 	}
@@ -95,7 +102,6 @@ public class Pawn extends ChessPiece{
 		int row = this.row;
 
 		try{
-
 			String enemyPositionL = rowColToPosition(row, col-1);
 			String enemyPositionR = rowColToPosition(row, col+1);
 
@@ -115,6 +121,43 @@ public class Pawn extends ChessPiece{
 
 				if(pieceR != null && this.getColor() != pieceR.getColor() && pieceR instanceof Pawn && pieceR.numberOfMoves == 1){
 					String positionalStringR = rowColToPosition(row + 1, col + 1);
+					if(ChessBoard.validatePosition(positionalStringR)){
+						legalMoves.add(positionalStringR);
+					}
+				}
+			}
+
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return legalMoves;
+	}
+
+	public ArrayList<String> enPassantBlack(){
+		ArrayList<String> legalMoves = new ArrayList<>();
+		int col = this.column;
+		int row = this.row;
+
+		try{
+			String enemyPositionL = rowColToPosition(row, col-1);
+			String enemyPositionR = rowColToPosition(row, col+1);
+
+			if(ChessBoard.validatePosition(enemyPositionL)) {
+				ChessPiece pieceL = board.getPiece(enemyPositionL);
+
+				if(pieceL != null && this.getColor() != pieceL.getColor() && pieceL instanceof Pawn && pieceL.numberOfMoves == 1){
+					String positionalStringL = rowColToPosition(row - 1, col -1);
+					if(ChessBoard.validatePosition(positionalStringL)){
+						legalMoves.add(positionalStringL);
+					}
+				}
+			}
+
+			if(ChessBoard.validatePosition(enemyPositionR)) {
+				ChessPiece pieceR = board.getPiece(enemyPositionR);
+
+				if(pieceR != null && this.getColor() != pieceR.getColor() && pieceR instanceof Pawn && pieceR.numberOfMoves == 1){
+					String positionalStringR = rowColToPosition(row - 1, col + 1);
 					if(ChessBoard.validatePosition(positionalStringR)){
 						legalMoves.add(positionalStringR);
 					}
