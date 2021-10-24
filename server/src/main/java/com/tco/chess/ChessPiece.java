@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.lang.StringBuilder;
 
 public abstract class ChessPiece {
-	public enum Color {WHITE,BLACK};
-	protected ChessBoard board = null;
+	public enum Color {WHITE,BLACK}
+	protected ChessBoard board;
 	protected int row;
 	protected int column;
 	protected Color color;
@@ -40,7 +40,7 @@ public abstract class ChessPiece {
 	}
 
 	protected String rowColToPosition(int row, int column) {
-		char letter = (char) (column + 97);
+		char letter = colToCharacter(column);
 		int newRow = row + 1;
 		return letter + "" + newRow;
 	}
@@ -48,6 +48,33 @@ public abstract class ChessPiece {
 	private char colToCharacter(int col) {
 		char letter = (char) (col + 97);
 		return letter;
+	}
+
+	protected void addMovesInDirection(ArrayList<String> legalMoves, int rowIncrement, int colIncrement) {
+		int currentRow = this.row + rowIncrement;
+		int currentCol = this.column + colIncrement;
+
+		while (true) {
+			String positionalStr = rowColToPosition(currentRow, currentCol);
+			try {
+				ChessPiece pieceAtDestination = board.getPiece(positionalStr);
+				if (pieceAtDestination != null) {
+					boolean squareHasEnemy = !pieceAtDestination.getColor().equals(this.getColor());
+					if (squareHasEnemy) {
+						legalMoves.add(positionalStr);
+					}
+					// captured enemy or ran into same colored piece, stop searching
+					break;
+				}
+
+				legalMoves.add(positionalStr);
+				currentRow += rowIncrement;
+				currentCol += colIncrement;
+			} catch (IllegalPositionException e) {
+				//Not a legal move
+				break;
+			}
+		}
 	}
 	
 	abstract public String toString();
