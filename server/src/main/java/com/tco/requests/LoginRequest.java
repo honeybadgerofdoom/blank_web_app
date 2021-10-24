@@ -44,13 +44,13 @@ public class LoginRequest extends Request {
         }
     }
 
-    private boolean tryLogin(Database db, String username, String saltedPassword) throws SQLException {
+    private boolean tryLogin(Database db, String username, String saltedPassword) throws SQLException, UnauthorizedRequestException {
         List<Map<String, String>> results = db.query(getLoginQuery(), username, saltedPassword);
         if (results.size() >= 1) {
             this.userID = Integer.parseInt(results.get(0).get("userID"));
             return true;
         } else {
-            return false;
+            throw new UnauthorizedRequestException();
         }
     }
 
@@ -60,6 +60,7 @@ public class LoginRequest extends Request {
         if (results.size() >= 1) {
             return results.get(0).get("salt");
         } else {
+            // If we can't look up the salt, the user doesn't exist
             throw new UnauthorizedRequestException();
         }
     }
