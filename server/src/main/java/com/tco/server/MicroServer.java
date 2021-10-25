@@ -25,7 +25,7 @@ class MicroServer {
     private final int HTTP_OK = 200;
     private final int HTTP_BAD_REQUEST = 400;
     private final int HTTP_SERVER_ERROR = 500;
-    private final int HTTP_UNAUTHORIZED = 418;
+    private final int HTTP_UNAUTHORIZED = 401;
 
     MicroServer(int serverPort) {
         configureServer(serverPort);
