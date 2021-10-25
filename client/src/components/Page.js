@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import TabNavigator from "./navigation/TabNavigator";
 import useVisiblePages from "./navigation/useVisiblePages";
+import Login from "./pages/LoginRegister/Login";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -42,8 +43,8 @@ export default function Page(props) {
 			
 			<br />
 			
-			<div className={classes.page}>
-				{React.createElement(visiblePages[currentPageIndex].component, {pageProps})}
+			<div>
+				{React.createElement(visiblePages[currentPageIndex].component, {setUserAuthenticated: setUserAuthenticated, showMessage: props.showMessage})}
 			</div>
 		</div>
 	);
