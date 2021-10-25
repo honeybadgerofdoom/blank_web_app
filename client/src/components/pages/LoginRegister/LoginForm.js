@@ -41,6 +41,7 @@ export default function LoginForm(props) {
         }
         else {
             console.log("Response is invalid");
+            props.showMessage("Username or Password invalid");
         }
         props.setUserAuthenticated(true);
     }

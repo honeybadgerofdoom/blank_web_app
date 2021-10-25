@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Page() {
+export default function Page(props) {
 	const classes = useStyles();
 	const [currentPageIndex, setCurrentPageIndex] = useState(0);
 	const [userAuthenticated, setUserAuthenticated] = useState(false);
@@ -20,6 +20,11 @@ export default function Page() {
 	function toggleSignIn() {
 		setUserAuthenticated(!userAuthenticated);
 		setCurrentPageIndex(0);
+	}
+
+	const pageProps = {
+		showMessage: props.showMessage,
+		setUserAuthenticated: setUserAuthenticated
 	}
 
 	return (
@@ -38,7 +43,7 @@ export default function Page() {
 			<br />
 			
 			<div className={classes.page}>
-				{React.createElement(visiblePages[currentPageIndex].component, {setUserAuthenticated: setUserAuthenticated})}
+				{React.createElement(visiblePages[currentPageIndex].component, {pageProps})}
 			</div>
 		</div>
 	);
