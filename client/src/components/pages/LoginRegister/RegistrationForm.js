@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Button, Grid, Paper, Typography} from "@material-ui/core";
 import CustomInputField from "./CustomInputField";
@@ -23,6 +23,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RegistrationForm() {
     const classes = useStyles();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     return (
         <div>
             <Grid
@@ -39,14 +45,14 @@ export default function RegistrationForm() {
                                 <br/>
                             </Grid>
                             <Grid item>
-                                <CustomInputField title="first-name" name="First Name"/>
-                                <CustomInputField title="last-name" name="Last Name"/>
-                                <CustomInputField title="username" name="Username"/>
+                                <CustomInputField title="first-name" name="First Name" value={firstName} setValue={setFirstName} />
+                                <CustomInputField title="last-name" name="Last Name" value={lastName} setValue={setLastName} />
+                                <CustomInputField title="username" name="Username" value={username} setValue={setUsername} />
                             </Grid>
                             <Grid item>
-                                <CustomInputField title="email" name="Email"/>
-                                <PasswordInputField title="password" name="Password"/>
-                                <PasswordInputField title="comfirm-password" name="Confirm Password"/>
+                                <CustomInputField title="email" name="Email" value={email} setValue={setEmail} />
+                                <PasswordInputField title="password" name="Password" value={password} setValue={setPassword} />
+                                <PasswordInputField title="comfirm-password" name="Confirm Password" value={confirmPassword} setValue={setConfirmPassword} />
                             </Grid>
                             <Grid item>
                                 <Button className={classes.shortTextField} variant="outlined" size="large">Sign Me Up!</Button>
