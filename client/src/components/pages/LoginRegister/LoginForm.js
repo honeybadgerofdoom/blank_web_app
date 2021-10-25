@@ -29,6 +29,10 @@ export default function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    function sendLoginRequest() {
+        console.log("Sending Login Request with username: " + username + ", password: " + password);
+    }
+
     return (
         <div>
             <CustomColumn>
@@ -44,7 +48,7 @@ export default function LoginForm() {
                                 <PasswordInputField title="password" name="Password" value={password} setValue={setPassword} />
                             </Grid>
                             <Grid item>
-                                <Button className={classes.shortTextField} variant="outlined" size="large">Log In</Button>
+                                <Button className={classes.shortTextField} variant="outlined" size="large" onClick={sendLoginRequest}>Log In</Button>
                             </Grid>
                         </CustomColumn>
                     </Paper>

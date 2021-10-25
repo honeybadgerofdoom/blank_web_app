@@ -18,8 +18,6 @@ const useStyles = makeStyles((theme) => ({
 export default function PasswordInputField(props) {
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
-    const valueInPasswordInputField = props.value;
-    console.log({valueInPasswordInputField})
 
     function handleChange(event) {
         props.setValue(event.target.value);

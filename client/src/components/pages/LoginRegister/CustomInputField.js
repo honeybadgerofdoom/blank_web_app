@@ -13,8 +13,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomInputField(props) {
     const classes = useStyles();
-    const valueInCustomInputField = props.value;
-    console.log({valueInCustomInputField})
 
     function handleChange(event) {
         props.setValue(event.target.value);
