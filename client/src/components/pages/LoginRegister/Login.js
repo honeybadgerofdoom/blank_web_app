@@ -30,20 +30,15 @@ export default function Login(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    console.log({props})
-
     async function sendLoginRequest() {
-        console.log("Sending Login Request with username: " + username + ", password: " + password);
         const response = await sendRequest({requestType:"login", username:username, password:password}, "http://localhost:8000");
         if(response) {
-            console.log("Response is valid");
-            console.log({response});
+            props.setUserAuthenticated(true);
+            props.showMessage("Welcome " + response.username); //This throws errors in the console...
         }
         else {
-            console.log("Response is invalid");
             props.showMessage("Username or Password invalid");
         }
-        props.setUserAuthenticated(true);
     }
 
     return (
