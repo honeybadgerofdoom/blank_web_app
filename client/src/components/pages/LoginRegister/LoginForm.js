@@ -4,6 +4,7 @@ import {Button, Grid, Paper, Typography} from "@material-ui/core";
 import CustomInputField from "./CustomInputField";
 import PasswordInputField from "./PasswordInputField";
 import CustomColumn from "../../../utils/CustomColumn";
+import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,8 +30,16 @@ export default function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    function sendLoginRequest() {
+    async function sendLoginRequest() {
         console.log("Sending Login Request with username: " + username + ", password: " + password);
+        const response = await sendRequest({requestType:"login", username:username, password:password}, "http://localhost:8000");
+        if(response) {
+            console.log("Response is valid");
+            console.log({response});
+        }
+        else {
+            console.log("Response is invalid");
+        }
     }
 
     return (
