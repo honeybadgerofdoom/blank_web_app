@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Button, Grid, Paper, Typography} from "@material-ui/core";
 import CustomInputField from "./CustomInputField";
@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginForm() {
     const classes = useStyles();
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     return (
         <div>
@@ -38,8 +40,8 @@ export default function LoginForm() {
                                 <br/>
                             </Grid>
                             <Grid item>
-                                <CustomInputField title="username" name="Username"/>
-                                <PasswordInputField title="password" name="Password"/>
+                                <CustomInputField title="username" name="Username" value={username} setValue={setUsername} />
+                                <PasswordInputField title="password" name="Password" value={password} setValue={setPassword} />
                             </Grid>
                             <Grid item>
                                 <Button className={classes.shortTextField} variant="outlined" size="large">Log In</Button>

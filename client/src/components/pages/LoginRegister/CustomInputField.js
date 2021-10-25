@@ -13,10 +13,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomInputField(props) {
     const classes = useStyles();
-    const [value, setValue] = useState('');
+    const valueInCustomInputField = props.value;
+    console.log({valueInCustomInputField})
 
     function handleChange(event) {
-        setValue(event.target.value);
+        props.setValue(event.target.value);
     }
 
     return (
@@ -24,7 +25,7 @@ export default function CustomInputField(props) {
             <InputLabel htmlFor={props.title}>{props.name}</InputLabel>
             <Input
                 id={props.title}
-                value={value}
+                value={props.value}
                 onChange={handleChange}
             />
         </FormControl>

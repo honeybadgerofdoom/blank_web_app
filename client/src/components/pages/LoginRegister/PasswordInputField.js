@@ -17,11 +17,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PasswordInputField(props) {
     const classes = useStyles();
-    const [showPassword, setShowPassword] = useState(false)
-    const [value, setValue] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const valueInPasswordInputField = props.value;
+    console.log({valueInPasswordInputField})
 
     function handleChange(event) {
-        setValue(event.target.value);
+        props.setValue(event.target.value);
     }
 
     function handleClickShowPassword() {
@@ -38,7 +39,7 @@ export default function PasswordInputField(props) {
             <Input
                 id={props.title}
                 type={showPassword ? 'text' : 'password'}
-                value={value}
+                value={props.value}
                 onChange={handleChange}
                 endAdornment={
                     <InputAdornment position="end">
