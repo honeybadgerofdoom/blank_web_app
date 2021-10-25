@@ -1,5 +1,6 @@
 package com.tco.requests;
 
+import com.tco.misc.UnauthorizedRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.tco.database.Database;
@@ -21,41 +22,46 @@ public class LoginRequest extends Request {
     private int userID = 0;
 
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws UnauthorizedRequestException {
         success = login(this.username, this.password);
         log.trace("buildResponse -> {}", this);
     }
 
-    public boolean login(String username, String password) {
+    public boolean login(String username, String password) throws UnauthorizedRequestException {
         try (Database connection = new Database()) {
 
             String salt = fetchSalt(connection, username);
             String saltedPassword = sha256(password + salt);
+            log.info("Salt: " + salt);
+            log.info("Salted: " + saltedPassword);
             return tryLogin(connection, username, saltedPassword);
 
+        } catch (UnauthorizedRequestException e) {
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
 
-    private boolean tryLogin(Database db, String username, String saltedPassword) throws SQLException {
+    private boolean tryLogin(Database db, String username, String saltedPassword) throws SQLException, UnauthorizedRequestException {
         List<Map<String, String>> results = db.query(getLoginQuery(), username, saltedPassword);
         if (results.size() >= 1) {
             this.userID = Integer.parseInt(results.get(0).get("userID"));
             return true;
         } else {
-            return false;
+            throw new UnauthorizedRequestException();
         }
     }
 
-    private String fetchSalt(Database db, String username) throws SQLException {
+    private String fetchSalt(Database db, String username) throws SQLException, UnauthorizedRequestException {
         List<Map<String, String>> results;
-        results = db.query(getSaltQuery(), username);
+        results = db.query(getSaltQuery(), username, username);
         if (results.size() >= 1) {
             return results.get(0).get("salt");
         } else {
-            return "";
+            // If we can't look up the salt, the user doesn't exist
+            throw new UnauthorizedRequestException();
         }
     }
 
@@ -83,7 +89,7 @@ public class LoginRequest extends Request {
     private String getSaltQuery() {
         return "SELECT salt " +
                 "FROM users " +
-                "WHERE nickname = ?";
+                "WHERE nickname = ? OR email = ?";
     }
 
   /* The following methods exist only for testing purposes and are not used
