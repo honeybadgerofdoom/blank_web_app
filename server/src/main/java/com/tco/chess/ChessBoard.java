@@ -228,6 +228,10 @@ public class ChessBoard {
 			ArrayList<String> legalMoves = piece.legalMoves();
 
 			if(legalMoves.contains(toPosition)) {
+				if(piece instanceof Pawn && getPiece(toPosition) == null && moveIsDiagonal(fromPosition, toPosition)){
+
+				}
+
 				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
 					handleCapture(getPiece(toPosition));
 				}
@@ -377,6 +381,17 @@ public class ChessBoard {
 		boolean rookAndKingAreTheSameColor = rook.getColor() == king.getColor();
 		boolean neitherHasMoved = !rook.hasMoved && !king.hasMoved;
 		return itsAKing && itsARook && rookAndKingAreTheSameColor && neitherHasMoved;
+	}
+
+
+	private boolean moveIsDiagonal(String fromPostition, String toPosition){
+		int[] rowColTo = boardRowCol(toPosition);
+		int[] rowColFrom = boardRowCol(FromPosition);
+
+		if(rowColTo[1] != rowColFrom[1]){
+			return true;
+		}
+		return false;
 	}
 
 }
