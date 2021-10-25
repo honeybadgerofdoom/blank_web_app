@@ -25,10 +25,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function LoginForm() {
+export default function LoginForm(props) {
     const classes = useStyles();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    console.log({props})
 
     async function sendLoginRequest() {
         console.log("Sending Login Request with username: " + username + ", password: " + password);
@@ -40,6 +42,7 @@ export default function LoginForm() {
         else {
             console.log("Response is invalid");
         }
+        props.setUserAuthenticated(true);
     }
 
     return (

@@ -38,7 +38,7 @@ export default function Page() {
 			<br />
 			
 			<div className={classes.page}>
-				{React.createElement(visiblePages[currentPageIndex].component, {})}
+				{React.createElement(visiblePages[currentPageIndex].component, {setUserAuthenticated: setUserAuthenticated})}
 			</div>
 		</div>
 	);
