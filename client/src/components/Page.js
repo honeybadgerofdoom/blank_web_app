@@ -15,6 +15,7 @@ export default function Page(props) {
 	const classes = useStyles();
 	const [currentPageIndex, setCurrentPageIndex] = useState(0);
 	const [userAuthenticated, setUserAuthenticated] = useState(false);
+	const [currentUser, setCurrentUser] = useState(null);
 	const [visiblePages] = useVisiblePages(userAuthenticated);
 
 	function signOut() {
@@ -40,7 +41,7 @@ export default function Page(props) {
 			<br />
 			
 			<div>
-				{React.createElement(visiblePages[currentPageIndex].component, {setUserAuthenticated: setUserAuthenticated, showMessage: props.showMessage})}
+				{React.createElement(visiblePages[currentPageIndex].component, {setUserAuthenticated: setUserAuthenticated, showMessage: props.showMessage, setCurrentUser: setCurrentUser, currentUser: currentUser})}
 			</div>
 		</div>
 	);
