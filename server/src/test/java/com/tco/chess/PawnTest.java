@@ -698,5 +698,35 @@ class PawnTest {
 
 	}
 
+	@Test
+	void enPassantCaptureBlack() {
+		try {
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+			testBoard.placePiece(pawn, "g4");
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "h2");
+			testBoard.move("h2", "h4");
+			assertTrue(pawn.legalMoves().contains("h3"));
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(2, pawn.legalMoves().size());
+			System.out.print(testBoard);
+			testBoard.move("g4","h3");
+			assertNull(testBoard.getPiece("g4"));
+			assertNull(testBoard.getPiece("h4"));
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+
 
 }

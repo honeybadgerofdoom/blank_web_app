@@ -229,7 +229,12 @@ public class ChessBoard {
 
 			if(legalMoves.contains(toPosition)) {
 				if(piece instanceof Pawn && getPiece(toPosition) == null && moveIsDiagonal(fromPosition, toPosition)){
-
+					int[] rowColEnemyLocation = boardRowCol(toPosition);
+					int rowDecrement = (piece.getColor() == Color.WHITE) ? -1 : 1;
+					rowColEnemyLocation[0] = rowColEnemyLocation[0] + rowDecrement;
+					String enemyPositionEnPassant = rowColToPosition(rowColEnemyLocation[0], rowColEnemyLocation[1]);
+					handleCapture(getPiece(enemyPositionEnPassant));
+					this.board[rowColEnemyLocation[0]][rowColEnemyLocation[1]] = null;
 				}
 
 				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
@@ -385,13 +390,7 @@ public class ChessBoard {
 
 
 	private boolean moveIsDiagonal(String fromPostition, String toPosition){
-		int[] rowColTo = boardRowCol(toPosition);
-		int[] rowColFrom = boardRowCol(FromPosition);
-
-		if(rowColTo[1] != rowColFrom[1]){
-			return true;
-		}
-		return false;
+		return fromPostition.charAt(0) != toPosition.charAt(0);
 	}
 
 }
