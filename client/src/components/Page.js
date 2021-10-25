@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import TabNavigator from "./navigation/TabNavigator";
 import useVisiblePages from "./navigation/useVisiblePages";
-import Login from "./pages/LoginRegister/Login";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -18,21 +17,18 @@ export default function Page(props) {
 	const [userAuthenticated, setUserAuthenticated] = useState(false);
 	const [visiblePages] = useVisiblePages(userAuthenticated);
 
-	function toggleSignIn() {
-		setUserAuthenticated(!userAuthenticated);
+	function signOut() {
+		setUserAuthenticated(false);
 		setCurrentPageIndex(0);
 	}
 
-	const pageProps = {
-		showMessage: props.showMessage,
-		setUserAuthenticated: setUserAuthenticated
+	function signoutButton() {
+		return userAuthenticated ? <Button className="position-absolute" onClick={signOut}>{'Sign Out'}</Button> : null;
 	}
 
 	return (
 		<div className={classes.root}>
-			<Button className="position-absolute" onClick={toggleSignIn}>
-				{userAuthenticated ? 'Sign Out' : 'Sign In'}
-			</Button>
+			{signoutButton()}
 
 			<TabNavigator 
 				currentPageIndex={currentPageIndex}
