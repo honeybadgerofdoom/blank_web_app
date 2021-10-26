@@ -41,29 +41,36 @@ public class ChessBoard {
 	public void initialize(String[] boardState) {
 		HashMap<String, ChessPiece> unicodeToPiece = getUnicodePieceMapping();
 		int count = 0;
-//		for(String piece in boardState) {
-//			board[][]
-//		}
+		for(String piece : boardState) {
+			ChessPiece currentPiece = unicodeToPiece.get(piece);
+			System.out.println("current piece: " + currentPiece);
+			int[][] currentPosition = getArrayFromNumber(count);
+			count++;
+		}
 	}
 
 	private int[][] getArrayFromNumber(int num) {
 		int[][] position = new int[1][1];
+		int firstNumber = num % 7;
+		System.out.println("firstNumber: " + firstNumber);
+		return position;
 	}
 
 	private HashMap<String, ChessPiece> getUnicodePieceMapping() {
 		HashMap<String, ChessPiece> unicodeToPiece = new HashMap<String, ChessPiece>();
-		unicodeToPiece.put("\u2654", new King(this, Color.WHITE));
-		unicodeToPiece.put("\u2655", new Queen(this, Color.WHITE));
-		unicodeToPiece.put("\u2656", new Rook(this, Color.WHITE));
-		unicodeToPiece.put("\u2657", new Bishop(this, Color.WHITE));
-		unicodeToPiece.put("\u2658", new Knight(this, Color.WHITE));
-		unicodeToPiece.put("\u2659", new Pawn(this, Color.WHITE));
-		unicodeToPiece.put("\u265A", new King(this, Color.BLACK));
-		unicodeToPiece.put("\u265B", new Queen(this, Color.BLACK));
-		unicodeToPiece.put("\u265C", new Rook(this, Color.BLACK));
-		unicodeToPiece.put("\u265D", new Bishop(this, Color.BLACK));
-		unicodeToPiece.put("\u265E", new Knight(this, Color.BLACK));
-		unicodeToPiece.put("\u265F", new Pawn(this, Color.BLACK));
+		unicodeToPiece.put("k", new King(this, Color.WHITE));
+		unicodeToPiece.put("q", new Queen(this, Color.WHITE));
+		unicodeToPiece.put("r", new Rook(this, Color.WHITE));
+		unicodeToPiece.put("b", new Bishop(this, Color.WHITE));
+		unicodeToPiece.put("n", new Knight(this, Color.WHITE));
+		unicodeToPiece.put("p", new Pawn(this, Color.WHITE));
+		unicodeToPiece.put("K", new King(this, Color.BLACK));
+		unicodeToPiece.put("Q", new Queen(this, Color.BLACK));
+		unicodeToPiece.put("R", new Rook(this, Color.BLACK));
+		unicodeToPiece.put("B", new Bishop(this, Color.BLACK));
+		unicodeToPiece.put("N", new Knight(this, Color.BLACK));
+		unicodeToPiece.put("P", new Pawn(this, Color.BLACK));
+		unicodeToPiece.put("-", null);
 		return unicodeToPiece;
 	}
 
