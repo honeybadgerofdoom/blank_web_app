@@ -1,0 +1,20 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "legalMoves",
+  "description": "legalMoves request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the TIP object type should be locations",
+      "type": "string",
+      "pattern": "^legalMoves$"
+    },
+    "position": {
+      "description": "a string where the piece is located",
+      "type": "string"
+    }
+  },
+  "required": ["requestType","position"],
+  "additionalProperties": false
+}
