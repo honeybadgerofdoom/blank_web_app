@@ -38,9 +38,33 @@ public class ChessBoard {
 		addNonPawns(1, Color.WHITE);
 	}
 
-	public void initialize(String boardState) {
+	public void initialize(String[] boardState) {
+		HashMap<String, ChessPiece> unicodeToPiece = getUnicodePieceMapping();
+		int count = 0;
+//		for(String piece in boardState) {
+//			board[][]
+//		}
+	}
+
+	private int[][] getArrayFromNumber(int num) {
+		int[][] position = new int[1][1];
+	}
+
+	private HashMap<String, ChessPiece> getUnicodePieceMapping() {
 		HashMap<String, ChessPiece> unicodeToPiece = new HashMap<String, ChessPiece>();
-		unicodeToPiece.put("\u2654", new King(this, color.White));
+		unicodeToPiece.put("\u2654", new King(this, Color.WHITE));
+		unicodeToPiece.put("\u2655", new Queen(this, Color.WHITE));
+		unicodeToPiece.put("\u2656", new Rook(this, Color.WHITE));
+		unicodeToPiece.put("\u2657", new Bishop(this, Color.WHITE));
+		unicodeToPiece.put("\u2658", new Knight(this, Color.WHITE));
+		unicodeToPiece.put("\u2659", new Pawn(this, Color.WHITE));
+		unicodeToPiece.put("\u265A", new King(this, Color.BLACK));
+		unicodeToPiece.put("\u265B", new Queen(this, Color.BLACK));
+		unicodeToPiece.put("\u265C", new Rook(this, Color.BLACK));
+		unicodeToPiece.put("\u265D", new Bishop(this, Color.BLACK));
+		unicodeToPiece.put("\u265E", new Knight(this, Color.BLACK));
+		unicodeToPiece.put("\u265F", new Pawn(this, Color.BLACK));
+		return unicodeToPiece;
 	}
 
 	private void addPawns(int row, Color color) {

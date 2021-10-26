@@ -34,7 +34,7 @@ public class LegalMovesRequest extends Request {
         String[] boardState = dbResponseToPieceArray(boardString);
         // try {
         //      ChessBoard board = new ChessBoard();
-        //      board.initialize(boardString);
+        //      board.initialize(boardState);
         //      legalMoves = board.getPiece(position).legalMoves();
         // } catch (IllegalPositionException e) {
         //      e.printStackTrace();
