@@ -37,16 +37,13 @@ const Rule= {
           <><>
           <Typography display="block"> &emsp; </Typography>
           <Typography align="center"><Typography variant="h3"> King</Typography></Typography>
-     <Typography
-          display="block">  <Typography align="center"> ____________________________________________________________________ </Typography></Typography> 
-         <Typography display="block"> &emsp; </Typography>
+     <Typography display="block">  <Typography align="center"> ____________________________________________________________________ </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
           <Typography> &emsp; &emsp; &emsp; The king can move one square in any position whether that be horizontal, vertical, or diagonal unless the square is already occupied by your own piece.  </Typography>
-         <Typography display="block"> &emsp; The king also has a special move, called castling.</Typography>
-         <Typography display="block"> &emsp; To be able to accomplish this move, it requires that the king has never moved the entire game,</Typography>
-         <Typography display="block"> &emsp;  and the player will also need to use one of their rooks that have also never moved.</Typography>
-         <Typography display="block"> &emsp; The king will then move two squares towards the rook, or take the rook's spot. </Typography>
-         <Typography display="block"> &emsp; The rook will then move one square in the opposite direction of the king or in between where the rook and king originally were. </Typography>
+         <Typography display="block"> &emsp; The king also has a special move, called castling.  To be able to accomplish this move, it requires that the king has never moved the entire game, and the player </Typography>
+         <Typography>   </Typography>
+         <Typography display="block"> &emsp;   will also need to use one of their rooks that have also never moved.  The king will then move two squares towards the rook, or take the rook's spot.   The rook will </Typography>
+         <Typography display="block"> &emsp;  then move one square in the opposite direction of the king or in between where the rook and king originally were. </Typography>
          <Typography display="block"> &emsp; </Typography>
           
           </></>
