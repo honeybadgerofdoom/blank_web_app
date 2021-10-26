@@ -807,5 +807,31 @@ class PawnTest {
 		}
 
 	}
+	@Test
+	void enPassantTestWhiteTestEdges() {
+		try {
+			ChessPiece pawn = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn, "h5");
+			assertTrue(pawn.legalMoves().contains("h6"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn1, "g7");
+			testBoard.move("g7", "g5");
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertTrue(pawn.legalMoves().contains("h6"));
+			assertEquals(2, pawn.legalMoves().size());
+			testBoard.move("h5","g6");
+			assertNull(testBoard.getPiece("g5"));
+			assertNull(testBoard.getPiece("h5"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
 
 }
