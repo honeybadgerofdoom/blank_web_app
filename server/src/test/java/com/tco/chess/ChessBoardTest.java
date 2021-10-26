@@ -1342,5 +1342,12 @@ class ChessBoardTest {
 		}
 	}
 
+	@Test
+	void initializeWithString() {
+		String mockStartingBoard = "rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR";
+		testBoard.initialize(mockStartingBoard);
+		assertTrue(true);
+	}
+
 }
 

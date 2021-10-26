@@ -30,7 +30,6 @@ public class BoardRequest extends Request {
     public void buildResponse() {
         String boardState = getBoardFromDatabase();
         boardString = dbResponseToPieceArray(boardState);
-        System.out.println("**** boardString: " + Arrays.toString(boardString));
         success = true;
         log.trace("buildResponse -> {}", this);
     }

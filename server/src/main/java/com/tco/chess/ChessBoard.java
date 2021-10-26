@@ -38,21 +38,27 @@ public class ChessBoard {
 		addNonPawns(1, Color.WHITE);
 	}
 
-	public void initialize(String[] boardState) {
+	public void initialize(String boardState) {
 		HashMap<String, ChessPiece> unicodeToPiece = getUnicodePieceMapping();
-		int count = 0;
-		for(String piece : boardState) {
-			ChessPiece currentPiece = unicodeToPiece.get(piece);
+		for(int i = 0; i < boardState.length(); i++) {
+			ChessPiece currentPiece = unicodeToPiece.get(boardState.charAt(i));
 			System.out.println("current piece: " + currentPiece);
-			int[][] currentPosition = getArrayFromNumber(count);
-			count++;
+			int[][] currentPosition = getArrayFromNumber(i);
 		}
 	}
 
 	private int[][] getArrayFromNumber(int num) {
 		int[][] position = new int[1][1];
-		int firstNumber = num % 7;
-		System.out.println("firstNumber: " + firstNumber);
+		int firstNumber;
+		if(num < 8) firstNumber = 0;
+		else if(num < 16) firstNumber = 1;
+		else if(num < 24) firstNumber = 2;
+		else if(num < 32) firstNumber = 3;
+		else if(num < 40) firstNumber = 4;
+		else if(num < 48) firstNumber = 5;
+		else if(num < 56) firstNumber = 6;
+		else firstNumber = 7;
+		int secondNumber = num % 8;
 		return position;
 	}
 
