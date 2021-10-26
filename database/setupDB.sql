@@ -10,9 +10,9 @@ USE chess;
 
 -- Recreate tables every time this script is run
 DROP TABLE IF EXISTS
-    users,
+    invites,
     games,
-    invites;
+    users;
 
 --
 -- Tables:
