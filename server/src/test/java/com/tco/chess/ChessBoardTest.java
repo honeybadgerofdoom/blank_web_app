@@ -1346,6 +1346,7 @@ class ChessBoardTest {
 	void initializeWithString() {
 		String mockStartingBoard = "rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR";
 		testBoard.initialize(mockStartingBoard);
+		System.out.println(testBoard);
 		assertTrue(true);
 	}
 

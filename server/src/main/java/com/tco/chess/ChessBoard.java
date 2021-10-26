@@ -42,15 +42,14 @@ public class ChessBoard {
 		HashMap<String, ChessPiece> unicodeToPiece = getUnicodePieceMapping();
 		for(int i = 0; i < boardState.length(); i++) {
 			char currentChar = boardState.charAt(i);
-			System.out.println("currentChar: " + currentChar);
-			ChessPiece currentPiece = unicodeToPiece.get(currentChar);
-			System.out.println("current piece: " + currentPiece);
-			int[][] currentPosition = getArrayFromNumber(i);
+			ChessPiece currentPiece = unicodeToPiece.get(String.valueOf(currentChar));
+			int[] currentPosition = getArrayFromNumber(i);
+			board[currentPosition[0]][currentPosition[1]] = currentPiece;
 		}
 	}
 
-	private int[][] getArrayFromNumber(int num) {
-		int[][] position = new int[1][1];
+	private int[] getArrayFromNumber(int num) {
+		int[] position = new int[2];
 		int firstNumber;
 		if(num < 8) firstNumber = 0;
 		else if(num < 16) firstNumber = 1;
@@ -61,6 +60,8 @@ public class ChessBoard {
 		else if(num < 56) firstNumber = 6;
 		else firstNumber = 7;
 		int secondNumber = num % 8;
+		position[0] = firstNumber;
+		position[1] = secondNumber;
 		return position;
 	}
 
