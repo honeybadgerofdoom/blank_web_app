@@ -907,5 +907,32 @@ class PawnTest {
 		}
 	}
 
+	@Test
+	void enPassantFailsL() {
+		try {
+			testBoard.initialize();
+			testBoard.move("c7","c5");
+			testBoard.move("c5","c4");
+			assertThrows(IllegalMoveException.class, () -> testBoard.move("c4", "b3"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void enPassantFailsR() {
+		try {
+			testBoard.initialize();
+			testBoard.move("c7","c5");
+			testBoard.move("c5","c4");
+			assertThrows(IllegalMoveException.class, () -> testBoard.move("c4", "d3"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 
 }
