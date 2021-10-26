@@ -1,31 +1,35 @@
 {
-
   "$id": "https://example.com/address.schema.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "login",
-  "description": "login object for POST response",
+  "title": "register",
+  "description": "register object for POST response",
   "type": "object",
   "properties": {
     "requestType": {
-      "description": "the object type should be login",
+      "description": "the object type should be register",
       "type": "string",
-      "pattern": "^login$"
+      "pattern": "^register$"
     },
     "username": {
-      "description": "the user's username",
+      "description": "new user's username",
       "type": "string",
       "pattern": "^[a-zA-Z0-9_ ]+$"
     },
     "password": {
-      "description": "the user's password",
+      "description": "new user's password",
       "type": "string",
       "pattern": "^[a-zA-Z0-9_ ]+$"
+    },
+    "email": {
+      "description": "new user's email",
+      "type": "string",
+      "format": "email"
     },
     "userID": {
       "description": "the matching userID",
       "type": "integer"
     }
   },
-  "required": ["requestType", "username", "password", "userID"],
+  "required": ["requestType", "username", "password", "email", "userID"],
   "additionalProperties": false
 }
