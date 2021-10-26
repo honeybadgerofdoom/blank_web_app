@@ -2,7 +2,8 @@ import React from "react";
 import {Typography} from "@material-ui/core";
 
 export default function Rules(props) {
-     var rule = [Rule.OverAllRules.call(), Rule.King.call(), Rule.Queen.call(), Rule.Bishop.call() ] ;
+     var rule = [Rule.OverAllRules.call(), Rule.Bishop.call(), 
+          Rule.Bishop.call(), Rule.Rook.call(), Rule.Queen.call(), Rule.King.call() ] ;
 
      return rule;
      
@@ -23,6 +24,7 @@ const Rule= {
          <Typography display="block"> &emsp; &emsp; &emsp; &emsp; &emsp;∙ Capturing both of the opponent’s bishops, </Typography>
          <Typography display="block"> &emsp; &emsp; &emsp; &emsp; &emsp;∙ Capturing both of the opponent's rooks, </Typography>
          <Typography display="block"> &emsp; &emsp; &emsp; &emsp; &emsp;∙ Capturing all of the opponent’s pawns. </Typography>
+         <Typography display="block"> &emsp; &emsp; All player’s pieces can capture an opponent's piece by taking its position on the board.</Typography>
          <Typography> &emsp; &emsp; &emsp;  The current legal moves of each piece will highlight once a piece is selected.  
               Below is an explanation of all the rules for each piece. </Typography>
          <Typography display="block"> &emsp; &emsp; </Typography>
@@ -32,25 +34,55 @@ const Rule= {
           );
      },
 
-     King: function (props){
+     Knight: function (props){
           return( 
           <><>
           <Typography display="block"> &emsp; </Typography>
-          <Typography align="center"><Typography variant="h3"> King</Typography></Typography>
+          <Typography align="center"><Typography variant="h3"> Knight </Typography></Typography>
           <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
           </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The king can move one square in any position whether that be horizontal, vertical, 
-               or diagonal unless the square is already occupied by your own piece.  </Typography>
-         <Typography display="block"> &emsp; The king also has a special move, called castling.  To be able to accomplish this move, 
-         it requires that the king has never moved the entire game, and the player </Typography>
-         <Typography display="block"> &emsp;   will also need to use one of their rooks that have also never moved.  The king will 
-         then move two squares towards the rook, or take the rook's spot.   The rook will </Typography>
-         <Typography display="block"> &emsp;  then move one square in the opposite direction of the king or in between where the rook 
-         and king originally were.  Keep in mind to complete this, there must not  </Typography>
-         <Typography display="block"> &emsp; be a piece inbetween the rook and the king, whether friendly, or the enemies.  Additional 
-         rules to castling are, the king must not be currently in check and the  </Typography>
-         <Typography display="block"> &emsp; move does not put the king in check.</Typography>
+          <Typography> &emsp; &emsp; &emsp; The bishop can move as far as it wants but only on the dianolgals and only if the squares inbetween  
+          from start position to finish position are unoccupied.  </Typography>
+         <Typography display="block"> &emsp; There are two bishops per player.  They start on opposite color squares, so their diagonals that they can 
+         occupy will always be different.  </Typography>
+         <Typography display="block"> &emsp; </Typography>
+          
+          </></>
+          
+          );
+     },
+
+     Bishop: function (props){
+          return( 
+          <><>
+          <Typography display="block"> &emsp; </Typography>
+          <Typography align="center"><Typography variant="h3"> Bishop</Typography></Typography>
+          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
+          </Typography></Typography> 
+          <Typography> &emsp; &emsp; &emsp;   </Typography>
+          <Typography> &emsp; &emsp; &emsp; The bishop can move as far as it wants but only on the dianolgals and only if the squares inbetween  
+          from start position to finish position are unoccupied.  </Typography>
+         <Typography display="block"> &emsp; There are two bishops per player.  They start on opposite color squares, so their diagonals that they can 
+         occupy will always be different.  </Typography>
+         <Typography display="block"> &emsp; </Typography>
+          
+          </></>
+          
+          );
+     },
+
+     Rook: function (props){
+          return( 
+          <><>
+          <Typography display="block"> &emsp; </Typography>
+          <Typography align="center"><Typography variant="h3"> Rook</Typography></Typography>
+          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
+          </Typography></Typography> 
+          <Typography> &emsp; &emsp; &emsp;   </Typography>
+          <Typography> &emsp; &emsp; &emsp; The rook can move as far as it wants but only on the dianolgals and only if the squares inbetween  
+          from start position to finish position are unoccupied.  </Typography>
+          <Typography display="block"> &emsp; There are two rooks for each player that start on opposite colors of the board. </Typography>
          <Typography display="block"> &emsp; </Typography>
           
           </></>
@@ -77,18 +109,25 @@ const Rule= {
           );
      },
 
-     Bishop: function (props){
+     King: function (props){
           return( 
           <><>
           <Typography display="block"> &emsp; </Typography>
-          <Typography align="center"><Typography variant="h3"> Bishop</Typography></Typography>
+          <Typography align="center"><Typography variant="h3"> King</Typography></Typography>
           <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
           </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The bishop can move as far as it wants but only on the dianolgals and only if the squares from  
-          start position to finish position are unoccupied.  There are  </Typography>
-         <Typography display="block"> &emsp; two bishops per player.  They start on opposite color squares, so their diagonals that they can 
-         occupy will always be different.  </Typography>
+          <Typography> &emsp; &emsp; &emsp; The king can move one square in any position whether that be horizontally, vertically, 
+               or diagonally unless the square is already occupied by your own piece.  </Typography>
+         <Typography display="block"> &emsp; The king also has a special move, called castling.  To be able to accomplish this move, 
+         it requires that the king has never moved the entire game, and the player </Typography>
+         <Typography display="block"> &emsp;   will also need to use one of their rooks that have also never moved.  The king will 
+         then move two squares towards the rook, or take the rook's spot.   The rook will </Typography>
+         <Typography display="block"> &emsp;  then move one square in the opposite direction of the king or in between where the rook 
+         and king originally were.  Keep in mind to complete this, there must not  </Typography>
+         <Typography display="block"> &emsp; be a piece inbetween the rook and the king, whether friendly, or the enemies.  Additional 
+         rules to castling are, the king must not be currently in check and the  </Typography>
+         <Typography display="block"> &emsp; move does not put the king in check.</Typography>
          <Typography display="block"> &emsp; </Typography>
           
           </></>
