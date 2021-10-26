@@ -9,6 +9,7 @@ public class ChessBoard {
 	private ChessPiece[][] board;
 	private Color turn;
 	private Color winner = null;
+	private boolean checkingIfPieceOnBoard;
 	private int[] piecesRemaining = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
 	/*
 	INDICES
@@ -29,6 +30,7 @@ public class ChessBoard {
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
 		turn = Color.WHITE;
+		checkingIfPieceOnBoard = true;
 	}
 
 	public void initialize() {
@@ -43,12 +45,21 @@ public class ChessBoard {
 		for(int i = 0; i < boardState.length(); i++) {
 			char currentChar = boardState.charAt(i);
 			ChessPiece currentPiece = unicodeToPiece.get(String.valueOf(currentChar));
-			int[] currentPosition = getArrayFromNumber(i);
-			board[currentPosition[0]][currentPosition[1]] = currentPiece;
+			String position = positionFromIndex(i);
+//			System.out.println("piece at " + position + " is " + currentPiece);
+			//FIXME I think the issues is coming from pieceAlreadyOnBoard!!!
+			if(currentPiece != null) {
+				System.out.println("placing " + currentPiece + " at " + position);
+				//FIXME yes yes this is absolute trash i kno
+				checkingIfPieceOnBoard = false;
+				placePiece(currentPiece, position);
+				checkingIfPieceOnBoard = true;
+			}
 		}
+		System.out.println("Board after string initialization: " + board);
 	}
 
-	private int[] getArrayFromNumber(int num) {
+	private String positionFromIndex(int num) {
 		int[] position = new int[2];
 		int firstNumber;
 		if(num < 8) firstNumber = 0;
@@ -60,9 +71,7 @@ public class ChessBoard {
 		else if(num < 56) firstNumber = 6;
 		else firstNumber = 7;
 		int secondNumber = num % 8;
-		position[0] = firstNumber;
-		position[1] = secondNumber;
-		return position;
+		return rowColToPosition(firstNumber, secondNumber);
 	}
 
 	private HashMap<String, ChessPiece> getUnicodePieceMapping() {
@@ -173,8 +182,10 @@ public class ChessBoard {
 
 			boolean onBoard = checkPieceOnBoard(piece);
 
-			if(onBoard) {
-				this.board[piece.row][piece.column] = null;
+			if(checkingIfPieceOnBoard) {
+				if (onBoard) {
+					this.board[piece.row][piece.column] = null;
+				}
 			}
 
 		//	this.board[piece.row][piece.column] = null;

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
 import com.tco.chess.ChessBoard;
+import com.tco.chess.ChessPiece;
 import com.tco.chess.IllegalPositionException;
 
 import java.nio.charset.StandardCharsets;
@@ -29,15 +30,15 @@ public class LegalMovesRequest extends Request {
 
     @Override
     public void buildResponse() {
-        //FIXME Write a 1-arg initialize() method in ChessBoard to build a board based on an input string. Call that
-        //    from here and check legal moves at position.
         String boardString = getBoardFromDatabase();
          try {
               ChessBoard board = new ChessBoard();
               board.initialize(boardString);
               System.out.println(board);
-              legalMoves = board.getPiece(position).legalMoves();
-              System.out.println("legalMoves.size(): " + legalMoves.size());
+              ChessPiece piece = board.getPiece(position);
+              legalMoves = piece.legalMoves();
+              System.out.println("Piece at " + position + " is " + piece);
+              System.out.println("Legal Moves...");
               for(String move : legalMoves) System.out.println(move);
          } catch (IllegalPositionException e) {
               e.printStackTrace();
