@@ -1,6 +1,12 @@
 import React from "react";
 import {Typography, Card, CardContent, CardMedia} from "@material-ui/core";
-
+import teamImage from "../../../../../images/t02TeamImage.jpg";
+import aaronImage from "../../../../../images/Aaron Lawrence 414 pic.jpg";
+import aprilImage from "../../../../../images/april.jpg";
+import mattImage from "../../../../../images/matt-selfie.jpg";
+import kassidyImage from "../../../../../images/kass_team_image.jpg";
+import laniImage from "../../../../../images/LaniB- image.jpg";
+import darinImage from "../../../../../images/darin.jpg";
 export default function About(props) {
     return (
         <div>
@@ -8,7 +14,11 @@ export default function About(props) {
             <br/>
             <div>
                 <Card style={{ left: '10%', width: '25rem' }}>
-                    <img src="../../../../../images/t02TeamImage.jpg" alt="team image" />
+                    <CardMedia 
+                        component="img"
+                        image={teamImage}
+                        alt="team image"
+                    />
                     <CardContent>
                     
                         <Typography align="center" variant="h5">Team ReaKt</Typography>
@@ -19,6 +29,11 @@ export default function About(props) {
                     </CardContent>
                 </Card>
                 <Card style={{ left: '10%', width: '25rem' }}>
+                <CardMedia 
+                        component="img"
+                        image={kassidyImage}
+                        alt="kassidy image"
+                    />
                     <CardContent>
                         <Typography align="center" variant="h5">Kassidy Barram</Typography>
                         <br />
@@ -26,6 +41,11 @@ export default function About(props) {
                     </CardContent>
                 </Card>
                 <Card style={{ left: '10%', width: '25rem' }}>
+                <CardMedia 
+                        component="img"
+                        image={laniImage}
+                        alt="lani image"
+                    />
                     <CardContent>
                         <Typography align="center" variant="h5">Lani Brooks</Typography>
                         <br />
@@ -33,6 +53,11 @@ export default function About(props) {
                     </CardContent>
                 </Card>
                 <Card style={{ left: '10%', width: '25rem' }}>
+                <CardMedia 
+                        component="img"
+                        image={darinImage}
+                        alt="darin image"
+                    />
                     <CardContent>
                         <Typography align="center" variant="h5">Darin Harter</Typography>
                         <br />
@@ -40,6 +65,11 @@ export default function About(props) {
                     </CardContent>
                 </Card>
                 <Card style={{ left: '10%', width: '25rem' }}>
+                <CardMedia 
+                        component="img"
+                        image={aprilImage}
+                        alt="april image"
+                    />
                     <CardContent>
                         <Typography align="center" variant="h5">April Kelly</Typography>
                         <br />
@@ -47,6 +77,11 @@ export default function About(props) {
                     </CardContent>
                 </Card>
                 <Card style={{ left: '50px', width: '25rem' }}>
+                <CardMedia 
+                        component="img"
+                        image={aaronImage}
+                        alt="aaron image"
+                    />
                     <CardContent>
                         <Typography align="center" variant="h5">Aaron Lawrence</Typography>
                         <br />
@@ -54,6 +89,11 @@ export default function About(props) {
                     </CardContent>
                 </Card>
                 <Card style={{ left: '10%', width: '25rem' }}>
+                <CardMedia 
+                        component="img"
+                        image={mattImage}
+                        alt="matt image"
+                    />
                     <CardContent>
                         <Typography align="center" variant="h5">Matt Young</Typography>
                         <br />
