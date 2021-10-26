@@ -2,7 +2,7 @@ import React from "react";
 import {Typography} from "@material-ui/core";
 
 export default function Rules(props) {
-     var rule = [Rule.OverAllRules.call(), Rule.King.call() ] ;
+     var rule = [Rule.OverAllRules.call(), Rule.King.call(), Rule.Queen.call(), Rule.Bishop.call() ] ;
 
      return rule;
      
@@ -37,13 +37,58 @@ const Rule= {
           <><>
           <Typography display="block"> &emsp; </Typography>
           <Typography align="center"><Typography variant="h3"> King</Typography></Typography>
-     <Typography display="block">  <Typography align="center"> ____________________________________________________________________ </Typography></Typography> 
+          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
+          </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The king can move one square in any position whether that be horizontal, vertical, or diagonal unless the square is already occupied by your own piece.  </Typography>
-         <Typography display="block"> &emsp; The king also has a special move, called castling.  To be able to accomplish this move, it requires that the king has never moved the entire game, and the player </Typography>
-         <Typography>   </Typography>
-         <Typography display="block"> &emsp;   will also need to use one of their rooks that have also never moved.  The king will then move two squares towards the rook, or take the rook's spot.   The rook will </Typography>
-         <Typography display="block"> &emsp;  then move one square in the opposite direction of the king or in between where the rook and king originally were. </Typography>
+          <Typography> &emsp; &emsp; &emsp; The king can move one square in any position whether that be horizontal, vertical, 
+               or diagonal unless the square is already occupied by your own piece.  </Typography>
+         <Typography display="block"> &emsp; The king also has a special move, called castling.  To be able to accomplish this move, 
+         it requires that the king has never moved the entire game, and the player </Typography>
+         <Typography display="block"> &emsp;   will also need to use one of their rooks that have also never moved.  The king will 
+         then move two squares towards the rook, or take the rook's spot.   The rook will </Typography>
+         <Typography display="block"> &emsp;  then move one square in the opposite direction of the king or in between where the rook 
+         and king originally were.  Keep in mind to complete this, there must not  </Typography>
+         <Typography display="block"> &emsp; be a piece inbetween the rook and the king, whether friendly, or the enemies.  Additional 
+         rules to castling are, the king must not be currently in check and the  </Typography>
+         <Typography display="block"> &emsp; move does not put the king in check.</Typography>
+         <Typography display="block"> &emsp; </Typography>
+          
+          </></>
+          
+          );
+     },
+
+     Queen: function (props){
+          return( 
+          <><>
+          <Typography display="block"> &emsp; </Typography>
+          <Typography align="center"><Typography variant="h3"> Queen</Typography></Typography>
+          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
+          </Typography></Typography> 
+          <Typography> &emsp; &emsp; &emsp;   </Typography>
+          <Typography> &emsp; &emsp; &emsp; The Queen, a very powerful piece in the game, and moves like a bishop and a rook.  It is allowed to 
+          move any number of unoccupied squares vertically,   </Typography>
+         <Typography display="block"> &emsp; horizontally, and diagonally. Because the queen is very powerful, most pawns are promoted to a
+          queen.  </Typography>
+         <Typography display="block"> &emsp; </Typography>
+          
+          </></>
+          
+          );
+     },
+
+     Bishop: function (props){
+          return( 
+          <><>
+          <Typography display="block"> &emsp; </Typography>
+          <Typography align="center"><Typography variant="h3"> Bishop</Typography></Typography>
+          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
+          </Typography></Typography> 
+          <Typography> &emsp; &emsp; &emsp;   </Typography>
+          <Typography> &emsp; &emsp; &emsp; The Queen, a very powerful piece in the game, and moves like a bishop and a rook.  It is allowed to 
+          move any number of unoccupied squares vertically,   </Typography>
+         <Typography display="block"> &emsp; horizontally, and diagonally. Because the queen is very powerful, most pawns are promoted to a
+          queen.  </Typography>
          <Typography display="block"> &emsp; </Typography>
           
           </></>
