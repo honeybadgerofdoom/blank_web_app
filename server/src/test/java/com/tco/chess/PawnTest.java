@@ -880,7 +880,7 @@ class PawnTest {
 			testBoard.move("b2","b4");
 			testBoard.move("c4","b3");
 			assertNull(testBoard.getPiece("b4"));
-			assertNull(testBoard.getPiece("e4"));
+			assertNull(testBoard.getPiece("c4"));
 
 
 		} catch (Exception e) {
@@ -893,17 +893,19 @@ class PawnTest {
 	void enPassantInitializeBlackCanCapture2R() {
 		try {
 			testBoard.initialize();
-			testBoard.move("e2","e4");
-			testBoard.move("e4","e5");
-			testBoard.move("d7","d5");
-			testBoard.move("f7","f5");
-			testBoard.move("e5","f6");
-			assertNull(testBoard.getPiece("f5"));
-			assertNull(testBoard.getPiece("e5"));
+			testBoard.move("c7","c5");
+			testBoard.move("c5","c4");
+			testBoard.move("d2","d4");
+			testBoard.move("b2","b4");
+			testBoard.move("c4","d3");
+			assertNull(testBoard.getPiece("d4"));
+			assertNull(testBoard.getPiece("c4"));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail();
 		}
 	}
+
+
 }
