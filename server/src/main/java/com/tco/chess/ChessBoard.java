@@ -41,7 +41,9 @@ public class ChessBoard {
 	public void initialize(String boardState) {
 		HashMap<String, ChessPiece> unicodeToPiece = getUnicodePieceMapping();
 		for(int i = 0; i < boardState.length(); i++) {
-			ChessPiece currentPiece = unicodeToPiece.get(boardState.charAt(i));
+			char currentChar = boardState.charAt(i);
+			System.out.println("currentChar: " + currentChar);
+			ChessPiece currentPiece = unicodeToPiece.get(currentChar);
 			System.out.println("current piece: " + currentPiece);
 			int[][] currentPosition = getArrayFromNumber(i);
 		}
