@@ -36,7 +36,8 @@ public class Knight extends ChessPiece{
 								legalMoves.add(positionString);
 							}
 						} catch (IllegalPositionException e) {
-							e.printStackTrace();
+							//Not a legal move
+							break;
 						}
 					}
 				}

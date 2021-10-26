@@ -2,12 +2,14 @@ import Ajv from 'ajv';
 import * as configSchema from "../../schemas/ConfigResponse";
 import * as boardSchema from "../../schemas/BoardResponse";
 import * as legalMovesSchema from "../../schemas/LegalMovesResponse";
+import * as loginSchema from "../../schemas/LoginResponse";
 import { LOG } from "./constants";
 
 const SCHEMAS = {
     config: configSchema,
     board: boardSchema,
-    legalMoves: legalMovesSchema
+    legalMoves: legalMovesSchema,
+    login: loginSchema
 };
 
 export async function sendAPIRequest(requestBody, serverUrl) {
