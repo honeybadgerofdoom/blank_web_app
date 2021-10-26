@@ -1,9 +1,11 @@
 import Ajv from 'ajv';
 import * as configSchema from "../../schemas/ConfigResponse";
+import * as loginSchema from "../../schemas/LoginResponse";
 import { LOG } from "./constants";
 
 const SCHEMAS = {
-    config: configSchema
+    config: configSchema,
+    login: loginSchema
 };
 
 export async function sendAPIRequest(requestBody, serverUrl) {
@@ -19,7 +21,7 @@ export async function sendAPIRequest(requestBody, serverUrl) {
     return null;
 }
 
-async function sendRequest(requestBody, serverUrl) {
+export async function sendRequest(requestBody, serverUrl) {
     const fetchOptions = {
         method: "POST",
         body: JSON.stringify(requestBody)

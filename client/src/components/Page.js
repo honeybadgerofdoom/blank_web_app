@@ -11,22 +11,25 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-export default function Page() {
+export default function Page(props) {
 	const classes = useStyles();
 	const [currentPageIndex, setCurrentPageIndex] = useState(0);
 	const [userAuthenticated, setUserAuthenticated] = useState(false);
+	const [currentUser, setCurrentUser] = useState(null);
 	const [visiblePages] = useVisiblePages(userAuthenticated);
 
-	function toggleSignIn() {
-		setUserAuthenticated(!userAuthenticated);
+	function signOut() {
+		setUserAuthenticated(false);
 		setCurrentPageIndex(0);
+	}
+
+	function signoutButton() {
+		return userAuthenticated ? <Button className="position-absolute" onClick={signOut}>{'Sign Out'}</Button> : null;
 	}
 
 	return (
 		<div className={classes.root}>
-			<Button className="position-absolute" onClick={toggleSignIn}>
-				{userAuthenticated ? 'Sign Out' : 'Sign In'}
-			</Button>
+			{signoutButton()}
 
 			<TabNavigator 
 				currentPageIndex={currentPageIndex}
@@ -37,8 +40,8 @@ export default function Page() {
 			
 			<br />
 			
-			<div className={classes.page}>
-				{React.createElement(visiblePages[currentPageIndex].component, {})}
+			<div>
+				{React.createElement(visiblePages[currentPageIndex].component, {setUserAuthenticated: setUserAuthenticated, showMessage: props.showMessage, setCurrentUser: setCurrentUser, currentUser: currentUser})}
 			</div>
 		</div>
 	);
