@@ -2,7 +2,7 @@ import React from "react";
 import {Typography} from "@material-ui/core";
 
 export default function Rules(props) {
-     var rule = [Rule.OverAllRules.call(), Rule.Bishop.call(), 
+     var rule = [Rule.OverAllRules.call(), Rule.Pawn.call(), Rule.Knight.call(), 
           Rule.Bishop.call(), Rule.Rook.call(), Rule.Queen.call(), Rule.King.call() ] ;
 
      return rule;
@@ -34,6 +34,25 @@ const Rule= {
           );
      },
 
+     Pawn: function (props){
+          return( 
+          <><>
+          <Typography display="block"> &emsp; </Typography>
+          <Typography align="center"><Typography variant="h3"> Pawn </Typography></Typography>
+          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
+          </Typography></Typography> 
+          <Typography> &emsp; &emsp; &emsp;   </Typography>
+          <Typography> &emsp; &emsp; &emsp; The knight is unique in that it has the ability to jump over pieces.  It can move two squares 
+          vertically, in either direction, and one square horizontally,</Typography>
+         <Typography display="block"> &emsp;  in any direction. The order of this doesn’t matter. 
+          </Typography>
+         <Typography display="block"> &emsp; </Typography>
+          
+          </></>
+          
+          );
+     },
+
      Knight: function (props){
           return( 
           <><>
@@ -42,10 +61,10 @@ const Rule= {
           <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
           </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The bishop can move as far as it wants but only on the dianolgals and only if the squares inbetween  
-          from start position to finish position are unoccupied.  </Typography>
-         <Typography display="block"> &emsp; There are two bishops per player.  They start on opposite color squares, so their diagonals that they can 
-         occupy will always be different.  </Typography>
+          <Typography> &emsp; &emsp; &emsp; The knight is unique in that it has the ability to jump over pieces.  It can move two squares 
+          vertically, in either direction, and one square horizontally,</Typography>
+         <Typography display="block"> &emsp;  in any direction. The order of this doesn’t matter. 
+          </Typography>
          <Typography display="block"> &emsp; </Typography>
           
           </></>
@@ -80,7 +99,7 @@ const Rule= {
           <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
           </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The rook can move as far as it wants but only on the dianolgals and only if the squares inbetween  
+          <Typography> &emsp; &emsp; &emsp; The rook can move as far as it wants but only on the diagonals and only if the squares inbetween  
           from start position to finish position are unoccupied.  </Typography>
           <Typography display="block"> &emsp; There are two rooks for each player that start on opposite colors of the board. </Typography>
          <Typography display="block"> &emsp; </Typography>
