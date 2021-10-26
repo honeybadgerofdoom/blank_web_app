@@ -66,7 +66,7 @@ const Rule= {
           <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
           </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The Queen, a very powerful piece in the game, and moves like a bishop and a rook.  It is allowed to 
+          <Typography> &emsp; &emsp; &emsp; The queen, a very powerful piece in the game, and moves like a bishop and a rook.  It is allowed to 
           move any number of unoccupied squares vertically,   </Typography>
          <Typography display="block"> &emsp; horizontally, and diagonally. Because the queen is very powerful, most pawns are promoted to a
           queen.  </Typography>
@@ -85,10 +85,10 @@ const Rule= {
           <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
           </Typography></Typography> 
           <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The Queen, a very powerful piece in the game, and moves like a bishop and a rook.  It is allowed to 
-          move any number of unoccupied squares vertically,   </Typography>
-         <Typography display="block"> &emsp; horizontally, and diagonally. Because the queen is very powerful, most pawns are promoted to a
-          queen.  </Typography>
+          <Typography> &emsp; &emsp; &emsp; The bishop can move as far as it wants but only on the dianolgals and only if the squares from  
+          start position to finish position are unoccupied.  There are  </Typography>
+         <Typography display="block"> &emsp; two bishops per player.  They start on opposite color squares, so their diagonals that they can 
+         occupy will always be different.  </Typography>
          <Typography display="block"> &emsp; </Typography>
           
           </></>
