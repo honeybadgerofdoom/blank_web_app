@@ -1,8 +1,9 @@
 package com.tco.chess;
 
 import java.util.ArrayList;
-
 import com.tco.chess.ChessPiece.Color;
+
+
 
 public class ChessBoard {
 	private ChessPiece[][] board;
@@ -227,11 +228,21 @@ public class ChessBoard {
 			ArrayList<String> legalMoves = piece.legalMoves();
 
 			if(legalMoves.contains(toPosition)) {
+				if(piece instanceof Pawn && getPiece(toPosition) == null && moveIsDiagonal(fromPosition, toPosition)){
+					int[] rowColEnemyLocation = boardRowCol(toPosition);
+					int rowDecrement = (piece.getColor() == Color.WHITE) ? -1 : 1;
+					rowColEnemyLocation[0] = rowColEnemyLocation[0] + rowDecrement;
+					String enemyPositionEnPassant = rowColToPosition(rowColEnemyLocation[0], rowColEnemyLocation[1]);
+					handleCapture(getPiece(enemyPositionEnPassant));
+					this.board[rowColEnemyLocation[0]][rowColEnemyLocation[1]] = null;
+				}
+
 				if(getPiece(toPosition) != null && getPiece(toPosition).getColor() != piece.getColor()) {
 					handleCapture(getPiece(toPosition));
 				}
 				placePiece(piece, toPosition);
 				if ((piece instanceof Rook || piece instanceof King) && !piece.hasMoved) piece.hasMoved = true;
+				if (piece instanceof Pawn) piece.numberOfMoves++;
 				switchTurn();
 				checkIfTheGameIsOver();
 			}
@@ -375,6 +386,10 @@ public class ChessBoard {
 		boolean rookAndKingAreTheSameColor = rook.getColor() == king.getColor();
 		boolean neitherHasMoved = !rook.hasMoved && !king.hasMoved;
 		return itsAKing && itsARook && rookAndKingAreTheSameColor && neitherHasMoved;
+	}
+
+	private boolean moveIsDiagonal(String fromPostition, String toPosition){
+		return fromPostition.charAt(0) != toPosition.charAt(0);
 	}
 
 }

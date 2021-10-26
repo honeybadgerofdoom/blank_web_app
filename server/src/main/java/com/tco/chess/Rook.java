@@ -20,7 +20,6 @@ public class Rook extends ChessPiece {
 	@Override
 	public ArrayList<String> legalMoves(){
 		ArrayList<String> legalMoves = new ArrayList<>();
-
 		// NOTE The castling positions are ALREADY in the Rook's legalMoves array
 
 		addMovesInDirection(legalMoves, 1, 0);

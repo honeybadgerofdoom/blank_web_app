@@ -10,7 +10,8 @@ public abstract class ChessPiece {
 	protected int column;
 	protected Color color;
 	protected boolean hasMoved = false; // This is only used for Rook and King, for castling purposes.
-	
+	protected int numberOfMoves = 0; //This is only used in Pawn for En Passant
+
 	public ChessPiece(ChessBoard board, Color color) {
 		this.board = board;
 		this.color = color;
@@ -49,7 +50,7 @@ public abstract class ChessPiece {
 		char letter = (char) (col + 97);
 		return letter;
 	}
-
+  
 	protected void addMovesInDirection(ArrayList<String> legalMoves, int rowIncrement, int colIncrement) {
 		int currentRow = this.row + rowIncrement;
 		int currentCol = this.column + colIncrement;
@@ -85,6 +86,7 @@ public abstract class ChessPiece {
 		}
 		return false;
 	}
+
 	
 	abstract public String toString();
 	
