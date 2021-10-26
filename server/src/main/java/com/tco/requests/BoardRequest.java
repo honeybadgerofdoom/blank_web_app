@@ -35,12 +35,19 @@ public class BoardRequest extends Request {
     }
 
     private String getBoardFromDatabase() {
-        String query = getDBQueryString();
-        return "rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR";
+        String boardQuery = getDBQueryString();
+        Database db = new Database();
+        try {
+            List<Map<String, String>> results = db.query(boardQuery);
+            String board = results.get(0).get("board");
+            return board;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private String getDBQueryString() {
-        return "SELECT * FROM games WHERE player=" + this.userID;
+        return "SELECT * FROM games WHERE player1=" + this.userID + " OR player2=" + this.userID;
     }
 
     private String[] dbResponseToPieceArray(String dbResponse) {
