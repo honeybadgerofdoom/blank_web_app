@@ -6,7 +6,6 @@ public class Knight extends ChessPiece{
 
 	public Knight(ChessBoard board, Color color) {
 		super(board, color);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -36,7 +35,8 @@ public class Knight extends ChessPiece{
 								legalMoves.add(positionString);
 							}
 						} catch (IllegalPositionException e) {
-							e.printStackTrace();
+							//Not a legal move
+							break;
 						}
 					}
 				}

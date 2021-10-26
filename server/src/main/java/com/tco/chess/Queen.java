@@ -6,7 +6,6 @@ public class Queen extends ChessPiece{
 	
 	public Queen(ChessBoard board, Color color) {
 		super(board, color);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

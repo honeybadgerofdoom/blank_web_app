@@ -388,7 +388,6 @@ public class ChessBoard {
 		return itsAKing && itsARook && rookAndKingAreTheSameColor && neitherHasMoved;
 	}
 
-
 	private boolean moveIsDiagonal(String fromPostition, String toPosition){
 		return fromPostition.charAt(0) != toPosition.charAt(0);
 	}
