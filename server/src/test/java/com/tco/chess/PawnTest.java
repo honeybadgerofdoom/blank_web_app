@@ -934,5 +934,4 @@ class PawnTest {
 			fail();
 		}
 	}
-
 }

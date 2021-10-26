@@ -77,6 +77,7 @@ public class Pawn extends ChessPiece{
 					}
 				}
 			}
+
 			if(this.row == 4 && this.getColor() == Color.WHITE){
 				ArrayList<String> enPassantMoves = this.enPassant(1);
 				legalMoves.addAll(enPassantMoves);
