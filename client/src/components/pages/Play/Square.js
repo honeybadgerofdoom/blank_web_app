@@ -67,20 +67,20 @@ export default function Square(props) {
         return blackOdds.includes(letter) && number % 2 || blackEvens.includes(letter) && !(number % 2);
     }
 
-    async function sendLegalMovesRequest(position) {
-        const legalMovesResponse = await(sendRequest({requestType: "legalMoves", position: position}, 'http://localhost:8000'));
-        if(legalMovesResponse) {
-            props.setHighlightedSquares(legalMovesResponse.legalMoves);
-        }
-        else {
-            console.log("legalMovesResponse is null");
-        }
-    }
+    // async function sendLegalMovesRequest(position) {
+    //     const legalMovesResponse = await(sendRequest({requestType: "legalMoves", position: position}, 'http://localhost:8000'));
+    //     if(legalMovesResponse) {
+    //         props.setHighlightedSquares(legalMovesResponse.legalMoves);
+    //     }
+    //     else {
+    //         console.log("legalMovesResponse is null");
+    //     }
+    // }
 
     function handleClick() {
         if(props.piece !== "") {
             props.setClickedSquare(props.position);
-            sendLegalMovesRequest(props.position);
+            // sendLegalMovesRequest(props.position);
         }
         else {
             props.setClickedSquare("");
