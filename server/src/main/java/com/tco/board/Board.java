@@ -71,6 +71,7 @@ public class Board {
         }
         try {
             boardString = buildBoardString(board);
+            System.out.println(boardString);
         } catch (IllegalPositionException e) {
             e.printStackTrace();
         }

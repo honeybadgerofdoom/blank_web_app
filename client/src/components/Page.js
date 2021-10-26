@@ -16,7 +16,6 @@ export default function Page(props) {
 	const [currentPageIndex, setCurrentPageIndex] = useState(0);
 	const [userAuthenticated, setUserAuthenticated] = useState(false);
 	const [currentUserID, setCurrentUserID] = useState(null);
-	console.log({currentUserID})
 	const [visiblePages] = useVisiblePages(userAuthenticated);
 
 	function signOut() {

@@ -21,7 +21,7 @@ export default function Board() {
     const [boardState, setBoardState] = useState([]);
 
     async function sendBoardRequest() {
-        const boardResponse = await(sendRequest({requestType: "board"}, 'http://localhost:8000'));
+        const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID}, 'http://localhost:8000'));
         console.log({boardResponse});
         if(boardResponse) {
             const theBoard = boardResponse.boardString;

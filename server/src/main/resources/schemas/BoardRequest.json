@@ -9,8 +9,13 @@
       "description":"the TIP object type should be locations",
       "type":"string",
       "pattern":"^board$"
+    },
+    "userID": {
+      "description":"a user ID",
+      "type":"number",
+      "pattern":"^[0-9]+$"
     }
   },
-  "required": ["requestType"],
+  "required": ["requestType", "userID"],
   "additionalProperties": false
 }
