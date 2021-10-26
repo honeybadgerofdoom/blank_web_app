@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Board() {
+export default function Board(props) {
     const classes = useStyles();
     const [clickedSquare, setClickedSquare] = useState("");
     const [highlightedSquares, setHighlightedSquares] = useState([]);

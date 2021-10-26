@@ -12,8 +12,7 @@
     },
     "userID": {
       "description":"a user ID",
-      "type":"number",
-      "pattern":"^[0-9]+$"
+      "type":"number"
     }
   },
   "required": ["requestType", "userID"],
