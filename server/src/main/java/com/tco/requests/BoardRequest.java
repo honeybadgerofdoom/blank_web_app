@@ -1,11 +1,8 @@
 package com.tco.requests;
 
-import com.tco.requests.Board;
 import java.util.HashMap;
-
 import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
-
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -44,6 +41,7 @@ public class BoardRequest extends Request {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return "----------------------------------------------------------------";
     }
 
     private String getDBQueryString() {
