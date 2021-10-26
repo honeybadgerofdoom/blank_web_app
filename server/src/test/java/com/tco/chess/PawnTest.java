@@ -823,7 +823,7 @@ class PawnTest {
 			assertTrue(pawn.legalMoves().contains("g6"));
 			assertTrue(pawn.legalMoves().contains("h6"));
 			assertEquals(2, pawn.legalMoves().size());
-			testBoard.move("h5","g6");
+			testBoard.move("h5", "g6");
 			assertNull(testBoard.getPiece("g5"));
 			assertNull(testBoard.getPiece("h5"));
 
@@ -831,7 +831,43 @@ class PawnTest {
 			e.printStackTrace();
 			fail();
 		}
+	}
+	@Test
+	void enPassantInitializeWhiteCanCapture2L() {
+		try {
+			testBoard.initialize();
+			testBoard.move("e2","e4");
+			testBoard.move("e4","e5");
+			testBoard.move("d7","d5");
+			testBoard.move("g7","g5");
+			testBoard.move("e5","d6");
+			assertNull(testBoard.getPiece("d5"));
+			assertNull(testBoard.getPiece("e5"));
 
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
 	}
 
+	@Test
+	void enPassantInitializeWhiteCanCapture2R() {
+		try {
+			testBoard.initialize();
+			testBoard.move("e2","e4");
+			testBoard.move("e4","e5");
+			testBoard.move("d7","d5");
+			testBoard.move("f7","f5");
+			testBoard.move("e5","f6");
+
+			assertNull(testBoard.getPiece("f5"));
+			assertNull(testBoard.getPiece("e5"));
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 }
