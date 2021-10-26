@@ -1,6 +1,7 @@
 package com.tco.chess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.tco.chess.ChessPiece.Color;
 
@@ -35,6 +36,11 @@ public class ChessBoard {
 		addPawns(7, Color.BLACK);
 		addPawns(2, Color.WHITE);
 		addNonPawns(1, Color.WHITE);
+	}
+
+	public void initialize(String boardState) {
+		HashMap<String, ChessPiece> unicodeToPiece = new HashMap<String, ChessPiece>();
+		unicodeToPiece.put("\u2654", new King(this, color.White));
 	}
 
 	private void addPawns(int row, Color color) {

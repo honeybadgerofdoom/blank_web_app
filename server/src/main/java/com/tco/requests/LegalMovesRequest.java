@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
+import com.tco.chess.ChessBoard;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.List;
@@ -18,20 +18,27 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BoardRequest extends Request {
-    
+public class LegalMovesRequest extends Request {
+
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
+    private String position;
     private int userID;
 
-    private String[] boardString;
-    private boolean success;
-    
+    private String[] legalMoves;
+
     @Override
     public void buildResponse() {
-        String boardState = getBoardFromDatabase();
-        boardString = dbResponseToPieceArray(boardState);
-        System.out.println("**** boardString: " + Arrays.toString(boardString));
-        success = true;
+        //FIXME Write a 1-arg initialize() method in ChessBoard to build a board based on an input string. Call that
+        //    from here and check legal moves at position.
+        String boardString = getBoardFromDatabase();
+        String[] boardState = dbResponseToPieceArray(boardString);
+        // try {
+        //      ChessBoard board = new ChessBoard();
+        //      board.initialize(boardString);
+        //      legalMoves = board.getPiece(position).legalMoves();
+        // } catch (IllegalPositionException e) {
+        //      e.printStackTrace();
+        // }
         log.trace("buildResponse -> {}", this);
     }
 

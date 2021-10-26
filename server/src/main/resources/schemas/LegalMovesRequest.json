@@ -13,8 +13,12 @@
     "position": {
       "description": "a string where the piece is located",
       "type": "string"
+    },
+    "userID" : {
+      "description": "a user's id",
+      "type": "number"
     }
   },
-  "required": ["requestType","position"],
+  "required": ["requestType","position","userID"],
   "additionalProperties": false
 }
