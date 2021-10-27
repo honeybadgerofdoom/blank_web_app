@@ -26,22 +26,24 @@ public class GameRequest extends Request {
 
     @Override
     public void buildResponse() {
-        String game = getGameIDsFromDB(this.userID);
+        getGameIDsFromDB(this.userID);
         success = true;
         log.trace("buildResponse -> {}", this);
     }
 
-    protected static String getGameIDsFromDB(int userID) {
+    private void getGameIDsFromDB(int userID) {
         String boardQuery = getDBQueryString();
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
             System.out.println(results);
-            String board = results.get(0).get("board");
-            return board;
+
+            for(int i = 0; i < results.size(); i++){
+                this.gameIDs.add(Integer.parseInt(results.get(i).get("gameID")));
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "----------------------------------------------------------------";
     }
 
     private static String getDBQueryString() {
