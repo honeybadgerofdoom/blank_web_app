@@ -56,19 +56,24 @@ public class MoveRequest extends Request {
         log.trace("buildResponse -> {}", this);
     }
 
-    private void storeNewBoardState(String newBoardString) {
-        String boardQuery = getDBQueryString();
+    private void storeNewBoardState(String newBoardString) throws SQLException {
+        System.out.println("newBoardString: " + newBoardString);
         try (Database db = new Database()) {
-            List<Map<String, String>> results = db.query(boardQuery, this.userID, this.userID);
-            System.out.println("newBoardString: " + newBoardString);
-            // FIXME How do I store newBoardState into results.get(0).get("board")?
+            List<Map<String, String>> gameResults = db.query(getFirstGameID(), this.userID, this.userID);
+            int gameID = Integer.parseInt(results.get(0).get("gameID"));
+            db.update(storingQueryString(), newBoardString, gameID); //This returns num rows updated
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         }
     }
 
-    private String getDBQueryString() {
-        return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
+    private String getFirstGameID() {
+        return "SELECT gameID FROM games WHERE player1=? OR player2=? LIMIT1";
+    }
+
+    private String storingQueryString() {
+        return "UPDATE games SET board=? WHERE gameID=?";
     }
 
     private String buildNewBoardString(ChessBoard board) {
