@@ -30,7 +30,6 @@ const Rule= {
          <Typography display="block"> &emsp; &emsp; </Typography>
          <Typography display="block"> &emsp; &emsp; </Typography>
           </></>
-          
           );
      },
 
@@ -62,9 +61,7 @@ const Rule= {
          <Typography display="block"> &emsp; as if the piece were there, and capture the opponent’s pawn.</Typography>
          <Typography display="block"> &emsp; </Typography>
          <Typography display="block"> &emsp; </Typography>
-          
           </></>
-          
           );
      },
 
@@ -82,9 +79,7 @@ const Rule= {
          horizontally if piece is played. </Typography>
          <Typography display="block"> &emsp; </Typography>
          <Typography display="block"> &emsp; </Typography>
-          
           </></>
-          
           );
      },
 
@@ -102,9 +97,7 @@ const Rule= {
          occupy will always be different.  </Typography>
          <Typography display="block"> &emsp; </Typography>
          <Typography display="block"> &emsp; </Typography>
-          
-          </></>
-          
+          </></> 
           );
      },
 
@@ -121,9 +114,7 @@ const Rule= {
           <Typography display="block"> &emsp; There are two rooks for each player that start on opposite colors of the board. </Typography>
          <Typography display="block"> &emsp; </Typography>
          <Typography display="block"> &emsp; </Typography>
-          
           </></>
-          
           );
      },
 
@@ -143,7 +134,6 @@ const Rule= {
          <Typography display="block"> &emsp; </Typography>
          <Typography display="block"> &emsp; </Typography>
           </></>
-          
           );
      },
 
@@ -167,7 +157,6 @@ const Rule= {
          Also, if you want to castle, the king must be moved first. </Typography> 
          <Typography display="block"> &emsp;  </Typography>
          <Typography display="block"> &emsp; </Typography>
-          
           </></>
           
           );
