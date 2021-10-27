@@ -4,7 +4,8 @@ import com.tco.misc.BadRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.misc.UnauthorizedRequestException;
 import com.tco.requests.ConfigRequest;
-import com.tco.requests.LoginRequest;
+import com.tco.requests.LoginRegister.LoginRequest;
+import com.tco.requests.LoginRegister.RegisterRequest;
 import com.tco.requests.Request;
 import com.tco.requests.BoardRequest;
 import com.tco.requests.LegalMovesRequest;
@@ -43,6 +44,7 @@ class MicroServer {
             post("/board", (req, res) -> processHttpRequest(req, res, BoardRequest.class));
             post("/login", (req, res) -> processHttpRequest(req, res, LoginRequest.class));
             post("/legalMoves", (req, res) -> processHttpRequest(req, res, LegalMovesRequest.class));
+            post("/register", (req, res) -> processHttpRequest(req, res, RegisterRequest.class));
         });
     }
 
