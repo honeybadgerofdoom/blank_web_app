@@ -1,6 +1,6 @@
 import React from "react";
 import Board from "./Board"
 
-export default function Play() {
-    return <Board/>
+export default function Play(props) {
+    return <Board currentUserID={props.currentUserID}/>
 }

@@ -6,6 +6,7 @@ import com.tco.misc.UnauthorizedRequestException;
 import com.tco.requests.ConfigRequest;
 import com.tco.requests.LoginRequest;
 import com.tco.requests.Request;
+import com.tco.requests.BoardRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -38,6 +39,7 @@ class MicroServer {
         path("/api", () -> {
             before("/*", (req, res) -> logRequest(req));
             post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
+            post("/board", (req, res) -> processHttpRequest(req, res, BoardRequest.class));
             post("/login", (req, res) -> processHttpRequest(req, res, LoginRequest.class));
         });
     }

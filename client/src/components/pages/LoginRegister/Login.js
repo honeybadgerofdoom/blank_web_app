@@ -34,7 +34,7 @@ export default function Login(props) {
         const response = await sendAPIRequest({requestType:"login", username:username, password:password}, "http://localhost:8000");
         if(response) {
             props.setUserAuthenticated(true);
-            props.setCurrentUser(response.username);
+            props.setCurrentUserID(response.userID);
             props.showMessage("Welcome " + response.username); //This throws errors in the console...
         }
         else {
