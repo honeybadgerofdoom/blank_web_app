@@ -6,6 +6,7 @@ import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
 import com.tco.chess.ChessBoard;
 import com.tco.chess.ChessPiece;
+import com.tco.requests.BoardRequest;
 import com.tco.chess.IllegalPositionException;
 
 import java.nio.charset.StandardCharsets;
@@ -30,7 +31,7 @@ public class LegalMovesRequest extends Request {
 
     @Override
     public void buildResponse() {
-        String boardString = getBoardFromDatabase();
+        String boardString = BoardRequest.getBoardFromDatabase(this.userID);
          try {
               ChessBoard board = new ChessBoard();
               board.initialize(boardString);
@@ -40,53 +41,6 @@ public class LegalMovesRequest extends Request {
               e.printStackTrace();
          }
         log.trace("buildResponse -> {}", this);
-    }
-
-    private String getBoardFromDatabase() {
-        String boardQuery = getDBQueryString();
-        Database db = new Database();
-        try {
-            List<Map<String, String>> results = db.query(boardQuery);
-            String board = results.get(0).get("board");
-            return board;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return "----------------------------------------------------------------";
-    }
-
-    private String getDBQueryString() {
-        return "SELECT * FROM games WHERE player1=" + this.userID + " OR player2=" + this.userID;
-    }
-
-    private String[] dbResponseToPieceArray(String dbResponse) {
-        char[] charArray = dbResponse.toCharArray();
-        String[] arrayOfPieces = new String[64];
-        HashMap<String, String> charToUnicode = getPieceMapping();
-        int count = 0;
-        for (char piece : charArray) {
-            arrayOfPieces[count] = charToUnicode.get(String.valueOf(piece));
-            count++;
-        }
-        return arrayOfPieces;
-    }
-
-    private HashMap<String, String> getPieceMapping() {
-        HashMap<String, String> charToUnicode = new HashMap<String, String>();
-        charToUnicode.put("k", "\u2654");
-        charToUnicode.put("q", "\u2655");
-        charToUnicode.put("r", "\u2656");
-        charToUnicode.put("b", "\u2657");
-        charToUnicode.put("n", "\u2658");
-        charToUnicode.put("p", "\u2659");
-        charToUnicode.put("K", "\u265A");
-        charToUnicode.put("Q", "\u265B");
-        charToUnicode.put("R", "\u265C");
-        charToUnicode.put("B", "\u265D");
-        charToUnicode.put("N", "\u265E");
-        charToUnicode.put("P", "\u265F");
-        charToUnicode.put("-", "");
-        return charToUnicode;
     }
 
 }
