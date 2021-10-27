@@ -1,8 +1,9 @@
-import React, {useState} from "react";
-import {makeStyles} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {Button, makeStyles, Typography} from "@material-ui/core";
 import {mockChessboard, positionMap} from "./MockChessboard";
 import Square from "./Square";
 import CustomColumn from "../../../utils/CustomColumn";
+import {sendAPIRequest, sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles({
     root: {
@@ -13,34 +14,52 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Board() {
+export default function Board(props) {
     const classes = useStyles();
     const [clickedSquare, setClickedSquare] = useState("");
     const [highlightedSquares, setHighlightedSquares] = useState([]);
+    const [boardState, setBoardState] = useState([]);
 
-    /*
-    API NOTES
-    Because the client renders things from the top-left to the bottom-right, we need iterate the board in the
-    server-side chess class in that same direction. The response from a /chess/board request should be a
-    String[] built by iterating the ChessBoard from 'h1' -> 'a8' and adding the toString() for each square. If
-    null, add "".
-     */
+    async function sendBoardRequest() {
+        const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID}, 'http://localhost:8000'));
+        console.log({boardResponse});
+        if(boardResponse) {
+            const theBoard = boardResponse.boardString;
+            let allRows = [];
+            for(let i = 0; i < 8; i++) {
+                let thisRow = [];
+                for(let j = 0; j < 8; j++) {
+                    thisRow.push(theBoard[(i*8) + (j)])
+                }
+                allRows.push(thisRow);
+            }
+            allRows.reverse();
+            const masterBoard = allRows[0].concat(allRows[1], allRows[2], allRows[3], allRows[4], allRows[5], allRows[6], allRows[7]);
+            setBoardState(masterBoard);
+        }
+    }
 
     function renderBoard() {
         return (
-            mockChessboard.map((piece, index) => {
+            boardState.map((piece, index) => {
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
-                               highlightedSquares={highlightedSquares} setHighlightedSquare={setHighlightedSquares}
+                               highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
                                key={index} piece={piece} position={positionMap[index]}/>
             })
         )
     }
 
-    return (
-        <CustomColumn>
-            <div className={classes.root}>
-                {renderBoard()}
-            </div>
-        </CustomColumn>
-    )
+    if(boardState.length > 0) {
+        return (
+            <CustomColumn>
+                <div className={classes.root}>
+                    {renderBoard()}
+                </div>
+            </CustomColumn>
+        )
+    }
+
+    else {
+        return <CustomColumn><Button variant="outlined" onClick={sendBoardRequest}>Send Board API Request</Button></CustomColumn>
+    }
 }
