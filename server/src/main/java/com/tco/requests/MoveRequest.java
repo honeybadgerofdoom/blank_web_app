@@ -8,6 +8,7 @@ import com.tco.chess.ChessBoard;
 import com.tco.chess.ChessPiece;
 import com.tco.requests.BoardRequest;
 import com.tco.chess.IllegalPositionException;
+import com.tco.chess.IllegalMoveException;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
@@ -46,40 +47,55 @@ public class MoveRequest extends Request {
             success = true;
 
             // FIXME store new board state!
-            String boardString = buildNewBoardString();
+            String newBoardString = buildNewBoardString(board);
+            System.out.println("newBoardString: " + newBoardString);
+            // Insert that into the database at the right location
 
             //FIXME add winner, castling, promotion
-        } catch (IllegalPositionException | IllegalMoveExcpetion e) {
+        } catch (IllegalMoveException e) {
             e.printStackTrace();
         }
         log.trace("buildResponse -> {}", this);
     }
 
-    private String buildNewBoardString() {
+    private String buildNewBoardString(ChessBoard board) {
         String newBoardString = "";
         HashMap<String, String> unicodeToChar = getUnicodeToChar();
         for(int i = 0; i < 8; i++) {
             for(int j = 0; j < 8; j++) {
-                newBoardString += unicodeToChar.get(board.getPiece(DO THIS))
+                String position = rowColToPosition(i, j);
+                try {
+                    String currentPieceChar = unicodeToChar.get(board.getPiece(position));
+                    newBoardString += currentPieceChar;
+                } catch (IllegalPositionException e) {
+                    e.printStackTrace();
+                }
             }
         }
+        return newBoardString;
+    }
+
+    private String rowColToPosition(int row, int column) {
+        char letter = (char) (column + 97);
+        int newRow = row + 1;
+        return letter + "" + newRow;
     }
     
     private HashMap<String, String> getUnicodeToChar() {
         HashMap<String, String> unicodeToChar = new HashMap<String, String>();
-        charToUnicode.put("\u2654", "k");
-        charToUnicode.put("\u2655", "q");
-        charToUnicode.put("\u2656", "r");
-        charToUnicode.put("\u2657", "b");
-        charToUnicode.put("\u2658", "n");
-        charToUnicode.put("\u2659", "p");
-        charToUnicode.put("\u265A", "K");
-        charToUnicode.put("\u265B", "Q");
-        charToUnicode.put("\u265C", "R");
-        charToUnicode.put("\u265D", "B");
-        charToUnicode.put("\u265E", "N");
-        charToUnicode.put("\u265F", "P");
-        charToUnicode.put("", "-");
+        unicodeToChar.put("\u2654", "k");
+        unicodeToChar.put("\u2655", "q");
+        unicodeToChar.put("\u2656", "r");
+        unicodeToChar.put("\u2657", "b");
+        unicodeToChar.put("\u2658", "n");
+        unicodeToChar.put("\u2659", "p");
+        unicodeToChar.put("\u265A", "K");
+        unicodeToChar.put("\u265B", "Q");
+        unicodeToChar.put("\u265C", "R");
+        unicodeToChar.put("\u265D", "B");
+        unicodeToChar.put("\u265E", "N");
+        unicodeToChar.put("\u265F", "P");
+        unicodeToChar.put("", "-");
         return unicodeToChar;
     }
 
