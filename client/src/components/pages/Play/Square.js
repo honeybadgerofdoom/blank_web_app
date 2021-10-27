@@ -90,16 +90,11 @@ export default function Square(props) {
     }
 
     function handleClick() {
-        if(props.fromPosition === "" && props.piece !== "") {
-            resetBoardVisuals();
-        }
-        else if(props.fromPosition !== "" && props.piece !== "" && squareColor !== squareColors.captureSquare) {
+        if(notCallingMove()) {
             resetBoardVisuals();
         }
         else if(aMoveIsPossible()) {
-            console.log("Send the Move API Request with fromPosition: " + props.fromPosition + " toPosition: " + props.position);
             sendMoveRequest();
-            props.setFromPosition("");
         }
         else {
             resetBoardStateVars();
@@ -116,6 +111,10 @@ export default function Square(props) {
         props.setFromPosition(props.position);
         props.setClickedSquare(props.position);
         sendLegalMovesRequest(props.position);
+    }
+
+    function notCallingMove() {
+        return (props.fromPosition === "" && props.piece !== "") || (props.fromPosition !== "" && props.piece !== "" && squareColor !== squareColors.captureSquare);
     }
 
     function aMoveIsPossible() {
