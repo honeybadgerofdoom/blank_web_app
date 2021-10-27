@@ -43,7 +43,7 @@ public class ChessBoard {
 			char currentChar = boardState.charAt(i);
 			ChessPiece currentPiece = createPieceForInit(currentChar);
 			String position = positionFromIndex(i);
-			placePiece(currentPiece, position);
+			if(currentPiece != null) placePiece(currentPiece, position);
 		}
 	}
 

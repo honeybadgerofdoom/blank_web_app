@@ -29,7 +29,7 @@ public class MoveRequest extends Request {
     private String fromPosition;
     private String toPosition;
     private int userID;
-    // priavate Color userColor; we need this for castling reasons
+    // priavate Color userColor; we need this for castling & turn reasons
 
     private boolean success;
     // private boolean kingsideCastle;
@@ -46,16 +46,29 @@ public class MoveRequest extends Request {
             board.move(fromPosition, toPosition);
             success = true;
 
-            // FIXME store new board state!
             String newBoardString = buildNewBoardString(board);
-            System.out.println("newBoardString: " + newBoardString);
-            // Insert that into the database at the right location
+            storeNewBoardState(newBoardString);
 
             //FIXME add winner, castling, promotion
         } catch (IllegalMoveException e) {
             e.printStackTrace();
         }
         log.trace("buildResponse -> {}", this);
+    }
+
+    private void storeNewBoardState(String newBoardString) {
+        String boardQuery = getDBQueryString();
+        try (Database db = new Database()) {
+            List<Map<String, String>> results = db.query(boardQuery, this.userID, this.userID);
+            System.out.println("newBoardString: " + newBoardString);
+            // FIXME How do I store newBoardState into results.get(0).get("board")?
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getDBQueryString() {
+        return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
     }
 
     private String buildNewBoardString(ChessBoard board) {
@@ -65,8 +78,12 @@ public class MoveRequest extends Request {
             for(int j = 0; j < 8; j++) {
                 String position = rowColToPosition(i, j);
                 try {
-                    String currentPieceChar = unicodeToChar.get(board.getPiece(position));
-                    newBoardString += currentPieceChar;
+                    ChessPiece piece = board.getPiece(position);
+                    if(piece != null) {
+                        String pieceChar = unicodeToChar.get(piece.toString());
+                        newBoardString += pieceChar;
+                    }
+                    else newBoardString += "-";
                 } catch (IllegalPositionException e) {
                     e.printStackTrace();
                 }
