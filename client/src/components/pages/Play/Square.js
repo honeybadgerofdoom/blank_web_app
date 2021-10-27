@@ -80,30 +80,23 @@ export default function Square(props) {
     async function sendMoveRequest() {
         const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID}, "http://localhost:8000");
         if(moveResponse) {
-            console.log("move successful");
-            console.log({moveResponse})
             const boardState = props.getBoardState(moveResponse.newBoardState);
             props.setBoardState(boardState);
-            props.setClickedSquare("");
-            props.setHighlightedSquares([]);
+            resetBoardStateVars();
         }
         else{
-            console.log("move failed");
+            props.showMessage("Move failed...")
         }
     }
 
     function handleClick() {
         if(props.fromPosition === "" && props.piece !== "") {
-            props.setFromPosition(props.position);
-            props.setClickedSquare(props.position);
-            sendLegalMovesRequest(props.position);
+            resetBoardVisuals();
         }
         else if(props.fromPosition !== "" && props.piece !== "" && squareColor !== squareColors.captureSquare) {
-            props.setFromPosition(props.position);
-            props.setClickedSquare(props.position);
-            sendLegalMovesRequest(props.position);
+            resetBoardVisuals();
         }
-        else if((props.fromPosition !== "" && props.piece === "" && squareColor === squareColors.highlightedSquare) || props.fromPosition !== "" && props.piece !== "" && squareColor === squareColors.captureSquare) {
+        else if(aMoveIsPossible()) {
             console.log("Send the Move API Request with fromPosition: " + props.fromPosition + " toPosition: " + props.position);
             sendMoveRequest();
             props.setFromPosition("");
@@ -113,6 +106,22 @@ export default function Square(props) {
             props.setClickedSquare("");
             props.setHighlightedSquares([]);
         }
+    }
+
+    function resetBoardStateVars() {
+        props.setFromPosition("");
+        props.setClickedSquare("");
+        props.setHighlightedSquares([]);
+    }
+
+    function resetBoardVisuals() {
+        props.setFromPosition(props.position);
+        props.setClickedSquare(props.position);
+        sendLegalMovesRequest(props.position);
+    }
+
+    function aMoveIsPossible() {
+        return (props.fromPosition !== "" && props.piece === "" && squareColor === squareColors.highlightedSquare) || (props.fromPosition !== "" && props.piece !== "" && squareColor === squareColors.captureSquare);
     }
 
     return (
