@@ -48,7 +48,7 @@ public class BoardRequest extends Request {
         return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
     }
 
-    private String[] dbResponseToPieceArray(String dbResponse) {
+    protected static String[] dbResponseToPieceArray(String dbResponse) {
         char[] charArray = dbResponse.toCharArray();
         String[] arrayOfPieces = new String[64];
         HashMap<String, String> charToUnicode = getPieceMapping();
@@ -60,7 +60,7 @@ public class BoardRequest extends Request {
         return arrayOfPieces;
     }
 
-    private HashMap<String, String> getPieceMapping() {
+    private static HashMap<String, String> getPieceMapping() {
         HashMap<String, String> charToUnicode = new HashMap<String, String>();
         charToUnicode.put("k", "\u2654");
         charToUnicode.put("q", "\u2655");

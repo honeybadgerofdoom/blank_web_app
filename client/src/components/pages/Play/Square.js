@@ -81,19 +81,14 @@ export default function Square(props) {
         const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID}, "http://localhost:8000");
         if(moveResponse) {
             console.log("move successful");
+            console.log({moveResponse})
+            const boardState = props.getBoardState(moveResponse.newBoardState);
+            props.setBoardState(boardState);
+            props.setClickedSquare("");
+            props.setHighlightedSquares([]);
         }
         else{
             console.log("move failed");
-        }
-    }
-
-    async function sendBoardRequest() {
-        const boardResponse = await(sendRequest({requestType: "board", userID: props.userID}, 'http://localhost:8000'));
-        if(boardResponse) {
-            props.setBoardState(props.getBoardState(boardResponse));
-        }
-        else {
-            console.log("board request failed")
         }
     }
 
@@ -111,7 +106,6 @@ export default function Square(props) {
         else if((props.fromPosition !== "" && props.piece === "" && squareColor === squareColors.highlightedSquare) || props.fromPosition !== "" && props.piece !== "" && squareColor === squareColors.captureSquare) {
             console.log("Send the Move API Request with fromPosition: " + props.fromPosition + " toPosition: " + props.position);
             sendMoveRequest();
-            sendBoardRequest();
             props.setFromPosition("");
         }
         else {

@@ -32,6 +32,7 @@ public class MoveRequest extends Request {
     // priavate Color userColor; we need this for castling & turn reasons
 
     private boolean success;
+    private String[] newBoardState;
     // private boolean kingsideCastle;
     // private boolean queensideCastle;
     // private boolean promotion;
@@ -91,6 +92,7 @@ public class MoveRequest extends Request {
                 }
             }
         }
+        this.newBoardState = BoardRequest.dbResponseToPieceArray(newBoardString);
         return newBoardString;
     }
 

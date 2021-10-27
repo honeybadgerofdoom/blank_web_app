@@ -23,15 +23,14 @@ export default function Board(props) {
     async function sendBoardRequest() {
         const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID}, 'http://localhost:8000'));
         if(boardResponse) {
-            setBoardState(getBoardState(boardResponse));
+            setBoardState(getBoardState(boardResponse.boardString));
         }
         else {
             console.log("board request failed")
         }
     }
 
-    function getBoardState(boardResponse) {
-        const theBoard = boardResponse.boardString;
+    function getBoardState(theBoard) {
         let allRows = [];
         for(let i = 0; i < 8; i++) {
             let thisRow = [];
