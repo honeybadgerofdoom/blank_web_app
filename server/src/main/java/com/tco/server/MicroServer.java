@@ -8,6 +8,7 @@ import com.tco.requests.LoginRequest;
 import com.tco.requests.Request;
 import com.tco.requests.BoardRequest;
 import com.tco.requests.LegalMovesRequest;
+import com.tco.requests.MoveRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -43,6 +44,7 @@ class MicroServer {
             post("/board", (req, res) -> processHttpRequest(req, res, BoardRequest.class));
             post("/login", (req, res) -> processHttpRequest(req, res, LoginRequest.class));
             post("/legalMoves", (req, res) -> processHttpRequest(req, res, LegalMovesRequest.class));
+            post("/move", (req, res) -> processHttpRequest(req, res, MoveRequest.class));
         });
     }
 
