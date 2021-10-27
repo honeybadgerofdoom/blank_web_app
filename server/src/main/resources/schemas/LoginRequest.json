@@ -11,16 +11,16 @@
       "pattern": "^login$"
     },
     "username": {
-      "description":"a username.",
-      "type":"string",
-      "pattern":"^[a-zA-Z0-9_ ]+$"
+      "description": "a username",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_ ]+$"
     },
     "password": {
-      "description":"a password.",
-      "type":"string",
-      "pattern":"^[a-zA-Z0-9_ ]+$"
+      "description": "a password",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_ ]+$"
     }
   },
-  "required":["requestType", "username", "password"],
-  "additionalProperties": true
+  "required": ["requestType", "username", "password"],
+  "additionalProperties": false
 }

@@ -595,7 +595,343 @@ class PawnTest {
 			e.printStackTrace();
 			fail();
 		}
+	}
+
+	@Test
+	void enPassantTestL() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn, "g5");
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn1, "f7");
+			testBoard.move("f7", "f5");
+			assertTrue(pawn.legalMoves().contains("f6"));
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(2, pawn.legalMoves().size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
 
 	}
 
+
+	@Test
+	void enPassantTestR() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn, "g5");
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn1, "h7");
+			testBoard.move("h7", "h5");
+			assertTrue(pawn.legalMoves().contains("h6"));
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(2, pawn.legalMoves().size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	void enPassantTestLBlack() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn, "g4");
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "f2");
+			testBoard.move("f2", "f4");
+			assertTrue(pawn.legalMoves().contains("f3"));
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(2, pawn.legalMoves().size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	void enPassantTestRBlack() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn, "g4");
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "h2");
+			testBoard.move("h2", "h4");
+			assertTrue(pawn.legalMoves().contains("h3"));
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(2, pawn.legalMoves().size());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	void enPassantCaptureBlack() {
+		try {
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+			testBoard.placePiece(pawn, "g4");
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "h2");
+			testBoard.move("h2", "h4");
+			assertTrue(pawn.legalMoves().contains("h3"));
+			assertTrue(pawn.legalMoves().contains("g3"));
+			assertEquals(2, pawn.legalMoves().size());
+			testBoard.move("g4","h3");
+			assertNull(testBoard.getPiece("g4"));
+			assertNull(testBoard.getPiece("h4"));
+
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	void enPassantTestWhite() {
+		try {
+
+			ChessPiece pawn = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn, "g5");
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn1, "h7");
+			testBoard.move("h7", "h5");
+			assertTrue(pawn.legalMoves().contains("h6"));
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertEquals(2, pawn.legalMoves().size());
+			testBoard.move("g5","h6");
+			assertNull(testBoard.getPiece("g5"));
+			assertNull(testBoard.getPiece("h5"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	void enPassantTestBlack() {
+		try {
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn, "e4");
+			assertTrue(pawn.legalMoves().contains("e3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "d2");
+			testBoard.move("d2", "d4");
+			assertTrue(pawn.legalMoves().contains("d3"));
+			assertTrue(pawn.legalMoves().contains("e3"));
+			assertEquals(2, pawn.legalMoves().size());
+			testBoard.move("e4","d3");
+			assertNull(testBoard.getPiece("e4"));
+			assertNull(testBoard.getPiece("d4"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+
+	@Test
+	void enPassantTestBlackTestEdges() {
+		try {
+			ChessPiece pawn = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn, "b4");
+			assertTrue(pawn.legalMoves().contains("b3"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn1, "a2");
+			testBoard.move("a2", "a4");
+			assertTrue(pawn.legalMoves().contains("a3"));
+			assertTrue(pawn.legalMoves().contains("b3"));
+			assertEquals(2, pawn.legalMoves().size());
+			testBoard.move("b4","a3");
+			assertNull(testBoard.getPiece("b4"));
+			assertNull(testBoard.getPiece("a4"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+	@Test
+	void enPassantTestWhiteTestEdges() {
+		try {
+			ChessPiece pawn = new Pawn(testBoard, Color.WHITE);
+
+			testBoard.placePiece(pawn, "h5");
+			assertTrue(pawn.legalMoves().contains("h6"));
+			assertEquals(1, pawn.legalMoves().size());
+
+			ChessPiece pawn1 = new Pawn(testBoard, Color.BLACK);
+
+			testBoard.placePiece(pawn1, "g7");
+			testBoard.move("g7", "g5");
+			assertTrue(pawn.legalMoves().contains("g6"));
+			assertTrue(pawn.legalMoves().contains("h6"));
+			assertEquals(2, pawn.legalMoves().size());
+			testBoard.move("h5", "g6");
+			assertNull(testBoard.getPiece("g5"));
+			assertNull(testBoard.getPiece("h5"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+	@Test
+	void enPassantInitializeWhiteCanCapture2L() {
+		try {
+			testBoard.initialize();
+			testBoard.move("e2","e4");
+			testBoard.move("e4","e5");
+			testBoard.move("d7","d5");
+			testBoard.move("g7","g5");
+			testBoard.move("e5","d6");
+			assertNull(testBoard.getPiece("d5"));
+			assertNull(testBoard.getPiece("e5"));
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void enPassantInitializeWhiteCanCapture2R() {
+		try {
+			testBoard.initialize();
+			testBoard.move("e2","e4");
+			testBoard.move("e4","e5");
+			testBoard.move("d7","d5");
+			testBoard.move("f7","f5");
+			testBoard.move("e5","f6");
+			assertNull(testBoard.getPiece("f5"));
+			assertNull(testBoard.getPiece("e5"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+
+	@Test
+	void enPassantInitializeBlackCanCapture2L() {
+		try {
+			testBoard.initialize();
+			testBoard.move("c7","c5");
+			testBoard.move("c5","c4");
+			testBoard.move("d2","d4");
+			testBoard.move("b2","b4");
+			testBoard.move("c4","b3");
+			assertNull(testBoard.getPiece("b4"));
+			assertNull(testBoard.getPiece("c4"));
+
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void enPassantInitializeBlackCanCapture2R() {
+		try {
+			testBoard.initialize();
+			testBoard.move("c7","c5");
+			testBoard.move("c5","c4");
+			testBoard.move("d2","d4");
+			testBoard.move("b2","b4");
+			testBoard.move("c4","d3");
+			assertNull(testBoard.getPiece("d4"));
+			assertNull(testBoard.getPiece("c4"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void enPassantFailsL() {
+		try {
+			testBoard.initialize();
+			testBoard.move("c7","c5");
+			testBoard.move("c5","c4");
+			assertThrows(IllegalMoveException.class, () -> testBoard.move("c4", "b3"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
+
+	@Test
+	void enPassantFailsR() {
+		try {
+			testBoard.initialize();
+			testBoard.move("c7","c5");
+			testBoard.move("c5","c4");
+			assertThrows(IllegalMoveException.class, () -> testBoard.move("c4", "d3"));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+	}
 }

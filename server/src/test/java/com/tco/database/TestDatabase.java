@@ -15,6 +15,5 @@ public class TestDatabase {
         List<Map<String, String>> rows = db.query("SELECT COUNT(*) AS count FROM users");
         int numUsers = Integer.parseInt(rows.get(0).get("count"));
         assertTrue(numUsers > 0);
-        assertTrue(true);
     }
 }
