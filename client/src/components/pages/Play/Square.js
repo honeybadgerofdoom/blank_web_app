@@ -77,12 +77,45 @@ export default function Square(props) {
         }
     }
 
+    async function sendMoveRequest() {
+        const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID}, "http://localhost:8000");
+        if(moveResponse) {
+            console.log("move successful");
+        }
+        else{
+            console.log("move failed");
+        }
+    }
+
+    async function sendBoardRequest() {
+        const boardResponse = await(sendRequest({requestType: "board", userID: props.userID}, 'http://localhost:8000'));
+        if(boardResponse) {
+            props.setBoardState(props.getBoardState(boardResponse));
+        }
+        else {
+            console.log("board request failed")
+        }
+    }
+
     function handleClick() {
-        if(props.piece !== "") {
+        if(props.fromPosition === "" && props.piece !== "") {
+            props.setFromPosition(props.position);
             props.setClickedSquare(props.position);
             sendLegalMovesRequest(props.position);
         }
+        else if(props.fromPosition !== "" && props.piece !== "" && squareColor !== squareColors.captureSquare) {
+            props.setFromPosition(props.position);
+            props.setClickedSquare(props.position);
+            sendLegalMovesRequest(props.position);
+        }
+        else if((props.fromPosition !== "" && props.piece === "" && squareColor === squareColors.highlightedSquare) || props.fromPosition !== "" && props.piece !== "" && squareColor === squareColors.captureSquare) {
+            console.log("Send the Move API Request with fromPosition: " + props.fromPosition + " toPosition: " + props.position);
+            sendMoveRequest();
+            sendBoardRequest();
+            props.setFromPosition("");
+        }
         else {
+            props.setFromPosition("");
             props.setClickedSquare("");
             props.setHighlightedSquares([]);
         }
