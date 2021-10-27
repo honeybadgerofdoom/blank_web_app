@@ -50,26 +50,23 @@ public class MoveRequest extends Request {
             storeNewBoardState(newBoardString);
 
             //FIXME add winner, castling, promotion
-        } catch (IllegalMoveException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         log.trace("buildResponse -> {}", this);
     }
 
-    private void storeNewBoardState(String newBoardString) throws SQLException {
-        System.out.println("newBoardString: " + newBoardString);
+    private void storeNewBoardState(String newBoardString) throws Exception {
         try (Database db = new Database()) {
-            List<Map<String, String>> gameResults = db.query(getFirstGameID(), this.userID, this.userID);
+            List<Map<String, String>> results = db.query(getFirstGameID(), this.userID, this.userID);
             int gameID = Integer.parseInt(results.get(0).get("gameID"));
             db.update(storingQueryString(), newBoardString, gameID); //This returns num rows updated
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
+            String updatedBoardString = BoardRequest.getBoardFromDatabase(this.userID);
         }
     }
 
     private String getFirstGameID() {
-        return "SELECT gameID FROM games WHERE player1=? OR player2=? LIMIT1";
+        return "SELECT gameID FROM games WHERE player1=? OR player2=? LIMIT 1";
     }
 
     private String storingQueryString() {
