@@ -34,12 +34,8 @@ public class LegalMovesRequest extends Request {
          try {
               ChessBoard board = new ChessBoard();
               board.initialize(boardString);
-              System.out.println(board);
               ChessPiece piece = board.getPiece(position);
               legalMoves = piece.legalMoves();
-              System.out.println("Piece at " + position + " is " + piece);
-              System.out.println("Legal Moves...");
-              for(String move : legalMoves) System.out.println(move);
          } catch (IllegalPositionException e) {
               e.printStackTrace();
          }

@@ -41,22 +41,37 @@ public class ChessBoard {
 	}
 
 	public void initialize(String boardState) {
-		HashMap<String, ChessPiece> unicodeToPiece = getUnicodePieceMapping();
 		for(int i = 0; i < boardState.length(); i++) {
 			char currentChar = boardState.charAt(i);
-			ChessPiece currentPiece = unicodeToPiece.get(String.valueOf(currentChar));
+			ChessPiece currentPiece = createPieceForInit(currentChar);
 			String position = positionFromIndex(i);
-//			System.out.println("piece at " + position + " is " + currentPiece);
-			//FIXME I think the issues is coming from pieceAlreadyOnBoard!!!
 			if(currentPiece != null) {
-				System.out.println("placing " + currentPiece + " at " + position);
-				//FIXME yes yes this is absolute trash i kno
+				// yes yes i kno this is trash, can be refactored later
 				checkingIfPieceOnBoard = false;
 				placePiece(currentPiece, position);
 				checkingIfPieceOnBoard = true;
 			}
 		}
-		System.out.println("Board after string initialization: " + board);
+	}
+
+	private ChessPiece createPieceForInit(char currentChar) {
+		switch(currentChar) {
+			case 'k': return new King(this, Color.WHITE);
+			case 'q': return new Queen(this, Color.WHITE);
+			case 'r': return new Rook(this, Color.WHITE);
+			case 'b': return new Bishop(this, Color.WHITE);
+			case 'n': return new Knight(this, Color.WHITE);
+			case 'p': return new Pawn(this, Color.WHITE);
+
+			case 'K': return new King(this, Color.BLACK);
+			case 'Q': return new Queen(this, Color.BLACK);
+			case 'R': return new Rook(this, Color.BLACK);
+			case 'B': return new Bishop(this, Color.BLACK);
+			case 'N': return new Knight(this, Color.BLACK);
+			case 'P': return new Pawn(this, Color.BLACK);
+
+			default: return null;
+		}
 	}
 
 	private String positionFromIndex(int num) {
@@ -72,24 +87,6 @@ public class ChessBoard {
 		else firstNumber = 7;
 		int secondNumber = num % 8;
 		return rowColToPosition(firstNumber, secondNumber);
-	}
-
-	private HashMap<String, ChessPiece> getUnicodePieceMapping() {
-		HashMap<String, ChessPiece> unicodeToPiece = new HashMap<String, ChessPiece>();
-		unicodeToPiece.put("k", new King(this, Color.WHITE));
-		unicodeToPiece.put("q", new Queen(this, Color.WHITE));
-		unicodeToPiece.put("r", new Rook(this, Color.WHITE));
-		unicodeToPiece.put("b", new Bishop(this, Color.WHITE));
-		unicodeToPiece.put("n", new Knight(this, Color.WHITE));
-		unicodeToPiece.put("p", new Pawn(this, Color.WHITE));
-		unicodeToPiece.put("K", new King(this, Color.BLACK));
-		unicodeToPiece.put("Q", new Queen(this, Color.BLACK));
-		unicodeToPiece.put("R", new Rook(this, Color.BLACK));
-		unicodeToPiece.put("B", new Bishop(this, Color.BLACK));
-		unicodeToPiece.put("N", new Knight(this, Color.BLACK));
-		unicodeToPiece.put("P", new Pawn(this, Color.BLACK));
-		unicodeToPiece.put("-", null);
-		return unicodeToPiece;
 	}
 
 	private void addPawns(int row, Color color) {
