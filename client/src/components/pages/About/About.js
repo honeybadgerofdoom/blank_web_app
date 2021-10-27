@@ -1,5 +1,5 @@
 import React from "react";
-import {Typography, Card, CardContent, CardMedia} from "@material-ui/core";
+import {Typography, Card, CardContent, CardMedia, Grid, Item} from "@material-ui/core";
 import teamImage from "../../../../../images/t02TeamImage.jpg";
 import aaronImage from "../../../../../images/Aaron Lawrence 414 pic.jpg";
 import aprilImage from "../../../../../images/april.jpg";
@@ -9,11 +9,15 @@ import laniImage from "../../../../../images/LaniB- image.jpg";
 import darinImage from "../../../../../images/darin.jpg";
 export default function About(props) {
     return (
-        <div>
+        <Grid container> 
+            <Grid item xs={4}/>
+            <Grid item>
             <Typography align="center" variant="h4">About Us</Typography>
+
             <br/>
+            <Grid item>
             <div>
-                <Card style={{ left: '10%', width: '25rem' }}>
+                <Card style={{ width: '30rem' }}>
                     <CardMedia 
                         component="img"
                         image={teamImage}
@@ -28,7 +32,7 @@ export default function About(props) {
 
                     </CardContent>
                 </Card>
-                <Card style={{ left: '10%', width: '25rem' }}>
+                <Card style={{ width: '30rem' }}>
                 <CardMedia 
                         component="img"
                         image={kassidyImage}
@@ -40,7 +44,7 @@ export default function About(props) {
                         <Typography align="center">Kassidy is a senior at Colorado State University and will graduate in Spring of 2022 with a degree in Computer Science. She’s worked on drone stabilization research as well as a committee focusing on women’s inclusion in STEM at CSU. She is a proud member of the software engineering Team Reakt and is looking forward to a great semester.</Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ left: '10%', width: '25rem' }}>
+                <Card style={{ width: '30rem' }}>
                 <CardMedia 
                         component="img"
                         image={laniImage}
@@ -52,7 +56,7 @@ export default function About(props) {
                         <Typography align="center">Lani is a senior in the Computer Science Department. She also works full time. This is the last class needed for her to obtain her degree. When she is not studying or working, she enjoys traveling, hanging out with friends, cosplay, and hiking.</Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ left: '10%', width: '25rem' }}>
+                <Card style={{ width: '30rem' }}>
                 <CardMedia 
                         component="img"
                         image={darinImage}
@@ -64,7 +68,7 @@ export default function About(props) {
                         <Typography align="center">Darin is a computer science student at CSU studying in his final semester. He took up programming in early high school where he developed small games in Java. He is now a software engineering TA and hoping to attend Georgia Tech for his Master’s in CS. He spends his free time watching Colorado sports, learning piano, petting his dog, reading, and playing Switch.</Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ left: '10%', width: '25rem' }}>
+                <Card style={{ width: '30rem' }}>
                 <CardMedia 
                         component="img"
                         image={aprilImage}
@@ -76,7 +80,7 @@ export default function About(props) {
                         <Typography align="center">April is a senior in the computer science department and works for Alpha Security in Aspen, CO as a UNIX sysadmin/programmer. Outside of class, she enjoys looking for security vulnerabilities and developing hypochondria from reading random articles on PubMed. She hopes to go to medical school one day.</Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ left: '50px', width: '25rem' }}>
+                <Card style={{ width: '30rem' }}>
                 <CardMedia 
                         component="img"
                         image={aaronImage}
@@ -88,7 +92,7 @@ export default function About(props) {
                         <Typography align="center">Aaron is a senior majoring in computer science at CSU. A love of video games lead him to learn programming in hopes of being able to create his own games. Since he started learning how to program, he has worked with a number of different languages such as Java, Python, BASIC, and more. In his free time, Aaron enjoys talking to friends and, of course, playing various games.</Typography>
                     </CardContent>
                 </Card>
-                <Card style={{ left: '10%', width: '25rem' }}>
+                <Card style={{ width: '30rem' }}>
                 <CardMedia 
                         component="img"
                         image={mattImage}
@@ -101,6 +105,8 @@ export default function About(props) {
                     </CardContent>
                 </Card>
             </div>
-        </div>
+            </Grid>
+            </Grid>
+        </Grid>
     );
 }
