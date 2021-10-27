@@ -16,7 +16,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BoardRequest extends Request {
+public class GameRequest extends Request {
 
     private final transient Logger log = LoggerFactory.getLogger(GameRequest.class);
     private int userID;
@@ -36,7 +36,7 @@ public class BoardRequest extends Request {
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
             System.out.println(results);
-            String board = results.get("board");
+            String board = results.get(0).get("board");
             return board;
         } catch (Exception e) {
             e.printStackTrace();
