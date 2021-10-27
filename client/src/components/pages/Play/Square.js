@@ -102,9 +102,7 @@ export default function Square(props) {
             props.setFromPosition("");
         }
         else {
-            props.setFromPosition("");
-            props.setClickedSquare("");
-            props.setHighlightedSquares([]);
+            resetBoardStateVars();
         }
     }
 
