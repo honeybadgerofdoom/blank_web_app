@@ -33,6 +33,7 @@ const Rule= {
           );
      },
 
+
      Pawn: function (props){
           return( 
           <><>
@@ -65,6 +66,7 @@ const Rule= {
           );
      },
 
+
      Knight: function (props){
           return( 
           <><>
@@ -82,6 +84,7 @@ const Rule= {
           </></>
           );
      },
+
 
      Bishop: function (props){
           return( 
@@ -101,6 +104,7 @@ const Rule= {
           );
      },
 
+
      Rook: function (props){
           return( 
           <><>
@@ -117,6 +121,7 @@ const Rule= {
           </></>
           );
      },
+
 
      Queen: function (props){
           return( 
@@ -136,6 +141,7 @@ const Rule= {
           </></>
           );
      },
+
 
      King: function (props){
           return( 
@@ -158,7 +164,6 @@ const Rule= {
          <Typography display="block"> &emsp;  </Typography>
          <Typography display="block"> &emsp; </Typography>
           </></>
-          
           );
      }
      
