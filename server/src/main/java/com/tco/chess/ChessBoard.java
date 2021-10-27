@@ -9,7 +9,6 @@ public class ChessBoard {
 	private ChessPiece[][] board;
 	private Color turn;
 	private Color winner = null;
-	private boolean checkingIfPieceOnBoard;
 	private int[] piecesRemaining = {8, 2, 2, 2, 1, 1, 8, 2, 2, 2, 1, 1};
 	/*
 	INDICES
@@ -30,7 +29,6 @@ public class ChessBoard {
 	public ChessBoard() {
 		board = new ChessPiece[8][8];
 		turn = Color.WHITE;
-		checkingIfPieceOnBoard = true;
 	}
 
 	public void initialize() {
@@ -45,16 +43,12 @@ public class ChessBoard {
 			char currentChar = boardState.charAt(i);
 			ChessPiece currentPiece = createPieceForInit(currentChar);
 			String position = positionFromIndex(i);
-			if(currentPiece != null) {
-				// yes yes i kno this is trash, can be refactored later
-				checkingIfPieceOnBoard = false;
-				placePiece(currentPiece, position);
-				checkingIfPieceOnBoard = true;
-			}
+			if(currentPiece != null) placePiece(currentPiece, position);
 		}
 	}
 
 	private ChessPiece createPieceForInit(char currentChar) {
+		// FIXME someone refactor me!
 		switch(currentChar) {
 			case 'k': return new King(this, Color.WHITE);
 			case 'q': return new Queen(this, Color.WHITE);
@@ -75,6 +69,7 @@ public class ChessBoard {
 	}
 
 	private String positionFromIndex(int num) {
+		// FIXME someone refactor me!
 		int[] position = new int[2];
 		int firstNumber;
 		if(num < 8) firstNumber = 0;
@@ -179,10 +174,8 @@ public class ChessBoard {
 
 			boolean onBoard = checkPieceOnBoard(piece);
 
-			if(checkingIfPieceOnBoard) {
-				if (onBoard) {
-					this.board[piece.row][piece.column] = null;
-				}
+			if (onBoard) {
+				this.board[piece.row][piece.column] = null;
 			}
 
 		//	this.board[piece.row][piece.column] = null;
