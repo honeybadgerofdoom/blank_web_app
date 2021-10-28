@@ -35,11 +35,11 @@ export default function Register(props) {
             if (response) {
                 props.showMessage("You have successfully register and are now able to login");
             } else {
-                props.showMessage("That username is already taken");
+                props.showMessage("That username or email is already taken");
             }
         }
         else {
-            props.showMessage("Passwords do not match or email is not unique");
+            props.showMessage("Passwords do not match");
         }
     }
 
