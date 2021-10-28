@@ -64,7 +64,7 @@ export default function Register(props) {
                             </Grid>
                             <Grid item>
                                 <PasswordInputField title="password" name="Password" value={password} setValue={setPassword} />
-                                <PasswordInputField title="comfirm-password" name="Confirm Password" value={confirmPassword} setValue={setConfirmPassword} />
+                                <PasswordInputField title="confirm-password" name="Confirm Password" value={confirmPassword} setValue={setConfirmPassword} />
                             </Grid>
                             <Grid item>
                                 <Button className={classes.shortTextField} variant="outlined" size="large" onClick={sendRegisterRequest}>Sign Me Up!</Button>
