@@ -33,6 +33,8 @@ public class LoginRequest extends Request {
 
             tryLogin(connection, username, saltedPassword);
 
+        } catch (UnauthorizedRequestException e) {
+            throw e;
         } catch (Exception e) {
             e.printStackTrace();
         }
