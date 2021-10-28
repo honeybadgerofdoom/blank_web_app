@@ -6,7 +6,6 @@ public class Knight extends ChessPiece{
 
 	public Knight(ChessBoard board, Color color) {
 		super(board, color);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

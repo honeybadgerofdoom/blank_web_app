@@ -20,93 +20,13 @@ public class Rook extends ChessPiece {
 	@Override
 	public ArrayList<String> legalMoves(){
 		ArrayList<String> legalMoves = new ArrayList<>();
-		int col = this.column;
-		int row = this.row;
-
 		// NOTE The castling positions are ALREADY in the Rook's legalMoves array
-		
-		for(int i = col+1; i < 8; i++) {
-			char colChar = (char) (i + 'a');
-			String positionalStr = "";
-			positionalStr += colChar;
-			positionalStr += (char) (row + '1');
-			try {
-				if (board.getPiece(positionalStr) != null) {
-					if (!board.getPiece(positionalStr).getColor().equals(this.getColor())) {
-						legalMoves.add(positionalStr);
-					}
-					break;
-				}
-				else {
-					legalMoves.add(positionalStr);
-				}
-			} catch (IllegalPositionException e) {
-				//Not a legal move
-				break;
-			}
-		}
-		
-		for(int i = row+1; i < 8; i++) {
-			char colChar = (char) (col + 'a');
-			String positionalStr = "";
-			positionalStr += colChar;
-			positionalStr += (char) (i + '1');
-			try {
-				if (board.getPiece(positionalStr) != null) {
-					if (!board.getPiece(positionalStr).getColor().equals(this.getColor())) {
-						legalMoves.add(positionalStr);
-					}
-					break;
-				}
-				else {
-					legalMoves.add(positionalStr);
-				}
-			} catch (IllegalPositionException e) {
-				//Not a legal move
-				break;
-			}
-		}
-		for(int i = col-1; i >= 0; i--) {
-			char colChar = (char) (i + 'a');
-			String positionalStr = "";
-			positionalStr += colChar;
-			positionalStr += (char) (row + '1');
-			try {
-				if (board.getPiece(positionalStr) != null) {
-					if (!board.getPiece(positionalStr).getColor().equals(this.getColor())) {
-						legalMoves.add(positionalStr);
-					}
-					break;
-				}
-				else {
-					legalMoves.add(positionalStr);
-				}
-			} catch (IllegalPositionException e) {
-				//Not a legal move
-				break;
-			}
-		}
-		for(int i = row-1; i >= 0; i--) {
-			char colChar = (char) (col + 'a');
-			String positionalStr = "";
-			positionalStr += colChar;
-			positionalStr += (char) (i + '1');
-			try {
-				if (board.getPiece(positionalStr) != null) {
-					if (!board.getPiece(positionalStr).getColor().equals(this.getColor())) {
-						legalMoves.add(positionalStr);
-					}
-					break;
-				}
-				else {
-					legalMoves.add(positionalStr);
-				}
-			} catch (IllegalPositionException e) {
-				//Not a legal move
-				break;
-			}
-		}
-		
+
+		addMovesInDirection(legalMoves, 1, 0);
+		addMovesInDirection(legalMoves, -1, 0);
+		addMovesInDirection(legalMoves, 0, 1);
+		addMovesInDirection(legalMoves, 0, -1);
+
 		return legalMoves;
 	}
 }
