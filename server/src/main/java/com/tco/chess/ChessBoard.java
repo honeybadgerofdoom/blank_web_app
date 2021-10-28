@@ -1,9 +1,9 @@
 package com.tco.chess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.tco.chess.ChessPiece.Color;
-
-
 
 public class ChessBoard {
 	private ChessPiece[][] board;
@@ -36,6 +36,52 @@ public class ChessBoard {
 		addPawns(7, Color.BLACK);
 		addPawns(2, Color.WHITE);
 		addNonPawns(1, Color.WHITE);
+	}
+
+	public void initialize(String boardState) {
+		for(int i = 0; i < boardState.length(); i++) {
+			char currentChar = boardState.charAt(i);
+			ChessPiece currentPiece = createPieceForInit(currentChar);
+			String position = positionFromIndex(i);
+			if(currentPiece != null) placePiece(currentPiece, position);
+		}
+	}
+
+	private ChessPiece createPieceForInit(char currentChar) {
+		// FIXME someone refactor me!
+		switch(currentChar) {
+			case 'k': return new King(this, Color.WHITE);
+			case 'q': return new Queen(this, Color.WHITE);
+			case 'r': return new Rook(this, Color.WHITE);
+			case 'b': return new Bishop(this, Color.WHITE);
+			case 'n': return new Knight(this, Color.WHITE);
+			case 'p': return new Pawn(this, Color.WHITE);
+
+			case 'K': return new King(this, Color.BLACK);
+			case 'Q': return new Queen(this, Color.BLACK);
+			case 'R': return new Rook(this, Color.BLACK);
+			case 'B': return new Bishop(this, Color.BLACK);
+			case 'N': return new Knight(this, Color.BLACK);
+			case 'P': return new Pawn(this, Color.BLACK);
+
+			default: return null;
+		}
+	}
+
+	private String positionFromIndex(int num) {
+		// FIXME someone refactor me!
+		int[] position = new int[2];
+		int firstNumber;
+		if(num < 8) firstNumber = 0;
+		else if(num < 16) firstNumber = 1;
+		else if(num < 24) firstNumber = 2;
+		else if(num < 32) firstNumber = 3;
+		else if(num < 40) firstNumber = 4;
+		else if(num < 48) firstNumber = 5;
+		else if(num < 56) firstNumber = 6;
+		else firstNumber = 7;
+		int secondNumber = num % 8;
+		return rowColToPosition(firstNumber, secondNumber);
 	}
 
 	private void addPawns(int row, Color color) {

@@ -44,7 +44,7 @@ export default function Board(props) {
             boardState.map((piece, index) => {
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
                                highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
-                               key={index} piece={piece} position={positionMap[index]}/>
+                               key={index} piece={piece} position={positionMap[index]} userID={props.currentUserID}/>
             })
         )
     }

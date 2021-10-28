@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.List;
@@ -25,16 +26,16 @@ public class BoardRequest extends Request {
     
     @Override
     public void buildResponse() {
-        String boardState = getBoardFromDatabase();
+        String boardState = getBoardFromDatabase(this.userID);
         boardString = dbResponseToPieceArray(boardState);
         success = true;
         log.trace("buildResponse -> {}", this);
     }
 
-    private String getBoardFromDatabase() {
+    protected static String getBoardFromDatabase(int userID) {
         String boardQuery = getDBQueryString();
         try (Database db = new Database()) {
-            List<Map<String, String>> results = db.query(boardQuery, this.userID, this.userID);
+            List<Map<String, String>> results = db.query(boardQuery, userID, userID);
             String board = results.get(0).get("board");
             return board;
         } catch (Exception e) {
@@ -43,7 +44,7 @@ public class BoardRequest extends Request {
         return "----------------------------------------------------------------";
     }
 
-    private String getDBQueryString() {
+    private static String getDBQueryString() {
         return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
     }
 
