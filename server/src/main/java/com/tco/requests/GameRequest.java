@@ -26,6 +26,7 @@ public class GameRequest extends Request {
 
     @Override
     public void buildResponse() {
+        gameIDs = new ArrayList<Integer>();
         getGameIDsFromDB(this.userID);
         success = true;
         log.trace("buildResponse -> {}", this);
@@ -35,7 +36,6 @@ public class GameRequest extends Request {
         String boardQuery = getDBQueryString();
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
-            System.out.println(results);
 
             for(int i = 0; i < results.size(); i++){
                 this.gameIDs.add(Integer.parseInt(results.get(i).get("gameID")));
