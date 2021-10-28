@@ -39,7 +39,7 @@ export default function Register(props) {
             }
         }
         else {
-            props.showMessage("Passwords do not match");
+            props.showMessage("Passwords do not match or email is not unique");
         }
     }
 
