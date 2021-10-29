@@ -27,7 +27,7 @@ public class BoardRequest extends Request {
     @Override
     public void buildResponse() {
         String boardState = getBoardFromDatabase(this.userID);
-        boardString = dbResponseToPieceArray(boardState);
+        boardString = boardStringToBoardState(boardState);
         success = true;
         log.trace("buildResponse -> {}", this);
     }
@@ -48,7 +48,7 @@ public class BoardRequest extends Request {
         return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
     }
 
-    protected static String[] dbResponseToPieceArray(String dbResponse) {
+    protected static String[] boardStringToBoardState(String dbResponse) {
         char[] charArray = dbResponse.toCharArray();
         String[] arrayOfPieces = new String[64];
         HashMap<String, String> charToUnicode = getPieceMapping();

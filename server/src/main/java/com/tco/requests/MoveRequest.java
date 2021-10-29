@@ -29,8 +29,8 @@ public class MoveRequest extends Request {
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
     private String fromPosition;
     private String toPosition;
+    // WE need to keep userID for enforcing player color. Just add gameID when we get there.
     private int userID;
-    // priavate Color userColor; we need this for castling & turn reasons
 
     private boolean turnValid;
     private boolean verifyPlayerColor;
@@ -43,19 +43,11 @@ public class MoveRequest extends Request {
     @Override
     public void buildResponse() {
         String boardString = BoardRequest.getBoardFromDatabase(this.userID);
-        /*
-        FIXME If player is player1, they can move WHITE pieces, if player2, they can move BLACK piece
-
-        1) Get player color via db query
-        2) Get piece color via getPiece(fromPosition).getColor()
-        3) Compare colors, set response var verifyPlayerColor
-        4) Check that response var on client
-         */
         try {
             ChessBoard board = new ChessBoard();
             board.initialize(boardString);
-            String pieceColor = board.getPiece(fromPosition).getColor() == Color.WHITE ? "WHITE" : "BLACK";
             int gameID = getGameID();
+            String pieceColor = board.getPiece(fromPosition).getColor() == Color.WHITE ? "WHITE" : "BLACK";
             String turn = getTurnFromDB(gameID);
             String playerColor = getPlayerColor(gameID);
             if(playerColor.equals(pieceColor)) {
@@ -69,15 +61,13 @@ public class MoveRequest extends Request {
                 }
                 else {
                     turnValid = false;
-                    String newBoardString = buildNewBoardString(board);
-                    storeNewBoardState(newBoardString, turn, gameID);
+                    this.newBoardState = BoardRequest.boardStringToBoardState(boardString);
                 }
             }
             else {
                 verifyPlayerColor = false;
                 turnValid = false;
-                String newBoardString = buildNewBoardString(board);
-                storeNewBoardState(newBoardString, turn, gameID);
+                this.newBoardState = BoardRequest.boardStringToBoardState(boardString);
             }
 
             //FIXME add winner, castling, promotion
@@ -123,7 +113,6 @@ public class MoveRequest extends Request {
         int[] players = new int[2];
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(getPlayerColorFromDB(), gameID);
-            System.out.println("Results: " + results);
             int player1 = Integer.parseInt(results.get(0).get("player1"));
             int player2 = Integer.parseInt(results.get(0).get("player2"));
             players[0] = player1;
@@ -169,7 +158,7 @@ public class MoveRequest extends Request {
                 }
             }
         }
-        this.newBoardState = BoardRequest.dbResponseToPieceArray(newBoardString);
+        this.newBoardState = BoardRequest.boardStringToBoardState(newBoardString);
         return newBoardString;
     }
 
