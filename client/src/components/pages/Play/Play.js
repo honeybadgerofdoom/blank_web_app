@@ -16,8 +16,5 @@ export default function Play(props) {
             console.log("game request failed");
         }
     }
-    return <>
-            <Board currentUserID={props.currentUserID}/>
-        </>
-
+    return <Board currentUserID={props.currentUserID} showMessage={props.showMessage} />
 }
