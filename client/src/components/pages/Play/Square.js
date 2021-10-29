@@ -88,7 +88,7 @@ export default function Square(props) {
             }
         }
         else {
-            props.showMessage("You can only move your own pieces");
+            props.showMessage("You can only move your own pieces", "error");
         }
         resetBoardStateVars();
     }
