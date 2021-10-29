@@ -6,6 +6,7 @@ import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
 import com.tco.chess.ChessBoard;
 import com.tco.chess.ChessPiece;
+import com.tco.chess.ChessPiece.Color;
 import com.tco.requests.BoardRequest;
 import com.tco.chess.IllegalPositionException;
 import com.tco.chess.IllegalMoveException;
@@ -31,7 +32,7 @@ public class MoveRequest extends Request {
     private int userID;
     // priavate Color userColor; we need this for castling & turn reasons
 
-    private boolean success;
+    private boolean turnValid;
     private String[] newBoardState;
     // private boolean kingsideCastle;
     // private boolean queensideCastle;
@@ -44,11 +45,19 @@ public class MoveRequest extends Request {
         try {
             ChessBoard board = new ChessBoard();
             board.initialize(boardString);
-            board.move(fromPosition, toPosition);
-            success = true;
-
-            String newBoardString = buildNewBoardString(board);
-            storeNewBoardState(newBoardString);
+            String pieceColor = board.getPiece(fromPosition).getColor() == Color.WHITE ? "WHITE" : "BLACK";
+            String turn = getTurnFromDB();
+            if (turn.equals(pieceColor)) {
+                turnValid = true;
+                board.move(fromPosition, toPosition);
+                String newBoardString = buildNewBoardString(board);
+                turn = turn.equals("WHITE") ? "BLACK" : "WHITE";
+                storeNewBoardState(newBoardString, turn);
+            } else {
+                turnValid = false;
+                String newBoardString = buildNewBoardString(board);
+                storeNewBoardState(newBoardString, turn);
+            }
 
             //FIXME add winner, castling, promotion
         } catch (Exception e) {
@@ -57,13 +66,35 @@ public class MoveRequest extends Request {
         log.trace("buildResponse -> {}", this);
     }
 
-    private void storeNewBoardState(String newBoardString) throws Exception {
+    private String getTurnFromDB() {
+        try (Database db = new Database()) {
+            List<Map<String, String>> gameIDResults = db.query(getFirstGameID(), this.userID, this.userID);
+            int gameID = Integer.parseInt(gameIDResults.get(0).get("gameID"));
+
+            List<Map<String, String>> results = db.query(getTurnQueryFromDB(), gameID);
+            String turn = results.get(0).get("turn");
+            return turn;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private void storeNewBoardState (String newBoardString, String turn) throws Exception {
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(getFirstGameID(), this.userID, this.userID);
             int gameID = Integer.parseInt(results.get(0).get("gameID"));
-            db.update(storingQueryString(), newBoardString, gameID); //This returns num rows updated
-            String updatedBoardString = BoardRequest.getBoardFromDatabase(this.userID);
+            db.update(storingQueryString(), newBoardString, gameID);
+            db.update(storeTurnIntoDB(), turn, gameID);
         }
+    }
+
+    private String getTurnQueryFromDB() {
+        return "SELECT turn FROM games WHERE gameID=?";
+    }
+
+    private String storeTurnIntoDB() {
+        return "UPDATE games set turn=? WHERE gameID=?";
     }
 
     private String getFirstGameID() {
@@ -74,19 +105,18 @@ public class MoveRequest extends Request {
         return "UPDATE games SET board=? WHERE gameID=?";
     }
 
-    private String buildNewBoardString(ChessBoard board) {
+    private String buildNewBoardString (ChessBoard board){
         String newBoardString = "";
         HashMap<String, String> unicodeToChar = getUnicodeToChar();
-        for(int i = 0; i < 8; i++) {
-            for(int j = 0; j < 8; j++) {
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
                 String position = rowColToPosition(i, j);
                 try {
                     ChessPiece piece = board.getPiece(position);
-                    if(piece != null) {
+                    if (piece != null) {
                         String pieceChar = unicodeToChar.get(piece.toString());
                         newBoardString += pieceChar;
-                    }
-                    else newBoardString += "-";
+                    } else newBoardString += "-";
                 } catch (IllegalPositionException e) {
                     e.printStackTrace();
                 }
@@ -96,13 +126,13 @@ public class MoveRequest extends Request {
         return newBoardString;
     }
 
-    private String rowColToPosition(int row, int column) {
+    private String rowColToPosition ( int row, int column){
         char letter = (char) (column + 97);
         int newRow = row + 1;
         return letter + "" + newRow;
     }
-    
-    private HashMap<String, String> getUnicodeToChar() {
+
+    private HashMap<String, String> getUnicodeToChar () {
         HashMap<String, String> unicodeToChar = new HashMap<String, String>();
         unicodeToChar.put("\u2654", "k");
         unicodeToChar.put("\u2655", "q");
@@ -119,5 +149,4 @@ public class MoveRequest extends Request {
         unicodeToChar.put("", "-");
         return unicodeToChar;
     }
-
 }
