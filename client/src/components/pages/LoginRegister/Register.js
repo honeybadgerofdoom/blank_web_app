@@ -33,7 +33,7 @@ export default function Register(props) {
         if(password === confirmPassword) {
             const response = await sendAPIRequest({requestType: "register", username: username, password: password, email: email}, "http://localhost:8000");
             if (response) {
-                props.showMessage("You have successfully register and are now able to login");
+                props.showMessage("You have successfully register and are now able to login", "success");
             } else {
                 props.showMessage("That username or email is already taken", "warning");
             }
