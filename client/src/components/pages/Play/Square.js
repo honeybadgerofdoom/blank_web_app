@@ -77,15 +77,48 @@ export default function Square(props) {
         }
     }
 
+    async function sendMoveRequest() {
+        const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID}, "http://localhost:8000");
+        if(moveResponse) {
+            const boardState = props.getBoardState(moveResponse.newBoardState);
+            props.setBoardState(boardState);
+            resetBoardStateVars();
+        }
+        else{
+            props.showMessage("Move failed...")
+        }
+    }
+
     function handleClick() {
-        if(props.piece !== "") {
-            props.setClickedSquare(props.position);
-            sendLegalMovesRequest(props.position);
+        if(notCallingMove()) {
+            resetBoardVisuals();
+        }
+        else if(aMoveIsPossible()) {
+            sendMoveRequest();
         }
         else {
-            props.setClickedSquare("");
-            props.setHighlightedSquares([]);
+            resetBoardStateVars();
         }
+    }
+
+    function resetBoardStateVars() {
+        props.setFromPosition("");
+        props.setClickedSquare("");
+        props.setHighlightedSquares([]);
+    }
+
+    function resetBoardVisuals() {
+        props.setFromPosition(props.position);
+        props.setClickedSquare(props.position);
+        sendLegalMovesRequest(props.position);
+    }
+
+    function notCallingMove() {
+        return (props.fromPosition === "" && props.piece !== "") || (props.fromPosition !== "" && props.piece !== "" && squareColor !== squareColors.captureSquare);
+    }
+
+    function aMoveIsPossible() {
+        return (props.fromPosition !== "" && props.piece === "" && squareColor === squareColors.highlightedSquare) || (props.fromPosition !== "" && props.piece !== "" && squareColor === squareColors.captureSquare);
     }
 
     return (
