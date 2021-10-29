@@ -3,13 +3,15 @@ import * as configSchema from "../../schemas/ConfigResponse";
 import * as boardSchema from "../../schemas/BoardResponse";
 import * as loginSchema from "../../schemas/LoginResponse";
 import * as legalMovesSchema from "../../schemas/LegalMovesResponse";
+import * as registerSchema from "../../schemas/RegisterResponse";
 import { LOG } from "./constants";
 
 const SCHEMAS = {
     config: configSchema,
     board: boardSchema,
     legalMoves: legalMovesSchema,
-    login: loginSchema
+    login: loginSchema,
+    register: registerSchema
 };
 
 export async function sendAPIRequest(requestBody, serverUrl) {
