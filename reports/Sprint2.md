@@ -1,4 +1,4 @@
-# Sprint 2 - T02 - Team Reakt
+# Sprint 2&3 - T02 - Team Reakt
 
 ## Review 
 
