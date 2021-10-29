@@ -32,7 +32,7 @@ public class MoveRequest extends Request {
     private int userID;
     // priavate Color userColor; we need this for castling & turn reasons
 
-    private boolean success;
+    private boolean turnValid;
     private String[] newBoardState;
     // private boolean kingsideCastle;
     // private boolean queensideCastle;
@@ -48,13 +48,13 @@ public class MoveRequest extends Request {
             String pieceColor = board.getPiece(fromPosition).getColor() == Color.WHITE ? "WHITE" : "BLACK";
             String turn = getTurnFromDB();
             if (turn.equals(pieceColor)) {
+                turnValid = true;
                 board.move(fromPosition, toPosition);
-                success = true;
                 String newBoardString = buildNewBoardString(board);
                 turn = turn.equals("WHITE") ? "BLACK" : "WHITE";
                 storeNewBoardState(newBoardString, turn);
             } else {
-                success = false;
+                turnValid = false;
                 String newBoardString = buildNewBoardString(board);
                 storeNewBoardState(newBoardString, turn);
             }
