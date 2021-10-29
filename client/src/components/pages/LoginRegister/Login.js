@@ -38,7 +38,7 @@ export default function Login(props) {
             props.showMessage("Welcome " + response.username); //This throws errors in the console...
         }
         else {
-            props.showMessage("Username or Password invalid");
+            props.showMessage("Username or Password invalid", "warning");
         }
     }
 

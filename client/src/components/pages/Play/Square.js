@@ -84,7 +84,7 @@ export default function Square(props) {
                 const boardState = props.getBoardState(moveResponse.newBoardState);
                 props.setBoardState(boardState);
             } else {
-                props.showMessage("It's not your turn!");
+                props.showMessage("It's not your turn!", "error");
             }
         }
         else {
