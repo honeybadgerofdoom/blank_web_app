@@ -33,6 +33,7 @@ public class MoveRequest extends Request {
     // priavate Color userColor; we need this for castling & turn reasons
 
     private boolean turnValid;
+    private boolean verifyPlayerColor;
     private String[] newBoardState;
     // private boolean kingsideCastle;
     // private boolean queensideCastle;
@@ -42,21 +43,41 @@ public class MoveRequest extends Request {
     @Override
     public void buildResponse() {
         String boardString = BoardRequest.getBoardFromDatabase(this.userID);
+        /*
+        FIXME If player is player1, they can move WHITE pieces, if player2, they can move BLACK piece
+
+        1) Get player color via db query
+        2) Get piece color via getPiece(fromPosition).getColor()
+        3) Compare colors, set response var verifyPlayerColor
+        4) Check that response var on client
+         */
         try {
             ChessBoard board = new ChessBoard();
             board.initialize(boardString);
             String pieceColor = board.getPiece(fromPosition).getColor() == Color.WHITE ? "WHITE" : "BLACK";
-            String turn = getTurnFromDB();
-            if (turn.equals(pieceColor)) {
-                turnValid = true;
-                board.move(fromPosition, toPosition);
-                String newBoardString = buildNewBoardString(board);
-                turn = turn.equals("WHITE") ? "BLACK" : "WHITE";
-                storeNewBoardState(newBoardString, turn);
-            } else {
+            int gameID = getGameID();
+            String turn = getTurnFromDB(gameID);
+            String playerColor = getPlayerColor(gameID);
+            if(playerColor.equals(pieceColor)) {
+                verifyPlayerColor = true;
+                if (turn.equals(pieceColor)) {
+                    turnValid = true;
+                    board.move(fromPosition, toPosition);
+                    String newBoardString = buildNewBoardString(board);
+                    turn = turn.equals("WHITE") ? "BLACK" : "WHITE";
+                    storeNewBoardState(newBoardString, turn, gameID);
+                }
+                else {
+                    turnValid = false;
+                    String newBoardString = buildNewBoardString(board);
+                    storeNewBoardState(newBoardString, turn, gameID);
+                }
+            }
+            else {
+                verifyPlayerColor = false;
                 turnValid = false;
                 String newBoardString = buildNewBoardString(board);
-                storeNewBoardState(newBoardString, turn);
+                storeNewBoardState(newBoardString, turn, gameID);
             }
 
             //FIXME add winner, castling, promotion
@@ -66,11 +87,22 @@ public class MoveRequest extends Request {
         log.trace("buildResponse -> {}", this);
     }
 
-    private String getTurnFromDB() {
+    private String getPlayerColor(int gameID) throws Exception {
+        int[] players = extractPlayers(gameID);
+        if(this.userID == players[0]) return "WHITE";
+        else if(this.userID == players[1]) return "BLACK";
+        else return "";
+    }
+
+    private int getGameID() throws Exception {
         try (Database db = new Database()) {
             List<Map<String, String>> gameIDResults = db.query(getFirstGameID(), this.userID, this.userID);
-            int gameID = Integer.parseInt(gameIDResults.get(0).get("gameID"));
+            return Integer.parseInt(gameIDResults.get(0).get("gameID"));
+        }
+    }
 
+    private String getTurnFromDB(int gameID) {
+        try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(getTurnQueryFromDB(), gameID);
             String turn = results.get(0).get("turn");
             return turn;
@@ -80,13 +112,28 @@ public class MoveRequest extends Request {
         }
     }
 
-    private void storeNewBoardState (String newBoardString, String turn) throws Exception {
+    private void storeNewBoardState (String newBoardString, String turn, int gameID) throws Exception {
         try (Database db = new Database()) {
-            List<Map<String, String>> results = db.query(getFirstGameID(), this.userID, this.userID);
-            int gameID = Integer.parseInt(results.get(0).get("gameID"));
             db.update(storingQueryString(), newBoardString, gameID);
             db.update(storeTurnIntoDB(), turn, gameID);
         }
+    }
+
+    private int[] extractPlayers(int gameID) throws Exception {
+        int[] players = new int[2];
+        try (Database db = new Database()) {
+            List<Map<String, String>> results = db.query(getPlayerColorFromDB(), gameID);
+            System.out.println("Results: " + results);
+            int player1 = Integer.parseInt(results.get(0).get("player1"));
+            int player2 = Integer.parseInt(results.get(0).get("player2"));
+            players[0] = player1;
+            players[1] = player2;
+            return players;
+        }
+    }
+
+    private String getPlayerColorFromDB() {
+        return "SELECT * FROM games WHERE gameID=?";
     }
 
     private String getTurnQueryFromDB() {
