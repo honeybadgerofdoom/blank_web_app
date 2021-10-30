@@ -15,7 +15,7 @@ const SCHEMAS = {
 };
 
 export async function sendAPIRequest(requestBody, serverUrl) {
-    const response = await sendRequest(requestBody, serverUrl);
+    const response = await sendRequest(requestBody, getOriginalServerUrl()); //serverUrl
 
     if (!Object.keys(SCHEMAS).includes(requestBody.requestType)) {
         throw new Error(`sendAPIRequest() does not have support for type: ${requestBody.requestType}. Please add the schema to 'SCHEMAS'.`);
@@ -27,18 +27,18 @@ export async function sendAPIRequest(requestBody, serverUrl) {
     return null;
 }
 
-export async function sendRequest(requestBody, serverUrl) {
+export async function sendRequest(requestBody) { //, serveURL
     const fetchOptions = {
         method: "POST",
         body: JSON.stringify(requestBody)
     };
 
     try {
-        const response = await fetch(`${serverUrl}/api/${requestBody.requestType}`, fetchOptions);
+        const response = await fetch(`${getOriginalServerUrl()}/api/${requestBody.requestType}`, fetchOptions);
         if (response.ok) {
             return response.json();
         } else {
-            LOG.error(`Request to server ${serverUrl} failed: ${response.status}: ${response.statusText}`);
+            LOG.error(`Request to server ${getOriginalServerUrl()} failed: ${response.status}: ${response.statusText}`);
         }
 
     } catch (err) {
