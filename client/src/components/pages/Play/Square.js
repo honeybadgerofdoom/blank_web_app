@@ -79,12 +79,16 @@ export default function Square(props) {
 
     async function sendMoveRequest() {
         const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID}, "http://localhost:8000");
-        if(moveResponse.turnValid) {
-            const boardState = props.getBoardState(moveResponse.newBoardState);
-            props.setBoardState(boardState);
+        if(moveResponse.verifyPlayerColor) {
+            if (moveResponse.turnValid) {
+                const boardState = props.getBoardState(moveResponse.newBoardState);
+                props.setBoardState(boardState);
+            } else {
+                props.showMessage("It's not your turn!", "error");
+            }
         }
-        else{
-            props.showMessage("It's not your turn!");
+        else {
+            props.showMessage("You can only move your own pieces", "error");
         }
         resetBoardStateVars();
     }

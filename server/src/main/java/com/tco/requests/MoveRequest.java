@@ -29,10 +29,11 @@ public class MoveRequest extends Request {
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
     private String fromPosition;
     private String toPosition;
+    // WE need to keep userID for enforcing player color. Just add gameID when we get there.
     private int userID;
-    // priavate Color userColor; we need this for castling & turn reasons
 
     private boolean turnValid;
+    private boolean verifyPlayerColor;
     private String[] newBoardState;
     // private boolean kingsideCastle;
     // private boolean queensideCastle;
@@ -45,18 +46,28 @@ public class MoveRequest extends Request {
         try {
             ChessBoard board = new ChessBoard();
             board.initialize(boardString);
+            int gameID = getGameID();
             String pieceColor = board.getPiece(fromPosition).getColor() == Color.WHITE ? "WHITE" : "BLACK";
-            String turn = getTurnFromDB();
-            if (turn.equals(pieceColor)) {
-                turnValid = true;
-                board.move(fromPosition, toPosition);
-                String newBoardString = buildNewBoardString(board);
-                turn = turn.equals("WHITE") ? "BLACK" : "WHITE";
-                storeNewBoardState(newBoardString, turn);
-            } else {
+            String turn = getTurnFromDB(gameID);
+            String playerColor = getPlayerColor(gameID);
+            if(playerColor.equals(pieceColor)) {
+                verifyPlayerColor = true;
+                if (turn.equals(pieceColor)) {
+                    turnValid = true;
+                    board.move(fromPosition, toPosition);
+                    String newBoardString = buildNewBoardString(board);
+                    turn = turn.equals("WHITE") ? "BLACK" : "WHITE";
+                    storeNewBoardState(newBoardString, turn, gameID);
+                }
+                else {
+                    turnValid = false;
+                    this.newBoardState = BoardRequest.boardStringToBoardState(boardString);
+                }
+            }
+            else {
+                verifyPlayerColor = false;
                 turnValid = false;
-                String newBoardString = buildNewBoardString(board);
-                storeNewBoardState(newBoardString, turn);
+                this.newBoardState = BoardRequest.boardStringToBoardState(boardString);
             }
 
             //FIXME add winner, castling, promotion
@@ -66,11 +77,22 @@ public class MoveRequest extends Request {
         log.trace("buildResponse -> {}", this);
     }
 
-    private String getTurnFromDB() {
+    private String getPlayerColor(int gameID) throws Exception {
+        int[] players = extractPlayers(gameID);
+        if(this.userID == players[0]) return "WHITE";
+        else if(this.userID == players[1]) return "BLACK";
+        else return "";
+    }
+
+    private int getGameID() throws Exception {
         try (Database db = new Database()) {
             List<Map<String, String>> gameIDResults = db.query(getFirstGameID(), this.userID, this.userID);
-            int gameID = Integer.parseInt(gameIDResults.get(0).get("gameID"));
+            return Integer.parseInt(gameIDResults.get(0).get("gameID"));
+        }
+    }
 
+    private String getTurnFromDB(int gameID) {
+        try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(getTurnQueryFromDB(), gameID);
             String turn = results.get(0).get("turn");
             return turn;
@@ -80,13 +102,27 @@ public class MoveRequest extends Request {
         }
     }
 
-    private void storeNewBoardState (String newBoardString, String turn) throws Exception {
+    private void storeNewBoardState (String newBoardString, String turn, int gameID) throws Exception {
         try (Database db = new Database()) {
-            List<Map<String, String>> results = db.query(getFirstGameID(), this.userID, this.userID);
-            int gameID = Integer.parseInt(results.get(0).get("gameID"));
             db.update(storingQueryString(), newBoardString, gameID);
             db.update(storeTurnIntoDB(), turn, gameID);
         }
+    }
+
+    private int[] extractPlayers(int gameID) throws Exception {
+        int[] players = new int[2];
+        try (Database db = new Database()) {
+            List<Map<String, String>> results = db.query(getPlayerColorFromDB(), gameID);
+            int player1 = Integer.parseInt(results.get(0).get("player1"));
+            int player2 = Integer.parseInt(results.get(0).get("player2"));
+            players[0] = player1;
+            players[1] = player2;
+            return players;
+        }
+    }
+
+    private String getPlayerColorFromDB() {
+        return "SELECT * FROM games WHERE gameID=?";
     }
 
     private String getTurnQueryFromDB() {
@@ -122,7 +158,7 @@ public class MoveRequest extends Request {
                 }
             }
         }
-        this.newBoardState = BoardRequest.dbResponseToPieceArray(newBoardString);
+        this.newBoardState = BoardRequest.boardStringToBoardState(newBoardString);
         return newBoardString;
     }
 
