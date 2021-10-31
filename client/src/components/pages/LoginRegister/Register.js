@@ -31,7 +31,7 @@ export default function Register(props) {
 
     async function sendRegisterRequest() {
         if(password === confirmPassword) {
-            const response = await sendAPIRequest({requestType: "register", username: username, password: password, email: email}, "http://localhost:8000");
+            const response = await sendAPIRequest({requestType: "register", username: username, password: password, email: email});
             if (response) {
                 props.showMessage("You have successfully register and are now able to login");
             } else {
