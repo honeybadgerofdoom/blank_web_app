@@ -14,7 +14,7 @@ const SCHEMAS = {
     register: registerSchema
 };
 
-export async function sendAPIRequest(requestBody, serverUrl) {
+export async function sendAPIRequest(requestBody) {
     const response = await sendRequest(requestBody, getOriginalServerUrl()); 
 
     if (!Object.keys(SCHEMAS).includes(requestBody.requestType)) {
