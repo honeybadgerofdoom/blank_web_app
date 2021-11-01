@@ -31,7 +31,7 @@ export default function Login(props) {
     const [password, setPassword] = useState('');
 
     async function sendLoginRequest() {
-        const response = await sendAPIRequest({requestType:"login", username:username, password:password}, "http://localhost:8000");
+        const response = await sendAPIRequest({requestType:"login", username:username, password:password});
         if(response) {
             props.setUserAuthenticated(true);
             props.setCurrentUserID(response.userID);
