@@ -26,7 +26,7 @@ For the most reliable and error-free experience, we recommend that you run our p
 2. **Lab machines or VSCode RemoteSSH:** Visit the lab machines in-person or install the `Remote - SSH` extension to access them remotely. The project will run without additional setup in this environment. 
 3. **VSCode with Docker:** Install the VSCode `Remote - Containers` extension and pull our image `csucs314/developer-image`. Open the container in the editor using the explorer panel.
 
-Once you select an environment, see our [Database Manual](https://github.com/CSU-CS-414-Fall-2021/t02/tree/main/reports/database) that details how to access our remote database running on Faure at CSU.
+Once you select an environment, see our [Database Manual](https://github.com/CSU-CS-414-Fall-2021/t02/blob/main/database/README.md) that details how to access our remote database running on Faure at CSU.
 
 Note: All of these choices require that you use **NPM <= 6** and **Node <= 14** to be compatible with our package versions. Additionally, Java versions higher than 11 may fail to compile.
 
