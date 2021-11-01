@@ -15,7 +15,7 @@ const SCHEMAS = {
 };
 
 export async function sendAPIRequest(requestBody) {
-    const response = await sendRequest(requestBody, getOriginalServerUrl()); 
+    const response = await sendRequest(requestBody); 
 
     if (!Object.keys(SCHEMAS).includes(requestBody.requestType)) {
         throw new Error(`sendAPIRequest() does not have support for type: ${requestBody.requestType}. Please add the schema to 'SCHEMAS'.`);
