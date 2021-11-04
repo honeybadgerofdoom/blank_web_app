@@ -21,7 +21,7 @@ export default function Board(props) {
     const [boardState, setBoardState] = useState([]);
 
     async function sendBoardRequest() {
-        const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID}));
+        const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID, gameID: props.chosenGame}));
         if(boardResponse) {
             setBoardState(getBoardState(boardResponse.boardString));
         }

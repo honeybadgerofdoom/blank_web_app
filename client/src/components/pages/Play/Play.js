@@ -16,5 +16,6 @@ export default function Play(props) {
             console.log("game request failed");
         }
     }
-    return <Board currentUserID={props.currentUserID} showMessage={props.showMessage} />
+    return <Button variant="outlined" size="large" onClick={sendGameRequest}>Send that game</Button>
+    //return <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGameID />
 }

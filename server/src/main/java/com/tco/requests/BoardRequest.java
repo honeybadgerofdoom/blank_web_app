@@ -27,7 +27,7 @@ public class BoardRequest extends Request {
     
     @Override
     public void buildResponse() {
-        String boardState = getBoardFromDatabase(this.userID);
+        String boardState = getBoardFromDatabase(this.userID, this.gameID);
         boardString = boardStringToBoardState(boardState);
         success = true;
         log.trace("buildResponse -> {}", this);
