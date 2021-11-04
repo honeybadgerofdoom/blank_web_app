@@ -14,7 +14,10 @@
       "description":"a user ID",
       "type":"number"
     },
-
+    "gameID": {
+      "description":"a game ID",
+      "type":"number"
+    }
   },
   "required": ["requestType", "userID", "gameID"],
   "additionalProperties": false

@@ -15,7 +15,7 @@
       "type":"number"
     },
     "gameID": {
-      "description":"a username.",
+      "description":"a game ID",
       "type":"number"
     }
   },
