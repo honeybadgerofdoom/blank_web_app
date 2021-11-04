@@ -1,0 +1,26 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "users",
+  "description": "users object for POST request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the object type should be users",
+      "type": "string",
+      "pattern": "^users$"
+    },
+    "match": {
+      "description": "an username pattern to match",
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9_ ]+$"
+    },
+    "limit": {
+      "description": "the max number of users to return",
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": ["requestType", "match", "limit"],
+  "additionalProperties": false
+}
