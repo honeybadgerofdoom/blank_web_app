@@ -20,6 +20,7 @@ public class BoardRequest extends Request {
     
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
     private int userID;
+    private int gameID;
 
     private String[] boardString;
     private boolean success;

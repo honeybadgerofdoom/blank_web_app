@@ -31,6 +31,7 @@ public class MoveRequest extends Request {
     private String toPosition;
     // WE need to keep userID for enforcing player color. Just add gameID when we get there.
     private int userID;
+    private int gameID;
 
     private boolean turnValid;
     private boolean verifyPlayerColor;
@@ -42,11 +43,10 @@ public class MoveRequest extends Request {
 
     @Override
     public void buildResponse() {
-        String boardString = BoardRequest.getBoardFromDatabase(this.userID);
+        String boardString = BoardRequest.getBoardFromDatabase(this.userID, this.gameID);
         try {
             ChessBoard board = new ChessBoard();
             board.initialize(boardString);
-            int gameID = getGameID();
             String pieceColor = board.getPiece(fromPosition).getColor() == Color.WHITE ? "WHITE" : "BLACK";
             String turn = getTurnFromDB(gameID);
             String playerColor = getPlayerColor(gameID);
@@ -82,13 +82,6 @@ public class MoveRequest extends Request {
         if(this.userID == players[0]) return "WHITE";
         else if(this.userID == players[1]) return "BLACK";
         else return "";
-    }
-
-    private int getGameID() throws Exception {
-        try (Database db = new Database()) {
-            List<Map<String, String>> gameIDResults = db.query(getFirstGameID(), this.userID, this.userID);
-            return Integer.parseInt(gameIDResults.get(0).get("gameID"));
-        }
     }
 
     private String getTurnFromDB(int gameID) {
@@ -131,10 +124,6 @@ public class MoveRequest extends Request {
 
     private String storeTurnIntoDB() {
         return "UPDATE games set turn=? WHERE gameID=?";
-    }
-
-    private String getFirstGameID() {
-        return "SELECT gameID FROM games WHERE player1=? OR player2=? LIMIT 1";
     }
 
     private String storingQueryString() {
