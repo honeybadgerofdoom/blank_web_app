@@ -13,8 +13,9 @@
     "userID": {
       "description":"a user ID",
       "type":"number"
-    }
+    },
+
   },
-  "required": ["requestType", "userID"],
+  "required": ["requestType", "userID", "gameID"],
   "additionalProperties": false
 }
