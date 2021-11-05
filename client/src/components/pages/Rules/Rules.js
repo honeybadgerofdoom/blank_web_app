@@ -1,5 +1,5 @@
 import React from "react";
-import {Typography} from "@material-ui/core";
+import {Typography, Card, CardContent, CardMedia, Grid, Item} from "@material-ui/core";
 
 export default function Rules(props) {
      var rule = [Rule.OverAllRules.call(), Rule.Pawn.call(), Rule.Knight.call(), 
