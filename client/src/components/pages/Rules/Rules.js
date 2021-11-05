@@ -2,8 +2,13 @@ import React from "react";
 import {Typography, Card, CardContent, CardMedia, Grid, Item} from "@material-ui/core";
 
 const ruleSetup= {
+     generalRules = ["Extinction Chess is a variant of actual chess.  You win the game by eliminating all of one piece of the opponent." +
+     " This can be done by: \r∙ Capturing the opponent’s  king, \r∙ Capturing the opponent’s queen, \r∙ Capturing both of the opponent's" +
+     " knights, \r∙ Capturing both of the opponent’s bishops, \r∙ Capturing both of the opponent's rooks,\r∙ Capturing all of the "+
+     "opponent’s pawns. \rAll player’s pieces can capture an opponent's piece by taking its position on the board.\rThe current legal moves"+
+     + " of each piece will highlight once a piece is selected.  \rBelow is an explanation of all the rules for each piece."],
      headings = ["Pawn", "Knight", "Bishop", "Rook", "Queen", "King"]
-}
+
 
 export default function Rules(props) {
      var rule = [Rule.OverAllRules.call(), Rule.Pawn.call(), Rule.Knight.call(), 
