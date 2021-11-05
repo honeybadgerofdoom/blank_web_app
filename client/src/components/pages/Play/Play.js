@@ -27,11 +27,16 @@ export default function Play(props) {
     function renderRow() {
         return allGames.map((game, index)=>{
             console.log({game})
-            return (
-                <ListItem key={index}>
-                        <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={game} />
-                </ListItem>
-            );
+            if(game.opponentName !== '') {
+                return (
+                    <ListItem key={index}>
+                        <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={game}/>
+                    </ListItem>
+                );
+            }
+            else{
+                return null;
+            }
         })
     }
 
