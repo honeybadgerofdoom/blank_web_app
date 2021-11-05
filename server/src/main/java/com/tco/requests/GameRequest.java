@@ -20,7 +20,6 @@ public class GameRequest extends Request {
 
     private final transient Logger log = LoggerFactory.getLogger(GameRequest.class);
     private int userID;
-
     private ArrayList<Integer> gameIDs;
     private boolean success;
 
@@ -50,4 +49,13 @@ public class GameRequest extends Request {
         return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
     }
 
+    private class Game{
+        int gameID;
+        String opponentName;
+
+        public Game(int gameID, String opponentName){
+            this.gameID = gameID;
+            this.opponentName = opponentName;
+        }
+    }
 }
