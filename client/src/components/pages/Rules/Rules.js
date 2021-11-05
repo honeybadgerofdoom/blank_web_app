@@ -1,6 +1,10 @@
 import React from "react";
 import {Typography, Card, CardContent, CardMedia, Grid, Item} from "@material-ui/core";
 
+const ruleSetup= {
+     headings = ["Pawn", "Knight", "Bishop", "Rook", "Queen", "King"]
+}
+
 export default function Rules(props) {
      var rule = [Rule.OverAllRules.call(), Rule.Pawn.call(), Rule.Knight.call(), 
           Rule.Bishop.call(), Rule.Rook.call(), Rule.Queen.call(), Rule.King.call() ] ;
