@@ -66,7 +66,7 @@ export default function Board(props) {
     }
 
     else {
-        return <CustomColumn><Button variant="outlined" onClick={sendBoardRequest}>Play Game {props.chosenGame}</Button></CustomColumn>
+        return <CustomColumn><Button variant="outlined" onClick={sendBoardRequest}>Play Game With {props.chosenGame}</Button></CustomColumn>
     }
 }
 

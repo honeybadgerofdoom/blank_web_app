@@ -18,41 +18,43 @@ export default function Play(props) {
     async function sendGameRequest() {
         const gameResponse = await(sendRequest({requestType: "game", userID: props.currentUserID}));
         if(gameResponse) {
-            setAllGames(gameResponse.gameIDs);
+            //setAllGames(gameResponse.gameIDs);
+            console.log({gameResponse})
         }
         else {
             console.log("game request failed");
         }
     }
 
-    function renderRow() {
-        return allGames.map((gameID, index)=>{
-            console.log({gameID})
-            return (
-                <ListItem key={index}>
-                        <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={gameID} />
-                </ListItem>
-            );
-        })
-    }
-
-    function VirtualizedList() {
-        if(allGames.length !== 0){
-        return (
-            <Box>
-                <List>
-                    {renderRow()}
-                </List>
-            </Box>
-        );
-        }
-
-        else {
-            return null
-        }
-    }
+    // function renderRow() {
+    //     return allGames.map((gameID, index)=>{
+    //         console.log({gameID})
+    //         return (
+    //             <ListItem key={index}>
+    //                     <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={gameID} />
+    //             </ListItem>
+    //         );
+    //     })
+    // }
+    //
+    // function VirtualizedList() {
+    //     if(allGames.length !== 0){
+    //     return (
+    //         <Box>
+    //             <List>
+    //                 {renderRow()}
+    //             </List>
+    //         </Box>
+    //     );
+    //     }
+    //
+    //     else {
+    //         return null
+    //     }
+    // }
 
     return<>
-        {VirtualizedList()}
+        {/*{VirtualizedList()}*/}
+        <Button variant="outlined" onClick={sendGameRequest}>Play Game With </Button>
         </>
 }
