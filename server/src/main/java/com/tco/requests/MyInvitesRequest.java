@@ -12,7 +12,6 @@ import java.security.MessageDigest;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
-import com.tco.requests.Invite;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,14 +35,37 @@ public class MyInvitesRequest extends Request {
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(query, this.userID);
             for(int i = 0; i < results.size(); i++){
-                String sender = results.get(i).get("sender");
-                String receiver = results.get(i).get("receiver");
+                String sender = idToNickname(Integer.parseInt(results.get(i).get("sender")));
                 String status = results.get(i).get("status");
-                Invite currentInvite = new Invite(this.userID, sender, receiver, status);
+                int gameID = Integer.parseInt(results.get(i).get("gameID"));
+                Invite currentInvite = new Invite(sender, status, gameID);
                 this.invites.add(currentInvite);
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static String idToNickname(int enemyID) {
+        String query = "SELECT nickname FROM users WHERE userID=?";
+        try (Database db = new Database()) {
+            List<Map<String, String>> results = db.query(query, enemyID);
+            return results.get(0).get("nickname");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    private class Invite {
+        private String sender;
+        private String status;
+        private int gameID;
+
+        public Invite(String sender, String status, int gameID) {
+            this.sender = sender;
+            this.status = status;
+            this.gameID = gameID;
         }
     }
 
