@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Board from "./Board"
 import {sendRequest} from "../../../utils/restfulAPI";
 import {Button, List, ListItem, Box, Typography} from "@material-ui/core";
@@ -7,9 +7,13 @@ import ListItemButton from '@mui/material/ListItemButton';
 // import { FixedSizeList } from 'react-window';
 
 export default function Play(props) {
-    const [gameID, setGameID] = useState(null);
     const [allGames, setAllGames] = useState([]);
     console.log({allGames})
+
+    useEffect(() => {
+        {sendGameRequest(allGames)}
+    }, [props.userID]);
+
 
     async function sendGameRequest() {
         const gameResponse = await(sendRequest({requestType: "game", userID: props.currentUserID}));
@@ -22,13 +26,11 @@ export default function Play(props) {
     }
 
     function renderRow() {
-        return allGames.map((gameId, index)=>{
-            console.log({gameId})
+        return allGames.map((gameID, index)=>{
+            console.log({gameID})
             return (
                 <ListItem key={index}>
-                    <Button>
-                        {gameId}
-                    </Button>
+                        <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={gameID} />
                 </ListItem>
             );
         })
@@ -49,9 +51,8 @@ export default function Play(props) {
             return null
         }
     }
+
     return<>
         {VirtualizedList()}
-        <Button variant="outlined" size="large" onClick={sendGameRequest}>Send that game</Button>
-        <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={allGames[1]} />
         </>
 }
