@@ -67,7 +67,7 @@ export default function Board(props) {
 
     else {
         if(props.chosenGame.opponentName !== '') {
-            return <CustomColumn><Button variant="outlined" onClick={sendBoardRequest}>Play Game
+            return <CustomColumn><Button onClick={sendBoardRequest}>Play Game
                 With {props.chosenGame.opponentName}</Button></CustomColumn>
         }
         else{

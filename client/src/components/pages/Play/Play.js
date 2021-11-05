@@ -1,12 +1,20 @@
 import React, {useEffect, useState} from "react";
 import Board from "./Board"
 import {sendRequest} from "../../../utils/restfulAPI";
-import {Button, List, ListItem, Box, Typography} from "@material-ui/core";
+import {Button, List, ListItem, Box, Typography, Paper, makeStyles} from "@material-ui/core";
 import ListItemButton from '@mui/material/ListItemButton';
 // import ListItemText from '@mui/material/ListItemText';
 // import { FixedSizeList } from 'react-window';
 
+const useStyles = makeStyles({
+    root: {
+        overflow: "auto",
+        maxHeight: "40vh",
+    },
+});
+
 export default function Play(props) {
+    const classes = useStyles();
     const [allGames, setAllGames] = useState([]);
     console.log({allGames})
 
@@ -43,11 +51,11 @@ export default function Play(props) {
     function VirtualizedList() {
         if(allGames.length !== 0){
         return (
-            <Box>
+            <Paper elevation={3} className={classes.root}>
                 <List>
                     {renderRow()}
                 </List>
-            </Box>
+            </Paper>
         );
         }
 
