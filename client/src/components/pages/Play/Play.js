@@ -34,7 +34,6 @@ export default function Play(props) {
 
     function renderRow() {
         return allGames.map((game, index)=>{
-            console.log({game})
             if(game.opponentName !== '') {
                 return (
                     <ListItem key={index}>
@@ -66,6 +65,5 @@ export default function Play(props) {
 
     return<>
         {VirtualizedList()}
-        {/*<Button variant="outlined" onClick={sendGameRequest}>Play Game With </Button>*/}
         </>
 }
