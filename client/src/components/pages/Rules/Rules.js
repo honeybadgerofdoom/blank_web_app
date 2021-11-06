@@ -5,16 +5,16 @@ import SetupRules from "./SetupRules";
 export default function Rules(props) {
      return(
           <Grid container> 
-            <Grid item xs={10}/>
+            <Grid item xs={8}/>
             <Grid item>
             <Typography align="center" variant="h2">Rules for Elimination Chess</Typography>
-
             <br/>
             <Grid item>
-            {props.SetupRules}
+            <SetupRules/>
 
             </Grid>
             </Grid>
         </Grid>
      );
 }
+
