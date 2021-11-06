@@ -9,7 +9,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 const useStyles = makeStyles({
     root: {
         overflow: "auto",
-        maxHeight: "40vh",
     },
 });
 
