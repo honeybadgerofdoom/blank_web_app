@@ -15,7 +15,6 @@ const useStyles = makeStyles({
 export default function Play(props) {
     const classes = useStyles();
     const [allGames, setAllGames] = useState([]);
-    console.log({allGames})
 
     useEffect(() => {
         {sendGameRequest(allGames)}
@@ -61,7 +60,6 @@ export default function Play(props) {
             return null
         }
     }
-
     return<>
         {displayList()}
         </>
