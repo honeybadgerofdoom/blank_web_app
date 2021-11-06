@@ -3,7 +3,7 @@ import {Typography, Card, CardContent, Item} from "@material-ui/core";
 
 export default function SetupRules(props) {
     const rule = ruleSetup.pieceRules.map((value, index) => 
-        <Card style={{ width: '73rem' }}>
+        <Card key={index} style={{ width: '73rem' }}>
         <CardContent>
             <Typography align="center" variant="h3">{ruleSetup.headings[index]}</Typography>
             <Typography align="left">{ruleSetup.pieceRules[index]}</Typography>
