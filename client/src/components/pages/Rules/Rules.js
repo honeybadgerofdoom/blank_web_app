@@ -1,6 +1,6 @@
 import React from "react";
 import {Typography, Card, CardContent, CardMedia, Grid, Item} from "@material-ui/core";
-import ruleSetup from "SetupRules";
+import SetupRules from "./SetupRules";
 
 export default function Rules(props) {
      return(
