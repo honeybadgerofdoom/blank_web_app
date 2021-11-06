@@ -47,7 +47,7 @@ export default function Play(props) {
         })
     }
 
-    function VirtualizedList() {
+    function displayList() {
         if(allGames.length !== 0){
         return (
             <Paper elevation={3} className={classes.root}>
@@ -64,6 +64,6 @@ export default function Play(props) {
     }
 
     return<>
-        {VirtualizedList()}
+        {displayList()}
         </>
 }
