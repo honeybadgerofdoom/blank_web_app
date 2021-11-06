@@ -1,5 +1,10 @@
 import React from "react";
-import {Typography, Card, CardContent, CardMedia, Grid, Item} from "@material-ui/core";
+
+export default function SetupRules(props) {
+    return(
+
+    );
+}
 
 const ruleSetup= {
      generalRules = ["Extinction Chess is a variant of actual chess.  You win the game by eliminating all of one piece of the opponent." +
