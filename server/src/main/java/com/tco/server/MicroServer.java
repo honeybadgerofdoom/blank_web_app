@@ -3,21 +3,16 @@ package com.tco.server;
 import com.tco.misc.BadRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.misc.UnauthorizedRequestException;
-import com.tco.requests.ConfigRequest;
-import com.tco.requests.GameRequest;
+import com.tco.requests.*;
 import com.tco.requests.LoginRegister.LoginRequest;
 import com.tco.requests.LoginRegister.RegisterRequest;
-import com.tco.requests.Request;
-import com.tco.requests.BoardRequest;
-import com.tco.requests.LegalMovesRequest;
-import com.tco.requests.MoveRequest;
-import com.tco.requests.MyInvitesRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.tco.requests.Users.UsersRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,12 +39,13 @@ class MicroServer {
         path("/api", () -> {
             before("/*", (req, res) -> logRequest(req));
             post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
-            post("/board", (req, res) -> processHttpRequest(req, res, BoardRequest.class));
             post("/login", (req, res) -> processHttpRequest(req, res, LoginRequest.class));
+            post("/register", (req, res) -> processHttpRequest(req, res, RegisterRequest.class));
+            post("/board", (req, res) -> processHttpRequest(req, res, BoardRequest.class));
             post("/legalMoves", (req, res) -> processHttpRequest(req, res, LegalMovesRequest.class));
             post("/game", (req, res) -> processHttpRequest(req, res, GameRequest.class));
             post("/move", (req, res) -> processHttpRequest(req, res, MoveRequest.class));
-            post("/register", (req, res) -> processHttpRequest(req, res, RegisterRequest.class));
+            post("/users", (req, res) -> processHttpRequest(req, res, UsersRequest.class));
             post("/myInvites", (req, res) -> processHttpRequest(req, res, MyInvitesRequest.class));
         });
     }
