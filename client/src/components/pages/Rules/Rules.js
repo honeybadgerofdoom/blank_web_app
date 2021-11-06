@@ -21,91 +21,18 @@ const ruleSetup= {
       "after the initial move, the player can place their pawn diagonal, as if the piece were there, and capture the opponent’s pawn.", 
       "The knight is unique in that it has the ability to jump over pieces.  It can move two squares vertically, in either direction, and one" + 
       " square horizontally, in any direction. The order of this doesn’t matter, However, it must move both vertically and  horizontally if" + 
-      " piece is played."
+      " piece is played.",
+      "The bishop can move as far as it wants but only on the dianolgals and only if the squares inbetween from start position to finish" +
+      "position are unoccupied. ",
+      "The rook can move as far as it wants but only on the diagonals and only if the squares inbetween from start position to finish" +
+      " position are unoccupied. ",
+      "The queen, a very powerful piece in the game, moves like a bishop and a rook.  It is allowed to move any number of unoccupied squares vertically, ",
+      "The king can move one square in any position whether that be horizontally, vertically, or diagonally unless the square is already occupied by your" + 
+      " own piece. The king also has a special move, called castling.  To be able to accomplish this move, it requires that the king has never moved the " +
+      "entire game, and the player will also need to use one of their rooks that has also never moved.  The king will then take the rook's spot.   The " + 
+      "rook will  then move in the opposite direction  of the king, jumping over the king, and take the position next to the king.   Keep in mind to " + 
+      "complete this, there must not  be a piece inbetween the rook and the king, whether friendly, or the enemies.  Also, if you want to castle, " + 
+      "the king must be moved first."
      ]
 }
 
-
-
-     Bishop: function (props){
-          return( 
-          <><>
-          <Typography display="block"> &emsp; </Typography>
-          <Typography align="center"><Typography variant="h3"> Bishop</Typography></Typography>
-          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
-          </Typography></Typography> 
-          <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The bishop can move as far as it wants but only on the dianolgals and only if the squares inbetween  
-          from start position to finish position are unoccupied.  </Typography>
-         <Typography display="block"> &emsp; There are two bishops per player.  They start on opposite color squares, so their diagonals that they can 
-         occupy will always be different.  </Typography>
-         <Typography display="block"> &emsp; </Typography>
-         <Typography display="block"> &emsp; </Typography>
-          </></> 
-          );
-     },
-
-
-     Rook: function (props){
-          return( 
-          <><>
-          <Typography display="block"> &emsp; </Typography>
-          <Typography align="center"><Typography variant="h3"> Rook</Typography></Typography>
-          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
-          </Typography></Typography> 
-          <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The rook can move as far as it wants but only on the diagonals and only if the squares inbetween  
-          from start position to finish position are unoccupied.  </Typography>
-          <Typography display="block"> &emsp; There are two rooks for each player that start on opposite colors of the board. </Typography>
-         <Typography display="block"> &emsp; </Typography>
-         <Typography display="block"> &emsp; </Typography>
-          </></>
-          );
-     },
-
-
-     Queen: function (props){
-          return( 
-          <><>
-          <Typography display="block"> &emsp; </Typography>
-          <Typography align="center"><Typography variant="h3"> Queen</Typography></Typography>
-          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
-          </Typography></Typography> 
-          <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The queen, a very powerful piece in the game, moves like a bishop and a rook.  It is allowed to 
-          move any number of unoccupied squares vertically,   </Typography>
-         <Typography display="block"> &emsp; horizontally, or diagonally. The squares inbetween start and finish position must be unoccupied.  
-         Because the queen is very powerful, most pawns are promoted  </Typography>
-         <Typography display="block"> &emsp;  to a queen. </Typography>
-         <Typography display="block"> &emsp; </Typography>
-         <Typography display="block"> &emsp; </Typography>
-          </></>
-          );
-     },
-
-
-     King: function (props){
-          return( 
-          <><>
-          <Typography display="block"> &emsp; </Typography>
-          <Typography align="center"><Typography variant="h3"> King</Typography></Typography>
-          <Typography display="block">  <Typography align="center"> ____________________________________________________________________ 
-          </Typography></Typography> 
-          <Typography> &emsp; &emsp; &emsp;   </Typography>
-          <Typography> &emsp; &emsp; &emsp; The king can move one square in any position whether that be horizontally, vertically, 
-               or diagonally unless the square is already occupied by your own piece.  </Typography>
-         <Typography display="block"> &emsp; The king also has a special move, called castling.  To be able to accomplish this move, 
-         it requires that the king has never moved the entire game, and the player </Typography>
-         <Typography display="block"> &emsp;   will also need to use one of their rooks that has also never moved.  The king will 
-         then take the rook's spot.   The rook will  then move in the opposite direction  of the  </Typography>
-         <Typography display="block"> &emsp; king, jumping over the king, and take the position next to the king.   Keep in mind 
-         to complete this, there must not  be a piece inbetween the rook and the king,</Typography>
-         <Typography display="block"> &emsp;   whether friendly, or the enemies.  
-         Also, if you want to castle, the king must be moved first. </Typography> 
-         <Typography display="block"> &emsp;  </Typography>
-         <Typography display="block"> &emsp; </Typography>
-          </></>
-          );
-     }
-     
-}
