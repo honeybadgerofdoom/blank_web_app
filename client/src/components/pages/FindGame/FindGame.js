@@ -1,6 +1,6 @@
 import React from "react";
-import {Typography} from "@material-ui/core";
+import InvitesTable from "./InvitesTable";
 
 export default function FindGame(props) {
-    return <Typography align="center">Find Game Page</Typography>
+    return <InvitesTable userID={props.currentUserID} />
 }
