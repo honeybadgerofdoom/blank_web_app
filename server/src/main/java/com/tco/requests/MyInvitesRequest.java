@@ -35,7 +35,7 @@ public class MyInvitesRequest extends Request {
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(query, this.userID);
             for(int i = 0; i < results.size(); i++){
-                String sender = idToNickname(Integer.parseInt(results.get(i).get("sender")));
+                String sender = idToNickname(db, Integer.parseInt(results.get(i).get("sender")));
                 String status = results.get(i).get("status");
                 int gameID = Integer.parseInt(results.get(i).get("gameID"));
                 Invite currentInvite = new Invite(sender, status, gameID);
@@ -46,15 +46,10 @@ public class MyInvitesRequest extends Request {
         }
     }
 
-    public static String idToNickname(int enemyID) {
+    public static String idToNickname(Database db, int enemyID) throws Exception {
         String query = "SELECT nickname FROM users WHERE userID=?";
-        try (Database db = new Database()) {
-            List<Map<String, String>> results = db.query(query, enemyID);
-            return results.get(0).get("nickname");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+        List<Map<String, String>> results = db.query(query, enemyID);
+        return results.get(0).get("nickname");
     }
 
     private class Invite {
