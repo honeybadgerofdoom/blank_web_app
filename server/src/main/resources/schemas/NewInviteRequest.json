@@ -1,0 +1,28 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "newInvite",
+  "description": "newInvite object for POST request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the object type should be myInvites",
+      "type": "string",
+      "pattern": "^newInvite$"
+    },
+    "userID": {
+      "description":"a user ID.",
+      "type":"number"
+    },
+    "opponentID": {
+      "description":"a user ID.",
+      "type":"number"
+    },
+    "gameID": {
+      "description":"a game ID.",
+      "type":"number"
+    }
+  },
+  "required":["requestType", "userID","opponentID","gameID"],
+  "additionalProperties": true
+}
