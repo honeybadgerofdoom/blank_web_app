@@ -68,7 +68,6 @@ export default function InvitesTable(props) {
                             return (
                                 <TableRow key={index}>
                                     <TableCell>{invite.sender}</TableCell>
-                                    <TableCell align="right">{invite.status}</TableCell>
                                     <TableCell align="right">{invite.gameID}</TableCell>
                                     <TableCell align="right"><Button color="primary">Accept</Button></TableCell>
                                     <TableCell align="right"><Button color="secondary">Decline</Button></TableCell>
@@ -93,7 +92,6 @@ export default function InvitesTable(props) {
                         </TableRow>
                         <TableRow>
                             <TableCell className={classes.headerText}>Opponent</TableCell>
-                            <TableCell className={classes.headerText} align="left">Status</TableCell>
                             <TableCell className={classes.headerText} align="left">Game ID</TableCell>
                             <TableCell className={classes.headerText} align="left">Accept</TableCell>
                             <TableCell className={classes.headerText} align="center">Decline</TableCell>
