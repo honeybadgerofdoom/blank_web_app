@@ -59,7 +59,7 @@ export default function InvitesTable(props) {
     }
 
     return (
-        <div className={classes.root}>
+        <Paper elevation={3} className={classes.root}>
             {TableControls()}
             <TableContainer component={Paper} className={classes.scrollable}>
                 <Table>
@@ -78,7 +78,7 @@ export default function InvitesTable(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>
+        </Paper>
     )
 
     function TableControls() {
