@@ -32,9 +32,9 @@ public class DeclineInviteRequest extends Request {
     }
 
     private void createInvite() {
-        String query = "UPDATE invites set STATUS=CANCELLED WHERE gameID=? AND sender=? AND receiver=?";
+        String query = "DELETE FROM invites WHERE gameID=? AND sender=? AND receiver=?";
         try (Database db = new Database()) {
-            db.update(query, this.gameID, this.userID, this.opponentID, status);
+            db.update(query, this.gameID, this.sender, this.receiver);
             this.success = true;
         } catch (Exception e) {
             this.success = false;

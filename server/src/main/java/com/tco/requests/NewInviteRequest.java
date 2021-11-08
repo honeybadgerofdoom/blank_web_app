@@ -33,7 +33,7 @@ public class NewInviteRequest extends Request {
 
     private void createInvite() {
         String query = "INSERT INTO invites (gameID, sender, receiver, status) VALUES (?, ?, ?, ?)";
-        String status = "PENDING";()
+        String status = "PENDING";
         try (Database db = new Database()) {
             db.update(query, this.gameID, this.userID, this.opponentID, status);
             this.success = true;
