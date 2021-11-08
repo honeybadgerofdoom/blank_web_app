@@ -1,0 +1,20 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "myInvites",
+  "description": "login object for POST request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the object type should be myInvites",
+      "type": "string",
+      "pattern": "^myInvites$"
+    },
+    "userID": {
+      "description":"a username.",
+      "type":"number"
+    }
+  },
+  "required":["requestType", "userID"],
+  "additionalProperties": true
+}

@@ -46,6 +46,7 @@ class MicroServer {
             post("/game", (req, res) -> processHttpRequest(req, res, GameRequest.class));
             post("/move", (req, res) -> processHttpRequest(req, res, MoveRequest.class));
             post("/users", (req, res) -> processHttpRequest(req, res, UsersRequest.class));
+            post("/myInvites", (req, res) -> processHttpRequest(req, res, MyInvitesRequest.class));
         });
     }
 
