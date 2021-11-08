@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class DeclineInviteRequest extends Request {
 
     private final transient Logger log = LoggerFactory.getLogger(DeclineInviteRequest.class);
-    private int sender;
+    private String sender;
     private int receiver;
     private int gameID;
 
@@ -34,12 +34,19 @@ public class DeclineInviteRequest extends Request {
     private void createInvite() {
         String query = "DELETE FROM invites WHERE gameID=? AND sender=? AND receiver=?";
         try (Database db = new Database()) {
-            db.update(query, this.gameID, this.sender, this.receiver);
+            int senderID = nicknameToID(db, this.sender);
+            db.update(query, this.gameID, senderID, this.receiver);
             this.success = true;
         } catch (Exception e) {
             this.success = false;
             e.printStackTrace();
         }
+    }
+
+    private int nicknameToID(Database db, String nickname) throws Exception {
+        String query = "SELECT userID FROM users WHERE nickname=?";
+        List<Map<String, String>> results = db.query(query, nickname);
+        return Integer.parseInt(results.get(0).get("userID"));
     }
 
 }

@@ -11,8 +11,8 @@
       "pattern": "^declineInvite$"
     },
     "sender": {
-      "description":"a user ID.",
-      "type":"number"
+      "description":"a username",
+      "type":"string"
     },
     "receiver": {
       "description":"a user ID.",

@@ -58,6 +58,21 @@ export default function InvitesTable(props) {
         return true;
     }
 
+    async function declineInviteRequest(invite) {
+        const response = await sendRequest({requestType: "declineInvite", sender: invite.sender, receiver: props.userID, gameID: invite.gameID});
+        if(response.success) {
+            props.showMessage("Invite Declined", "success");
+        }
+        else {
+            props.showMessage("Decline Error", "error");
+        }
+    }
+
+    function decline(invite) {
+        declineInviteRequest(invite);
+        sendMyInvitesRequest()
+    }
+
     return (
         <Paper elevation={3} className={classes.root}>
             {TableControls()}
@@ -71,7 +86,7 @@ export default function InvitesTable(props) {
                                     <TableCell align="right">{invite.status}</TableCell>
                                     <TableCell align="right">{invite.gameID}</TableCell>
                                     <TableCell align="right"><Button color="primary">Accept</Button></TableCell>
-                                    <TableCell align="right"><Button color="secondary">Decline</Button></TableCell>
+                                    <TableCell align="right"><Button color="secondary" onClick={() => decline(invite)}>Decline</Button></TableCell>
                                 </TableRow>
                             )
                         })}
