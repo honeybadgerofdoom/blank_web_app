@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Container, Grid, makeStyles, Paper, TextField} from "@material-ui/core";
+import {Button, Container, FormLabel, Grid, makeStyles, Paper, TextField} from "@material-ui/core";
 import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
@@ -37,21 +37,9 @@ export default function Profile(props) {
         if(response) {
             setNickname(response.nickname);
             setEmail(response.email);
-            setBio(response.bio);
-            setPicURL(response.picURL);
+            setBio(response.bio === undefined? "" : response.bio);
+            setPicURL(response.picURL === undefined ? "" : response.picURL);
         }
-    }
-
-    function getBioPlaceholder() {
-        return bio === undefined ? "Add a Bio..." : bio;
-    }
-
-    function getNicknamePlaceholder() {
-        return `nickname: ${nickname}`
-    }
-
-    function getEmailPlaceholder() {
-        return `email: ${email}`
     }
 
     function updateNickname(event) {
@@ -69,20 +57,14 @@ export default function Profile(props) {
         setNewBio(input);
     }
 
-    function updatePicURL(event) {
-        const input = event.target.value;
-        setNewPicURL(input);
-    }
-
     async function sendUpdateUserInfoRequest() {
         const sendNickname = newNickname === "" ? nickname : newNickname;
         const sendEmail = newEmail === "" ? email : newEmail;
         const sendBio = newBio === "" ? bio : newBio;
         const sendPicURL = newPicURL === "" ? picURL : newPicURL;
-        const response = sendRequest({requestType: "updateUserInfo", userID: props.currentUserID, nickname: sendNickname, email: sendEmail, bio: sendBio, picURL: sendPicURL})
-        if(response) {
+        const response = await sendRequest({requestType: "updateUserInfo", userID: props.currentUserID, nickname: sendNickname, email: sendEmail, bio: sendBio, picURL: sendPicURL})
+        if(response.success) {
             props.showMessage("Profile Updated", "success");
-            sendMyProfileRequest();
         }
         else {
             props.showMessage("Error updating profile", "error");
@@ -93,35 +75,9 @@ export default function Profile(props) {
         <Container maxWidth="sm">
             <Paper elevation={3} className={classes.root}>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
-                    <Grid item className={classes.gridItem}>
-                        <TextField
-                            className={classes.textField}
-                            variant="outlined"
-                            onChange={updateNickname}
-                            // label="Nickname"
-                            placeholder={getNicknamePlaceholder()}
-                        />
-                    </Grid>
-                    <Grid item className={classes.gridItem}>
-                        <TextField
-                            className={classes.textField}
-                            variant="outlined"
-                            onChange={updateEmail}
-                            // label="Email"
-                            placeholder={getEmailPlaceholder()}
-                        />
-                    </Grid>
-                    <Grid item className={classes.gridItem}>
-                        <TextField
-                            className={classes.textField}
-                            variant="outlined"
-                            onChange={updateBio}
-                            // label="Bio"
-                            placeholder={getBioPlaceholder()}
-                            multiline
-                            maxRows={4}
-                        />
-                    </Grid>
+                    {getTextField(updateNickname, nickname, "username")}
+                    {getTextField(updateEmail, email, "email")}
+                    {getTextField(updateBio, bio, "bio")}
                     <Grid item>
                         <Button variant="outlined" onClick={sendUpdateUserInfoRequest}>
                             Update My Info
@@ -131,4 +87,18 @@ export default function Profile(props) {
             </Paper>
         </Container>
     )
+
+    function getTextField(update, placeholder, title) {
+        return (
+            <Grid item className={classes.gridItem}>
+                <FormLabel>{title}</FormLabel>
+                <TextField
+                    className={classes.textField}
+                    // variant="outlined"
+                    onChange={update}
+                    placeholder={placeholder}
+                />
+            </Grid>
+        )
+    }
 }
