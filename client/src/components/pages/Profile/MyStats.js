@@ -10,6 +10,9 @@ const useStyles = makeStyles( {
         margin: "20px",
         padding: "20px",
     },
+    bold: {
+        fontWeight: "bold",
+    },
 });
 
 export default function MyStats(props) {
@@ -21,14 +24,14 @@ export default function MyStats(props) {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell align="center">Wins</TableCell>
-                            <TableCell align="center">Losses</TableCell>
+                            <TableCell align="center" className={classes.bold}>Wins</TableCell>
+                            <TableCell align="center" className={classes.bold}>Losses</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         <TableRow>
-                            <TableCell align="center">5</TableCell>
-                            <TableCell align="center">7</TableCell>
+                            <TableCell align="center">-</TableCell>
+                            <TableCell align="center">-</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
