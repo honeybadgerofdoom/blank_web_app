@@ -3,7 +3,7 @@ import {
     makeStyles,
     Typography,
     Accordion,
-    AccordionSummary, AccordionDetails
+    AccordionSummary, AccordionDetails, Divider
 } from "@material-ui/core";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -21,9 +21,10 @@ export default function OtherUser(props) {
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 {props.user.username}
             </AccordionSummary>
+            <Divider/>
             <AccordionDetails>
                 <Typography>
-                    Bio: {props.user.bio}
+                    Bio: {props.user.bio === "" ? "No Bio Yet" : props.user.bio}
                     <br/>
                     Wins: Implement This
                     <br/>
