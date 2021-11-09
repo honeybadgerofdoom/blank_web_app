@@ -1,0 +1,36 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "updateUser",
+  "description": "updateUser object for POST request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the object type should be users",
+      "type": "string",
+      "pattern": "^updateUser$"
+    },
+    "userID": {
+      "description": "a user's id",
+      "type": "integer"
+    },
+    "nickname": {
+      "description": "a user's nickname",
+      "type": "string"
+    },
+    "email": {
+      "description": "a user's email",
+      "type": "string"
+    },
+    "bio": {
+      "description": "a user's bio",
+      "type": "string"
+    },
+    "picURL": {
+      "description": "a user's picURL",
+      "type": "string"
+    }
+  },
+  "required": ["requestType","userID","nickname","email","bio","picURL"],
+  "additionalProperties": false
+}

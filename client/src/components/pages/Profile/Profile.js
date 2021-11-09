@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Container, Grid, makeStyles, Paper, TextField, Typography} from "@material-ui/core";
+import {Button, Container, Grid, makeStyles, Paper, TextField} from "@material-ui/core";
 import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
@@ -54,25 +54,28 @@ export default function Profile(props) {
     return (
         <Container maxWidth="sm">
             <Paper elevation={3} className={classes.root}>
-                <Grid container direction="column" justifyContent="flex-start" alignItems="center">
+                <Grid container direction="column" justifyContent="center" alignItems="center">
                     <Grid item className={classes.gridItem}>
                         <TextField
                             className={classes.textField}
                             variant="outlined"
-                            placeholder={getNicknamePlaceholder()}
+                            // label="Nickname"
+                            value={getNicknamePlaceholder()}
                         />
                     </Grid>
                     <Grid item className={classes.gridItem}>
                         <TextField
                             className={classes.textField}
                             variant="outlined"
-                            placeholder={getEmailPlaceholder()}
+                            // label="Email"
+                            value={getEmailPlaceholder()}
                         />
                     </Grid>
                     <Grid item className={classes.gridItem}>
                         <TextField
                             className={classes.textField}
                             variant="outlined"
+                            // label="Bio"
                             placeholder={getBioPlaceholder()}
                             multiline
                             maxRows={4}
