@@ -26,8 +26,6 @@ public class UpdateUserInfoRequest extends Request {
     private String bio;
     private String picURL;
 
-    private boolean success;
-
     @Override
     public void buildResponse() {
         updateInfo();
@@ -38,9 +36,7 @@ public class UpdateUserInfoRequest extends Request {
         String query = "UPDATE users SET nickname=?, email=?, bio=?, picURL=? WHERE userID=?";
         try (Database db = new Database()) {
             db.update(query, this.nickname, this.email, this.bio, this.picURL, this.userID);
-            this.success = true;
         } catch (Exception e) {
-            this.success = false;
             e.printStackTrace();
         }
     }

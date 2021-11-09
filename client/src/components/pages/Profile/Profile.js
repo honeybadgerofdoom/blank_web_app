@@ -23,13 +23,16 @@ export default function Profile(props) {
     const [bio, setBio] = useState("");
     const [picURL, setPicURL] = useState("");
 
-    console.log({bio})
+    const [newNickname, setNewNickname] = useState("");
+    const [newEmail, setNewEmail] = useState("");
+    const [newBio, setNewBio] = useState("");
+    const [newPicURL, setNewPicURL] = useState("");
 
     useEffect(() => {
-        myProfileRequest();
+        sendMyProfileRequest();
     })
 
-    async function myProfileRequest() {
+    async function sendMyProfileRequest() {
         const response = await sendRequest({requestType: "myProfile", userID: props.currentUserID});
         if(response) {
             setNickname(response.nickname);
@@ -51,6 +54,41 @@ export default function Profile(props) {
         return `email: ${email}`
     }
 
+    function updateNickname(event) {
+        const input = event.target.value;
+        setNewNickname(input);
+    }
+
+    function updateEmail(event) {
+        const input = event.target.value;
+        setNewEmail(input);
+    }
+
+    function updateBio(event) {
+        const input = event.target.value;
+        setNewBio(input);
+    }
+
+    function updatePicURL(event) {
+        const input = event.target.value;
+        setNewPicURL(input);
+    }
+
+    async function sendUpdateUserInfoRequest() {
+        const sendNickname = newNickname === "" ? nickname : newNickname;
+        const sendEmail = newEmail === "" ? email : newEmail;
+        const sendBio = newBio === "" ? bio : newBio;
+        const sendPicURL = newPicURL === "" ? picURL : newPicURL;
+        const response = sendRequest({requestType: "updateUserInfo", userID: props.currentUserID, nickname: sendNickname, email: sendEmail, bio: sendBio, picURL: sendPicURL})
+        if(response) {
+            props.showMessage("Profile Updated", "success");
+            sendMyProfileRequest();
+        }
+        else {
+            props.showMessage("Error updating profile", "error");
+        }
+    }
+
     return (
         <Container maxWidth="sm">
             <Paper elevation={3} className={classes.root}>
@@ -59,22 +97,25 @@ export default function Profile(props) {
                         <TextField
                             className={classes.textField}
                             variant="outlined"
+                            onChange={updateNickname}
                             // label="Nickname"
-                            value={getNicknamePlaceholder()}
+                            placeholder={getNicknamePlaceholder()}
                         />
                     </Grid>
                     <Grid item className={classes.gridItem}>
                         <TextField
                             className={classes.textField}
                             variant="outlined"
+                            onChange={updateEmail}
                             // label="Email"
-                            value={getEmailPlaceholder()}
+                            placeholder={getEmailPlaceholder()}
                         />
                     </Grid>
                     <Grid item className={classes.gridItem}>
                         <TextField
                             className={classes.textField}
                             variant="outlined"
+                            onChange={updateBio}
                             // label="Bio"
                             placeholder={getBioPlaceholder()}
                             multiline
@@ -82,7 +123,7 @@ export default function Profile(props) {
                         />
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined">
+                        <Button variant="outlined" onClick={sendUpdateUserInfoRequest}>
                             Update My Info
                         </Button>
                     </Grid>
