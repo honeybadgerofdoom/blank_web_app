@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Container, FormLabel, Grid, makeStyles, Paper, TextField} from "@material-ui/core";
+import {Button, Container, FormLabel, Grid, makeStyles, Paper, TextField, Typography} from "@material-ui/core";
 import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
@@ -59,6 +59,7 @@ export default function MyUserInfo(props) {
     return (
         <Container maxWidth="sm">
             <Paper elevation={3} className={classes.root}>
+                <Typography align="center">My Info</Typography>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
                     {getTextField(nickname, "username")}
                     {getTextField(email, "email")}
