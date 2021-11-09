@@ -6,6 +6,7 @@ import com.tco.misc.UnauthorizedRequestException;
 import com.tco.requests.*;
 import com.tco.requests.LoginRegister.LoginRequest;
 import com.tco.requests.LoginRegister.RegisterRequest;
+import com.tco.requests.Users.UpdateUserInfoRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
