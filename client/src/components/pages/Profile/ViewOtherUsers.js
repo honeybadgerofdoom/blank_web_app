@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {Container, List, makeStyles, Paper, TextField, ListItem, Modal} from "@material-ui/core";
 import {sendRequest} from "../../../utils/restfulAPI";
-import OtherUserModal from "./OtherUserModal";
+import OtherUserModal from "./OtherUser";
 
 const useStyles = makeStyles( {
     root: {
         margin: "20px",
         padding: "20px",
         overflow: "auto",
-        maxHeight: "55vh",
+        maxHeight: "65vh",
     },
     textField: {
         width: "100%",
@@ -24,7 +24,7 @@ export default function ViewOtherUsers(props) {
     }, []);
 
      async function sendUsersRequest(input) {
-         const response = await sendRequest({requestType: "users", match: input, limit: 0});
+         const response = await sendRequest({requestType: "users", match: input, limit: 0, excludeID: props.currentUserID});
          if(response) {
              setUsers(response.users);
          }
