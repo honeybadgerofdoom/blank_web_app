@@ -12,8 +12,7 @@
     },
     "match": {
       "description": "an username pattern to match",
-      "type": "string",
-      "pattern": "^[a-zA-Z0-9_ ]+$"
+      "type": "string"
     },
     "excludeID": {
       "description": "an userID to exclude from the results",
