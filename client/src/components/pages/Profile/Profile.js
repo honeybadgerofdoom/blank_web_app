@@ -10,12 +10,8 @@ export default function Profile(props) {
         <Grid container direction="row" justifyContent="center" alignItems="flex-start">
             <Grid item>
                 <Grid container direction="column" justifyContent="center" alignItems="flex-start">
-                    {/*<Grid item>*/}
-                        <MyUserInfo showMessage={props.showMessage} currentUserID={props.currentUserID} />
-                    {/*</Grid>*/}
-                    {/*<Grid item>*/}
-                        <MyStats />
-                    {/*</Grid>*/}
+                    <MyUserInfo showMessage={props.showMessage} currentUserID={props.currentUserID} />
+                    <MyStats />
                 </Grid>
             </Grid>
             <Grid item>
