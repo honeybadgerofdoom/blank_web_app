@@ -42,21 +42,6 @@ export default function Profile(props) {
         }
     }
 
-    function updateNickname(event) {
-        const input = event.target.value;
-        setNewNickname(input);
-    }
-
-    function updateEmail(event) {
-        const input = event.target.value;
-        setNewEmail(input);
-    }
-
-    function updateBio(event) {
-        const input = event.target.value;
-        setNewBio(input);
-    }
-
     async function sendUpdateUserInfoRequest() {
         const sendNickname = newNickname === "" ? nickname : newNickname;
         const sendEmail = newEmail === "" ? email : newEmail;
@@ -75,9 +60,9 @@ export default function Profile(props) {
         <Container maxWidth="sm">
             <Paper elevation={3} className={classes.root}>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
-                    {getTextField(updateNickname, nickname, "username")}
-                    {getTextField(updateEmail, email, "email")}
-                    {getTextField(updateBio, bio, "bio")}
+                    {getTextField(nickname, "username")}
+                    {getTextField(email, "email")}
+                    {getTextField(bio, "bio")}
                     <Grid item>
                         <Button variant="outlined" onClick={sendUpdateUserInfoRequest}>
                             Update My Info
@@ -88,17 +73,27 @@ export default function Profile(props) {
         </Container>
     )
 
-    function getTextField(update, placeholder, title) {
+    function getTextField(placeholder, title) {
         return (
             <Grid item className={classes.gridItem}>
                 <FormLabel>{title}</FormLabel>
                 <TextField
                     className={classes.textField}
-                    // variant="outlined"
-                    onChange={update}
+                    onChange={(event) => handleUserInput(event, title)}
                     placeholder={placeholder}
                 />
             </Grid>
         )
     }
+
+    function handleUserInput(event, textField) {
+        const input = event.target.value;
+        switch (textField) {
+            case "username": setNewNickname(input); break;
+            case "email": setNewEmail(input); break;
+            case "bio": setNewBio(input); break;
+            default: console.log("Error in handleUserInput");
+        }
+    }
+
 }
