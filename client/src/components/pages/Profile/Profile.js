@@ -1,7 +1,85 @@
-import React from "react";
-import {Typography} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {Container, Grid, makeStyles, Paper, TextField, Typography} from "@material-ui/core";
+import {sendRequest} from "../../../utils/restfulAPI";
+
+const useStyles = makeStyles( {
+    root: {
+        margin: "20px",
+        padding: "20px",
+    },
+    gridItem: {
+        margin: "10px",
+        width: "100%"
+    },
+    textField: {
+        width: "100%",
+    }
+});
 
 export default function Profile(props) {
-    // The current user's username is accessible via props.currentUser
-    return <Typography align="center">Profile Page</Typography>
+    const classes = useStyles();
+    const [nickname, setNickname] = useState("");
+    const [email, setEmail] = useState("");
+    const [bio, setBio] = useState("");
+    const [picURL, setPicURL] = useState("");
+
+    console.log({bio})
+
+    useEffect(() => {
+        myProfileRequest();
+    })
+
+    async function myProfileRequest() {
+        const response = await sendRequest({requestType: "myProfile", userID: props.currentUserID});
+        if(response) {
+            setNickname(response.nickname);
+            setEmail(response.email);
+            setBio(response.bio);
+            setPicURL(response.picURL);
+        }
+    }
+
+    function getBioPlaceholder() {
+        return bio === undefined ? "Add a Bio..." : bio;
+    }
+
+    function getNicknamePlaceholder() {
+        return `User: ${nickname}`
+    }
+
+    function getEmailPlaceholder() {
+        return `Email: ${email}`
+    }
+
+    return (
+        <Container maxWidth="sm">
+            <Paper elevation={3} className={classes.root}>
+                <Grid container direction="column" justifyContent="flex-start" alignItems="center">
+                    <Grid item className={classes.gridItem}>
+                        <TextField
+                            className={classes.textField}
+                            variant="outlined"
+                            placeholder={getNicknamePlaceholder()}
+                        />
+                    </Grid>
+                    <Grid item className={classes.gridItem}>
+                        <TextField
+                            className={classes.textField}
+                            variant="outlined"
+                            placeholder={getEmailPlaceholder()}
+                        />
+                    </Grid>
+                    <Grid item className={classes.gridItem}>
+                        <TextField
+                            className={classes.textField}
+                            variant="outlined"
+                            placeholder={getBioPlaceholder()}
+                            multiline
+                            maxRows={4}
+                        />
+                    </Grid>
+                </Grid>
+            </Paper>
+        </Container>
+    )
 }
