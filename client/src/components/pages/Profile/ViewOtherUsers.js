@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Container, List, makeStyles, Paper, TextField, ListItem, Modal} from "@material-ui/core";
+import {Container, List, makeStyles, Paper, TextField, ListItem, Modal, Typography} from "@material-ui/core";
 import {sendRequest} from "../../../utils/restfulAPI";
 import OtherUserModal from "./OtherUser";
 
@@ -12,7 +12,11 @@ const useStyles = makeStyles( {
     },
     textField: {
         width: "100%",
-    }
+    },
+    headerText: {
+        fontWeight: "bold",
+        marginBottom: "10px",
+    },
 });
 
 export default function ViewOtherUsers(props) {
@@ -41,6 +45,7 @@ export default function ViewOtherUsers(props) {
     return (
         <Container maxWidth="sm">
             <Paper elevation={3} className={classes.root}>
+                <Typography align="center" className={classes.headerText}>View Other Users</Typography>
                 <TextField
                     variant="outlined"
                     className={classes.textField}

@@ -17,6 +17,10 @@ const useStyles = makeStyles( {
     },
     textField: {
         width: "100%",
+    },
+    headerText: {
+        fontWeight: "bold",
+        marginBottom: "10px",
     }
 });
 
@@ -63,7 +67,7 @@ export default function MyUserInfo(props) {
     return (
         <Container maxWidth="sm" className={classes.root}>
             <Paper elevation={3} className={classes.paper}>
-                <Typography align="center">My Info</Typography>
+                <Typography align="center" className={classes.headerText}>My Info</Typography>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
                     {getTextField(nickname, "username")}
                     {getTextField(email, "email")}
