@@ -4,8 +4,12 @@ import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
     root: {
+        minWidth: "25vw",
+    },
+    paper: {
         margin: "20px",
         padding: "20px",
+        width: "100%",
     },
     gridItem: {
         margin: "10px",
@@ -57,8 +61,8 @@ export default function MyUserInfo(props) {
     }
 
     return (
-        <Container maxWidth="sm">
-            <Paper elevation={3} className={classes.root}>
+        <Container maxWidth="sm" className={classes.root}>
+            <Paper elevation={3} className={classes.paper}>
                 <Typography align="center">My Info</Typography>
                 <Grid container direction="column" justifyContent="center" alignItems="center">
                     {getTextField(nickname, "username")}
