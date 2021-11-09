@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Container, Grid, makeStyles, Paper, TextField, Typography} from "@material-ui/core";
+import {Button, Container, Grid, makeStyles, Paper, TextField, Typography} from "@material-ui/core";
 import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
@@ -44,11 +44,11 @@ export default function Profile(props) {
     }
 
     function getNicknamePlaceholder() {
-        return `User: ${nickname}`
+        return `nickname: ${nickname}`
     }
 
     function getEmailPlaceholder() {
-        return `Email: ${email}`
+        return `email: ${email}`
     }
 
     return (
@@ -77,6 +77,11 @@ export default function Profile(props) {
                             multiline
                             maxRows={4}
                         />
+                    </Grid>
+                    <Grid item>
+                        <Button variant="outlined">
+                            Update My Info
+                        </Button>
                     </Grid>
                 </Grid>
             </Paper>
