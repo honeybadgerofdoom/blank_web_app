@@ -17,8 +17,8 @@ export default function Play(props) {
     const [allGames, setAllGames] = useState([]);
 
     useEffect(() => {
-        {sendGameRequest(allGames)}
-    }, [props.userID]);
+        sendGameRequest(allGames)
+    }, [props.currentUserID]);
 
     async function sendGameRequest() {
         const gameResponse = await(sendRequest({requestType: "game", userID: props.currentUserID}));
