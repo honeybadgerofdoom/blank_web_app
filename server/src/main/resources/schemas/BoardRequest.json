@@ -19,6 +19,6 @@
       "type":"number"
     }
   },
-  "required": ["requestType", "userID", "gameID"],
+  "required": ["requestType", "gameID"],
   "additionalProperties": false
 }

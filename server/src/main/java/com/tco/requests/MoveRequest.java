@@ -43,7 +43,7 @@ public class MoveRequest extends Request {
 
     @Override
     public void buildResponse() {
-        String boardString = BoardRequest.getBoardFromDatabase(this.userID, this.gameID);
+        String boardString = BoardRequest.getBoardFromDatabase(this.gameID);
         try {
             ChessBoard board = new ChessBoard();
             board.initialize(boardString);

@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 public class BoardRequest extends Request {
     
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
-    private int userID;
     private int gameID;
 
     private String[] boardString;
@@ -27,13 +26,13 @@ public class BoardRequest extends Request {
     
     @Override
     public void buildResponse() {
-        String boardState = getBoardFromDatabase(this.userID, this.gameID);
+        String boardState = getBoardFromDatabase(this.gameID);
         boardString = boardStringToBoardState(boardState);
         success = true;
         log.trace("buildResponse -> {}", this);
     }
 
-    protected static String getBoardFromDatabase(int userID, int gameID) {
+    protected static String getBoardFromDatabase(int gameID) {
         String query = "SELECT * FROM games WHERE gameID = ?";
         String boardQuery = getDBQueryString();
         try (Database db = new Database()) {

@@ -32,7 +32,7 @@ public class LegalMovesRequest extends Request {
 
     @Override
     public void buildResponse() {
-        String boardString = BoardRequest.getBoardFromDatabase(this.gameID, this.gameID);
+        String boardString = BoardRequest.getBoardFromDatabase(this.gameID);
          try {
               ChessBoard board = new ChessBoard();
               board.initialize(boardString);
