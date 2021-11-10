@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {
-    Button, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead, TextField
+    Button, makeStyles, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TableHead, TextField, Container
 } from "@material-ui/core";
 import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
     root: {
-        maxWidth: "35vw",
+        width: "35vw",
         margin: "20px",
     },
     scrollable: {
@@ -74,25 +74,27 @@ export default function InvitesTable(props) {
     }
 
     return (
-        <Paper elevation={3} className={classes.root}>
-            {TableControls()}
-            <TableContainer component={Paper} className={classes.scrollable}>
-                <Table>
-                    <TableBody>
-                        {invites.map((invite, index) => {
-                            return (
-                                <TableRow key={index}>
-                                    <TableCell>{invite.sender}</TableCell>
-                                    <TableCell align="right">{invite.gameID}</TableCell>
-                                    <TableCell align="right"><Button color="primary">Accept</Button></TableCell>
-                                    <TableCell align="right"><Button color="secondary" onClick={() => decline(invite)}>Decline</Button></TableCell>
-                                </TableRow>
-                            )
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Paper>
+        <Container maxWidth="sm">
+            <Paper elevation={3} className={classes.root}>
+                {TableControls()}
+                <TableContainer component={Paper} className={classes.scrollable}>
+                    <Table>
+                        <TableBody>
+                            {invites.map((invite, index) => {
+                                return (
+                                    <TableRow key={index}>
+                                        <TableCell>{invite.sender}</TableCell>
+                                        <TableCell align="right">{invite.gameID}</TableCell>
+                                        <TableCell align="right"><Button color="primary">Accept</Button></TableCell>
+                                        <TableCell align="right"><Button color="secondary" onClick={() => decline(invite)}>Decline</Button></TableCell>
+                                    </TableRow>
+                                )
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Paper>
+        </Container>
     )
 
     function TableControls() {
@@ -107,9 +109,10 @@ export default function InvitesTable(props) {
                         </TableRow>
                         <TableRow>
                             <TableCell className={classes.headerText}>Opponent</TableCell>
+                            <TableCell className={classes.headerText} align="left">Status</TableCell>
                             <TableCell className={classes.headerText} align="left">Game ID</TableCell>
                             <TableCell className={classes.headerText} align="left">Accept</TableCell>
-                            <TableCell className={classes.headerText} align="right">Decline</TableCell>
+                            <TableCell className={classes.headerText} align="center">Decline</TableCell>
                         </TableRow>
                     </TableHead>
                 </Table>
