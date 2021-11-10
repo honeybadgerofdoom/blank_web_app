@@ -59,6 +59,21 @@ export default function InvitesTable(props) {
         return true;
     }
 
+    async function acceptInviteRequest(invite) {
+        const response = await sendRequest({requestType: "acceptInvite", sender: invite.sender, receiver: props.userID, gameID: invite.gameID});
+        if(response.success) {
+            props.showMessage("Invitation has been accepted", "success");
+        }
+        else {
+            props.showMessage("Error in accepting invitation", "error");
+        }
+    }
+
+    function accept(invite){
+        acceptInvite(invite);
+        sendMyInvitesRequest();
+    }
+
     return (
         <Container maxWidth="sm">
             <Paper elevation={3} className={classes.root}>
@@ -71,7 +86,7 @@ export default function InvitesTable(props) {
                                     <TableRow key={index}>
                                         <TableCell>{invite.sender}</TableCell>
                                         <TableCell align="right">{invite.gameID}</TableCell>
-                                        <TableCell align="right"><Button color="primary"onClick={() => decline(invite)}>Decline</Button></TableCell>
+                                        <TableCell align="right"><Button color="primary"onClick={() => accept(invite)}>Accept</Button></TableCell>
                                         <TableCell align="right"><Button color="secondary">Decline</Button></TableCell>
                                     </TableRow>
                                 )
@@ -81,7 +96,7 @@ export default function InvitesTable(props) {
                 </TableContainer>
             </Paper>
         </Container>
-    )
+    ) 
 
     function TableControls() {
         return (
