@@ -13,8 +13,12 @@
     "userID": {
       "description":"a user ID",
       "type":"number"
+    },
+    "gameID": {
+      "description":"a game ID",
+      "type":"number"
     }
   },
-  "required": ["requestType", "userID"],
+  "required": ["requestType", "gameID"],
   "additionalProperties": false
 }

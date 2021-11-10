@@ -21,7 +21,7 @@ export default function Board(props) {
     const [boardState, setBoardState] = useState([]);
 
     async function sendBoardRequest() {
-        const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID}));
+        const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
         if(boardResponse) {
             setBoardState(getBoardState(boardResponse.boardString));
         }
@@ -50,7 +50,8 @@ export default function Board(props) {
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare} setBoardState={setBoardState}
                                highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
                                key={index} piece={piece} position={generateMappingArray(index)} userID={props.currentUserID}
-                               fromPosition={fromPosition} setFromPosition={setFromPosition} getBoardState={getBoardState} showMessage={props.showMessage}/>
+                               fromPosition={fromPosition} setFromPosition={setFromPosition} getBoardState={getBoardState}
+                               showMessage={props.showMessage} gameID={props.chosenGame.gameID}/>
             })
         )
     }
@@ -66,7 +67,9 @@ export default function Board(props) {
     }
 
     else {
-        return <CustomColumn><Button variant="outlined" onClick={sendBoardRequest}>Send Board API Request</Button></CustomColumn>
+        return <CustomColumn><Button onClick={sendBoardRequest}>Play Game
+            With {props.chosenGame.opponentName}</Button></CustomColumn>
+
     }
 }
 
