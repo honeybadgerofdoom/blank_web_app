@@ -68,7 +68,7 @@ export default function Square(props) {
     }
 
     async function sendLegalMovesRequest(position) {
-        const legalMovesResponse = await(sendRequest({requestType: "legalMoves", position: position, userID: props.userID}));
+        const legalMovesResponse = await(sendRequest({requestType: "legalMoves", position: position, gameID: props.gameID}));
         if(legalMovesResponse) {
             props.setHighlightedSquares(legalMovesResponse.legalMoves);
         }
@@ -78,7 +78,7 @@ export default function Square(props) {
     }
 
     async function sendMoveRequest() {
-        const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID});
+        const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID, gameID: props.gameID});
         if(moveResponse.verifyPlayerColor) {
             if (moveResponse.turnValid) {
                 const boardState = props.getBoardState(moveResponse.newBoardState);

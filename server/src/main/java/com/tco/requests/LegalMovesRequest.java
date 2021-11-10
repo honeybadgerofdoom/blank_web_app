@@ -25,13 +25,14 @@ public class LegalMovesRequest extends Request {
 
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
     private String position;
+    private int gameID;
     private int userID;
 
     private ArrayList<String> legalMoves;
 
     @Override
     public void buildResponse() {
-        String boardString = BoardRequest.getBoardFromDatabase(this.userID);
+        String boardString = BoardRequest.getBoardFromDatabase(this.gameID);
          try {
               ChessBoard board = new ChessBoard();
               board.initialize(boardString);
