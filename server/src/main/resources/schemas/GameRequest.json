@@ -11,8 +11,8 @@
       "pattern": "^game$"
     },
     "userID": {
-      "description":"a username.",
-      "type":"number"
+      "description": "a username.",
+      "type": "number"
     }
   },
   "required":["requestType", "userID"],

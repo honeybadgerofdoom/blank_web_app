@@ -14,11 +14,12 @@
       "description": "a string where the piece is located",
       "type": "string"
     },
-    "userID" : {
-      "description": "a user's id",
+    "gameID" : {
+      "description": "a game's id",
       "type": "number"
-    }
+    },
+
   },
-  "required": ["requestType","position","userID"],
+  "required": ["requestType","position","gameID"],
   "additionalProperties": false
 }
