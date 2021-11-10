@@ -71,7 +71,7 @@ export default function InvitesTable(props) {
                                     <TableRow key={index}>
                                         <TableCell>{invite.sender}</TableCell>
                                         <TableCell align="right">{invite.gameID}</TableCell>
-                                        <TableCell align="right"><Button color="primary">Accept</Button></TableCell>
+                                        <TableCell align="right"><Button color="primary"onClick={() => decline(invite)}>Decline</Button></TableCell>
                                         <TableCell align="right"><Button color="secondary">Decline</Button></TableCell>
                                     </TableRow>
                                 )
