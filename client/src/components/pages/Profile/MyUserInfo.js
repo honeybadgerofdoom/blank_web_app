@@ -38,7 +38,7 @@ export default function MyUserInfo(props) {
 
     useEffect(() => {
         sendMyProfileRequest();
-    })
+    }, []);
 
     async function sendMyProfileRequest() {
         const response = await sendRequest({requestType: "myProfile", userID: props.currentUserID});

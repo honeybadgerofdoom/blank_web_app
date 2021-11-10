@@ -19,8 +19,9 @@
       "type": "string"
     },
     "email": {
-      "description": "a user's email",
-      "type": "string"
+      "description": "new user's email",
+      "type": "string",
+      "format": "email"
     },
     "bio": {
       "description": "a user's bio",
