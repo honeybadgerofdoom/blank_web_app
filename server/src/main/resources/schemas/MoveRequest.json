@@ -21,8 +21,12 @@
     "userID" : {
       "description": "a user's id",
       "type": "number"
+    },
+    "gameID" : {
+      "description": "a game ID",
+      "type": "number"
     }
   },
-  "required": ["requestType","fromPosition","toPosition","userID"],
+  "required": ["requestType","fromPosition","toPosition","userID", "gameID"],
   "additionalProperties": false
 }
