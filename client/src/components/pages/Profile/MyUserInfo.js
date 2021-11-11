@@ -56,7 +56,7 @@ export default function MyUserInfo(props) {
         const sendBio = newBio === "" ? bio : newBio;
         const sendPicURL = newPicURL === "" ? picURL : newPicURL;
         const response = await sendRequest({requestType: "updateUserInfo", userID: props.currentUserID, nickname: sendNickname, email: sendEmail, bio: sendBio, picURL: sendPicURL})
-        if(response.success) {
+        if(response && response.success) {
             props.showMessage("Profile Updated", "success");
         }
         else {
