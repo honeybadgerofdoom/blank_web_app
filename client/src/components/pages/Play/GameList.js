@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default function Play(props) {
+export default function GameList(props) {
     const classes = useStyles();
     const [allGames, setAllGames] = useState([]);
 
