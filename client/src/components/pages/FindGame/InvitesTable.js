@@ -62,6 +62,7 @@ export default function InvitesTable(props) {
         const response = await sendRequest({requestType: "declineInvite", sender: invite.sender, receiver: props.userID, gameID: invite.gameID});
         if(response.success) {
             props.showMessage("Invite Declined", "success");
+            sendMyInvitesRequest();
         }
         else {
             props.showMessage("Decline Error", "error");
@@ -70,7 +71,6 @@ export default function InvitesTable(props) {
 
     function decline(invite) {
         declineInviteRequest(invite);
-        sendMyInvitesRequest()
     }
 
     return (
