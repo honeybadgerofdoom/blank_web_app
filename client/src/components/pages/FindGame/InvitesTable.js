@@ -109,7 +109,6 @@ export default function InvitesTable(props) {
                         </TableRow>
                         <TableRow>
                             <TableCell className={classes.headerText}>Opponent</TableCell>
-                            <TableCell className={classes.headerText} align="left">Status</TableCell>
                             <TableCell className={classes.headerText} align="left">Game ID</TableCell>
                             <TableCell className={classes.headerText} align="left">Accept</TableCell>
                             <TableCell className={classes.headerText} align="center">Decline</TableCell>
