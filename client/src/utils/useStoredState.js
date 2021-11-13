@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function useStoredState(key, defaultValue) {
+export default function useStoredState(key, defaultValue) {
     const [value, setValue] = useState(getInitialValue());
 
     function setStoredValue(object) {
