@@ -32,3 +32,25 @@ export function TableControls(props) {
         </TableContainer>
     );
 }
+
+export function TableContent(props) {
+    const classes = useStyles();
+    return (
+        <TableContainer component={Paper} className={classes.scrollable}>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        {props.headers.map((label, index) =>
+                            <TableCell key={index} className={classes.headerText} align="center">
+                                {label}
+                            </TableCell>
+                        )}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {props.children}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
+}
