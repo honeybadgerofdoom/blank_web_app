@@ -16,18 +16,19 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MyInvitesRequest extends Request {
+public class AcceptInviteRequest extends Request {
 
     private final transient Logger log = LoggerFactory.getLogger(AcceptInviteRequest.class);
     private int gameID;
     private int senderID;
-    private int reciever;
+    private int player2;
+    private String sender;
 
 
     @Override
     public void buildResponse() {
         deleteFromInviteTable();
-        addPlayertwo();
+        addPlayerTwo();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -35,7 +36,7 @@ public class MyInvitesRequest extends Request {
         String query = "DELETE FROM invites WHERE gameID=? AND sender=? AND receiver=?";
         try (Database db = new Database()) {
             senderID = nicknameToID(db, this.sender);
-            db.update(query, this.gameID, senderID, this.receiver);
+            db.update(query, this.gameID, senderID, this.player2);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,31 +44,18 @@ public class MyInvitesRequest extends Request {
 
     private void addPlayerTwo(){
         String queryForPlayer = "UPDATE games SET player2=? WHERE gameID=?";
-            try (Database db = new Database()) {
-                int senderID = nicknameToID(db, this.sender);
-                db.update(query, this.receiver, this.gameID);
-            
+            try (Database db1 = new Database()) {
+                db1.update(queryForPlayer, this.player2, this.gameID);
             } catch (Exception e) {
                 e.printStackTrace();
             }
     }
 
-    public static String idToNickname(Database db, int enemyID) throws Exception {
-        String query = "SELECT nickname FROM users WHERE userID=?";
-        List<Map<String, String>> results = db.query(query, enemyID);
-        return results.get(0).get("nickname");
+    private int nicknameToID(Database db, String nickname) throws Exception {
+        String query = "SELECT userID FROM users WHERE nickname=?";
+        List<Map<String, String>> results = db.query(query, nickname);
+        return Integer.parseInt(results.get(0).get("userID"));
     }
 
-    private class Invite {
-        private String sender;
-        private String status;
-        private int gameID;
-
-        public Invite(String sender, String status, int gameID) {
-            this.sender = sender;
-            this.status = status;
-            this.gameID = gameID;
-        }
-    }
 
 }

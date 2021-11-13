@@ -70,8 +70,7 @@ export default function InvitesTable(props) {
     }
 
     function accept(invite){
-        acceptInvite(invite);
-        sendMyInvitesRequest();
+        acceptInviteRequest(invite);
     }
 
     return (
