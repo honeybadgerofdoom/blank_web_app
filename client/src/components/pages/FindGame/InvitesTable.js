@@ -4,9 +4,6 @@ import {TableContent, TableControls} from "./findGameTables";
 import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
-    root: {
-        margin: "20px"
-    },
     search: {
         width: "100%",
     },
@@ -35,7 +32,7 @@ export default function InvitesTable(props) {
     }
 
     return (
-        <Paper elevation={3} className={classes.root}>
+        <Paper elevation={3}>
             <TableControls title="Join a Match from Invitations">
                 <TextField className={classes.search} size="small" variant="outlined" onChange={search} placeholder="Search my Invites..." />
             </TableControls>

@@ -4,9 +4,6 @@ import {TableContent, TableControls} from "./findGameTables";
 import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
-    root: {
-        margin: "20px"
-    },
     newGameButton: {
         width: "100%",
     },
@@ -21,7 +18,7 @@ export default function NewGamesTable(props) {
     }, []);
 
     return (
-        <Paper elevation={3} className={classes.root}>
+        <Paper elevation={3}>
             <TableControls title="Create a Match and Invite Others">
                 <Button className={classes.newGameButton} color="primary" variant="outlined">
                     New Game
