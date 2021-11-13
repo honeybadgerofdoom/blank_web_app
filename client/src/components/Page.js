@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React  from "react";
 import { Button, makeStyles } from "@material-ui/core";
 import TabNavigator from "./navigation/TabNavigator";
 import useVisiblePages from "./navigation/useVisiblePages";
+import useStoredState from "../utils/useStoredState";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -13,9 +14,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Page(props) {
 	const classes = useStyles();
-	const [currentPageIndex, setCurrentPageIndex] = useState(0);
-	const [userAuthenticated, setUserAuthenticated] = useState(false);
-	const [currentUserID, setCurrentUserID] = useState(null);
+	const [currentPageIndex, setCurrentPageIndex] = useStoredState("currentPageIndex", 0);
+	const [userAuthenticated, setUserAuthenticated] = useStoredState("userAuthenticated", false);
+	const [currentUserID, setCurrentUserID] = useStoredState("currentUserID", null);
 	const [visiblePages] = useVisiblePages(userAuthenticated);
 
 	function signOut() {
@@ -41,7 +42,14 @@ export default function Page(props) {
 			<br />
 			
 			<div>
-				{React.createElement(visiblePages[currentPageIndex].component, {setUserAuthenticated: setUserAuthenticated, showMessage: props.showMessage, setCurrentUserID: setCurrentUserID, currentUserID: currentUserID})}
+				{React.createElement(visiblePages[currentPageIndex].component,
+					{
+						setUserAuthenticated: setUserAuthenticated,
+						showMessage: props.showMessage,
+						setCurrentUserID: setCurrentUserID,
+						currentUserID: currentUserID
+					}
+				)}
 			</div>
 		</div>
 	);
