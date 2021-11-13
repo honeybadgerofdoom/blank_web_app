@@ -48,8 +48,9 @@ public class NewGameRequest extends Request {
     private static String createGameQuery() {
         return "INSERT INTO `games` VALUES (" +
                 "null," +
-                "?" +
+                "?," +
                 "null," +
+                "WHITE," +
                 "'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR')";
     }
 
