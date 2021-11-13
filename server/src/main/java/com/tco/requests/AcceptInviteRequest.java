@@ -21,13 +21,13 @@ public class MyInvitesRequest extends Request {
     private final transient Logger log = LoggerFactory.getLogger(AcceptInviteRequest.class);
     private int gameID;
     private int senderID;
-    private int recieverID;
+    private int reciever;
 
 
     @Override
     public void buildResponse() {
         deleteFromInviteTable();
-        addPlayerteo();
+        addPlayertwo();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -35,16 +35,17 @@ public class MyInvitesRequest extends Request {
         String query = "DELETE FROM invites WHERE gameID=? AND sender=? AND receiver=?";
         try (Database db = new Database()) {
             senderID = nicknameToID(db, this.sender);
-        
+            db.update(query, this.gameID, senderID, this.receiver);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void addPlayerTwo(){
-        String queryForPlayer = "SELECT gameID=? FROM games WHERE ";
+        String queryForPlayer = "UPDATE games SET player2=? WHERE gameID=?";
             try (Database db = new Database()) {
                 int senderID = nicknameToID(db, this.sender);
+                db.update(query, this.receiver, this.gameID);
             
             } catch (Exception e) {
                 e.printStackTrace();
