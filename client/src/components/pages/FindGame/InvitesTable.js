@@ -59,18 +59,19 @@ export default function InvitesTable(props) {
         return true;
     }
 
-    async function acceptInviteRequest(invite) {
-        const response = await sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, player2: props.userID });
+    function acceptInviteRequest(invite) {
+        const response = sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, player2: props.userID });
         if(response) {
-            props.showMessage("Invitation has been accepted");
+            console.log({response})
         }
         else {
-            props.showMessage("Error in accepting invitation");
+            console.log("Error with myInvites request")
         }
     }
 
-    function accept(invite){
-        acceptInviteRequest(invite);
+    async function accept(invite){
+        await acceptInviteRequest(invite);
+        sendMyInvitesRequest(); 
     }
 
     return (
