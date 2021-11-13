@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
@@ -18,6 +18,12 @@ export default function CustomInputField(props) {
         props.setValue(event.target.value);
     }
 
+    function handleKeyDown(event) {
+        if (event.keyCode === 13) {
+            props.submit();
+        }
+    }
+
     return (
         <FormControl className={classes.root}>
             <InputLabel htmlFor={props.title}>{props.name}</InputLabel>
@@ -25,6 +31,7 @@ export default function CustomInputField(props) {
                 id={props.title}
                 value={props.value}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
             />
         </FormControl>
     );
