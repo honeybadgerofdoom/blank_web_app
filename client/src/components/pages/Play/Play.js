@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     root: {
         overflow: "auto",
     },
+
 });
 
 export default function Play(props) {
@@ -38,7 +39,7 @@ export default function Play(props) {
 
     return(
         <Container>
-            <Stack direction="row" spacing={1} alignItems="flex-start" justifyContent="center">
+            <Stack direction="row" spacing={0} alignItems="flex-start" justifyContent="center">
                 <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID}/>
                 <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}/>
             </Stack>

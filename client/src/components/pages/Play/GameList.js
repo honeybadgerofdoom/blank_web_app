@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
 import Board from "./Board"
 import {sendRequest} from "../../../utils/restfulAPI";
-import {Button, List, ListItem, Box, Typography, Paper, makeStyles} from "@material-ui/core";
+import {Button, List, ListItem, Box, Typography, Paper, makeStyles, TextField} from "@material-ui/core";
 import ListItemButton from '@mui/material/ListItemButton';
+import * as PropTypes from "prop-types";
 // import ListItemText from '@mui/material/ListItemText';
 // import { FixedSizeList } from 'react-window';
 
@@ -12,6 +13,16 @@ const useStyles = makeStyles({
     },
 });
 
+function SearchBar(props) {
+    return null;
+}
+
+SearchBar.propTypes = {
+    onCancelSearch: PropTypes.func,
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func,
+    value: PropTypes.any
+};
 export default function GameList(props) {
     const classes = useStyles();
     const [allGames, setAllGames] = useState([]);
