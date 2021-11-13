@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class NewGameRequest extends Request {
     
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
-    private int gameID;
+    private int userID;
 
     private String[] boardString;
     private boolean success;
@@ -28,13 +28,32 @@ public class NewGameRequest extends Request {
     @Override
     public void buildResponse() {
         something = "adsf";
-        String boardState = getBoardFromDatabase(this.gameID);
-        boardString = boardStringToBoardState(boardState);
-        success = true;
+        createGame();
         log.trace("buildResponse -> {}", this);
     }
 
-    protected static String getBoardFromDatabase(int gameID) {
+    private void createGame() {
+        try (Database db = new Database()) {
+            db.update(createGameQuery(), this.userID);
+            success = true;
+        } catch (SQLException e) {
+            success = false;
+            e.printStackTrace();
+        } catch (Exception e) {
+            success = false;
+            e.printStackTrace();
+        }
+    }
+
+    private static String createGameQuery() {
+        return "INSERT INTO `games` VALUES (" +
+                "null," +
+                "?" +
+                "null," +
+                "'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR')";
+    }
+
+    /*protected static String getBoardFromDatabase(int gameID) {
         String query = "SELECT * FROM games WHERE gameID = ?";
         String boardQuery = getDBQueryString();
         try (Database db = new Database()) {
@@ -79,6 +98,6 @@ public class NewGameRequest extends Request {
         charToUnicode.put("P", "\u265F");
         charToUnicode.put("-", "");
         return charToUnicode;
-    }
+    }*/
 
 }
