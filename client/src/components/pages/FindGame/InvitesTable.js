@@ -60,7 +60,7 @@ export default function InvitesTable(props) {
     }
 
     async function acceptInviteRequest(invite) {
-        const response = await sendRequest({requestType: "acceptInvite", sender: invite.sender, receiver: props.userID, gameID: invite.gameID});
+        const response = await sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, receiver: props.userID});
         if(response.success) {
             props.showMessage("Invitation has been accepted", "success");
         }
