@@ -59,9 +59,10 @@ export default function InvitesTable(props) {
         return true;
     }
 
-    function acceptInviteRequest(invite) {
-        const response = sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, player2: props.userID });
+    async function acceptInviteRequest(invite) {
+        const response = await sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, player2: props.userID });
         if(response) {
+            sendMyInvitesRequest();
             console.log({response})
         }
         else {
@@ -69,9 +70,8 @@ export default function InvitesTable(props) {
         }
     }
 
-    async function accept(invite){
-        await acceptInviteRequest(invite);
-        sendMyInvitesRequest(); 
+    function accept(invite){
+        acceptInviteRequest(invite);
     }
 
     return (
