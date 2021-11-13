@@ -49,8 +49,9 @@ async function sendGamesRequest(userID) {
 
 function GameRows(props) {
     function ActionButtons() {
+        const variant = "text";
         return (
-            <ButtonGroup variant="text">
+            <ButtonGroup variant={variant}>
                 <Button color="primary">Invite</Button>
                 <Button color="secondary">Delete</Button>
             </ButtonGroup>
