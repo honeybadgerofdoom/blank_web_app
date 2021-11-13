@@ -52,6 +52,7 @@ class MicroServer {
             post("/updateUserInfo", (req, res) -> processHttpRequest(req, res, UpdateUserInfoRequest.class));
             post("/newInvite", (req, res) -> processHttpRequest(req, res, NewInviteRequest.class));
             post("/declineInvite", (req, res) -> processHttpRequest(req, res, DeclineInviteRequest.class));
+            post("/newGame", (req, res) -> processHttpRequest(req, res, NewGameRequest.class));
         });
     }
 
