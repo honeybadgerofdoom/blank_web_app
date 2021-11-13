@@ -13,7 +13,27 @@ const useStyles = makeStyles( {
 })
 
 export default function NewGamesTable(props) {
+    const classes = useStyles();
+    const [allGames, setAllGames] = useState([]);
 
+    useEffect(() => {
+        sendGamesRequest(props.userID).then(newGames => setAllGames(newGames));
+    }, []);
+
+    return (
+        <Container maxWidth="sm">
+            <Paper elevation={3} className={classes.root}>
+                <TableControls title="Create a Match and Invite Others">
+                    <Button className={classes.newGameButton} color="primary" variant="outlined">
+                        New Game
+                    </Button>
+                </TableControls>
+                <TableContent headers={["Match ID", "Invitations", "Action"]}>
+                    <GameRows allGames={allGames} />
+                </TableContent>
+            </Paper>
+        </Container>
+    );
 }
 
 async function sendGamesRequest(userID) {
