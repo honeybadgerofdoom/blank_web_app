@@ -50,7 +50,7 @@ public class NewGameRequest extends Request {
                 "null," +
                 "?," +
                 "null," +
-                "WHITE," +
+                "'WHITE'," +
                 "'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR')";
     }
 
