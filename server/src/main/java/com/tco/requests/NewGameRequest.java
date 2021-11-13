@@ -23,11 +23,9 @@ public class NewGameRequest extends Request {
 
     private String[] boardString;
     private boolean success;
-    public String something;
     
     @Override
     public void buildResponse() {
-        something = "adsf";
         createGame();
         log.trace("buildResponse -> {}", this);
     }
