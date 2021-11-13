@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Button, makeStyles, Paper, TableCell, TableRow, Container, ButtonGroup } from "@material-ui/core";
+import { Button, makeStyles, Paper, TableCell, TableRow, ButtonGroup } from "@material-ui/core";
 import {TableContent, TableControls} from "./findGameTables";
 import {sendRequest} from "../../../utils/restfulAPI";
 
@@ -21,18 +21,16 @@ export default function NewGamesTable(props) {
     }, []);
 
     return (
-        <Container maxWidth="sm">
-            <Paper elevation={3} className={classes.root}>
-                <TableControls title="Create a Match and Invite Others">
-                    <Button className={classes.newGameButton} color="primary" variant="outlined">
-                        New Game
-                    </Button>
-                </TableControls>
-                <TableContent headers={["Match ID", "Invitations", "Action"]}>
-                    <GameRows allGames={allGames} />
-                </TableContent>
-            </Paper>
-        </Container>
+        <Paper elevation={3} className={classes.root}>
+            <TableControls title="Create a Match and Invite Others">
+                <Button className={classes.newGameButton} color="primary" variant="outlined">
+                    New Game
+                </Button>
+            </TableControls>
+            <TableContent headers={["Match ID", "Invitations", "Action"]}>
+                <GameRows allGames={allGames} />
+            </TableContent>
+        </Paper>
     );
 }
 
@@ -62,7 +60,7 @@ function GameRows(props) {
         <TableRow key={index}>
             <TableCell align="center">{game.gameID}</TableCell>
             <TableCell align="center">0</TableCell>
-            <TableCell align="right">
+            <TableCell align="center">
                 <ActionButtons />
             </TableCell>
         </TableRow>

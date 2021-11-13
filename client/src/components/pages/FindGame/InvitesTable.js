@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { Button, makeStyles, Paper, TableCell, TableRow, TextField, Container, ButtonGroup } from "@material-ui/core";
+import { Button, makeStyles, Paper, TableCell, TableRow, TextField, ButtonGroup } from "@material-ui/core";
 import {TableContent, TableControls} from "./findGameTables";
 import {sendRequest} from "../../../utils/restfulAPI";
 
@@ -35,16 +35,14 @@ export default function InvitesTable(props) {
     }
 
     return (
-        <Container maxWidth="sm">
-            <Paper elevation={3} className={classes.root}>
-                <TableControls title="Join a Match from Invitations">
-                    <TextField className={classes.search} variant="outlined" onChange={search} placeholder="Search my Invites..." />
-                </TableControls>
-                <TableContent headers={["Match ID", "Opponent", "Action"]}>
-                    <MyInviteRows invites={invites} />
-                </TableContent>
-            </Paper>
-        </Container>
+        <Paper elevation={3} className={classes.root}>
+            <TableControls title="Join a Match from Invitations">
+                <TextField className={classes.search} size="small" variant="outlined" onChange={search} placeholder="Search my Invites..." />
+            </TableControls>
+            <TableContent headers={["Match ID", "Opponent", "Action"]}>
+                <MyInviteRows invites={invites} />
+            </TableContent>
+        </Paper>
     );
 }
 
@@ -72,7 +70,7 @@ function MyInviteRows(props) {
         <TableRow key={index}>
             <TableCell align="center">{invite.gameID}</TableCell>
             <TableCell align="center">{invite.sender}</TableCell>
-            <TableCell align="right">
+            <TableCell align="center">
                 <ButtonGroup variant="text">
                     <Button color="primary">Accept</Button>
                     <Button color="secondary">Decline</Button>
