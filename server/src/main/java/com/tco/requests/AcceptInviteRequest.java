@@ -33,10 +33,10 @@ public class AcceptInviteRequest extends Request {
     }
 
     private void deleteFromInviteTable() {
-        String query = "DELETE FROM invites WHERE gameID=? AND sender=? AND receiver=?";
+        String query = "DELETE FROM invites WHERE gameID=? AND sender=?";
         try (Database db = new Database()) {
             senderID = nicknameToID(db, this.sender);
-            db.update(query, this.gameID, senderID, this.player2);
+            db.update(query, this.gameID, senderID);
         } catch (Exception e) {
             e.printStackTrace();
         }
