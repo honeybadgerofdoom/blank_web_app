@@ -23,6 +23,7 @@ public class AcceptInviteRequest extends Request {
     private int senderID;
     private int player2;
     private String sender;
+    private boolean success;
 
 
     @Override
@@ -37,7 +38,9 @@ public class AcceptInviteRequest extends Request {
         try (Database db = new Database()) {
             senderID = nicknameToID(db, this.sender);
             db.update(query, this.gameID, senderID);
+            this.success = true;
         } catch (Exception e) {
+            this.success = false;
             e.printStackTrace();
         }
     }
@@ -46,7 +49,9 @@ public class AcceptInviteRequest extends Request {
         String queryForPlayer = "UPDATE games SET player2=? WHERE gameID=?";
             try (Database db1 = new Database()) {
                 db1.update(queryForPlayer, this.player2, this.gameID);
+                this.success = true;
             } catch (Exception e) {
+                this.success = false;
                 e.printStackTrace();
             }
     }
