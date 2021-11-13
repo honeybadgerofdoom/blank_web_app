@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, makeStyles} from "@material-ui/core";
 import Square from "./Square";
 import CustomColumn from "../../../utils/CustomColumn";
@@ -13,12 +13,23 @@ const useStyles = makeStyles({
     },
 });
 
+// use effect that is dependant on gameid, it is initialized to null.
+// gameid in the dependency array
+
+
 export default function Board(props) {
     const classes = useStyles();
     const [clickedSquare, setClickedSquare] = useState("");
     const [highlightedSquares, setHighlightedSquares] = useState([]);
     const [fromPosition, setFromPosition] = useState("");
     const [boardState, setBoardState] = useState([]);
+
+    useEffect(() => {
+        if(props.chosenGame) {
+            sendBoardRequest();
+        }
+    }, [props.chosenGame]);
+
 
     async function sendBoardRequest() {
         const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
@@ -65,12 +76,13 @@ export default function Board(props) {
             </CustomColumn>
         )
     }
+    return null;
 
-    else {
-        return <CustomColumn><Button onClick={sendBoardRequest}>Play Game
-            With {props.chosenGame.opponentName}</Button></CustomColumn>
-
-    }
+    // else {
+    //     return <CustomColumn><Button onClick={sendBoardRequest}>Play Game
+    //         With {props.chosenGame.opponentName}</Button></CustomColumn>
+    //
+    // }
 }
 
 function generateMappingArray(index) {

@@ -30,14 +30,30 @@ export default function GameList(props) {
         }
     }
 
+    // function renderRow() {
+    //     return allGames.map((game, index)=>{
+    //         if(game.opponentName !== '') {
+    //             return (
+    //                 <ListItem key={index}>
+    //                     <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={game}/>
+    //                 </ListItem>
+    //             );
+    //         }
+    //         else{
+    //             return null;
+    //         }
+    //     })
+    // }
+
     function renderRow() {
         return allGames.map((game, index)=>{
             if(game.opponentName !== '') {
                 return (
                     <ListItem key={index}>
-                        <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={game}/>
+                        <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
                     </ListItem>
                 );
+
             }
             else{
                 return null;
