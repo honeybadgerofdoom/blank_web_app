@@ -48,15 +48,21 @@ async function sendGamesRequest(userID) {
 }
 
 function GameRows(props) {
+    function ActionButtons() {
+        return (
+            <ButtonGroup variant="text">
+                <Button color="primary">Invite</Button>
+                <Button color="secondary">Delete</Button>
+            </ButtonGroup>
+        );
+    }
+
     return props.allGames.map((game, index) =>
         <TableRow key={index}>
             <TableCell align="center">{game.gameID}</TableCell>
             <TableCell align="center">0</TableCell>
             <TableCell align="right">
-                <ButtonGroup variant="text">
-                    <Button color="primary">Invite</Button>
-                    <Button color="secondary">Delete</Button>
-                </ButtonGroup>
+                <ActionButtons />
             </TableCell>
         </TableRow>
     );
