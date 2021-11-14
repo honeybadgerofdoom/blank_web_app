@@ -36,14 +36,6 @@ public class GameRequest extends Request {
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
 
-//            for(int i = 0; i < results.size(); i++){
-//                int gameID = Integer.parseInt(results.get(i).get("gameID"));
-//                int enemyID = getOpponent(gameID, db);
-//                String enemyName = idToNickname(enemyID, db);
-//                this.games.add(new Game(gameID, enemyName));
-//
-//            }
-//
             for(Map<String, String> gameRow : results){
                 int gameID = Integer.parseInt(gameRow.get("gameID"));
                 int enemyID = getOpponent(gameRow);
