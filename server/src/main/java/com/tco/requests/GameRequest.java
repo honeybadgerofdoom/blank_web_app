@@ -70,20 +70,6 @@ public class GameRequest extends Request {
         return results.get(0).get("nickname");
     }
 
-//    private int getOpponent(int gameID, Database db) throws SQLException{
-//        String query = "SELECT * FROM games WHERE gameID=?";
-//        List<Map<String, String>> results = db.query(query, gameID);
-//
-//        int player1 = Integer.parseInt(results.get(0).get("player1"));
-//        int player2 = -1;
-//
-//        if(results.get(0).get("player2") != null){
-//            player2 = Integer.parseInt(results.get(0).get("player2"));
-//        }
-//        return this.userID != player1 ? player1 : player2;
-//
-//    }
-
     private int getOpponent(Map<String, String> gameRow){
         String player1 = gameRow.get("player1");
         String player2 = gameRow.get("player2");
