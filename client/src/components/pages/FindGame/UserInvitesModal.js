@@ -87,6 +87,9 @@ function UsersList(props) {
             {props.users.map((user, index) =>
                 <ListItem key={index}>
                     <Grid container justifyContent="center">
+                        <Grid item xs={2}>
+                            <Checkbox icon={<CatchingPokemonOutlined/>} checkedIcon={<CatchingPokemon/>} defaultChecked={userInvitesList[index]} />
+                        </Grid>
                         <Grid item xs={10}>
                             <OtherUser user={user} />
                         </Grid>
