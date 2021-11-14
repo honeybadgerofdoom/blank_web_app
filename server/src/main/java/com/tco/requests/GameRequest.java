@@ -51,25 +51,36 @@ public class GameRequest extends Request {
 
     public static String idToNickname(int enemyID, Database db) throws SQLException{
         String query = "SELECT nickname FROM users WHERE userID=?";
-
         List<Map<String, String>> results = db.query(query, enemyID);
-        if(results.size() != 0) {
-            return results.get(0).get("nickname");
-        }
-        return "";
+
+        return results.get(0).get("nickname");
     }
 
-    private int getOpponent(int gameID, Database db) throws SQLException{
-        String query = "SELECT * FROM games WHERE gameID=?";
-        List<Map<String, String>> results = db.query(query, gameID);
+//    private int getOpponent(int gameID, Database db) throws SQLException{
+//        String query = "SELECT * FROM games WHERE gameID=?";
+//        List<Map<String, String>> results = db.query(query, gameID);
+//
+//        int player1 = Integer.parseInt(results.get(0).get("player1"));
+//        int player2 = -1;
+//
+//        if(results.get(0).get("player2") != null){
+//            player2 = Integer.parseInt(results.get(0).get("player2"));
+//        }
+//        return this.userID != player1 ? player1 : player2;
+//
+//    }
 
-        int player1 = Integer.parseInt(results.get(0).get("player1"));
-        int player2 = 0;
+    private int getOpponent(Map<String, String> gameRow){
+        String player1 = gameRow.get("player1");
+        String player2 = gameRow.get("player2");
 
-        if(results.get(0).get("player2") != null){
-            player2 = Integer.parseInt(results.get(0).get("player2"));
+        int id1 = Integer.parseInt(player1);
+        int id2 = -1;
+        if(player2 != null){
+            id2 = Integer.parseInt(player2);
         }
-        return this.userID != player1 ? player1 : player2;
+
+        return this.userID != id1 ? id1 : id2;
 
     }
 
