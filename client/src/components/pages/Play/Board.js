@@ -13,10 +13,6 @@ const useStyles = makeStyles({
     },
 });
 
-// use effect that is dependant on gameid, it is initialized to null.
-// gameid in the dependency array
-
-
 export default function Board(props) {
     const classes = useStyles();
     const [clickedSquare, setClickedSquare] = useState("");
@@ -77,12 +73,6 @@ export default function Board(props) {
         )
     }
     return null;
-
-    // else {
-    //     return <CustomColumn><Button onClick={sendBoardRequest}>Play Game
-    //         With {props.chosenGame.opponentName}</Button></CustomColumn>
-    //
-    // }
 }
 
 function generateMappingArray(index) {
