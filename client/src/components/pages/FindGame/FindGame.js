@@ -28,7 +28,11 @@ export default function FindGame(props) {
                 <Grid item {...gridItemCols}>
                     <InvitesTable userID={props.currentUserID} />
                 </Grid>
-
+                <UserInvitesModal
+                    isOpen={invitesModalInfo.isOpen}
+                    gameID={invitesModalInfo.gameID}
+                    closeModal={() => setInvitesModalInfo({ ...invitesModalInfo, isOpen: false })}
+                />
             </Grid>
         </div>
     );
