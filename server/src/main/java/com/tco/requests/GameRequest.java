@@ -36,12 +36,26 @@ public class GameRequest extends Request {
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
 
-            for(int i = 0; i < results.size(); i++){
-                int gameID = Integer.parseInt(results.get(i).get("gameID"));
-                int enemyID = getOpponent(gameID, db);
-                String enemyName = idToNickname(enemyID, db);
-                this.games.add(new Game(gameID, enemyName));
+//            for(int i = 0; i < results.size(); i++){
+//                int gameID = Integer.parseInt(results.get(i).get("gameID"));
+//                int enemyID = getOpponent(gameID, db);
+//                String enemyName = idToNickname(enemyID, db);
+//                this.games.add(new Game(gameID, enemyName));
+//
+//            }
+//
+            for(Map<String, String> gameRow : results){
+                int gameID = Integer.parseInt(gameRow.get("gameID"));
+                int enemyID = getOpponent(gameRow);
 
+                String enemyName;
+                if(enemyID == -1){
+                    enemyName = "[Pending]";
+                }
+                else{
+                    enemyName = idToNickname(db, enemyID);
+                }
+                this.games.add(new Game(gameID, enemyName));
             }
 
         } catch (Exception e) {
@@ -49,7 +63,7 @@ public class GameRequest extends Request {
         }
     }
 
-    public static String idToNickname(int enemyID, Database db) throws SQLException{
+    public static String idToNickname(Database db, int enemyID) throws SQLException{
         String query = "SELECT nickname FROM users WHERE userID=?";
         List<Map<String, String>> results = db.query(query, enemyID);
 
