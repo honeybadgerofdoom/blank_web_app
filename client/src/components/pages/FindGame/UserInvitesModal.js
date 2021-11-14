@@ -56,7 +56,7 @@ function UserSearchBody(props) {
                 size="small"
                 fullWidth
             />
-
+            <UsersList users={props.users} />
         </ModalBody>
     );
 }
@@ -72,6 +72,28 @@ function UserSearchFooter(props) {
             {' '}
             <Button color="secondary" onClick={props.closeModal}>Cancel</Button>
         </ModalFooter>
+    );
+}
+
+function UsersList(props) {
+    const classes = useStyles();
+    const userInvitesList = props.users.map((user, index) => index % 3 === 0);
+
+    if (props.users.length === 0) {
+        return <LinearProgress />;
+    }
+    return (
+        <List className={classes.userList}>
+            {props.users.map((user, index) =>
+                <ListItem key={index}>
+                    <Grid container justifyContent="center">
+                        <Grid item xs={10}>
+                            <OtherUser user={user} />
+                        </Grid>
+                    </Grid>
+                </ListItem>
+            )}
+        </List>
     );
 }
 
