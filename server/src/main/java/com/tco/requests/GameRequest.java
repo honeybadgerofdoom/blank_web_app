@@ -37,10 +37,9 @@ public class GameRequest extends Request {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
 
             for(int i = 0; i < results.size(); i++){
-               // this.gameIDs.add(Integer.parseInt(results.get(i).get("gameID")));
                 int gameID = Integer.parseInt(results.get(i).get("gameID"));
-                int enemyID = getOpponent(gameID);
-                String enemyName = idToNickname(enemyID);
+                int enemyID = getOpponent(gameID, db);
+                String enemyName = idToNickname(enemyID, db);
                 this.games.add(new Game(gameID, enemyName));
 
             }
@@ -50,33 +49,28 @@ public class GameRequest extends Request {
         }
     }
 
-    public static String idToNickname(int enemyID) {
+    public static String idToNickname(int enemyID, Database db) throws SQLException{
         String query = "SELECT nickname FROM users WHERE userID=?";
-        try (Database db = new Database()) {
-            List<Map<String, String>> results = db.query(query, enemyID);
-            return results.get(0).get("nickname");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        List<Map<String, String>> results = db.query(query, enemyID);
+        if(results.size() != 0) {
+            return results.get(0).get("nickname");
         }
         return "";
     }
 
-    private int getOpponent(int gameID){
+    private int getOpponent(int gameID, Database db) throws SQLException{
         String query = "SELECT * FROM games WHERE gameID=?";
-        try (Database db = new Database()) {
-            List<Map<String, String>> results = db.query(query, gameID);
-            int player1 = Integer.parseInt(results.get(0).get("player1"));
-            int player2 = 0;
-            if(results.get(0).get("player2") != null){
-                player2 = Integer.parseInt(results.get(0).get("player2"));
-            }
-            return this.userID != player1 ? player1 : player2;
+        List<Map<String, String>> results = db.query(query, gameID);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
+        int player1 = Integer.parseInt(results.get(0).get("player1"));
+        int player2 = 0;
+
+        if(results.get(0).get("player2") != null){
+            player2 = Integer.parseInt(results.get(0).get("player2"));
         }
+        return this.userID != player1 ? player1 : player2;
+
     }
 
     private static String getDBQueryString() {
