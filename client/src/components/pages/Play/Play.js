@@ -22,20 +22,6 @@ const useStyles = makeStyles({
 
 export default function Play(props) {
     const [chosenGame, setChosenGame] = useState(null);
-    // this parent need to pass the gameid to be set GameList and then in board have use effect
-
-    // return(
-    //     <Grid container direction="row" justifyContent="center" alignItems="flex-start">
-    //         <Grid item>
-    //             <Grid container direction="column" justifyContent="center" alignItems="flex-start">
-    //                 <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID}/>
-    //             </Grid>
-    //         </Grid>
-    //         <Grid item>
-    //             <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}/>
-    //         </Grid>
-    //     </Grid>
-    // );
 
     return(
         <Container>
