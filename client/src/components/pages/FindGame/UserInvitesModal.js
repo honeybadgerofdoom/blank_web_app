@@ -31,12 +31,49 @@ export default function UserInvitesModal(props) {
     return (
         <Modal isOpen={props.isOpen} toggle={props.closeModal}>
             <ModalHeader> Invite Users to Play! </ModalHeader>
-
+            <UserSearchBody users={users} updateUsersWithFilter={updateUsersWithFilter} gameID={props.gameID}/>
+            <UserSearchFooter closeModal={props.closeModal} />
         </Modal>
     );
 }
 
+function UserSearchBody(props) {
+    function handleFilterChanged(event) {
+        const newInput = event.target.value;
+        props.updateUsersWithFilter(newInput);
+    }
 
+    return (
+        <ModalBody>
+            <Typography className="mb-3" variant="h6" component="div">
+                Match ID: {props.gameID !== -1 ? props.gameID : <CircularProgress size={20}/>}
+            </Typography>
+            <TextField
+                className="mb-3"
+                onChange={handleFilterChanged}
+                placeholder="Enter username"
+                variant="outlined"
+                size="small"
+                fullWidth
+            />
+
+        </ModalBody>
+    );
+}
+
+function UserSearchFooter(props) {
+    function handleSendInvites() {
+        props.closeModal();
+    }
+
+    return (
+        <ModalFooter>
+            <Button color="primary" onClick={handleSendInvites}>Send Invites</Button>
+            {' '}
+            <Button color="secondary" onClick={props.closeModal}>Cancel</Button>
+        </ModalFooter>
+    );
+}
 
 async function sendUsersRequest(input, userID) {
     const requestBody = { requestType: "users", match: input, limit: 0, excludeID: userID };
