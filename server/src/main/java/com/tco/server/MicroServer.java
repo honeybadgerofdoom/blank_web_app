@@ -6,6 +6,7 @@ import com.tco.misc.UnauthorizedRequestException;
 import com.tco.requests.*;
 import com.tco.requests.LoginRegister.LoginRequest;
 import com.tco.requests.LoginRegister.RegisterRequest;
+import com.tco.requests.Users.UpdateUserInfoRequest;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -48,6 +49,11 @@ class MicroServer {
             post("/users", (req, res) -> processHttpRequest(req, res, UsersRequest.class));
             post("/myInvites", (req, res) -> processHttpRequest(req, res, MyInvitesRequest.class));
             post("/acceptInvite", (req, res) -> processHttpRequest(req, res, AcceptInviteRequest.class));
+            post("/myProfile", (req, res) -> processHttpRequest(req, res, MyProfileRequest.class));
+            post("/updateUserInfo", (req, res) -> processHttpRequest(req, res, UpdateUserInfoRequest.class));
+            post("/newInvite", (req, res) -> processHttpRequest(req, res, NewInviteRequest.class));
+            post("/declineInvite", (req, res) -> processHttpRequest(req, res, DeclineInviteRequest.class));
+
         });
     }
 

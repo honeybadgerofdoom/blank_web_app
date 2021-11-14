@@ -6,6 +6,7 @@ import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
     root: {
+        width: "35vw",
         margin: "20px",
     },
     scrollable: {
@@ -27,7 +28,6 @@ export default function InvitesTable(props) {
     const [filtering, setFiltering] = useState(false);
 
     const invites = filtering ? filteredInvites : allInvites;
-    console.log({invites})
 
     useEffect(() => {
         sendMyInvitesRequest();
@@ -36,7 +36,6 @@ export default function InvitesTable(props) {
     async function sendMyInvitesRequest() {
         const response = await sendRequest({requestType: "myInvites", userID: props.userID});
         if(response) {
-            console.log({response})
             setAllInvites(response.invites);
             setFilteredInvites(response.invites)
         }
@@ -59,11 +58,19 @@ export default function InvitesTable(props) {
         return true;
     }
 
+<<<<<<< HEAD
     async function acceptInviteRequest(invite) {
         const response = await sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, player2: props.userID });
         if(response.success) {
             sendMyInvitesRequest();
             props.showMessage("Invite Accepted!", "success");
+=======
+
+    function acceptInviteRequest(invite) {
+        const response = sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, player2: props.userID });
+        if(response) {
+            console.log({response})
+>>>>>>> 403d4b9dd945f95f6c11539a8a22794638958011
         }
         else {
             props.showMessage("Accept Error", "error");
@@ -72,6 +79,22 @@ export default function InvitesTable(props) {
 
     function accept(invite){
         acceptInviteRequest(invite);
+    }
+
+    async function declineInviteRequest(invite) {
+        const response = await sendRequest({requestType: "declineInvite", sender: invite.sender, receiver: props.userID, gameID: invite.gameID});
+        if(response.success) {
+            props.showMessage("Invite Declined", "success");
+            sendMyInvitesRequest();
+        }
+        else {
+            props.showMessage("Decline Error", "error");
+        }
+    }
+
+    function decline(invite) {
+        declineInviteRequest(invite);
+
     }
 
     return (
@@ -86,8 +109,10 @@ export default function InvitesTable(props) {
                                     <TableRow key={index}>
                                         <TableCell>{invite.sender}</TableCell>
                                         <TableCell align="right">{invite.gameID}</TableCell>
+
                                         <TableCell align="right"><Button color="primary"onClick={() => accept(invite)}>Accept</Button></TableCell>
-                                        <TableCell align="right"><Button color="secondary">Decline</Button></TableCell>
+                                        <TableCell align="right"><Button color="secondary" onClick={() => decline(invite)}>Decline</Button></TableCell>
+
                                     </TableRow>
                                 )
                             })}
