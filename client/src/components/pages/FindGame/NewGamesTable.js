@@ -1,16 +1,9 @@
 import React, {useEffect, useState} from "react";
-import { Button, makeStyles, Paper, TableCell, TableRow, ButtonGroup } from "@material-ui/core";
+import { Button, Paper, TableCell, TableRow, ButtonGroup } from "@material-ui/core";
 import {TableContent, TableControls} from "./findGameTables";
 import {sendRequest} from "../../../utils/restfulAPI";
 
-const useStyles = makeStyles( {
-    newGameButton: {
-        width: "100%",
-    },
-})
-
 export default function NewGamesTable(props) {
-    const classes = useStyles();
     const [allGames, setAllGames] = useState([]);
 
     useEffect(() => {
@@ -20,12 +13,12 @@ export default function NewGamesTable(props) {
     return (
         <Paper elevation={3}>
             <TableControls title="Create a Match and Invite Others">
-                <Button className={classes.newGameButton} color="primary" variant="outlined">
+                <Button color="primary" variant="outlined" fullWidth onClick={() => props.openInvitesModal()}>
                     New Game
                 </Button>
             </TableControls>
             <TableContent headers={["Match ID", "Invitations", "Action"]}>
-                <GameRows allGames={allGames} />
+                <GameRows allGames={allGames} openInvitesModal={props.openInvitesModal} />
             </TableContent>
         </Paper>
     );
@@ -43,23 +36,24 @@ async function sendGamesRequest(userID) {
 }
 
 function GameRows(props) {
-    function ActionButtons() {
-        const variant = "text";
-        return (
-            <ButtonGroup variant={variant}>
-                <Button color="primary">Invite</Button>
-                <Button color="secondary">Delete</Button>
-            </ButtonGroup>
-        );
-    }
-
     return props.allGames.map((game, index) =>
         <TableRow key={index}>
             <TableCell align="center">{game.gameID}</TableCell>
             <TableCell align="center">0</TableCell>
             <TableCell align="center">
-                <ActionButtons />
+                <ActionButtons gameID={game.gameID} openInvitesModal={props.openInvitesModal} />
             </TableCell>
         </TableRow>
+    );
+}
+
+function ActionButtons(props) {
+    return (
+        <ButtonGroup variant="text">
+            <Button color="primary" onClick={() => props.openInvitesModal(props.gameID)}>
+                Invite
+            </Button>
+            <Button color="secondary">Delete</Button>
+        </ButtonGroup>
     );
 }
