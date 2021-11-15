@@ -20,7 +20,7 @@ public class StatsRequest extends Request {
         log.trace("buildResponse -> {}", this);
     }
 
-    private List<Integer> getInvitedUserIDList(int gameID) {
+    private void getWinsLosses() {
         String query = "SELECT wins, losses FROM users WHERE userID=?";
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(query, this.userID);

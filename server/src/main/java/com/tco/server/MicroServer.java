@@ -54,7 +54,7 @@ class MicroServer {
             post("/newInvite", (req, res) -> processHttpRequest(req, res, NewInviteRequest.class));
             post("/declineInvite", (req, res) -> processHttpRequest(req, res, DeclineInviteRequest.class));
             post("/invitedUsers", (req, res) -> processHttpRequest(req, res, InvitedUsersRequest.class));
-            post("/statsRequest", (req, res) -> processHttpRequest(req, res, StatsRequest.class));
+            post("/stats", (req, res) -> processHttpRequest(req, res, StatsRequest.class));
         });
     }
 
