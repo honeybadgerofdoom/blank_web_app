@@ -21,11 +21,15 @@ public class GameRequest extends Request {
     private final transient Logger log = LoggerFactory.getLogger(GameRequest.class);
     private int userID;
     private ArrayList<Game> games;
+    private String type;
     private boolean success;
 
     @Override
     public void buildResponse() {
-        games = new ArrayList<Game>();
+        if (type == null)
+            type = "ALL";
+
+        games = new ArrayList<>();
         getGameIDsFromDB(this.userID);
         success = true;
         log.trace("buildResponse -> {}", this);
@@ -40,16 +44,18 @@ public class GameRequest extends Request {
                 int gameID = Integer.parseInt(gameRow.get("gameID"));
                 int enemyID = getOpponent(gameRow);
 
-                String enemyName;
-                if(enemyID == -1){
-                    enemyName = "[Pending]";
+                boolean gameIsPending = enemyID == -1;
+                if (gameIsPending) {
+                    if (type.equals("ALL") || type.equals("PENDING")) {
+                        this.games.add(new Game(gameID, ""));
+                    }
+                } else {
+                    if (type.equals("ALL") || this.type.equals("ACTIVE")) {
+                        String enemyName = idToNickname(db, enemyID);
+                        this.games.add(new Game(gameID, enemyName));
+                    }
                 }
-                else{
-                    enemyName = idToNickname(db, enemyID);
-                }
-                this.games.add(new Game(gameID, enemyName));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
