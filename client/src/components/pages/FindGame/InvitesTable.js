@@ -58,6 +58,21 @@ export default function InvitesTable(props) {
         return true;
     }
 
+    async function acceptInviteRequest(invite) {
+        const response = await sendRequest({requestType: "acceptInvite",  gameID: invite.gameID, sender: invite.sender, player2: props.userID });
+        if(response.success) {
+            sendMyInvitesRequest();
+            props.showMessage("Invite Accepted!", "success");
+        }
+        else {
+            props.showMessage("Accept Error", "error");
+        }
+    }
+
+    function accept(invite){
+        acceptInviteRequest(invite);
+    }
+
     async function declineInviteRequest(invite) {
         const response = await sendRequest({requestType: "declineInvite", sender: invite.sender, receiver: props.userID, gameID: invite.gameID});
         if(response.success) {
@@ -71,6 +86,7 @@ export default function InvitesTable(props) {
 
     function decline(invite) {
         declineInviteRequest(invite);
+
     }
 
     return (
@@ -85,8 +101,10 @@ export default function InvitesTable(props) {
                                     <TableRow key={index}>
                                         <TableCell>{invite.sender}</TableCell>
                                         <TableCell align="right">{invite.gameID}</TableCell>
-                                        <TableCell align="right"><Button color="primary">Accept</Button></TableCell>
+
+                                        <TableCell align="right"><Button color="primary"onClick={() => accept(invite)}>Accept</Button></TableCell>
                                         <TableCell align="right"><Button color="secondary" onClick={() => decline(invite)}>Decline</Button></TableCell>
+
                                     </TableRow>
                                 )
                             })}
@@ -95,7 +113,7 @@ export default function InvitesTable(props) {
                 </TableContainer>
             </Paper>
         </Container>
-    )
+    ) 
 
     function TableControls() {
         return (

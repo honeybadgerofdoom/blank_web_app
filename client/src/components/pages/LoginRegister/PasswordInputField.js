@@ -31,6 +31,12 @@ export default function PasswordInputField(props) {
         event.preventDefault();
     }
 
+    function handleKeyDown(event) {
+        if (event.keyCode === 13) {
+            props.submit();
+        }
+    }
+
     return (
         <FormControl className={classes.root}>
             <InputLabel htmlFor={props.title}>{props.name}</InputLabel>
@@ -39,6 +45,7 @@ export default function PasswordInputField(props) {
                 type={showPassword ? 'text' : 'password'}
                 value={props.value}
                 onChange={handleChange}
+                onKeyDown={handleKeyDown}
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
