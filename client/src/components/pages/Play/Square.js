@@ -83,7 +83,7 @@ export default function Square(props) {
             if(moveResponse.turnValid) {
                 if(moveResponse.winner) {
                     props.showMessage("Game is Over. Winner is " + moveResponse.winner + ".");
-                    //FIXME this game no longer exists in the database. set currentGameID back no null?
+                    props.setBoardState([]);
                 }
                 else {
                     const boardState = props.getBoardState(moveResponse.newBoardState);

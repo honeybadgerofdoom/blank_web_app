@@ -58,7 +58,8 @@ export default function Board(props) {
                                highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
                                key={index} piece={piece} position={generateMappingArray(index)} userID={props.currentUserID}
                                fromPosition={fromPosition} setFromPosition={setFromPosition} getBoardState={getBoardState}
-                               showMessage={props.showMessage} gameID={props.chosenGame.gameID} opponent={props.chosenGame.opponentName} />
+                               showMessage={props.showMessage} gameID={props.chosenGame.gameID}
+                               setChosenGame={props.setChosenGame} opponent={props.chosenGame.opponentName} />
             })
         )
     }
