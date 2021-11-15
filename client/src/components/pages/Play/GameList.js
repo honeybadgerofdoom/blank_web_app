@@ -43,7 +43,7 @@ export default function GameList(props) {
 
     function renderRow() {
         return allGames.map((game, index)=>{
-            if(game.opponentName !== "[Pending]") {
+            if(game.opponentName !== "") {
                 return (
                     <ListItem key={index}>
                         <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
