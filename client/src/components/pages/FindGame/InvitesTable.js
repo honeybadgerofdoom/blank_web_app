@@ -2,27 +2,34 @@ import React, {useEffect, useState} from "react";
 import { Button, makeStyles, Paper, TableCell, TableRow, TextField, ButtonGroup } from "@material-ui/core";
 import {TableContent, TableControls} from "./findGameTables";
 import {sendRequest} from "../../../utils/restfulAPI";
+import useIsMountedRef from "../../../utils/useIsMountedRef";
 
 const useStyles = makeStyles( {
     search: {
         width: "100%",
     },
-})
+});
 
 export default function InvitesTable(props) {
     const classes = useStyles();
+    const isMountedRef = useIsMountedRef();
+
     const [allInvites, setAllInvites] = useState([]);
     const [filteredInvites, setFilteredInvites] = useState([]);
     const [filtering, setFiltering] = useState(false);
 
     const invites = filtering ? filteredInvites : allInvites;
 
-    useEffect(refreshInvites, []);
+    useEffect(() => {
+        refreshInvites();
+    }, []);
 
     function refreshInvites() {
         sendMyInvitesRequest(props.userID).then(newInvites => {
-            setAllInvites(newInvites);
-            setFilteredInvites(newInvites)
+            if (isMountedRef.current) {
+                setAllInvites(newInvites);
+                setFilteredInvites(newInvites);
+            }
         });
     }
 
