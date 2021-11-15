@@ -45,7 +45,9 @@ public class UsersRequest extends Request {
             int userID = Integer.parseInt(userRow.get("userID"));
             String username = userRow.get("nickname");
             String bio = userRow.get("bio");
-            ret.add(new User(userID, username, bio));
+            int wins = Integer.parseInt(userRow.get("wins"));
+            int losses = Integer.parseInt(userRow.get("losses"));
+            ret.add(new User(userID, username, bio, wins, losses));
         }
         return ret;
     }
@@ -61,7 +63,7 @@ public class UsersRequest extends Request {
     }
 
     private String getUsersQuery() {
-        return "SELECT userID, nickname, bio " +
+        return "SELECT userID, nickname, bio, wins, losses " +
                 "FROM users " +
                 "WHERE nickname LIKE ? " +
                 getExcludeIDCheck() +

@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Container, makeStyles, Paper, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core";
+import {sendRequest} from "../../../utils/restfulAPI";
 
 const useStyles = makeStyles( {
     root: {
@@ -17,6 +18,23 @@ const useStyles = makeStyles( {
 
 export default function MyStats(props) {
     const classes = useStyles();
+    const [wins, setWins] = useState(0);
+    const [losses, setLosses] = useState(0);
+
+    useEffect(() => {
+        sendStatsRequest();
+    }, []);
+
+    async function sendStatsRequest() {
+        const response = await sendRequest({requestType: "stats", userID: props.currentUserID});
+        if(response) {
+            setWins(response.wins);
+            setLosses(response.losses);
+        }
+        else {
+            console.log("Error sending Stats request");
+        }
+    }
 
     return (
         <Container maxWidth="sm" className={classes.root}>
@@ -30,8 +48,8 @@ export default function MyStats(props) {
                     </TableHead>
                     <TableBody>
                         <TableRow>
-                            <TableCell align="center">-</TableCell>
-                            <TableCell align="center">-</TableCell>
+                            <TableCell align="center">{wins}</TableCell>
+                            <TableCell align="center">{losses}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>

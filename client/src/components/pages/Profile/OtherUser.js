@@ -26,9 +26,9 @@ export default function OtherUser(props) {
                 <Typography>
                     Bio: {props.user.bio === "" ? "No Bio Yet" : props.user.bio}
                     <br/>
-                    Wins: Implement This
+                    Wins: {props.user.wins}
                     <br/>
-                    Losses: Implement This
+                    Losses: {props.user.losses}
                 </Typography>
             </AccordionDetails>
         </Accordion>
