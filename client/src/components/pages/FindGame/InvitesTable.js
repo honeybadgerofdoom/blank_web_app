@@ -101,8 +101,8 @@ async function acceptInvite(invite, props) {
 }
 
 async function declineInvite(invite, props) {
-    const requestBody = { requestType: "declineInvite", gameID: invite.gameID, sender: invite.sender, receiver: props.userID };
     const success = `Declined invite from ${invite.sender}.`;
     const error = "Failed to decline invite."
+    const requestBody = { requestType: "declineInvite", gameID: invite.gameID, sender: invite.sender, receiver: props.userID };
     await modifyInviteRequest(requestBody, success, error, props);
 }

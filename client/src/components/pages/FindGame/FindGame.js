@@ -4,15 +4,22 @@ import InvitesTable from "./InvitesTable";
 import NewGamesTable from "./NewGamesTable";
 
 export default function FindGame(props) {
-    const gridItemCols = { xs: 12, sm: 10, md: 5, lg: 4 }
+    function TableGridItem(props) {
+        return (
+            <Grid item xs={12} sm={10} md={5} lg={4}>
+                {props.children}
+            </Grid>
+        );
+    }
+
     return (
         <Grid className="mt-1" container justifyContent="center" spacing={6}>
-            <Grid item {...gridItemCols}>
+            <TableGridItem>
                 <NewGamesTable userID={props.currentUserID} showMessage={props.showMessage} />
-            </Grid>
-            <Grid item {...gridItemCols}>
+            </TableGridItem>
+            <TableGridItem>
                 <InvitesTable userID={props.currentUserID} showMessage={props.showMessage} />
-            </Grid>
+            </TableGridItem>
         </Grid>
     );
 }
