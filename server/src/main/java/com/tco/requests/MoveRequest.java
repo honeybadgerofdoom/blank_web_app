@@ -90,43 +90,29 @@ public class MoveRequest extends Request {
         int[] players = extractPlayers(this.gameID);
         int player1ID = players[0];
         int player2ID = players[1];
-        String player1 = GameRequest.idToNickname(players[0]);
-        String player2 = GameRequest.idToNickname(players[1]);
-
-        this.winner = "";
-        this.loser = "";
 
         for(int i = 0; i < 12; i++) {
-            if(piecesRemaining[i] < 2) {
-                int winnerID = i < 6 ? player2ID : player1ID;
-                int loserID = i < 6 ? player1ID : player2ID;
-                this.winner = i < 6 ? player2 : player1;
-                this.loser = i < 6 ? player1 : player2;
-                storeWinnerLoser(winnerID, loserID);
+            if(piecesRemaining[i] < 1) {
+                int winner = i < 6 ? player2ID : player1ID;
+                int loser = i < 6 ? player1ID : player2ID;
+                storeWinnerLoser(winner, loser);
                 return 1;
             }
         }
         return 0;
     }
 
-    private void storeWinnerLoser(int winner, int loser) throws Exception {
-        String getWins = "SELECT wins FROM users WHERE userID=?";
-        String getLosses = "SELECT losses FROM users WHERE userID=?";
-        String updateWinner = "UPDATE users SET wins=? WHERE userID=?";
-        String updateLoser = "UPDATE users SET losses=? WHERE userID=?";
+    private void storeWinnerLoser(int winnerID, int loserID) throws Exception {
+        String updateWinner = "UPDATE users SET wins=wins+1 WHERE userID=?";
+        String updateLoser = "UPDATE users SET losses=losses+1 WHERE userID=?";
         String deleteGame = "DELETE FROM games WHERE gameID=?";
+
         try (Database db = new Database()) {
-            List<Map<String, String>> winResults = db.query(getWins, winner);
-            int wins = Integer.parseInt(winResults.get(0).get("wins"));
-            List<Map<String, String>> lossResults = db.query(getLosses, loser);
-            int losses = Integer.parseInt(lossResults.get(0).get("losses"));
-            int newWins = wins + 1;
-            int newLosses = losses + 1;
-            System.out.println("newWins" + newWins);
-            System.out.println("newLosses" + newLosses);
-            db.update(updateWinner, String.valueOf(newWins), winner);
-            db.update(updateLoser, String.valueOf(newLosses), loser);
+            db.update(updateWinner, winnerID);
+            db.update(updateLoser, loserID);
             db.update(deleteGame, gameID);
+            this.winner = GameRequest.idToNickname(db, winnerID);
+            this.loser = GameRequest.idToNickname(db, loserID);
         } catch (Exception e) {
             e.printStackTrace();
         }

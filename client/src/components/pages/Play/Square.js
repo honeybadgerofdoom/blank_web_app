@@ -81,8 +81,8 @@ export default function Square(props) {
         const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID, gameID: props.gameID});
         if(moveResponse.verifyPlayerColor) {
             if(moveResponse.turnValid) {
-                if(moveResponse.winner != "") {
-                    props.showMessage("Game is Over. Winner is " + moveResponse.winner);
+                if(moveResponse.winner) {
+                    props.showMessage("Game is Over. Winner is " + moveResponse.winner + ".");
                     //FIXME this game no longer exists in the database. set currentGameID back no null?
                 }
                 else {
