@@ -8,10 +8,10 @@ export default function FindGame(props) {
     return (
         <Grid className="mt-1" container justifyContent="center" spacing={6}>
             <Grid item {...gridItemCols}>
-                <NewGamesTable userID={props.currentUserID} />
+                <NewGamesTable userID={props.currentUserID} showMessage={props.showMessage} />
             </Grid>
             <Grid item {...gridItemCols}>
-                <InvitesTable userID={props.currentUserID} />
+                <InvitesTable userID={props.currentUserID} showMessage={props.showMessage} />
             </Grid>
         </Grid>
     );
