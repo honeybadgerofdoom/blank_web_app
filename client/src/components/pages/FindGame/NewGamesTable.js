@@ -5,7 +5,6 @@ import {sendRequest} from "../../../utils/restfulAPI";
 import useIsMountedRef from "../../../utils/useIsMountedRef";
 
 export default function NewGamesTable(props) {
-    const classes = useStyles();
     const mountedRef = useIsMountedRef();
 
     const [allGames, setAllGames] = useState([]);

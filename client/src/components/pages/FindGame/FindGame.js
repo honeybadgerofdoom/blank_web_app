@@ -20,7 +20,7 @@ export default function FindGame(props) {
 
     return (
         <div className={classes.root}>
-            <Grid className="mt-1" container justifyContent="center" spacing={gridSpacing}>
+            <Grid container justifyContent="center" spacing={gridSpacing}>
                 <TableGridItem className="mr-1">
                     <NewGamesTable userID={props.currentUserID} openInvitesModal={openInvitesModal} showMessage={props.showMessage} />
                 </TableGridItem>
