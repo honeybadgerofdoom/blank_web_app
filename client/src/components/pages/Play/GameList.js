@@ -1,12 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {sendRequest} from "../../../utils/restfulAPI";
-import {Button, List, ListItem, Paper, makeStyles} from "@material-ui/core";
+import {Button, List, ListItem, Paper, makeStyles, Container} from "@material-ui/core";
 import * as PropTypes from "prop-types";
 
 const useStyles = makeStyles({
     root: {
         overflow: "auto",
     },
+    container: {
+        maxWidth: "17vw"
+    }
 });
 
 function SearchBar(props) {
@@ -51,10 +54,12 @@ export default function GameList(props) {
     }
 
     return (
-        <Paper elevation={3} className={classes.root}>
-            <List>
-                {renderRow()}
-            </List>
-        </Paper>
+        <Container maxWidth="xs" className={classes.container}>
+            <Paper elevation={3} className={classes.root}>
+                <List>
+                    {renderRow()}
+                </List>
+            </Paper>
+        </Container>
     );
 }

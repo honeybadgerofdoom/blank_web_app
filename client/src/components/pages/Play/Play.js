@@ -15,21 +15,20 @@ import {Stack} from "@mui/material";
 
 const useStyles = makeStyles({
     root: {
-        overflow: "auto",
+        padding: "10px",
     },
 
 });
 
 export default function Play(props) {
+    const classes = useStyles();
     const [chosenGame, setChosenGame] = useState(null);
 
     return(
-        <Container>
-            <Stack direction="row" spacing={0} alignItems="flex-start" justifyContent="center">
-                <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID}/>
-                <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}/>
-            </Stack>
-        </Container>
+        <Stack direction="row" spacing={0} alignItems="flex-start" justifyContent="center" className={classes.root}>
+            <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID}/>
+            <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}/>
+        </Stack>
     );
 
 }
