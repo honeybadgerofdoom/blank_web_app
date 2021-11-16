@@ -84,4 +84,13 @@ function searchForOpponent(opponentName, input) {
     }
     return true;
 }
+function DisplayGameList(props) {
+    return props.games.map((game, index) =>
+        <TableRow key={index}>
+            <TableCell align="center">
+                <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
+            </TableCell>
+        </TableRow>
+    );
+}
 
