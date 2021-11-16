@@ -17,45 +17,56 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GameRequest extends Request {
-
     private final transient Logger log = LoggerFactory.getLogger(GameRequest.class);
+
     private int userID;
     private ArrayList<Game> games;
+    private String type;
     private boolean success;
 
     @Override
-    public void buildResponse() {
-        games = new ArrayList<Game>();
+    public void buildResponse() throws Exception {
+        if (type == null) {
+            type = "ALL";
+        }
+
+        games = new ArrayList<>();
         getGameIDsFromDB(this.userID);
         success = true;
         log.trace("buildResponse -> {}", this);
     }
 
-    private void getGameIDsFromDB(int userID) {
+    private void getGameIDsFromDB(int userID) throws Exception {
         String boardQuery = getDBQueryString();
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
 
-            for(Map<String, String> gameRow : results){
+            for (Map<String, String> gameRow : results) {
                 int gameID = Integer.parseInt(gameRow.get("gameID"));
                 int enemyID = getOpponent(gameRow);
 
-                String enemyName;
-                if(enemyID == -1){
-                    enemyName = "[Pending]";
-                }
-                else{
-                    enemyName = idToNickname(db, enemyID);
-                }
-                this.games.add(new Game(gameID, enemyName));
+                addGame(db, gameID, enemyID);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
-    public static String idToNickname(Database db, int enemyID) throws SQLException{
+    private void addGame(Database db, int gameID, int enemyID) throws SQLException {
+        boolean gameIsActive = enemyID != -1;
+
+        String enemyName = "";
+        if (gameIsActive) {
+            enemyName = idToNickname(db, enemyID);
+        }
+
+        String expectedType = this.type;
+        if (expectedType.equals("PENDING") && gameIsActive || expectedType.equals("ACTIVE") && !gameIsActive) {
+            return;
+        }
+
+        this.games.add(new Game(gameID, enemyName));
+    }
+
+    public static String idToNickname(Database db, int enemyID) throws SQLException {
         String query = "SELECT nickname FROM users WHERE userID=?";
         List<Map<String, String>> results = db.query(query, enemyID);
 
@@ -80,7 +91,7 @@ public class GameRequest extends Request {
         return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
     }
 
-    private class Game{
+    private static class Game {
         int gameID;
         String opponentName;
 

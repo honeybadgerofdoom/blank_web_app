@@ -1,11 +1,7 @@
 import React, {useEffect, useState} from "react";
-import Board from "./Board"
 import {sendRequest} from "../../../utils/restfulAPI";
-import {Button, List, ListItem, Box, Typography, Paper, makeStyles, TextField} from "@material-ui/core";
-import ListItemButton from '@mui/material/ListItemButton';
+import {Button, List, ListItem, Paper, makeStyles} from "@material-ui/core";
 import * as PropTypes from "prop-types";
-// import ListItemText from '@mui/material/ListItemText';
-// import { FixedSizeList } from 'react-window';
 
 const useStyles = makeStyles({
     root: {
@@ -23,6 +19,7 @@ SearchBar.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.any
 };
+
 export default function GameList(props) {
     const classes = useStyles();
     const [allGames, setAllGames] = useState([]);
@@ -32,8 +29,8 @@ export default function GameList(props) {
     }, [props.currentUserID]);
 
     async function sendGameRequest() {
-        const gameResponse = await(sendRequest({requestType: "game", userID: props.currentUserID}));
-        if(gameResponse) {
+        const gameResponse = await(sendRequest({requestType: "game", userID: props.currentUserID, type: "ACTIVE"}));
+        if (gameResponse) {
             setAllGames(gameResponse.games);
         }
         else {
@@ -42,37 +39,22 @@ export default function GameList(props) {
     }
 
     function renderRow() {
-        return allGames.map((game, index)=>{
-            if(game.opponentName !== "[Pending]") {
-                return (
-                    <ListItem key={index}>
-                        <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
-                    </ListItem>
-                );
-
-            }
-            else{
-                return null;
-            }
-        })
+        return allGames.map((game, index) =>
+            <ListItem key={index}>
+                <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
+            </ListItem>
+        );
     }
 
-    function displayList() {
-        if(allGames.length !== 0){
-            return (
-                <Paper elevation={3} className={classes.root}>
-                    <List>
-                        {renderRow()}
-                    </List>
-                </Paper>
-            );
-        }
-
-        else {
-            return null
-        }
+    if (allGames.length === 0) {
+        return null;
     }
-    return<>
-        {displayList()}
-    </>
+
+    return (
+        <Paper elevation={3} className={classes.root}>
+            <List>
+                {renderRow()}
+            </List>
+        </Paper>
+    );
 }
