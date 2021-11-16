@@ -22,10 +22,7 @@ export default function UserInvitesModal(props) {
     }, [props.isOpen]);
 
     function updateUsersWithFilter(searchInput) {
-        sendUsersRequest(searchInput, props.currentUserID).then(newUsers => {
-            //newUsers.sort((users, index) => index % 3 === 0 ? 1 : -1);
-            setUsers(newUsers);
-        });
+        sendUsersRequest(searchInput, props.currentUserID).then(newUsers => setUsers(newUsers));
     }
 
     return (
