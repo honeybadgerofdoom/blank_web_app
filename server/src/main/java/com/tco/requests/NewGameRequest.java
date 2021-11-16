@@ -43,6 +43,13 @@ public class NewGameRequest extends Request {
         }
     }
 
+    private int getGameID(Database db) throws SQLException {
+        List<Map<String, String>> results = db.query("SELECT LAST_INSERT_ID()");
+        if (results.size() >= 1) {
+            this.userID = Integer.parseInt(results.get(0).get("LAST_INSERT_ID()"));
+        }
+    }
+
     private static String createGameQuery() {
         return "INSERT INTO `games` VALUES (" +
                 "null," +
@@ -50,6 +57,7 @@ public class NewGameRequest extends Request {
                 "null," +
                 "'WHITE'," +
                 "'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR')";
+        "INSERT INTO `games` VALUES (null, 101, null, 'WHITE', 'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR');"
     }
 
 }
