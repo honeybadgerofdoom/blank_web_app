@@ -6,7 +6,7 @@ import UserInvitesModal from "./UserInvitesModal";
 
 const gridSpacing = 6;
 
-const useStyles = makeStyles( {
+const useStyles = makeStyles({
     root: {
         padding: (gridSpacing * 8) / 2  // fix issue with Grid spacing creating scrollbar
     },
@@ -27,12 +27,12 @@ export default function FindGame(props) {
                 <TableGridItem>
                     <InvitesTable userID={props.currentUserID} showMessage={props.showMessage} />
                 </TableGridItem>
-                <UserInvitesModal
-                    isOpen={invitesModalInfo.isOpen}
-                    gameID={invitesModalInfo.gameID}
-                    closeModal={() => setInvitesModalInfo({ ...invitesModalInfo, isOpen: false })}
-                />
             </Grid>
+            <UserInvitesModal
+                isOpen={invitesModalInfo.isOpen}
+                gameID={invitesModalInfo.gameID}
+                closeModal={() => setInvitesModalInfo({ ...invitesModalInfo, isOpen: false })}
+            />
         </div>
     );
 }
