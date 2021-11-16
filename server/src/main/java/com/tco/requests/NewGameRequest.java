@@ -59,7 +59,6 @@ public class NewGameRequest extends Request {
                 "null," +
                 "'WHITE'," +
                 "'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR')";
-        "INSERT INTO `games` VALUES (null, 101, null, 'WHITE', 'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR');"
     }
 
 }
