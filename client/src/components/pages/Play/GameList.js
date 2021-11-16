@@ -1,35 +1,48 @@
 import React, {useEffect, useState} from "react";
 import {sendRequest} from "../../../utils/restfulAPI";
-import {Button, List, ListItem, Paper, makeStyles, Container} from "@material-ui/core";
-import * as PropTypes from "prop-types";
+import {
+    Button,
+    Paper,
+    makeStyles,
+    Container,
+    TextField,
+    TableRow,
+    TableCell,
+} from "@material-ui/core";
+import {TableContent, TableControls} from "../FindGame/findGameTables";
+import {Typography} from "@mui/material";
 
 const useStyles = makeStyles({
     root: {
         overflow: "auto",
     },
     container: {
-        maxWidth: "17vw"
-    }
+        maxWidth: "auto"
+    },
+    search: {
+        width: "100%",
+    },
 });
-
-function SearchBar(props) {
-    return null;
-}
-
-SearchBar.propTypes = {
-    onCancelSearch: PropTypes.func,
-    placeholder: PropTypes.string,
-    onChange: PropTypes.func,
-    value: PropTypes.any
-};
 
 export default function GameList(props) {
     const classes = useStyles();
     const [allGames, setAllGames] = useState([]);
+    const [filteredGames, setFilteredGames] = useState([]);
+    const [filtering, setFiltering] = useState(false);
+
+    const games = filtering ? filteredGames : allGames;
 
     useEffect(() => {
         sendGameRequest(allGames)
     }, [props.currentUserID]);
+
+    function search(event) {
+        const input = event.target.value;
+        const matches = games.filter(game => searchForOpponent(game.opponentName, input.toLowerCase()));
+        setFiltering(input !== "");
+        setFilteredGames(matches);
+    }
+
 
     async function sendGameRequest() {
         const gameResponse = await(sendRequest({requestType: "game", userID: props.currentUserID, type: "ACTIVE"}));
@@ -41,25 +54,34 @@ export default function GameList(props) {
         }
     }
 
-    function renderRow() {
-        return allGames.map((game, index) =>
-            <ListItem key={index}>
-                <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
-            </ListItem>
-        );
-    }
-
     if (allGames.length === 0) {
-        return null;
+        return(
+            <Typography>
+                You are not involved in any matches 😭! To find matches, go to the Find Game page!
+            </Typography>
+        )
     }
 
     return (
         <Container maxWidth="xs" className={classes.container}>
             <Paper elevation={3} className={classes.root}>
-                <List>
-                    {renderRow()}
-                </List>
+                <TableControls title="Choose a Game To Play">
+                    <TextField className={classes.search} size="small" variant="outlined" onChange={search} placeholder="Search Games..." />
+                </TableControls>
+                <TableContent headers={[]}>
+                    <DisplayGameList {...props} games={games}/>
+                </TableContent>
             </Paper>
         </Container>
     );
 }
+
+function searchForOpponent(opponentName, input) {
+    for (let i = 0; i < input.length; i++) {
+        if (opponentName.charAt(i) !== input.charAt(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+

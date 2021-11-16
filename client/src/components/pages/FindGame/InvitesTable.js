@@ -58,7 +58,6 @@ async function sendMyInvitesRequest(userID) {
         console.log("Error with myInvites request")
         return [];
     }
-    //console.log({ myInvitesResponse: response });
     return response.invites;
 }
 
