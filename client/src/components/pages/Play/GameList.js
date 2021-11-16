@@ -38,11 +38,10 @@ export default function GameList(props) {
 
     function search(event) {
         const input = event.target.value;
-        const matches = games.filter(game => searchForOpponent(game.opponentName, input.toLowerCase()));
         setFiltering(input !== "");
+        const matches = allGames.filter(game => searchForOpponent(game.opponentName, input.toLowerCase()));
         setFilteredGames(matches);
     }
-
 
     async function sendGameRequest() {
         const gameResponse = await(sendRequest({requestType: "game", userID: props.currentUserID, type: "ACTIVE"}));
