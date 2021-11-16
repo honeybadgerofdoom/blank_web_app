@@ -34,6 +34,7 @@ public class NewGameRequest extends Request {
     private void createGame() {
         try (Database db = new Database()) {
             db.update(createGameQuery(), this.userID);
+            gameID = getGameID(db);
             success = true;
         } catch (SQLException e) {
             success = false;
