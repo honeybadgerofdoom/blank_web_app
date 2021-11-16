@@ -18,16 +18,15 @@ export default function FindGame(props) {
     const [invitesModalInfo, setInvitesModalInfo] = useState({ isOpen: false, gameID: -1 });
     const openInvitesModal = (gameID=-1) => setInvitesModalInfo({ isOpen: true, gameID: gameID });
 
-    const gridItemCols = { xs: 12, sm: 10, md: 5, lg: 4 };
     return (
         <div className={classes.root}>
-            <Grid container justifyContent="center" spacing={gridSpacing}>
-                <Grid className="mr-1" item {...gridItemCols}>
-                    <NewGamesTable userID={props.currentUserID} openInvitesModal={openInvitesModal} />
-                </Grid>
-                <Grid item {...gridItemCols}>
-                    <InvitesTable userID={props.currentUserID} />
-                </Grid>
+            <Grid className="mt-1" container justifyContent="center" spacing={gridSpacing}>
+                <TableGridItem className="mr-1">
+                    <NewGamesTable userID={props.currentUserID} openInvitesModal={openInvitesModal} showMessage={props.showMessage} />
+                </TableGridItem>
+                <TableGridItem>
+                    <InvitesTable userID={props.currentUserID} showMessage={props.showMessage} />
+                </TableGridItem>
                 <UserInvitesModal
                     isOpen={invitesModalInfo.isOpen}
                     gameID={invitesModalInfo.gameID}
@@ -35,5 +34,13 @@ export default function FindGame(props) {
                 />
             </Grid>
         </div>
+    );
+}
+
+function TableGridItem(props) {
+    return (
+        <Grid item xs={12} sm={10} md={5} lg={4}>
+            {props.children}
+        </Grid>
     );
 }

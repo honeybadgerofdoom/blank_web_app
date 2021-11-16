@@ -53,8 +53,8 @@ export default function Login(props) {
                                 <br/>
                             </Grid>
                             <Grid item>
-                                <CustomInputField title="username" name="Username" value={username} setValue={setUsername} />
-                                <PasswordInputField title="password" name="Password" value={password} setValue={setPassword} />
+                                <CustomInputField title="username" name="Username" value={username} setValue={setUsername} submit={sendLoginRequest} />
+                                <PasswordInputField title="password" name="Password" value={password} setValue={setPassword} submit={sendLoginRequest} />
                             </Grid>
                             <Grid item>
                                 <Button className={classes.shortTextField} variant="outlined" size="large" onClick={sendLoginRequest}>Log In</Button>
