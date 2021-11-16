@@ -23,7 +23,7 @@ public class NewGameRequest extends Request {
 
     private String[] boardString;
     private boolean success;
-    private int gameID;
+    private Integer gameID;
     
     @Override
     public void buildResponse() {
@@ -45,10 +45,12 @@ public class NewGameRequest extends Request {
         }
     }
 
-    private int getGameID(Database db) throws SQLException {
+    private Integer getGameID(Database db) throws SQLException {
         List<Map<String, String>> results = db.query("SELECT LAST_INSERT_ID()");
         if (results.size() >= 1) {
-            this.userID = Integer.parseInt(results.get(0).get("LAST_INSERT_ID()"));
+            return Integer.parseInt(results.get(0).get("LAST_INSERT_ID()"));
+        } else {
+            return 0;
         }
     }
 
