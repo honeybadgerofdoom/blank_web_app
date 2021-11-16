@@ -23,6 +23,7 @@ public class NewGameRequest extends Request {
 
     private String[] boardString;
     private boolean success;
+    private int gameID;
     
     @Override
     public void buildResponse() {
