@@ -1,30 +1,41 @@
 import React, {useEffect, useState} from "react";
-import { Button, Checkbox, CircularProgress, Grid, LinearProgress, List, ListItem, makeStyles, TextField, Typography } from "@material-ui/core";
+import { Button, Checkbox, CircularProgress, Grid, List, ListItem, makeStyles, TextField, Typography } from "@material-ui/core";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import OtherUser from "../Profile/OtherUser";
 import {sendRequest} from "../../../utils/restfulAPI";
 import CatchingPokemon from "@mui/icons-material/CatchingPokemon";
-import CatchingPokemonOutlined from "@mui/icons-material/CatchingPokemonOutlined";
 
 const useStyles = makeStyles( {
+    invitedUserList: {
+        maxHeight: "205px",
+        overflow: "auto",
+        marginBottom: "20px"
+    },
     userList: {
-        maxHeight: "400px",
+        maxHeight: "270px",
         overflow: "auto"
     },
 });
 
 export default function UserInvitesModal(props) {
+    const [allUsers, setAllUsers] = useState([]);
     const [users, setUsers] = useState([]);
     const [invitedUserIDs, setInvitedUserIDs] = useState([]);
+    const [pendingUserIDs, setPendingUserIDs] = useState(new Set());
 
     useEffect(() => {
         if (props.isOpen) {
             updateUsersWithFilter("");
+            setPendingUserIDs(new Set());
         }
     }, [props.isOpen]);
 
     function updateUsersWithFilter(searchInput) {
-        sendUsersRequest(searchInput, props.currentUserID).then(newUsers => setUsers(newUsers));
+        sendUsersRequest(searchInput, props.currentUserID).then(newUsers => {
+            setUsers(newUsers);
+            if (searchInput === "")
+                setAllUsers(newUsers);
+        });
     }
 
     useEffect(() => {
@@ -36,8 +47,9 @@ export default function UserInvitesModal(props) {
     return (
         <Modal isOpen={props.isOpen} toggle={props.closeModal}>
             <ModalHeader> Invite Users to Play! </ModalHeader>
-            <UserSearchBody users={users} updateUsersWithFilter={updateUsersWithFilter} gameID={props.gameID} invitedUserIDs={invitedUserIDs} />
-            <UserSearchFooter closeModal={props.closeModal} />
+            <UserSearchBody users={users} allUsers={allUsers} updateUsersWithFilter={updateUsersWithFilter} gameID={props.gameID}
+                            invitedUserIDs={invitedUserIDs} pendingUserIDs={pendingUserIDs} setPendingUserIDs={setPendingUserIDs} />
+            <UserSearchFooter closeModal={props.closeModal} pendingUserIDs={pendingUserIDs} />
         </Modal>
     );
 }
@@ -53,21 +65,51 @@ function UserSearchBody(props) {
             <Typography className="mb-3" variant="h6" component="div">
                 Match ID: {props.gameID !== -1 ? props.gameID : <CircularProgress size={20}/>}
             </Typography>
+            <InvitedUsersList {...props} />
+            <Typography className="mb-3" variant="h6" component="div">Send New Invites</Typography>
             <TextField
-                className="mb-3"
+                className="mb-2"
                 onChange={handleFilterChanged}
                 placeholder="Enter username"
                 variant="outlined"
                 size="small"
                 fullWidth
             />
-            <UsersList users={props.users} invitedUserIDs={props.invitedUserIDs} />
+            <UsersList {...props} />
         </ModalBody>
+    );
+}
+
+function UsersList(props) {
+    const classes = useStyles();
+
+    if (props.users.length === 0) {
+        return <Typography className="mt-1 text-center" variant="body1" component="div">
+            No matching users.
+        </Typography>
+    }
+
+    return (
+        <List className={classes.userList}>
+            {nonInvitedUsers.map((user, index) =>
+                <ListItem key={index}>
+                    <Grid container justifyContent="center">
+                        <Grid item xs={2}>
+                            <Checkbox onChange={event => handleCheckboxChanged(event, user.userID)} />
+                        </Grid>
+                        <Grid item xs={10}>
+                            <OtherUser user={user} />
+                        </Grid>
+                    </Grid>
+                </ListItem>
+            )}
+        </List>
     );
 }
 
 function UserSearchFooter(props) {
     function handleSendInvites() {
+        console.log(props.pendingUserIDs);
         props.closeModal();
     }
 
@@ -77,30 +119,6 @@ function UserSearchFooter(props) {
             {' '}
             <Button color="secondary" onClick={props.closeModal}>Cancel</Button>
         </ModalFooter>
-    );
-}
-
-function UsersList(props) {
-    const classes = useStyles();
-
-    if (props.users.length === 0) {
-        return <LinearProgress />;
-    }
-    return (
-        <List className={classes.userList}>
-            {props.users.map((user, index) =>
-                <ListItem key={index}>
-                    <Grid container justifyContent="center">
-                        <Grid item xs={2}>
-                            <Checkbox icon={<CatchingPokemonOutlined/>} checkedIcon={<CatchingPokemon/>} defaultChecked={props.invitedUserIDs.includes(user.userID)} />
-                        </Grid>
-                        <Grid item xs={10}>
-                            <OtherUser user={user} />
-                        </Grid>
-                    </Grid>
-                </ListItem>
-            )}
-        </List>
     );
 }
 
