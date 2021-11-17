@@ -1,20 +1,9 @@
 package com.tco.requests;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.HashMap;
-
 import com.tco.misc.BadRequestException;
-import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
-import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.security.MessageDigest;
-import java.util.Base64;
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
