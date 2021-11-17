@@ -80,6 +80,36 @@ function UserSearchBody(props) {
     );
 }
 
+function InvitedUsersList(props) {
+    const classes = useStyles();
+
+    if (props.invitedUserIDs.length === 0) {
+        return null;
+    }
+
+    const invitedUsers = props.allUsers.filter(user => props.invitedUserIDs.includes(user.userID));
+
+    return (
+        <div>
+            <h6>Currently Invited:</h6>
+            <List className={classes.invitedUserList}>
+                {invitedUsers.map((user, index) =>
+                    <ListItem key={index}>
+                        <Grid container justifyContent="center">
+                            <Grid item xs={2}>
+                                <Checkbox color="primary" checkedIcon={<CatchingPokemon/>} checked={true} />
+                            </Grid>
+                            <Grid item xs={10}>
+                                <OtherUser user={user} />
+                            </Grid>
+                        </Grid>
+                    </ListItem>
+                )}
+            </List>
+        </div>
+    );
+}
+
 function UsersList(props) {
     const classes = useStyles();
 
