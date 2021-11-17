@@ -14,6 +14,7 @@ const useStyles = makeStyles( {
 
 export default function UserInvitesModal(props) {
     const [users, setUsers] = useState([]);
+    const [invitedUserIDs, setInvitedUserIDs] = useState([]);
 
     useEffect(() => {
         if (props.isOpen) {
@@ -25,10 +26,16 @@ export default function UserInvitesModal(props) {
         sendUsersRequest(searchInput, props.currentUserID).then(newUsers => setUsers(newUsers));
     }
 
+    useEffect(() => {
+        if (props.gameID > 0) {
+            sendInvitedUsersRequest(props.gameID).then(result => setInvitedUserIDs(result));
+        }
+    }, [props.gameID]);
+
     return (
         <Modal isOpen={props.isOpen} toggle={props.closeModal}>
             <ModalHeader> Invite Users to Play! </ModalHeader>
-            <UserSearchBody users={users} updateUsersWithFilter={updateUsersWithFilter} gameID={props.gameID}/>
+            <UserSearchBody users={users} updateUsersWithFilter={updateUsersWithFilter} gameID={props.gameID} invitedUserIDs={invitedUserIDs} />
             <UserSearchFooter closeModal={props.closeModal} />
         </Modal>
     );
@@ -53,7 +60,7 @@ function UserSearchBody(props) {
                 size="small"
                 fullWidth
             />
-            <UsersList users={props.users} />
+            <UsersList users={props.users} invitedUserIDs={props.invitedUserIDs} />
         </ModalBody>
     );
 }
@@ -74,7 +81,6 @@ function UserSearchFooter(props) {
 
 function UsersList(props) {
     const classes = useStyles();
-    const userInvitesList = props.users.map((user, index) => index % 3 === 0);
 
     if (props.users.length === 0) {
         return <LinearProgress />;
@@ -85,7 +91,7 @@ function UsersList(props) {
                 <ListItem key={index}>
                     <Grid container justifyContent="center">
                         <Grid item xs={2}>
-                            <Checkbox icon={<CatchingPokemonOutlined/>} checkedIcon={<CatchingPokemon/>} defaultChecked={userInvitesList[index]} />
+                            <Checkbox icon={<CatchingPokemonOutlined/>} checkedIcon={<CatchingPokemon/>} defaultChecked={true} />
                         </Grid>
                         <Grid item xs={10}>
                             <OtherUser user={user} />
@@ -99,10 +105,18 @@ function UsersList(props) {
 
 async function sendUsersRequest(input, userID) {
     const requestBody = { requestType: "users", match: input, limit: 0, excludeID: userID };
+    return sendRequestForList(requestBody, "users");
+}
+
+async function sendInvitedUsersRequest(gameID) {
+    const requestBody = { requestType: "invitedUsers", "gameID": gameID };
+    return sendRequestForList(requestBody, "invitedUserIDs");
+}
+
+async function sendRequestForList(requestBody, resultKey) {
     const response = await sendRequest(requestBody);
     if (!response) {
-        console.log("Error sending users request");
         return [];
     }
-    return response.users;
+    return response[resultKey];
 }
