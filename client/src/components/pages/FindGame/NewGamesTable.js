@@ -31,7 +31,7 @@ export default function NewGamesTable(props) {
 }
 
 async function sendGamesRequest(userID) {
-    const requestBody = { requestType: "game", userID: userID };
+    const requestBody = { requestType: "game", userID: userID, type: "PENDING" };
     const response = await(sendRequest(requestBody));
     if (!response) {
         console.log(`Error with ${requestBody.requestType} request`)

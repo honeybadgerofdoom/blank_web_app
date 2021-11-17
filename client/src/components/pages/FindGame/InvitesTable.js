@@ -35,7 +35,7 @@ export default function InvitesTable(props) {
 
     function search(event) {
         const input = event.target.value;
-        const matches = invites.filter(invite => searchForSender(invite, input));
+        const matches = allInvites.filter(invite => searchForSender(invite, input));
         setFiltering(input !== "");
         setFilteredInvites(matches);
     }
@@ -58,7 +58,6 @@ async function sendMyInvitesRequest(userID) {
         console.log("Error with myInvites request")
         return [];
     }
-    //console.log({ myInvitesResponse: response });
     return response.invites;
 }
 
