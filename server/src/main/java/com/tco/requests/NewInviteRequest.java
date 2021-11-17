@@ -1,6 +1,9 @@
 package com.tco.requests;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
+
+import com.tco.misc.BadRequestException;
 import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
 import java.nio.charset.StandardCharsets;
@@ -17,30 +20,34 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NewInviteRequest extends Request {
-
     private final transient Logger log = LoggerFactory.getLogger(NewInviteRequest.class);
+
     private int userID;
     private int gameID;
-    private int opponentID;
-
-    private boolean success;
+    private List<Integer> opponentIDs;
 
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws Exception {
         createInvite();
         log.trace("buildResponse -> {}", this);
     }
 
-    private void createInvite() {
-        String query = "INSERT INTO invites (gameID, sender, receiver, status) VALUES (?, ?, ?, ?)";
-        String status = "PENDING";
+    private void createInvite() throws Exception {
+        String query = getInsertQuery();
+        //Object[] queryParameters = getParameters();
+
         try (Database db = new Database()) {
-            db.update(query, this.gameID, this.userID, this.opponentID, status);
-            this.success = true;
-        } catch (Exception e) {
-            this.success = false;
-            e.printStackTrace();
+            db.update(query, queryParameters);
+        } catch (SQLIntegrityConstraintViolationException e) {
+            throw new BadRequestException("An opponent in the list is already invited to this game.\n" + e.getMessage());
         }
     }
+
+    private String getInsertQuery() {
+        return "INSERT INTO invites (gameID, sender, receiver, status) VALUES " +
+                "(?, ?, ?, ?), ".repeat(Math.max(0, opponentIDs.size() - 1)) +
+                "(?, ?, ?, ?)";
+    }
+
 
 }
