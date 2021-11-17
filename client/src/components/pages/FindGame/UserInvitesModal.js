@@ -119,6 +119,18 @@ function UsersList(props) {
         </Typography>
     }
 
+    function handleCheckboxChanged(event, userID) {
+        const newIDSet = new Set(props.pendingUserIDs);
+        if (event.target.checked) {
+            newIDSet.add(userID);
+        } else {
+            newIDSet.delete(userID);
+        }
+        props.setPendingUserIDs(newIDSet);
+    }
+
+    const nonInvitedUsers = props.users.filter(user => !props.invitedUserIDs.includes(user.userID));
+
     return (
         <List className={classes.userList}>
             {nonInvitedUsers.map((user, index) =>
