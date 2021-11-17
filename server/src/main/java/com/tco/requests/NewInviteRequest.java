@@ -34,7 +34,7 @@ public class NewInviteRequest extends Request {
 
     private void createInvite() throws Exception {
         String query = getInsertQuery();
-        //Object[] queryParameters = getParameters();
+        Object[] queryParameters = getParameters();
 
         try (Database db = new Database()) {
             db.update(query, queryParameters);
@@ -49,5 +49,22 @@ public class NewInviteRequest extends Request {
                 "(?, ?, ?, ?)";
     }
 
+    private Object[] getParameters() throws BadRequestException {
+        Object[] params = new Object[opponentIDs.size() * 4];
 
+        for (int i = 0; i < opponentIDs.size(); i++) {
+            int opponentID = opponentIDs.get(i);
+
+            if (opponentID == this.userID) {
+                throw new BadRequestException("An user cannot send an invite to themselves.");
+            }
+
+            params[i*4] = this.gameID;
+            params[i*4+1] = this.userID;
+            params[i*4+2] = opponentID;
+            params[i*4+3] = "PENDING";
+        }
+
+        return params;
+    }
 }
