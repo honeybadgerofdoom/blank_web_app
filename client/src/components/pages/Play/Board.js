@@ -3,12 +3,12 @@ import {Button, makeStyles} from "@material-ui/core";
 import Square from "./Square";
 import CustomColumn from "../../../utils/CustomColumn";
 import {sendRequest} from "../../../utils/restfulAPI";
+import {Container} from "reactstrap";
 
 const useStyles = makeStyles({
     root: {
         width: "90vw",
         maxWidth: "800px",
-        margin: "20px",
         boxShadow: "10px 5px 5px #757575",
     },
 });
@@ -66,11 +66,11 @@ export default function Board(props) {
 
     if(boardState.length > 0) {
         return (
-            <CustomColumn>
+            <Container>
                 <div className={classes.root}>
                     {renderBoard()}
                 </div>
-            </CustomColumn>
+            </Container>
         )
     }
     return null;
