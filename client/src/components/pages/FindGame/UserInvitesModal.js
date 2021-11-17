@@ -3,7 +3,8 @@ import { Button, Checkbox, CircularProgress, Grid, LinearProgress, List, ListIte
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import OtherUser from "../Profile/OtherUser";
 import {sendRequest} from "../../../utils/restfulAPI";
-import { CatchingPokemon, CatchingPokemonOutlined } from "@mui/icons-material";
+import CatchingPokemon from "@mui/icons-material/CatchingPokemon";
+import CatchingPokemonOutlined from "@mui/icons-material/CatchingPokemonOutlined";
 
 const useStyles = makeStyles( {
     userList: {
