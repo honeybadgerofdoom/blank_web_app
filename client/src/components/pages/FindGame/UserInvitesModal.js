@@ -91,7 +91,7 @@ function UsersList(props) {
                 <ListItem key={index}>
                     <Grid container justifyContent="center">
                         <Grid item xs={2}>
-                            <Checkbox icon={<CatchingPokemonOutlined/>} checkedIcon={<CatchingPokemon/>} defaultChecked={true} />
+                            <Checkbox icon={<CatchingPokemonOutlined/>} checkedIcon={<CatchingPokemon/>} defaultChecked={props.invitedUserIDs.includes(user.userID)} />
                         </Grid>
                         <Grid item xs={10}>
                             <OtherUser user={user} />
