@@ -3,6 +3,7 @@ import Board from "./Board"
 import {makeStyles} from "@material-ui/core";
 import GameList from "./GameList";
 import {Stack} from "@mui/material";
+import QuitGame from "./QuitGame";
 
 
 const useStyles = makeStyles({
@@ -20,7 +21,10 @@ export default function Play(props) {
         <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="center" className={classes.root}>
             <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID}/>
             <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame} />
+            <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} />
         </Stack>
+        
+        
     );
 
 }
