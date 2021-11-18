@@ -29,8 +29,9 @@ export default function QuitGame(props) {
    
     if(props.chosenGame) {
         return (
-            <Button alignItems="flex-start"
-                color="black" onClick={() =>quit()}>QuitGame
+            <Button 
+                background-color = "black"
+                color="white" onClick={() =>quit()}>QuitGame
             </Button>
     );
            
