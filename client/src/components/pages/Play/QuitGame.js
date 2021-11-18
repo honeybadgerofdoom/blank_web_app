@@ -25,8 +25,23 @@ const useStyles = makeStyles({
 });
 
 export default function QuitGame(props) {
+    async function sendGameRequest() {
+        const gameResponse = await(sendRequest({requestType: "quitGame", userID: props.currentUserID, gameID: props.gameID}));
+        if (gameResponse) {
+            setAllGames(gameResponse.games);
+        }
+        else {
+            console.log("failed to update database after quiting game");
+        }
+    }
 
-   
+    function quit(){
+        var confirm = window.confirm("Are you sure you would like to quit game?");
+        if (confirm) {
+           sendGameRequest();
+        }
+    }
+
     if(props.chosenGame) {
         return (
             <Button 
@@ -43,14 +58,5 @@ export default function QuitGame(props) {
     );
 }
 
-function quit(){
-    var confirm = window.confirm("Are you sure you would like to quit game?");
-if (confirm) {
-    //some code
-}
-else {
-    //some code
-}
-}
 
 
