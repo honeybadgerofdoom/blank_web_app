@@ -1,6 +1,5 @@
 package com.tco.requests;
 
-import java.util.HashMap;
 import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
 import java.nio.charset.StandardCharsets;
