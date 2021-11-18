@@ -29,11 +29,12 @@ public class QuitGameRequest extends Request {
     public void buildResponse() {
         currentUserLost();
         secondPlayerWin();
+        deleteGameFromDatabase();
         log.trace("buildResponse -> {}", this);
     }
 
     private void currentUserLost() {
-        String query = "DELETE FROM invites WHERE gameID=? AND sender=?";
+        String query = "UPDATE users SET losses=losses+1 WHERE userID=?";
         try (Database db = new Database()) {
             senderID = nicknameToID(db, this.sender);
             db.update(query, this.gameID, senderID);
