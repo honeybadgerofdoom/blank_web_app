@@ -29,8 +29,8 @@ public class QuitGameRequest extends Request {
     @Override
     public void buildResponse() {
             currentUserLost();
-            //secondPlayerWin(db);
-            //deleteGameFromDatabase(db);
+            secondPlayerWin();
+            //deleteGameFromDatabase();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -48,16 +48,22 @@ public class QuitGameRequest extends Request {
         }
     }
 
-   /* private void secondPlayerWin(){
-        String queryForPlayer = "UPDATE games SET player2=? WHERE gameID=?";
-            try (Database db1 = new Database()) {
-                db1.update(queryForPlayer, this.player2, this.gameID);
-                this.success = true;
-            } catch (Exception e) {
-                this.success = false;
-                e.printStackTrace();
-            }
-    } */
+   private void secondPlayerWin(){
+        try (Database db1 = new Database()) {
+            //call get player two idea from games table 
+            wins = getWins(db1, player2);
+            wins++;
+            String convertLoss = Integer.toString(wins);
+            String query = "UPDATE users SET losses=? WHERE userID=?";
+            db.update(query, convertLoss, player2); 
+            this.success = true;
+        } catch (Exception e) {
+            this.success = false;
+            e.printStackTrace();
+        }
+    }
+    //create get player two id
+    //create wins function 
 
     private int getLosses (Database db, int userID) throws Exception {
         String query = "SELECT losses FROM users WHERE userID=?";
