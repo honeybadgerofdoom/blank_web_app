@@ -56,7 +56,6 @@ public class QuitGameRequest extends Request {
             String convertWins = Integer.toString(wins);
             String query = "UPDATE users SET wins=? WHERE userID=?";
             db1.update(query, convertWins, player2); 
-            System.out.println(player2 + "\n" + wins);
             this.success = true;
         } catch (Exception e) {
             this.success = false;
