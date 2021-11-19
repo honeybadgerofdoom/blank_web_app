@@ -50,20 +50,45 @@ public class QuitGameRequest extends Request {
 
    private void secondPlayerWin(){
         try (Database db1 = new Database()) {
-            //call get player two idea from games table 
+            //call get player two idea from games table
+            player2= getPlayerTwoID(this.gameID, this.userID); 
             wins = getWins(db1, player2);
-            wins++;
-            String convertLoss = Integer.toString(wins);
-            String query = "UPDATE users SET losses=? WHERE userID=?";
-            db.update(query, convertLoss, player2); 
+            wins= wins + 1;
+            String convertWins = Integer.toString(wins);
+            String query = "UPDATE users SET wins=? WHERE userID=?";
+            db1.update(query, convertWins, player2); 
+            System.out.println(player2 + "\n" + wins);
             this.success = true;
         } catch (Exception e) {
             this.success = false;
             e.printStackTrace();
         }
     }
-    //create get player two id
-    //create wins function 
+    
+    private int getPlayerTwoID(int gameID, int userID){
+        int convertPlayer = 0;
+        try (Database db1 = new Database()) {
+            String query = "SELECT player1 FROM games WHERE gameID=?";
+            List<Map<String, String>> secondPlayer = db1.query(query, gameID);
+            convertPlayer = Integer.parseInt(secondPlayer.get(0).get("player1"));
+            if(convertPlayer == userID){
+                query = "SELECT player2 FROM games WHERE gameID=?";
+                secondPlayer = db1.query(query, gameID);
+                convertPlayer= Integer.parseInt(secondPlayer.get(0).get("player2"));
+            }
+        } catch (Exception e) {
+            this.success = false;
+            e.printStackTrace();
+        }
+        this.success = true;
+        return convertPlayer;
+    }
+    
+    private int getWins (Database db, int player2) throws Exception {
+        String query = "SELECT wins FROM users WHERE userID=?";
+        List<Map<String, String>> results = db.query(query, player2);
+        return Integer.parseInt(results.get(0).get("wins"));
+    }
 
     private int getLosses (Database db, int userID) throws Exception {
         String query = "SELECT losses FROM users WHERE userID=?";
