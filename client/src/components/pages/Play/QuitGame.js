@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 export default function QuitGame(props) {
     async function sendGameRequest() {
-        const gameResponse = await(sendRequest({requestType: "quitGame", userID: props.currentUserID, gameID: props.gameID}));
+        const gameResponse = await(sendRequest({requestType: "quitGame", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
         if (gameResponse) {
             setAllGames(gameResponse.games);
         }

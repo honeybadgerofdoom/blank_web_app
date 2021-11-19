@@ -19,25 +19,28 @@ public class QuitGameRequest extends Request {
 
     private final transient Logger log = LoggerFactory.getLogger(QuitGameRequest.class);
     private int gameID;
-    private int currentUser;
+    private int userID;
     private int player2;
-    private String sender;
+    private int losses;
+    private int wins;
     private boolean success;
 
 
     @Override
     public void buildResponse() {
-        currentUserLost();
-        secondPlayerWin();
-        deleteGameFromDatabase();
+            currentUserLost();
+            //secondPlayerWin(db);
+            //deleteGameFromDatabase(db);
         log.trace("buildResponse -> {}", this);
     }
 
     private void currentUserLost() {
-        String query = "UPDATE users SET losses=losses+1 WHERE userID=?";
         try (Database db = new Database()) {
-            senderID = nicknameToID(db, this.sender);
-            db.update(query, this.gameID, senderID);
+            losses = getLosses(db, this.userID);
+            losses++;
+            String convertLoss = Integer.toString(losses);
+            String query = "UPDATE users SET losses=? WHERE userID=?";
+            db.update(query, convertLoss, this.userID); 
             this.success = true;
         } catch (Exception e) {
             this.success = false;
@@ -45,7 +48,7 @@ public class QuitGameRequest extends Request {
         }
     }
 
-    private void secondPlayerWin(){
+   /* private void secondPlayerWin(){
         String queryForPlayer = "UPDATE games SET player2=? WHERE gameID=?";
             try (Database db1 = new Database()) {
                 db1.update(queryForPlayer, this.player2, this.gameID);
@@ -54,6 +57,12 @@ public class QuitGameRequest extends Request {
                 this.success = false;
                 e.printStackTrace();
             }
+    } */
+
+    private int getLosses (Database db, int userID) throws Exception {
+        String query = "SELECT losses FROM users WHERE userID=?";
+        List<Map<String, String>> results = db.query(query, userID);
+        return Integer.parseInt(results.get(0).get("losses"));
     }
 
     private int nicknameToID(Database db, String nickname) throws Exception {
