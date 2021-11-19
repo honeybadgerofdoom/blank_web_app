@@ -30,7 +30,7 @@ public class QuitGameRequest extends Request {
     public void buildResponse() {
             currentUserLost();
             secondPlayerWin();
-            //deleteGameFromDatabase();
+            deleteGameFromDatabase();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -50,7 +50,6 @@ public class QuitGameRequest extends Request {
 
    private void secondPlayerWin(){
         try (Database db1 = new Database()) {
-            //call get player two idea from games table
             player2= getPlayerTwoID(this.gameID, this.userID); 
             wins = getWins(db1, player2);
             wins= wins + 1;
@@ -64,6 +63,16 @@ public class QuitGameRequest extends Request {
             e.printStackTrace();
         }
     }
+    private void deleteGameFromDatabase(){
+        String query = "DELETE FROM games WHERE gameID=?";
+        try (Database db = new Database()) {
+            db.update(query, this.gameID);
+            this.success = true;
+        } catch (Exception e) {
+            this.success = false;
+            e.printStackTrace();
+        }
+    }
     
     private int getPlayerTwoID(int gameID, int userID){
         int convertPlayer = 0;
@@ -71,11 +80,6 @@ public class QuitGameRequest extends Request {
             String query = "SELECT player1 FROM games WHERE gameID=?";
             List<Map<String, String>> secondPlayer = db1.query(query, gameID);
             convertPlayer = Integer.parseInt(secondPlayer.get(0).get("player1"));
-            if(convertPlayer == userID){
-                query = "SELECT player2 FROM games WHERE gameID=?";
-                secondPlayer = db1.query(query, gameID);
-                convertPlayer= Integer.parseInt(secondPlayer.get(0).get("player2"));
-            }
         } catch (Exception e) {
             this.success = false;
             e.printStackTrace();
@@ -96,11 +100,6 @@ public class QuitGameRequest extends Request {
         return Integer.parseInt(results.get(0).get("losses"));
     }
 
-    private int nicknameToID(Database db, String nickname) throws Exception {
-        String query = "SELECT userID FROM users WHERE nickname=?";
-        List<Map<String, String>> results = db.query(query, nickname);
-        return Integer.parseInt(results.get(0).get("userID"));
-    }
 
 
 }
