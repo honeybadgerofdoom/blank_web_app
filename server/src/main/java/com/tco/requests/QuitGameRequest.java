@@ -30,7 +30,7 @@ public class QuitGameRequest extends Request {
     public void buildResponse() {
             currentUserLost();
             secondPlayerWin();
-            deleteGameFromDatabase();
+            //deleteGameFromDatabase();
         log.trace("buildResponse -> {}", this);
     }
 
@@ -62,6 +62,7 @@ public class QuitGameRequest extends Request {
             e.printStackTrace();
         }
     }
+
     private void deleteGameFromDatabase(){
         String query = "DELETE FROM games WHERE gameID=?";
         try (Database db = new Database()) {
@@ -71,7 +72,7 @@ public class QuitGameRequest extends Request {
             this.success = false;
             e.printStackTrace();
         }
-    }
+    } 
     
     private int getPlayerTwoID(int gameID, int userID){
         int convertPlayer = 0;

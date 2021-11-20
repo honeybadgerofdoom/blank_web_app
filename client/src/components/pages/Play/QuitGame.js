@@ -2,15 +2,8 @@ import React, {useEffect, useState} from "react";
 import {sendRequest} from "../../../utils/restfulAPI";
 import {
     Button,
-    Paper,
     makeStyles,
-    Container,
-    TextField,
-    TableRow,
-    TableCell,
 } from "@material-ui/core";
-import {TableContent, TableControls} from "../FindGame/findGameTables";
-import {Typography} from "@mui/material"
 
 const useStyles = makeStyles({
     root: {
@@ -29,7 +22,6 @@ export default function QuitGame(props) {
         const gameResponse = await(sendRequest({requestType: "quitGame", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
         if (gameResponse) {
             props.setChosenGame = null;
-            setAllGames(gameResponse.games);
         }
         else {
             console.log("failed to update database after quiting game");
@@ -40,7 +32,12 @@ export default function QuitGame(props) {
         var confirm = window.confirm("Are you sure you would like to quit game?");
         if (confirm) {
            sendGameRequest();
+           refresh();
         }
+    }
+
+    function refresh(){
+        window.location.reload(true);
     }
 
     if(props.chosenGame) {
