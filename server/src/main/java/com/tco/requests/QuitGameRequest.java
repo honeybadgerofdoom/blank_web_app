@@ -30,7 +30,7 @@ public class QuitGameRequest extends Request {
     public void buildResponse() {
             currentUserLost();
             secondPlayerWin();
-            //deleteGameFromDatabase();
+            deleteGameFromDatabase();
         log.trace("buildResponse -> {}", this);
     }
 
