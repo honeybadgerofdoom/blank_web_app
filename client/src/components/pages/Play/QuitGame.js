@@ -10,7 +10,7 @@ import {
     TableCell,
 } from "@material-ui/core";
 import {TableContent, TableControls} from "../FindGame/findGameTables";
-import {Typography} from "@mui/material";
+import {Typography} from "@mui/material"
 
 const useStyles = makeStyles({
     root: {
@@ -28,6 +28,7 @@ export default function QuitGame(props) {
     async function sendGameRequest() {
         const gameResponse = await(sendRequest({requestType: "quitGame", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
         if (gameResponse) {
+            props.setChosenGame = null;
             setAllGames(gameResponse.games);
         }
         else {
