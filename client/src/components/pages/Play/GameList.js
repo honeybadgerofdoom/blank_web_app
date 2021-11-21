@@ -62,16 +62,14 @@ export default function GameList(props) {
     }
 
     return (
-        <Container maxWidth="xs" className={classes.container}>
-            <Paper elevation={3} className={classes.root}>
-                <TableControls title="Choose a Game To Play">
-                    <TextField className={classes.search} size="small" variant="outlined" onChange={search} placeholder="Search Games..." />
-                </TableControls>
-                <TableContent headers={[]}>
-                    <DisplayGameList {...props} games={games}/>
-                </TableContent>
-            </Paper>
-        </Container>
+        <Paper elevation={3} className={classes.root}>
+            <TableControls title="Choose a Game To Play">
+                <TextField className={classes.search} size="small" variant="outlined" onChange={search} placeholder="Search Games..." />
+            </TableControls>
+            <TableContent headers={[]}>
+                <DisplayGameList {...props} games={games}/>
+            </TableContent>
+        </Paper>
     );
 }
 

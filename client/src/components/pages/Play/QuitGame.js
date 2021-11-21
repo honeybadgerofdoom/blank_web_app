@@ -42,18 +42,12 @@ export default function QuitGame(props) {
 
     if(props.chosenGame) {
         return (
-            <Button 
-                background-color = "black"
-                color="white" onClick={() =>quit()}>QuitGame
-            </Button>
-    );
-           
+            <Button color="error"  onClick={() =>quit()}>QuitGame </Button>
+    );     
      }
     
 
-    return (
-            props.chosenGame
-    );
+    return (props.chosenGame);
 }
 
 
