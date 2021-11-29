@@ -11,7 +11,7 @@ export default function Profile(props) {
             <Grid item>
                 <Grid container direction="column" justifyContent="center" alignItems="flex-start">
                     <MyUserInfo showMessage={props.showMessage} currentUserID={props.currentUserID} />
-                    <MyStats />
+                    <MyStats currentUserID={props.currentUserID} />
                 </Grid>
             </Grid>
             <Grid item>

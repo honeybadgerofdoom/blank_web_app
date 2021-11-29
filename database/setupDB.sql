@@ -24,6 +24,8 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL UNIQUE,
     bio VARCHAR(1024),
     picURL VARCHAR(255),
+    wins INT DEFAULT 0,
+    losses INT DEFAULT 0,
 
     -- These fields are set as fixed width, with the assumption they will hold a SHA256 hash
     password CHAR(64) NOT NULL,

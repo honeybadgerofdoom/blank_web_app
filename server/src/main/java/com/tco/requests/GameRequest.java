@@ -37,7 +37,8 @@ public class GameRequest extends Request {
     }
 
     private void getGameIDsFromDB(int userID) throws Exception {
-        String boardQuery = getDBQueryString();
+        String boardQuery = "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
+        String invitationCountQuery = "SELECT COUNT(*) as totalInvites FROM invites WHERE gameID = ?";
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
 
@@ -45,12 +46,15 @@ public class GameRequest extends Request {
                 int gameID = Integer.parseInt(gameRow.get("gameID"));
                 int enemyID = getOpponent(gameRow);
 
-                addGame(db, gameID, enemyID);
+                List<Map<String, String>> invitationResults = db.query(invitationCountQuery, gameID);
+                int totalInvites = Integer.parseInt(invitationResults.get(0).get("totalInvites"));
+
+                addGame(db, gameID, enemyID, totalInvites);
             }
         }
     }
 
-    private void addGame(Database db, int gameID, int enemyID) throws SQLException {
+    private void addGame(Database db, int gameID, int enemyID, int totalInvites) throws SQLException {
         boolean gameIsActive = enemyID != -1;
 
         String enemyName = "";
@@ -63,7 +67,7 @@ public class GameRequest extends Request {
             return;
         }
 
-        this.games.add(new Game(gameID, enemyName));
+        this.games.add(new Game(gameID, enemyName, totalInvites));
     }
 
     public static String idToNickname(Database db, int enemyID) throws SQLException {
@@ -87,17 +91,15 @@ public class GameRequest extends Request {
 
     }
 
-    private static String getDBQueryString() {
-        return "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
-    }
-
     private static class Game {
         int gameID;
         String opponentName;
+        int totalInvites;
 
-        public Game(int gameID, String opponentName){
+        public Game(int gameID, String opponentName, int totalInvites) {
             this.gameID = gameID;
             this.opponentName = opponentName;
+            this.totalInvites = totalInvites;
         }
     }
 }
