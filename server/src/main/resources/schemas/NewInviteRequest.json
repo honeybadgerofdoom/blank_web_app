@@ -14,15 +14,20 @@
       "description":"a user ID.",
       "type":"number"
     },
-    "opponentID": {
-      "description":"a user ID.",
-      "type":"number"
+    "opponentIDs":{
+      "description": "a list of user IDs to invite",
+      "type":"array",
+      "items": {
+        "type":"integer",
+        "minimum": 0
+      },
+      "minItems": 1
     },
     "gameID": {
       "description":"a game ID.",
       "type":"number"
     }
   },
-  "required":["requestType", "userID","opponentID","gameID"],
+  "required":["requestType", "userID","opponentIDs","gameID"],
   "additionalProperties": true
 }
