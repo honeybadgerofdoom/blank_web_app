@@ -36,11 +36,8 @@ public class QuitGameRequest extends Request {
 
     private void currentUserLost() {
         try (Database db = new Database()) {
-            losses = getLosses(db, this.userID);
-            losses++;
-            String convertLoss = Integer.toString(losses);
-            String query = "UPDATE users SET losses=? WHERE userID=?";
-            db.update(query, convertLoss, this.userID); 
+            String query = "UPDATE users SET losses=losses+1 WHERE userID=?";
+            db.update(query, this.userID); 
             this.success = true;
         } catch (Exception e) {
             this.success = false;
@@ -81,6 +78,7 @@ public class QuitGameRequest extends Request {
             List<Map<String, String>> secondPlayer = db1.query(query, gameID);
             convertPlayer = Integer.parseInt(secondPlayer.get(0).get("player1"));
             if(convertPlayer != userID){
+                this.success = true;
                 return convertPlayer;
             }
             String query = "SELECT player2 FROM games WHERE gameID=?";
