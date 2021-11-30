@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {sendRequest} from "../../../utils/restfulAPI";
-import {
-    Button,
-    makeStyles,
-} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
+import {Button} from "@mui/material";
 
 const useStyles = makeStyles({
     root: {
@@ -42,7 +40,7 @@ export default function QuitGame(props) {
 
     if(props.chosenGame) {
         return (
-            <Button color="error"  onClick={() =>quit()}>Quit Game </Button>
+            <Button variant="outlined" color="error"  onClick={() =>quit()}> Quit Game </Button>
     );     
      }
     
