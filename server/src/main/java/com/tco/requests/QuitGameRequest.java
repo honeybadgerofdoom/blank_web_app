@@ -78,9 +78,6 @@ public class QuitGameRequest extends Request {
                 secondPlayerDB = db1.query(query, gameID);
                 convertPlayer = Integer.parseInt(secondPlayerDB.get(0).get("player2"));
             }
-            query = "SELECT player2 FROM games WHERE gameID=?";
-            secondPlayerDB = db1.query(query, gameID);
-            convertPlayer = Integer.parseInt(secondPlayerDB.get(0).get("player2"));
         } catch (Exception e) {
             this.success = false;
             e.printStackTrace();
