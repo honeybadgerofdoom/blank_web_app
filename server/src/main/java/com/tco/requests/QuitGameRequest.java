@@ -50,7 +50,7 @@ public class QuitGameRequest extends Request {
 
    private void secondPlayerWin(){
         try (Database db1 = new Database()) {
-            secondPlayer= getPlayerTwoID(this.gameID, this.userID); 
+            secondPlayer= getSecondPlayerID(this.gameID, this.userID); 
             wins = getWins(db1, secondPlayer);
             wins= wins + 1;
             String convertWins = Integer.toString(wins);
@@ -74,12 +74,18 @@ public class QuitGameRequest extends Request {
         }
     } 
     
-    private int getPlayerTwoID(int gameID, int userID){
+    private int getSecondPlayerID(int gameID, int userID){
         int convertPlayer = 0;
         try (Database db1 = new Database()) {
             String query = "SELECT player1 FROM games WHERE gameID=?";
             List<Map<String, String>> secondPlayer = db1.query(query, gameID);
             convertPlayer = Integer.parseInt(secondPlayer.get(0).get("player1"));
+            if(convertPlayer != userID){
+                return convertPlayer;
+            }
+            String query = "SELECT player2 FROM games WHERE gameID=?";
+            List<Map<String, String>> secondPlayer = db1.query(query, gameID);
+            convertPlayer = Integer.parseInt(secondPlayer.get(0).get("player2"));
         } catch (Exception e) {
             this.success = false;
             e.printStackTrace();
