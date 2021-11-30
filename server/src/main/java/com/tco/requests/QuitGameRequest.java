@@ -22,6 +22,7 @@ public class QuitGameRequest extends Request {
     private int userID;
     private int secondPlayer;
     private boolean success;
+    private List<Map<String, String>> secondPlayerDB; 
 
 
     @Override
@@ -70,15 +71,15 @@ public class QuitGameRequest extends Request {
         int convertPlayer = 0;
         try (Database db1 = new Database()) {
             String query = "SELECT player1 FROM games WHERE gameID=?";
-            List<Map<String, String>> secondPlayer = db1.query(query, gameID);
-            convertPlayer = Integer.parseInt(secondPlayer.get(0).get("player1"));
+            secondPlayerDB = db1.query(query, gameID);
+            convertPlayer = Integer.parseInt(secondPlayerDB.get(0).get("player1"));
             if(convertPlayer != userID){
                 this.success = true;
                 return convertPlayer;
             }
-            String query = "SELECT player2 FROM games WHERE gameID=?";
-            List<Map<String, String>> secondPlayer = db1.query(query, gameID);
-            convertPlayer = Integer.parseInt(secondPlayer.get(0).get("player2"));
+            query = "SELECT player2 FROM games WHERE gameID=?";
+            secondPlayerDB = db1.query(query, gameID);
+            convertPlayer = Integer.parseInt(secondPlayerDB.get(0).get("player2"));
         } catch (Exception e) {
             this.success = false;
             e.printStackTrace();
