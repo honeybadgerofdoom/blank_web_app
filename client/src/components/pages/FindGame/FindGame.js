@@ -19,7 +19,7 @@ export default function FindGame(props) {
     const mountedRef = useIsMountedRef();
 
     const [allGames, setAllGames] = useState([]);
-    const [invitesModalInfo, setInvitesModalInfo] = useState({ isOpen: false, gameID: -1 });
+    const [invitesModalInfo, setInvitesModalInfo] = useState({ isOpen: false, gameID: -2 });
     const openInvitesModal = (gameID=-1) => setInvitesModalInfo({ isOpen: true, gameID: gameID });
 
     useEffect(refreshGames, []);
