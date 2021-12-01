@@ -97,13 +97,4 @@ function searchForOpponent(opponentName, input) {
     return true;
 }
 
-function DisplayGameList(props) {
-    return props.games.map((game, index) =>
-        <TableRow key={index} backround>
-            <TableCell align="center" className={classes.rowColor}>
-                <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
-            </TableCell>
-        </TableRow>
-    );
-}
 
