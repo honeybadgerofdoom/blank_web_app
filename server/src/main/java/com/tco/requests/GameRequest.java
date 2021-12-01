@@ -1,15 +1,9 @@
 package com.tco.requests;
 
-import java.util.HashMap;
-import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
-import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.security.MessageDigest;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -38,23 +32,19 @@ public class GameRequest extends Request {
 
     private void getGameIDsFromDB(int userID) throws Exception {
         String boardQuery = "SELECT * FROM games WHERE player1 = ? OR player2 = ?";
-        String invitationCountQuery = "SELECT COUNT(*) as totalInvites FROM invites WHERE gameID = ?";
+
         try (Database db = new Database()) {
             List<Map<String, String>> results = db.query(boardQuery, userID, userID);
 
             for (Map<String, String> gameRow : results) {
                 int gameID = Integer.parseInt(gameRow.get("gameID"));
-                int enemyID = getOpponent(gameRow);
-
-                List<Map<String, String>> invitationResults = db.query(invitationCountQuery, gameID);
-                int totalInvites = Integer.parseInt(invitationResults.get(0).get("totalInvites"));
-
-                addGame(db, gameID, enemyID, totalInvites);
+                addGame(db, gameID, gameRow);
             }
         }
     }
 
-    private void addGame(Database db, int gameID, int enemyID, int totalInvites) throws SQLException {
+    private void addGame(Database db, int gameID, Map<String, String> gameRow) throws SQLException {
+        int enemyID = getOpponent(gameRow);
         boolean gameIsActive = enemyID != -1;
 
         String enemyName = "";
@@ -67,7 +57,25 @@ public class GameRequest extends Request {
             return;
         }
 
-        this.games.add(new Game(gameID, enemyName, totalInvites));
+        int totalInvites = getTotalInvites(db, gameID);
+        boolean myTurn = !gameIsActive || checkMyTurn(gameRow, enemyID);
+        this.games.add(new Game(gameID, enemyName, totalInvites, myTurn));
+    }
+
+    public int getTotalInvites(Database db, int gameID) throws SQLException {
+        String invitationCountQuery = "SELECT COUNT(*) as totalInvites FROM invites WHERE gameID = ?";
+
+        List<Map<String, String>> invitationResults = db.query(invitationCountQuery, gameID);
+        return Integer.parseInt(invitationResults.get(0).get("totalInvites"));
+    }
+
+    public boolean checkMyTurn(Map<String, String> gameRow, int enemyID) {
+        int player2 = Integer.parseInt(gameRow.get("player2"));
+        boolean userIsPlayer1 = (enemyID == player2);
+        String turn = gameRow.get("turn");
+        boolean player1Turn = turn.equals("WHITE");
+
+        return userIsPlayer1 && player1Turn || !userIsPlayer1 && !player1Turn;
     }
 
     public static String idToNickname(Database db, int enemyID) throws SQLException {
@@ -95,11 +103,13 @@ public class GameRequest extends Request {
         int gameID;
         String opponentName;
         int totalInvites;
+        boolean myTurn;
 
-        public Game(int gameID, String opponentName, int totalInvites) {
+        public Game(int gameID, String opponentName, int totalInvites, boolean myTurn) {
             this.gameID = gameID;
             this.opponentName = opponentName;
             this.totalInvites = totalInvites;
+            this.myTurn = myTurn;
         }
     }
 }
