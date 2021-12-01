@@ -1,21 +1,8 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { Button, Paper, TableCell, TableRow, ButtonGroup } from "@material-ui/core";
 import {TableContent, TableControls} from "./findGameTables";
-import {sendRequest} from "../../../utils/restfulAPI";
-import useIsMountedRef from "../../../utils/useIsMountedRef";
 
 export default function NewGamesTable(props) {
-    const mountedRef = useIsMountedRef();
-
-    const [allGames, setAllGames] = useState([]);
-
-    useEffect(() => {
-        sendGamesRequest(props.userID).then(newGames => {
-            if (mountedRef.current)
-                setAllGames(newGames);
-        });
-    }, []);
-
     return (
         <Paper elevation={3}>
             <TableControls title="Create a Match and Invite Others">
@@ -24,28 +11,17 @@ export default function NewGamesTable(props) {
                 </Button>
             </TableControls>
             <TableContent headers={["Match ID", "Invitations", "Action"]}>
-                <GameRows allGames={allGames} openInvitesModal={props.openInvitesModal} />
+                <GameRows allGames={props.allGames} openInvitesModal={props.openInvitesModal} />
             </TableContent>
         </Paper>
     );
-}
-
-async function sendGamesRequest(userID) {
-    const requestBody = { requestType: "game", userID: userID, type: "PENDING" };
-    const response = await(sendRequest(requestBody));
-    if (!response) {
-        console.log(`Error with ${requestBody.requestType} request`)
-        return [];
-    }
-    //console.log({ gamesResponse: response })
-    return response.games;
 }
 
 function GameRows(props) {
     return props.allGames.map((game, index) =>
         <TableRow key={index}>
             <TableCell align="center">{game.gameID}</TableCell>
-            <TableCell align="center">0</TableCell>
+            <TableCell align="center">{game.totalInvites}</TableCell>
             <TableCell align="center">
                 <ActionButtons gameID={game.gameID} openInvitesModal={props.openInvitesModal} />
             </TableCell>
