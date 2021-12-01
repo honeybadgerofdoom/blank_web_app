@@ -64,10 +64,19 @@ export default function GameList(props) {
         )
     }
 
+    function getBackgroundColor(selectedGame){
+        if(selectedGame === props.chosenGame){
+            return classes.rowColor;
+        }
+        else{
+            return null;
+        }
+    }
+
     function DisplayGameList(props) {
         return props.games.map((game, index) =>
             <TableRow key={index} backround>
-                <TableCell align="center" className={classes.rowColor}>
+                <TableCell align="center" className={() => getBackgroundColor(game)}>
                     <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
                 </TableCell>
             </TableRow>
