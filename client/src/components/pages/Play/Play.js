@@ -17,6 +17,7 @@ export default function Play(props) {
     const classes = useStyles();
     const [chosenGame, setChosenGame] = useState(null);
     const [highlightedSquares, setHighlightedSquares] = useState([]);
+    const [clickedSquare, setClickedSquare] = useState("");
 
     return(
         <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="center" className={classes.root}>
@@ -24,7 +25,7 @@ export default function Play(props) {
                 <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID} chosenGame={chosenGame}/>
                 <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} setChosenGame={setChosenGame}/>
             </Stack>
-            <Board highlightedSquares = {highlightedSquares} setHightlightedSquares = {setHightlightsedSquares} currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame} />
+            <Board clickedSquare={clickedSquare} setClickedSquare={setClickedSquare} highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares} currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame} />
         </Stack>
         
     );
