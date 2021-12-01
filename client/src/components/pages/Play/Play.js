@@ -20,7 +20,7 @@ export default function Play(props) {
     return(
         <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="center" className={classes.root}>
             <Stack spacing={2} justifyContent="center">
-                <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID}/>
+                <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID} chosenGame={chosenGame}/>
                 <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} setChosenGame={setChosenGame}/>
             </Stack>
             <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame} />

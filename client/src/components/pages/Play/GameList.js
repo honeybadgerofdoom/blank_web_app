@@ -22,6 +22,9 @@ const useStyles = makeStyles({
     search: {
         width: "100%",
     },
+    rowColor: {
+        background: "#4caf50",
+    }
 });
 
 export default function GameList(props) {
@@ -61,6 +64,29 @@ export default function GameList(props) {
         )
     }
 
+    function getBackgroundColor(selectedGame){
+        if(selectedGame === props.chosenGame){
+            return classes.rowColor;
+        }
+        else{
+            return "";
+        }
+    }
+
+
+    function DisplayGameList(props) {
+        return props.games.map((game, index) => {
+            const className = getBackgroundColor(game);
+            return (
+                <TableRow key={index}>
+                    <TableCell align="center" className={className}>
+                        <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
+                    </TableCell>
+                </TableRow>
+            )
+        });
+    }
+
     return (
         <Paper elevation={3} className={classes.root}>
             <TableControls title="Choose a Game To Play">
@@ -82,13 +108,4 @@ function searchForOpponent(opponentName, input) {
     return true;
 }
 
-function DisplayGameList(props) {
-    return props.games.map((game, index) =>
-        <TableRow key={index}>
-            <TableCell align="center">
-                <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
-            </TableCell>
-        </TableRow>
-    );
-}
 
