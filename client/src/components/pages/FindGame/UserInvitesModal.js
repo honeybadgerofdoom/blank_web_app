@@ -31,7 +31,7 @@ export default function UserInvitesModal(props) {
     }, [props.isOpen]);
 
     function updateUsersWithFilter(searchInput) {
-        sendUsersRequest(searchInput, props.currentUserID).then(newUsers => {
+        sendUsersRequest(searchInput, props.userID).then(newUsers => {
             setUsers(newUsers);
             if (searchInput === "")
                 setAllUsers(newUsers);
@@ -39,19 +39,37 @@ export default function UserInvitesModal(props) {
     }
 
     useEffect(() => {
-        if (props.gameID > 0) {
-            sendInvitedUsersRequest(props.gameID).then(result => setInvitedUserIDs(result));
+        if (props.gameID >= 0) {
+            updateInvitedUsers();
+        } else if (props.isOpen) {
+            sendNewGameRequest(props.userID).then(newGameID => {
+                props.setGameID(newGameID);
+                props.refreshGames();
+            });
         }
     }, [props.gameID]);
+
+    function updateInvitedUsers() {
+        sendInvitedUsersRequest(props.gameID).then(result => setInvitedUserIDs(result));
+    }
 
     return (
         <Modal isOpen={props.isOpen} toggle={props.closeModal}>
             <ModalHeader> Invite Users to Play! </ModalHeader>
             <UserSearchBody users={users} allUsers={allUsers} updateUsersWithFilter={updateUsersWithFilter} gameID={props.gameID}
                             invitedUserIDs={invitedUserIDs} pendingUserIDs={pendingUserIDs} setPendingUserIDs={setPendingUserIDs} />
-            <UserSearchFooter closeModal={props.closeModal} pendingUserIDs={pendingUserIDs} />
+            <UserSearchFooter pendingUserIDs={pendingUserIDs} updateInvitedUsers={updateInvitedUsers} {...props} />
         </Modal>
     );
+}
+
+async function sendNewGameRequest(userID, showMessage) {
+    const newGameResponse = await sendRequest({ requestType: "newGame", userID: userID });
+    if (newGameResponse && !newGameResponse.success) {
+        showMessage("Failed to create a new game.", "error");
+        return -1;
+    }
+    return newGameResponse.gameID;
 }
 
 function UserSearchBody(props) {
@@ -150,8 +168,9 @@ function UsersList(props) {
 }
 
 function UserSearchFooter(props) {
-    function handleSendInvites() {
-        console.log(props.pendingUserIDs);
+    async function handleSendInvites() {
+        await sendNewInvitesRequest(props.gameID, props.userID, props.pendingUserIDs, props.showMessage, props.refreshGames);
+        props.updateInvitedUsers();
         props.closeModal();
     }
 
@@ -164,17 +183,30 @@ function UserSearchFooter(props) {
     );
 }
 
+async function sendNewInvitesRequest(gameID, userID, opponentIDSet, showMessage, refreshGames) {
+    const usersToInvite = Array.from(opponentIDSet);
+    const requestBody = { requestType: "newInvite", userID: userID, gameID: gameID, opponentIDs: usersToInvite };
+    const response = await sendRequest(requestBody);
+    if (!response) {
+        showMessage(`Failed to invite users to game #${gameID}.`, "error");
+        return;
+    }
+    const usersText = (usersToInvite.length === 1) ? "user" : "users";
+    showMessage(`Invited ${usersToInvite.length} ${usersText} to game #${gameID}.`, "success");
+    refreshGames();
+}
+
 async function sendUsersRequest(input, userID) {
     const requestBody = { requestType: "users", match: input, limit: 0, excludeID: userID };
-    return sendRequestForList(requestBody, "users");
+    return sendRequestForKey(requestBody, "users");
 }
 
 async function sendInvitedUsersRequest(gameID) {
     const requestBody = { requestType: "invitedUsers", "gameID": gameID };
-    return sendRequestForList(requestBody, "invitedUserIDs");
+    return sendRequestForKey(requestBody, "invitedUserIDs");
 }
 
-async function sendRequestForList(requestBody, resultKey) {
+async function sendRequestForKey(requestBody, resultKey) {
     const response = await sendRequest(requestBody);
     if (!response) {
         return [];
