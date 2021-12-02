@@ -2,13 +2,7 @@ import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core";
 import {squareColors} from "./squareColors";
 import {sendRequest} from "../../../utils/restfulAPI";
-
-const context = require.context("../../../static/piece_sprites/", false, /\.png$/);
-const chessSprites = {};
-context.keys().forEach(filename => {
-    const pieceName = filename.substr(2, 1);
-    chessSprites[pieceName] = context(filename).default;
-});
+import {pieceSpriteMap} from "./pieceSprites";
 
 const useStyles = makeStyles({
     square: {
@@ -144,7 +138,7 @@ export default function Square(props) {
             <div className={classes.content} style={{background: `${squareColor}`}} onClick={handleClick}>
                 <div className={classes.table}>
                     <div className={classes.tableCell}>
-                        <img className={classes.pieceImage} src={chessSprites[props.piece]} alt={props.piece}/>
+                        <img className={classes.pieceImage} src={pieceSpriteMap[props.piece]} alt={props.piece}/>
                     </div>
                 </div>
             </div>
