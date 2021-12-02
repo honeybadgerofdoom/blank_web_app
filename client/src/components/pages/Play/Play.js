@@ -23,7 +23,8 @@ export default function Play(props) {
                 <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID} chosenGame={chosenGame}/>
                 <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} setChosenGame={setChosenGame}/>
             </Stack>
-            <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame} />
+            <Board currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}
+                   setChosenGame={setChosenGame} flipped={chosenGame && chosenGame.myColor === "BLACK"} />
         </Stack>
         
     );
