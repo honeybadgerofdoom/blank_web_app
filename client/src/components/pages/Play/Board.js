@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Button, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import Square from "./Square";
-import CustomColumn from "../../../utils/CustomColumn";
 import {sendRequest} from "../../../utils/restfulAPI";
 import {Container} from "reactstrap";
+
+const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+const numberArray = ['8', '7', '6', '5', '4', '3', '2', '1'];
+const defaultNotationMap = generateNotationMap(numberArray, letterArray); // white on bottom
+const flippedNotationMap = generateNotationMap(numberArray.reverse(), letterArray); // black on bottom
 
 const useStyles = makeStyles({
     root: {
@@ -21,7 +25,7 @@ export default function Board(props) {
     const [boardState, setBoardState] = useState([]);
 
     useEffect(() => {
-        if(props.chosenGame) {
+        if (props.chosenGame) {
             sendBoardRequest();
         }
     }, [props.chosenGame]);
@@ -30,14 +34,14 @@ export default function Board(props) {
     async function sendBoardRequest() {
         const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
         if(boardResponse) {
-            setBoardState(getBoardState(boardResponse.boardString));
+            setBoardState(getBoardState(boardResponse.boardString, props.flipped));
         }
         else {
             console.log("board request failed")
         }
     }
 
-    function getBoardState(theBoard) {
+    function getBoardState(theBoard, flippedBoard) {
         let allRows = [];
         for(let i = 0; i < 8; i++) {
             let thisRow = [];
@@ -46,17 +50,21 @@ export default function Board(props) {
             }
             allRows.push(thisRow);
         }
-        allRows.reverse();
+        if (!flippedBoard) {
+            allRows.reverse();
+        }
         const masterBoard = allRows[0].concat(allRows[1], allRows[2], allRows[3], allRows[4], allRows[5], allRows[6], allRows[7]);
         return masterBoard;
     }
 
     function renderBoard() {
+        const notationMap = props.flipped ? flippedNotationMap : defaultNotationMap;
+
         return (
             boardState.map((piece, index) => {
                 return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare} setBoardState={setBoardState}
                                highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
-                               key={index} piece={piece} position={generateMappingArray(index)} userID={props.currentUserID}
+                               key={index} piece={piece} position={notationMap[index]} userID={props.currentUserID}
                                fromPosition={fromPosition} setFromPosition={setFromPosition} getBoardState={getBoardState}
                                showMessage={props.showMessage} gameID={props.chosenGame.gameID}
                                setChosenGame={props.setChosenGame} opponent={props.chosenGame.opponentName} />
@@ -76,14 +84,12 @@ export default function Board(props) {
     return null;
 }
 
-function generateMappingArray(index) {
-    let stringArray = [];
-    const letterArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-    const numberArray = ['8', '7', '6', '5', '4', '3', '2', '1'];
+function generateNotationMap(numberArray, letterArray) {
+    const notationMap = [];
     numberArray.forEach((number) => {
-        for(let i = 0; i < 8; i++) {
-            stringArray.push(letterArray[i] + number);
+        for (let i = 0; i < 8; i++) {
+            notationMap.push(letterArray[i] + number);
         }
-    })
-    return stringArray[index];
+    });
+    return notationMap;
 }
