@@ -50,7 +50,6 @@ function TeamCard() {
 
 function MemberCards() {
     const classes = useStyles();
-    //const membersToRender = members.filter((member, index) => props.indices.includes(index));
     return (
         members.map(member =>
             <Grid item xs={12} sm={6} md={4} lg={3} key={member.name}>
