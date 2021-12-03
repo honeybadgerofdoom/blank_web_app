@@ -10,7 +10,6 @@ const useStyles = makeStyles({
     root: {
         padding: "10px",
     },
-
 });
 
 export default function Play(props) {
@@ -30,7 +29,5 @@ export default function Play(props) {
                    currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}
                    setChosenGame={setChosenGame} flipped={chosenGame && chosenGame.myColor === "BLACK"} />
         </Stack>
-        
     );
-
 }
