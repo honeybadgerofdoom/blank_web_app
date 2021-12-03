@@ -14,26 +14,23 @@ const useStyles = makeStyles({
         padding: "15px",
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
     },
-    text: {
-        color: "#141414"
-    }
 });
 
 export function SetupRules() {
     const classes = useStyles();
 
     return ruleSetup.pieceRules.map((value, index) =>
-        <Grid item>
-            <Card className={classes.card} key={index}>
+        <Grid item key={index}>
+            <Card className={classes.card}>
                 <CardContent>
                     <Row>
                         <Col xs={2}>
                             <CardMedia component="img" image={ruleSetup.pieceImages[index]} alt={ruleSetup.headings[index]} />
                         </Col>
                         <Col xs={10}>
-                            <Typography className={classes.text} align="left" variant="h3">{ruleSetup.headings[index]}</Typography>
+                            <Typography variant="h3">{ruleSetup.headings[index]}</Typography>
                             <br />
-                            <Typography className={classes.text} align="left">{ruleSetup.pieceRules[index]}</Typography>
+                            <Typography>{ruleSetup.pieceRules[index]}</Typography>
                         </Col>
                     </Row>
                 </CardContent>
@@ -62,7 +59,7 @@ export function GeneralRules() {
         <Grid item xs={12}>
             <Card className={classes.card}>
                 <CardContent>
-                    <Typography className={classes.text} align="left" variant="h3">General Rules</Typography>
+                    <Typography align="left" variant="h3">General Rules</Typography>
                     <br />
                     <Typography align="left" >Extinction Chess is a variant of actual chess.  You win the game by eliminating all of one piece of the opponent. This can be done by:  </Typography>
                     <Typography display="block"> &emsp;• Capturing the opponent’s  king,</Typography>
