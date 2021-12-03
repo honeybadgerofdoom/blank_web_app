@@ -56,13 +56,14 @@ function MemberCards() {
             <Grid item xs={12} sm={6} md={4} lg={3} key={member.name}>
                 <Card className={classes.card}>
                     <CardMedia
+                        className="mb-1"
                         component="img"
                         image={member.picture}
                         alt={member.picAlt}
                     />
                     <CardContent>
                         <Typography className={classes.bold} align="center" variant="h5">{member.name}</Typography>
-                        <br />
+                        <hr />
                         <Typography align="center">{member.bio}</Typography>
                     </CardContent>
                 </Card>
