@@ -34,14 +34,14 @@ export default function Board(props) {
     async function sendBoardRequest() {
         const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
         if(boardResponse) {
-            setBoardState(getBoardState(boardResponse.boardString, props.flipped));
+            setBoardState(getBoardState(boardResponse.boardString));
         }
         else {
             console.log("board request failed")
         }
     }
 
-    function getBoardState(theBoard, flippedBoard) {
+    function getBoardState(theBoard) {
         let allRows = [];
         for(let i = 0; i < 8; i++) {
             let thisRow = [];
@@ -50,7 +50,7 @@ export default function Board(props) {
             }
             allRows.push(thisRow);
         }
-        if (!flippedBoard) {
+        if (!props.flipped) {
             allRows.reverse();
         }
         const masterBoard = allRows[0].concat(allRows[1], allRows[2], allRows[3], allRows[4], allRows[5], allRows[6], allRows[7]);
