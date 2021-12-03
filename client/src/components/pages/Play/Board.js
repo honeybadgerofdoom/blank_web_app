@@ -19,14 +19,14 @@ const useStyles = makeStyles({
 
 export default function Board(props) {
     const classes = useStyles();
-    const [clickedSquare, setClickedSquare] = useState("");
-    const [highlightedSquares, setHighlightedSquares] = useState([]);
     const [fromPosition, setFromPosition] = useState("");
     const [boardState, setBoardState] = useState([]);
 
     useEffect(() => {
         if (props.chosenGame) {
             sendBoardRequest();
+            props.setHighlightedSquares([]);
+            props.setClickedSquare("");
         }
     }, [props.chosenGame]);
 
@@ -62,8 +62,8 @@ export default function Board(props) {
 
         return (
             boardState.map((piece, index) => {
-                return <Square clickedSquare={clickedSquare} setClickedSquare={setClickedSquare} setBoardState={setBoardState}
-                               highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
+                return <Square clickedSquare={props.clickedSquare} setClickedSquare={props.setClickedSquare} setBoardState={setBoardState}
+                               highlightedSquares={props.highlightedSquares} setHighlightedSquares={props.setHighlightedSquares}
                                key={index} piece={piece} position={notationMap[index]} userID={props.currentUserID}
                                fromPosition={fromPosition} setFromPosition={setFromPosition} getBoardState={getBoardState}
                                showMessage={props.showMessage} gameID={props.chosenGame.gameID}
