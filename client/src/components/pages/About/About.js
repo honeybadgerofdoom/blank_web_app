@@ -12,7 +12,7 @@ const useStyles = makeStyles({
         fontWeight: 600
     },
     card: {
-        border: "3px solid rgba(60, 60, 60, 0.9)",
+        border: "3px solid rgba(100, 100, 100, 0.9)",
         padding: "10px",
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
     }
