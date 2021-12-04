@@ -20,16 +20,19 @@ const useStyles = makeStyles({
 
 export default function GameList(props) {
     const classes = useStyles();
+    const [filter, setFilter] = useState("");
     const [filteredGames, setFilteredGames] = useState([]);
 
     useEffect(() => {
         setFilteredGames(props.allGames);
+        setFilter("");
     }, [props.allGames.length]);
 
     function search(event) {
         const input = event.target.value;
         const matches = props.allGames.filter(game => searchForOpponent(game.opponentName, input.toLowerCase()));
         setFilteredGames(matches);
+        setFilter(input);
     }
 
     if (props.allGames.length === 0) {
@@ -43,7 +46,7 @@ export default function GameList(props) {
     return (
         <Paper elevation={3} className={classes.root}>
             <TableControls title="Choose a Game To Play">
-                <TextField className={classes.search} size="small" variant="outlined" onChange={search} placeholder="Search Games..." />
+                <TextField className={classes.search} size="small" variant="outlined" onChange={search} value={filter} placeholder="Search Games..." />
             </TableControls>
             <TableContent headers={[]}>
                 <DisplayGameList {...props} games={filteredGames}/>
