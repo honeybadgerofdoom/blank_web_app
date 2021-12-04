@@ -22,10 +22,10 @@ export default function About() {
     const classes = useStyles();
     return (
         <Container className={classes.root}>
-            <Grid container justifyContent="center" spacing={4}>
+            <Grid container justifyContent="center" spacing={gridSpacing}>
                 <TeamCard />
             </Grid>
-            <Grid container justifyContent="center" spacing={4}>
+            <Grid container justifyContent="center" spacing={gridSpacing}>
                 <MemberCards />
             </Grid>
         </Container>
