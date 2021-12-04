@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Button, makeStyles} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core";
 import Square from "./Square";
-import CustomColumn from "../../../utils/CustomColumn";
 import {sendRequest} from "../../../utils/restfulAPI";
 import {Container} from "reactstrap";
 
@@ -64,7 +63,7 @@ export default function Board(props) {
         )
     }
 
-    if(boardState.length > 0) {
+    if(boardState.length > 0 && props.chosenGame) {
         return (
             <Container>
                 <div className={classes.root}>
