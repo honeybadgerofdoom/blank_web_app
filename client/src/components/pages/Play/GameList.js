@@ -24,15 +24,18 @@ export default function GameList(props) {
     const [filteredGames, setFilteredGames] = useState([]);
 
     useEffect(() => {
-        setFilteredGames(props.allGames);
-        setFilter("");
+        setFilteredGames(getFilteredGames(filter));
     }, [props.allGames.length]);
 
     function search(event) {
-        const input = event.target.value;
-        const matches = props.allGames.filter(game => searchForOpponent(game.opponentName, input.toLowerCase()));
+        const input = event.target.value.toLowerCase();
+        const matches = getFilteredGames(input);
         setFilteredGames(matches);
         setFilter(input);
+    }
+
+    function getFilteredGames(filterText) {
+        return props.allGames.filter(game => searchForOpponent(game.opponentName, filterText));
     }
 
     if (props.allGames.length === 0) {
