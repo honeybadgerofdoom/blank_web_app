@@ -10,6 +10,9 @@ import bishopB from "../../../static/piece_sprites/bishopB.png";
 import queenB from "../../../static/piece_sprites/queenB.png";
 
 const useStyles = makeStyles({
+    header: {
+        fontWeight: 600
+    },
     card: {
         padding: "15px",
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
@@ -28,7 +31,7 @@ export function SetupRules() {
                             <CardMedia component="img" image={ruleSetup.pieceImages[index]} alt={ruleSetup.headings[index]} />
                         </Col>
                         <Col xs={10}>
-                            <Typography variant="h3">{ruleSetup.headings[index]}</Typography>
+                            <Typography className={classes.header} variant="h4">{ruleSetup.headings[index]}</Typography>
                             <br />
                             <Typography>{ruleSetup.pieceRules[index]}</Typography>
                         </Col>
@@ -59,7 +62,7 @@ export function GeneralRules() {
         <Grid item xs={12}>
             <Card className={classes.card}>
                 <CardContent>
-                    <Typography align="left" variant="h3">General Rules</Typography>
+                    <Typography className={classes.header} variant="h4">General Rules</Typography>
                     <br />
                     <Typography align="left" >Extinction Chess is a variant of actual chess.  You win the game by eliminating all of one piece of the opponent. This can be done by:  </Typography>
                     <Typography display="block"> &emsp;• Capturing the opponent’s  king,</Typography>
