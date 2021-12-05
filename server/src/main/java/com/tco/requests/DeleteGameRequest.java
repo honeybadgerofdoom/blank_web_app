@@ -34,7 +34,6 @@ public class DeleteGameRequest extends Request {
     private void deleteGame() {
         try (Database db = new Database()) {
             db.update(deleteGameQuery(), this.gameID);
-            gameID = getGameID(db);
             success = true;
         } catch (SQLException e) {
             success = false;
@@ -44,15 +43,6 @@ public class DeleteGameRequest extends Request {
             e.printStackTrace();
         }
     }
-
-    /*private Integer getGameID(Database db) throws SQLException {
-        List<Map<String, String>> results = db.query("SELECT LAST_INSERT_ID()");
-        if (results.size() >= 1) {
-            return Integer.parseInt(results.get(0).get("LAST_INSERT_ID()"));
-        } else {
-            return 0;
-        }
-    }*/
 
     private static String deleteGameQuery() {
         return "DELETE FROM games WHERE gameID = ?";
