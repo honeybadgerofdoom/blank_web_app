@@ -23,7 +23,6 @@ public class DeleteGameRequest extends Request {
 
     private String[] boardString;
     private boolean success;
-    //private Integer gameID;
     
     @Override
     public void buildResponse() {
