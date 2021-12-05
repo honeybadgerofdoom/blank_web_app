@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     },
 });
 
-const UPDATE_TIME_SECONDS = 2
+const POLL_TIME_SECONDS = 2
 
 export default function Board(props) {
     const classes = useStyles();
@@ -33,7 +33,7 @@ export default function Board(props) {
                 sendBoardRequest();
                 props.refreshGames();
             }
-        }, UPDATE_TIME_SECONDS * 1000);
+        }, POLL_TIME_SECONDS * 1000);
         return () => clearInterval(interval);
     }, [props.chosenGame]);
 
