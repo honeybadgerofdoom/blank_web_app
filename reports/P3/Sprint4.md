@@ -18,11 +18,11 @@
 ## Retrospective
 
 ### Things that went well
-As a team, the things we felt went well during these sprints were our communication, delegation of tasks, and the progress we made on the entire project. We all felt as though we had enough to work on at a given time and our division of labor in our sub-groups made us more productive.  
+Our scrum meetings were very productive and attendance we good. We managed to keep our code fairly clean, which kept our codebase maintainable. We did a good job of distributing tasks and staying on top of completion times. We covered the majority of our Client's requirements and have delivered a beautiful, function application.
 
 
 ### Things that we need to improve
-As a team, in the upcoming sprints we will improve our Code Climate, our completion of tasks in a timely manner, performance of regular housekeeping tasks for our repo, and our implementation to focus on the design patterns discussed in class. Our Code Climate began to drop significantly, so in the future we will regularly refactor  to improve code quality and remove duplication. When working on a particular task for a prolonged amount of time, we will seek assistance or ask a teammate to take on the task.
+We could have done a better job communicating about when we expect to finish tasks, so that team members with dependant tasks are not left waiting. We should have put a larger emphasis on writing tests - our client and server side test coverage is fairly low. We should have held eachother accountable to the 1-week max turnaround time for tasks.
 
 ### One thing we will change next time
-We will evaluate and either merge or close pull requests in a timely manner and delete the branch once it has been merged.
+Next time we will do a better job of keeping our test coverage up, and enforcing Test Driven Development.
