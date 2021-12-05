@@ -16,7 +16,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NewGameRequest extends Request {
+public class DeleteGameRequest extends Request {
     
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
     private int userID;
