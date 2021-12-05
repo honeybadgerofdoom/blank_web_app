@@ -14,6 +14,8 @@
 
 <strong>User Experience:</strong> This epic contained many small changes to our webpage.  We created a rules page using cards.  We also added scalable images for each chess piece both on the rules section and on the chess board as a visual enhancement.  We created an about page, also using cards, that gives descriptions of each team member. Polling was added to the Play page to get back the latest Board and Game state from the database after a short interval. 
 
+<strong>Quitting the Game:</strong> We wrote a server API that allows users to forfeit a game. The player who quit then gets another loss on their record, and the other player gets a win. This is persistent and managed in the database.
+
 
 ## Retrospective
 
