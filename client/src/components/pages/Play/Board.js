@@ -12,6 +12,8 @@ const useStyles = makeStyles({
     },
 });
 
+const UPDATE_TIME_SECONDS = 2
+
 export default function Board(props) {
     const classes = useStyles();
     const [fromPosition, setFromPosition] = useState("");
@@ -25,6 +27,15 @@ export default function Board(props) {
         }
     }, [props.chosenGame]);
 
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (props.chosenGame) {
+                sendBoardRequest();
+                props.refreshGames();
+            }
+        }, UPDATE_TIME_SECONDS * 1000);
+        return () => clearInterval(interval);
+    }, [props.chosenGame]);
 
     async function sendBoardRequest() {
         const boardResponse = await(sendRequest({requestType: "board", userID: props.currentUserID, gameID: props.chosenGame.gameID}));
