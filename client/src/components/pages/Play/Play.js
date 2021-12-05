@@ -10,7 +10,6 @@ const useStyles = makeStyles({
     root: {
         padding: "10px",
     },
-
 });
 
 export default function Play(props) {
@@ -25,9 +24,10 @@ export default function Play(props) {
                 <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID} chosenGame={chosenGame}/>
                 <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} setChosenGame={setChosenGame}/>
             </Stack>
-            <Board clickedSquare={clickedSquare} setClickedSquare={setClickedSquare} highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares} currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame} />
+            <Board clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
+                   highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
+                   currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}
+                   setChosenGame={setChosenGame} flipped={chosenGame && chosenGame.myColor === "BLACK"} />
         </Stack>
-        
     );
-
 }
