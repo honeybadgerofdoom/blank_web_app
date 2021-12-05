@@ -55,7 +55,7 @@ public class NewGameRequest extends Request {
     }*/
 
     private static String deleteGameQuery() {
-        return "";
+        return "DELETE FROM games WHERE gameID = ?";
     }
 
 }
