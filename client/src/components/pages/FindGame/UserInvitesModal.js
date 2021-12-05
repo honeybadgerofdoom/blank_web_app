@@ -33,8 +33,9 @@ export default function UserInvitesModal(props) {
     function updateUsersWithFilter(searchInput) {
         sendUsersRequest(searchInput, props.userID).then(newUsers => {
             setUsers(newUsers);
-            if (searchInput === "")
+            if (searchInput === "") {
                 setAllUsers(newUsers);
+            }
         });
     }
 
@@ -184,15 +185,19 @@ function UserSearchFooter(props) {
 }
 
 async function sendNewInvitesRequest(gameID, userID, opponentIDSet, showMessage, refreshGames) {
-    const usersToInvite = Array.from(opponentIDSet);
-    const requestBody = { requestType: "newInvite", userID: userID, gameID: gameID, opponentIDs: usersToInvite };
-    const response = await sendRequest(requestBody);
-    if (!response) {
-        showMessage(`Failed to invite users to game #${gameID}.`, "error");
-        return;
+    if (opponentIDSet.length > 0) {
+        const usersToInvite = Array.from(opponentIDSet);
+        const requestBody = {requestType: "newInvite", userID: userID, gameID: gameID, opponentIDs: usersToInvite};
+        const response = await sendRequest(requestBody);
+        if (!response) {
+            showMessage(`Failed to invite users to game #${gameID}.`, "error");
+            return;
+        }
+        const usersText = (usersToInvite.length === 1) ? "user" : "users";
+        showMessage(`Invited ${usersToInvite.length} ${usersText} to game #${gameID}.`, "success");
+    } else {
+        showMessage(`Created new game: #${gameID}.`, "success");
     }
-    const usersText = (usersToInvite.length === 1) ? "user" : "users";
-    showMessage(`Invited ${usersToInvite.length} ${usersText} to game #${gameID}.`, "success");
     refreshGames();
 }
 
