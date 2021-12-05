@@ -23,7 +23,7 @@ public class DeleteGameRequest extends Request {
 
     private String[] boardString;
     private boolean success;
-    
+
     @Override
     public void buildResponse() {
         deleteGame();
@@ -32,8 +32,8 @@ public class DeleteGameRequest extends Request {
 
     private void deleteGame() {
         try (Database db = new Database()) {
-            db.update(deleteGameQuery(), this.gameID);
-            success = true;
+            int changed = db.update(deleteGameQuery(), this.gameID);
+            success = (changed == 1);
         } catch (SQLException e) {
             success = false;
             e.printStackTrace();
