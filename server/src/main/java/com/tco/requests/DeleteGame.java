@@ -33,7 +33,7 @@ public class NewGameRequest extends Request {
 
     private void deleteGame() {
         try (Database db = new Database()) {
-            db.update(deleteGame(), this.userID);
+            db.update(deleteGameQuery(), this.gameID);
             gameID = getGameID(db);
             success = true;
         } catch (SQLException e) {
@@ -55,12 +55,7 @@ public class NewGameRequest extends Request {
     }*/
 
     private static String deleteGameQuery() {
-        return "INSERT INTO `games` VALUES (" +
-                "null," +
-                "?," +
-                "null," +
-                "'WHITE'," +
-                "'rnbqkbnrpppppppp--------------------------------PPPPPPPPRNBQKBNR')";
+        return "";
     }
 
 }
