@@ -23,17 +23,17 @@ public class NewGameRequest extends Request {
 
     private String[] boardString;
     private boolean success;
-    private Integer gameID;
+    //private Integer gameID;
     
     @Override
     public void buildResponse() {
-        createGame();
+        deleteGame();
         log.trace("buildResponse -> {}", this);
     }
 
-    private void createGame() {
+    private void deleteGame() {
         try (Database db = new Database()) {
-            db.update(createGameQuery(), this.userID);
+            db.update(deleteGame(), this.userID);
             gameID = getGameID(db);
             success = true;
         } catch (SQLException e) {
@@ -45,16 +45,16 @@ public class NewGameRequest extends Request {
         }
     }
 
-    private Integer getGameID(Database db) throws SQLException {
+    /*private Integer getGameID(Database db) throws SQLException {
         List<Map<String, String>> results = db.query("SELECT LAST_INSERT_ID()");
         if (results.size() >= 1) {
             return Integer.parseInt(results.get(0).get("LAST_INSERT_ID()"));
         } else {
             return 0;
         }
-    }
+    }*/
 
-    private static String createGameQuery() {
+    private static String deleteGameQuery() {
         return "INSERT INTO `games` VALUES (" +
                 "null," +
                 "?," +
