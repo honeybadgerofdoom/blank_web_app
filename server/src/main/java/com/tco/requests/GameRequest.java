@@ -58,8 +58,9 @@ public class GameRequest extends Request {
         }
 
         int totalInvites = getTotalInvites(db, gameID);
+        String myColor = !gameIsActive ? "WHITE" : getMyColor(gameRow);
         boolean myTurn = !gameIsActive || checkMyTurn(gameRow, enemyID);
-        this.games.add(new Game(gameID, enemyName, totalInvites, myTurn));
+        this.games.add(new Game(gameID, enemyName, totalInvites, myColor, myTurn));
     }
 
     public int getTotalInvites(Database db, int gameID) throws SQLException {
@@ -67,6 +68,11 @@ public class GameRequest extends Request {
 
         List<Map<String, String>> invitationResults = db.query(invitationCountQuery, gameID);
         return Integer.parseInt(invitationResults.get(0).get("totalInvites"));
+    }
+
+    public String getMyColor(Map<String, String> gameRow) {
+        int player1 = Integer.parseInt(gameRow.get("player1"));
+        return userID == player1 ? "WHITE" : "BLACK";
     }
 
     public boolean checkMyTurn(Map<String, String> gameRow, int enemyID) {
@@ -103,12 +109,14 @@ public class GameRequest extends Request {
         int gameID;
         String opponentName;
         int totalInvites;
+        String myColor;
         boolean myTurn;
 
-        public Game(int gameID, String opponentName, int totalInvites, boolean myTurn) {
+        public Game(int gameID, String opponentName, int totalInvites, String myColor, boolean myTurn) {
             this.gameID = gameID;
             this.opponentName = opponentName;
             this.totalInvites = totalInvites;
+            this.myColor = myColor;
             this.myTurn = myTurn;
         }
     }
