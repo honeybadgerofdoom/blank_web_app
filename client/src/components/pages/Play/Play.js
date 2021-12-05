@@ -18,16 +18,28 @@ export default function Play(props) {
     const [highlightedSquares, setHighlightedSquares] = useState([]);
     const [clickedSquare, setClickedSquare] = useState("");
 
+    function displayGame(){
+        if(chosenGame != null){
+            return(
+                <Stack justifyContent="center">
+                    <Board clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
+                       highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
+                       currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}
+                       setChosenGame={setChosenGame} flipped={chosenGame && chosenGame.myColor === "BLACK"} />
+                </Stack>)
+        }
+        else{
+            return null;
+        }
+    }
+
     return(
-        <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="center" className={classes.root}>
+        <Stack direction="row" spacing={5} alignItems="flex-start" justifyContent="center" className={classes.root}>
             <Stack spacing={2} justifyContent="center">
                 <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} currentUserID={props.currentUserID} chosenGame={chosenGame}/>
                 <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} setChosenGame={setChosenGame}/>
             </Stack>
-            <Board clickedSquare={clickedSquare} setClickedSquare={setClickedSquare}
-                   highlightedSquares={highlightedSquares} setHighlightedSquares={setHighlightedSquares}
-                   currentUserID={props.currentUserID} showMessage={props.showMessage} chosenGame={chosenGame}
-                   setChosenGame={setChosenGame} flipped={chosenGame && chosenGame.myColor === "BLACK"} />
+                {displayGame()}
         </Stack>
     );
 }
