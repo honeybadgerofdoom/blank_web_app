@@ -26,16 +26,29 @@ export default function Play(props) {
 
     useEffect(refreshGames, [props.currentUserID]);
 
+    function displayGame() {
+        if(chosenGame != null){
+            return(
+                <Stack justifyContent="center">
+                    <Board clickedSquare={clickedSquare} setClickedSquare={setClickedSquare} highlightedSquares={highlightedSquares}
+                           setHighlightedSquares={setHighlightedSquares} currentUserID={props.currentUserID}
+                           showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame}
+                           refreshGames={refreshGames} flipped={chosenGame && chosenGame.myColor === "BLACK"} />
+                </Stack>
+            );
+        }
+        else{
+            return null;
+        }
+    }
+
     return(
-        <Stack direction="row" spacing={2} alignItems="flex-start" justifyContent="center" className={classes.root}>
+        <Stack direction="row" spacing={5} alignItems="flex-start" justifyContent="center" className={classes.root}>
             <Stack spacing={2} justifyContent="center">
                 <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} chosenGame={chosenGame} allGames={allGames} />
                 <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} setChosenGame={setChosenGame} refreshGames={refreshGames}/>
             </Stack>
-            <Board clickedSquare={clickedSquare} setClickedSquare={setClickedSquare} highlightedSquares={highlightedSquares}
-                   setHighlightedSquares={setHighlightedSquares} currentUserID={props.currentUserID}
-                   showMessage={props.showMessage} chosenGame={chosenGame} setChosenGame={setChosenGame}
-                   refreshGames={refreshGames} flipped={chosenGame && chosenGame.myColor === "BLACK"} />
+            {displayGame()}
         </Stack>
     );
 }
