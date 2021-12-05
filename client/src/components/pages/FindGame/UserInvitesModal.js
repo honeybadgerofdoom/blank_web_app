@@ -213,7 +213,7 @@ async function sendNewInvitesRequest(gameID, userID, opponentIDMap, showMessage,
         const usersText = (userIDList.length === 1) ? "user" : "users";
         showMessage(`Invited ${userIDList.length} ${usersText} to game #${gameID}.`, "success");
     } else {
-        showMessage(`Created new game: #${gameID}.`, "success");
+        showMessage(`Invited 0 users to game #${gameID}.`, "info");
     }
     refreshGames();
 }
