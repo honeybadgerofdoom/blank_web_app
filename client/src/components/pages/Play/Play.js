@@ -20,11 +20,24 @@ export default function Play(props) {
     const [highlightedSquares, setHighlightedSquares] = useState([]);
     const [clickedSquare, setClickedSquare] = useState("");
 
+    function getMyTurnList() {
+        return allGames.map(game => game.myTurn);
+    }
+
     function refreshGames() {
         sendGameRequest(props.currentUserID).then(newGames => setAllGames(newGames));
     }
 
     useEffect(refreshGames, [props.currentUserID]);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (!chosenGame) {
+                refreshGames();
+            }
+        }, 2000);
+        return () => clearInterval(interval);
+    }, []);
 
     function displayGame() {
         if(chosenGame != null){
@@ -45,7 +58,7 @@ export default function Play(props) {
     return(
         <Stack direction="row" spacing={5} alignItems="flex-start" justifyContent="center" className={classes.root}>
             <Stack spacing={2} justifyContent="center">
-                <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} chosenGame={chosenGame} allGames={allGames} />
+                <GameList setChosenGame={setChosenGame} showMessage={props.showMessage} chosenGame={chosenGame} allGames={allGames} myTurnList={getMyTurnList(allGames)} />
                 <QuitGame currentUserID={props.currentUserID} chosenGame={chosenGame} setChosenGame={setChosenGame} refreshGames={refreshGames}/>
             </Stack>
             {displayGame()}

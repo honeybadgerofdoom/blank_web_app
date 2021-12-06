@@ -71,14 +71,21 @@ function DisplayGameList(props) {
 
     return props.games.map((game, index) => {
         const className = getBackgroundColor(game);
+        const buttonLabel = `Play With ${game.opponentName}`;
         return (
             <TableRow key={index}>
                 <TableCell align="center" className={className}>
-                    <Button onClick={() => props.setChosenGame(game)}>Play With {game.opponentName}</Button>
+                    <Button onClick={() => props.setChosenGame(game)}>
+                        {props.myTurnList[index] ? turnifyLabel(buttonLabel) : buttonLabel}
+                    </Button>
                 </TableCell>
             </TableRow>
         )
     });
+}
+
+function turnifyLabel(label) {
+    return "♟️ " + label + " ♟️";
 }
 
 function searchForOpponent(opponentName, input) {
