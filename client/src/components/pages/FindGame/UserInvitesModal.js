@@ -155,7 +155,7 @@ function UsersList(props) {
                 <ListItem key={index}>
                     <Grid container justifyContent="center">
                         <Grid item xs={2}>
-                            <Checkbox onChange={event => handleCheckboxChanged(event, user.userID)} />
+                            <Checkbox onChange={event => handleCheckboxChanged(event, user.userID)} checked={props.pendingUserIDs.has(user.userID)}/>
                         </Grid>
                         <Grid item xs={10}>
                             <OtherUser user={user} />
@@ -185,14 +185,18 @@ function UserSearchFooter(props) {
 
 async function sendNewInvitesRequest(gameID, userID, opponentIDSet, showMessage, refreshGames) {
     const usersToInvite = Array.from(opponentIDSet);
-    const requestBody = { requestType: "newInvite", userID: userID, gameID: gameID, opponentIDs: usersToInvite };
-    const response = await sendRequest(requestBody);
-    if (!response) {
-        showMessage(`Failed to invite users to game #${gameID}.`, "error");
-        return;
+    if (usersToInvite.length > 0) {
+        const requestBody = {requestType: "newInvite", userID: userID, gameID: gameID, opponentIDs: usersToInvite};
+        const response = await sendRequest(requestBody);
+        if (!response) {
+            showMessage(`Failed to invite users to game #${gameID}.`, "error");
+            return;
+        }
+        const usersText = (usersToInvite.length === 1) ? "user" : "users";
+        showMessage(`Invited ${usersToInvite.length} ${usersText} to game #${gameID}.`, "success");
+    } else {
+        showMessage(`Invited 0 users to game #${gameID}.`, "info");
     }
-    const usersText = (usersToInvite.length === 1) ? "user" : "users";
-    showMessage(`Invited ${usersToInvite.length} ${usersText} to game #${gameID}.`, "success");
     refreshGames();
 }
 
