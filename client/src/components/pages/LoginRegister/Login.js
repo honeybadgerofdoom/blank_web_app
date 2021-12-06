@@ -35,6 +35,7 @@ export default function Login(props) {
         if(response) {
             props.setUserAuthenticated(true);
             props.setCurrentUserID(response.userID);
+            props.setCurrentUsername(response.username);
             props.showMessage("Welcome " + response.username, "success"); //This throws errors in the console...
         }
         else {

@@ -1,25 +1,17 @@
 package com.tco.requests;
 
-import java.util.HashMap;
-
 import com.tco.misc.UnauthorizedRequestException;
 import com.tco.database.Database;
-import com.tco.chess.ChessBoard;
-import com.tco.chess.ChessPiece;
 import com.tco.chess.ChessPiece.Color;
 import com.tco.requests.BoardRequest;
-import com.tco.chess.IllegalPositionException;
-import com.tco.chess.IllegalMoveException;
+import com.tco.chess.*;
+import com.tco.requests.*;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.security.MessageDigest;
-import java.util.Base64;
-import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,17 +21,14 @@ public class MoveRequest extends Request {
     private final transient Logger log = LoggerFactory.getLogger(BoardRequest.class);
     private String fromPosition;
     private String toPosition;
-    // WE need to keep userID for enforcing player color. Just add gameID when we get there.
     private int userID;
     private int gameID;
 
     private boolean turnValid;
     private boolean verifyPlayerColor;
     private String[] newBoardState;
-    // private boolean kingsideCastle;
-    // private boolean queensideCastle;
-    // private boolean promotion;
-    // private Color winner;
+    private String winner;
+    private String loser;
 
     @Override
     public void buildResponse() {
@@ -56,6 +45,7 @@ public class MoveRequest extends Request {
                     turnValid = true;
                     board.move(fromPosition, toPosition);
                     String newBoardString = buildNewBoardString(board);
+                    int flag = checkIfGameIsOver(newBoardString);
                     turn = turn.equals("WHITE") ? "BLACK" : "WHITE";
                     storeNewBoardState(newBoardString, turn, gameID);
                 }
@@ -69,12 +59,63 @@ public class MoveRequest extends Request {
                 turnValid = false;
                 this.newBoardState = BoardRequest.boardStringToBoardState(boardString);
             }
-
-            //FIXME add winner, castling, promotion
         } catch (Exception e) {
             e.printStackTrace();
         }
         log.trace("buildResponse -> {}", this);
+    }
+
+    private int checkIfGameIsOver(String newBoardState) throws Exception {
+        System.out.println(newBoardState);
+        int[] piecesRemaining = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        char[] board = newBoardState.toCharArray();
+        for(char piece : board) {
+            switch (piece) {
+                case 'r' : piecesRemaining[0]++; break;
+                case 'n' : piecesRemaining[1]++; break;
+                case 'b' : piecesRemaining[2]++; break;
+                case 'q' : piecesRemaining[3]++; break;
+                case 'k' : piecesRemaining[4]++; break;
+                case 'p' : piecesRemaining[5]++; break;
+                case 'R' : piecesRemaining[6]++; break;
+                case 'N' : piecesRemaining[7]++; break;
+                case 'B' : piecesRemaining[8]++; break;
+                case 'Q' : piecesRemaining[9]++; break;
+                case 'K' : piecesRemaining[10]++; break;
+                case 'P' : piecesRemaining[11]++; break;
+                default: break;
+            }
+        }
+
+        int[] players = extractPlayers(this.gameID);
+        int player1ID = players[0];
+        int player2ID = players[1];
+
+        for(int i = 0; i < 12; i++) {
+            if(piecesRemaining[i] < 1) {
+                int winner = i < 6 ? player2ID : player1ID;
+                int loser = i < 6 ? player1ID : player2ID;
+                storeWinnerLoser(winner, loser);
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    private void storeWinnerLoser(int winnerID, int loserID) throws Exception {
+        String updateWinner = "UPDATE users SET wins=wins+1 WHERE userID=?";
+        String updateLoser = "UPDATE users SET losses=losses+1 WHERE userID=?";
+        String deleteGame = "DELETE FROM games WHERE gameID=?";
+
+        try (Database db = new Database()) {
+            db.update(updateWinner, winnerID);
+            db.update(updateLoser, loserID);
+            db.update(deleteGame, gameID);
+            this.winner = GameRequest.idToNickname(db, winnerID);
+            this.loser = GameRequest.idToNickname(db, loserID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String getPlayerColor(int gameID) throws Exception {

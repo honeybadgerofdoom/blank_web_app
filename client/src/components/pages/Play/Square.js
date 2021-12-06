@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core";
 import {squareColors} from "./squareColors";
-import {sendAPIRequest, sendRequest} from "../../../utils/restfulAPI";
+import {sendRequest} from "../../../utils/restfulAPI";
+import {pieceSpriteMap} from "./pieceSprites";
 
 const useStyles = makeStyles({
     square: {
@@ -26,11 +27,12 @@ const useStyles = makeStyles({
     tableCell: {
         display: "table-cell",
         verticalAlign: "middle",
-        textAlign: "center",
-        height: "100%",
-        width: "100%",
-        fontSize: "5vw",
+        textAlign: "center"
     },
+    pieceImage: {
+        maxHeight: "75%",
+        maxWidth: "75%"
+    }
 });
 
 export default function Square(props) {
@@ -80,9 +82,15 @@ export default function Square(props) {
     async function sendMoveRequest() {
         const moveResponse = await sendRequest({requestType: "move", fromPosition: props.fromPosition, toPosition: props.position, userID: props.userID, gameID: props.gameID});
         if(moveResponse.verifyPlayerColor) {
-            if (moveResponse.turnValid) {
-                const boardState = props.getBoardState(moveResponse.newBoardState);
-                props.setBoardState(boardState);
+            if(moveResponse.turnValid) {
+                if(moveResponse.winner) {
+                    props.showMessage("Game is Over. Winner is " + moveResponse.winner + ".");
+                    props.setBoardState([]);
+                }
+                else {
+                    const boardState = props.getBoardState(moveResponse.newBoardState);
+                    props.setBoardState(boardState);
+                }
             } else {
                 props.showMessage("It's not your turn!", "error");
             }
@@ -130,7 +138,7 @@ export default function Square(props) {
             <div className={classes.content} style={{background: `${squareColor}`}} onClick={handleClick}>
                 <div className={classes.table}>
                     <div className={classes.tableCell}>
-                        {props.piece}
+                        <img className={classes.pieceImage} src={pieceSpriteMap[props.piece]} alt={props.piece}/>
                     </div>
                 </div>
             </div>
