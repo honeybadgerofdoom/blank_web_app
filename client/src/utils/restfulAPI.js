@@ -1,23 +1,5 @@
 import Ajv from 'ajv';
-import * as configSchema from "../../schemas/ConfigResponse";
 import { LOG } from "./constants";
-
-const SCHEMAS = {
-    config: configSchema
-};
-
-export async function sendAPIRequest(requestBody) {
-    const response = await sendRequest(requestBody); 
-
-    if (!Object.keys(SCHEMAS).includes(requestBody.requestType)) {
-        throw new Error(`sendAPIRequest() does not have support for type: ${requestBody.requestType}. Please add the schema to 'SCHEMAS'.`);
-    }
-    if (isJsonResponseValid(response, SCHEMAS[requestBody.requestType])) {
-        return response;
-    }
-    LOG.error(`Server ${requestBody.requestType} response json is invalid. Check the Server.`);
-    return null;
-}
 
 export async function sendRequest(requestBody) { 
     const fetchOptions = {
