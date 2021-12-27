@@ -35,7 +35,7 @@ class MicroServer {
     private void processRestfulAPIrequests() {
         path("/api", () -> {
             before("/*", (req, res) -> logRequest(req));
-//            post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
+            post("/apiTest", (req, res) -> processHttpRequest(req, res, ApiTest.class));
         });
     }
 

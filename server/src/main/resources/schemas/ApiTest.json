@@ -1,0 +1,16 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "apiTest",
+  "description": "apiTest object for POST request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the object type should be apiTest",
+      "type": "string",
+      "pattern": "^apiTest$"
+    }
+  },
+  "required":["requestType"],
+  "additionalProperties": true
+}
