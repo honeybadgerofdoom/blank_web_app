@@ -3,17 +3,13 @@ package com.tco.server;
 import com.tco.misc.BadRequestException;
 import com.tco.misc.JSONValidator;
 import com.tco.misc.UnauthorizedRequestException;
-import com.tco.requests.*;
-import com.tco.requests.LoginRegister.LoginRequest;
-import com.tco.requests.LoginRegister.RegisterRequest;
-import com.tco.requests.Users.UpdateUserInfoRequest;
 
+import com.tco.requests.*;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.tco.requests.Users.UsersRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,25 +35,7 @@ class MicroServer {
     private void processRestfulAPIrequests() {
         path("/api", () -> {
             before("/*", (req, res) -> logRequest(req));
-            post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
-            post("/login", (req, res) -> processHttpRequest(req, res, LoginRequest.class));
-            post("/register", (req, res) -> processHttpRequest(req, res, RegisterRequest.class));
-            post("/board", (req, res) -> processHttpRequest(req, res, BoardRequest.class));
-            post("/legalMoves", (req, res) -> processHttpRequest(req, res, LegalMovesRequest.class));
-            post("/game", (req, res) -> processHttpRequest(req, res, GameRequest.class));
-            post("/move", (req, res) -> processHttpRequest(req, res, MoveRequest.class));
-            post("/users", (req, res) -> processHttpRequest(req, res, UsersRequest.class));
-            post("/myInvites", (req, res) -> processHttpRequest(req, res, MyInvitesRequest.class));
-            post("/acceptInvite", (req, res) -> processHttpRequest(req, res, AcceptInviteRequest.class));
-            post("/myProfile", (req, res) -> processHttpRequest(req, res, MyProfileRequest.class));
-            post("/updateUserInfo", (req, res) -> processHttpRequest(req, res, UpdateUserInfoRequest.class));
-            post("/newInvite", (req, res) -> processHttpRequest(req, res, NewInviteRequest.class));
-            post("/declineInvite", (req, res) -> processHttpRequest(req, res, DeclineInviteRequest.class));
-            post("/newGame", (req, res) -> processHttpRequest(req, res, NewGameRequest.class));
-            post("/invitedUsers", (req, res) -> processHttpRequest(req, res, InvitedUsersRequest.class));
-            post("/deleteGame", (req, res) -> processHttpRequest(req, res, DeleteGameRequest.class));
-            post("/stats", (req, res) -> processHttpRequest(req, res, StatsRequest.class));
-            post("/quitGame", (req, res) -> processHttpRequest(req, res, QuitGameRequest.class));
+//            post("/config", (req, res) -> processHttpRequest(req, res, ConfigRequest.class));
         });
     }
 

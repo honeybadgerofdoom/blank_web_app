@@ -1,7 +1,5 @@
 package com.tco.misc;
 
-import com.tco.requests.ConfigRequest;
-
 import java.lang.reflect.Type;
 
 import org.junit.jupiter.api.Test;
@@ -19,18 +17,6 @@ public class TestJSONValidator {
         } catch ( Exception e ) {
             assertFalse(valid);
         }
-    }
-
-    @Test
-    @DisplayName("Config request should fail schema validation")
-    public void testConfigRequestFail() {
-        test("{}", ConfigRequest.class, false);
-    }
-
-    @Test
-    @DisplayName("Config request should pass schema validation")
-    public void testConfigRequestPass() {
-        test("{\"requestType\":\"config\",\"features\":[\"config\"]}", ConfigRequest.class, true);
     }
 
     @Test
