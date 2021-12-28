@@ -1,0 +1,16 @@
+{
+  "$id": "https://example.com/address.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "setupDB",
+  "description": "setupDB object for POST request",
+  "type": "object",
+  "properties": {
+    "requestType": {
+      "description": "the object type should be setupDB",
+      "type": "string",
+      "pattern": "^setupDB$"
+    }
+  },
+  "required":["requestType"],
+  "additionalProperties": true
+}

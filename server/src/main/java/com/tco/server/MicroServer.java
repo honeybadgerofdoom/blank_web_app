@@ -36,6 +36,7 @@ class MicroServer {
         path("/api", () -> {
             before("/*", (req, res) -> logRequest(req));
             post("/apiTest", (req, res) -> processHttpRequest(req, res, ApiTest.class));
+            post("/setupDB", (req, res) -> processHttpRequest(req, res, SetupDB.class));
         });
     }
 
